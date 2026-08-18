@@ -10,10 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html,body{
     margin:0;
@@ -27,13 +24,8 @@ body{
     color:#111;
 }
 
-button,input,textarea{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
 
 .app{
     width:100%;
@@ -52,10 +44,7 @@ button{
     flex-direction:column;
 }
 
-.screen.active{
-    display:flex;
-}
-
+.screen.active{display:flex}
 
 /* LOGIN */
 
@@ -63,12 +52,7 @@ button{
     align-items:center;
     justify-content:center;
     padding:25px;
-    background:radial-gradient(
-        circle at top,
-        #20bfae,
-        #075e54 55%,
-        #043b36
-    );
+    background:radial-gradient(circle at top,#20bfae,#075e54 55%,#043b36);
 }
 
 .authBox{
@@ -137,11 +121,9 @@ button{
     font-size:13px;
 }
 
-
 /* HEADER */
 
 .header{
-    position:relative;
     background:#075e54;
     color:white;
     padding:calc(12px + env(safe-area-inset-top)) 15px 12px;
@@ -173,6 +155,46 @@ button{
     font-size:20px;
 }
 
+/* CHAT SELECTION HEADER */
+
+.selectionHeader{
+    display:none;
+    align-items:center;
+    gap:12px;
+    background:#075e54;
+    color:white;
+    padding:calc(10px + env(safe-area-inset-top)) 12px 10px;
+}
+
+.selectionHeader.show{
+    display:flex;
+}
+
+.selectionBack{
+    width:42px;
+    height:42px;
+    border:0;
+    background:transparent;
+    color:white;
+    font-size:30px;
+}
+
+.selectionTitle{
+    flex:1;
+    font-size:18px;
+    font-weight:700;
+}
+
+.selectionDelete{
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:50%;
+    background:rgba(255,255,255,.12);
+    color:white;
+    font-size:20px;
+}
+
 .search{
     display:flex;
     align-items:center;
@@ -190,62 +212,6 @@ button{
     border:0;
     outline:0;
 }
-
-
-/* CHAT-AUSWAHL */
-
-.chatSelectionBar{
-    display:none;
-
-    position:absolute;
-
-    left:0;
-    right:0;
-
-    bottom:-59px;
-
-    height:59px;
-
-    z-index:30;
-
-    align-items:center;
-    justify-content:space-between;
-
-    gap:8px;
-
-    padding:8px 12px;
-
-    background:#075e54;
-
-    color:white;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.25);
-}
-
-.chatSelectionBar button{
-    border:0;
-    border-radius:10px;
-    padding:9px 12px;
-    background:rgba(255,255,255,.13);
-    color:white;
-    font-weight:600;
-}
-
-.chatSelectionBar .deleteChatButton{
-    background:#d32f2f;
-}
-
-.chatSelectionBar .deleteChatButton:disabled{
-    opacity:.45;
-}
-
-.chatSelectionCount{
-    flex:1;
-    text-align:center;
-    font-size:14px;
-    font-weight:700;
-}
-
 
 /* STORIES */
 
@@ -271,12 +237,7 @@ button{
     margin:auto;
     border-radius:50%;
     padding:3px;
-    background:linear-gradient(
-        135deg,
-        #25d366,
-        #9b59ff,
-        #ff3b30
-    );
+    background:linear-gradient(135deg,#25d366,#9b59ff,#ff3b30);
 }
 
 .storyCircleInner{
@@ -301,7 +262,6 @@ button{
     color:#075e54;
 }
 
-
 /* HOME */
 
 .homeWrap{
@@ -318,23 +278,44 @@ button{
     background:#fff;
 }
 
+/* CHAT LIST */
+
 .chat{
-    position:relative;
     display:flex;
     align-items:center;
     gap:13px;
     min-height:82px;
     padding:12px 15px;
     border-bottom:1px solid #edf0f1;
-    transition:.15s ease;
+    position:relative;
+    transition:.15s;
 }
 
 .chat.selected{
     background:#d9fdd3;
 }
 
-.chat.selectionMode{
-    padding-right:55px;
+.chatSelectionCheck{
+    display:none;
+    width:28px;
+    height:28px;
+    min-width:28px;
+    border-radius:50%;
+    border:2px solid #aebac1;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+}
+
+.chat.selected .chatSelectionCheck{
+    display:flex;
+}
+
+.chat.selected .chatSelectionCheck.checked{
+    background:#075e54;
+    border-color:#075e54;
 }
 
 .avatarWrap{
@@ -351,14 +332,21 @@ button{
     display:flex;
     align-items:center;
     justify-content:center;
-    background:linear-gradient(
-        135deg,
-        #25d366,
-        #075e54
-    );
+    background:linear-gradient(135deg,#25d366,#075e54);
     color:white;
     font-size:18px;
     font-weight:800;
+}
+
+.onlineDot{
+    position:absolute;
+    right:0;
+    bottom:1px;
+    width:15px;
+    height:15px;
+    border:3px solid white;
+    border-radius:50%;
+    background:#25d366;
 }
 
 .chatInfo{
@@ -391,53 +379,6 @@ button{
     text-overflow:ellipsis;
 }
 
-
-/* AUSWAHL-KREIS */
-
-.chatSelection{
-    position:absolute;
-
-    right:15px;
-    top:50%;
-
-    transform:translateY(-50%) scale(.8);
-
-    width:28px;
-    height:28px;
-
-    border-radius:50%;
-
-    border:2px solid #b7c2c7;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:white;
-
-    font-size:15px;
-    font-weight:800;
-
-    background:transparent;
-
-    opacity:0;
-
-    transition:.15s ease;
-}
-
-.chat.selectionMode .chatSelection{
-    opacity:1;
-    transform:translateY(-50%) scale(1);
-}
-
-.chat.selected .chatSelection{
-    background:#075e54;
-    border-color:#075e54;
-}
-
-
-/* NEW CHAT */
-
 .newChatButton{
     position:absolute;
     right:20px;
@@ -451,7 +392,6 @@ button{
     font-size:30px;
     box-shadow:0 6px 20px rgba(0,0,0,.25);
 }
-
 
 /* BOTTOM */
 
@@ -482,7 +422,6 @@ button{
     font-size:21px;
 }
 
-
 /* CHAT HEADER */
 
 .chatHeader{
@@ -511,11 +450,7 @@ button{
     display:flex;
     align-items:center;
     justify-content:center;
-    background:linear-gradient(
-        135deg,
-        #25d366,
-        #075e54
-    );
+    background:linear-gradient(135deg,#25d366,#075e54);
     color:white;
     font-weight:800;
 }
@@ -534,7 +469,6 @@ button{
     color:#c8f7df;
     font-size:11px;
 }
-
 
 /* MESSAGE AREA */
 
@@ -604,7 +538,6 @@ button{
     border-radius:7px;
 }
 
-
 /* AUDIO */
 
 .audioMessage{
@@ -638,7 +571,6 @@ button{
     font-size:11px;
 }
 
-
 /* COMPOSER */
 
 .composer{
@@ -646,9 +578,7 @@ button{
     align-items:flex-end;
     gap:6px;
     padding:7px;
-    padding-bottom:calc(
-        7px + env(safe-area-inset-bottom)
-    );
+    padding-bottom:calc(7px + env(safe-area-inset-bottom));
     background:#f0f2f5;
 }
 
@@ -691,8 +621,7 @@ button{
     font-size:19px;
 }
 
-
-/* MESSAGE ACTIONS */
+/* MESSAGE ACTION BAR */
 
 .messageActions{
     position:absolute;
@@ -704,9 +633,7 @@ button{
     border-top:1px solid #ddd;
     box-shadow:0 -5px 20px rgba(0,0,0,.15);
     padding:12px;
-    padding-bottom:calc(
-        12px + env(safe-area-inset-bottom)
-    );
+    padding-bottom:calc(12px + env(safe-area-inset-bottom));
 }
 
 .messageActions button{
@@ -722,7 +649,6 @@ button{
 .messageActions button.danger{
     color:#d32f2f;
 }
-
 
 /* PAGES */
 
@@ -755,11 +681,7 @@ button{
     display:flex;
     align-items:center;
     justify-content:center;
-    background:linear-gradient(
-        135deg,
-        #25d366,
-        #075e54
-    );
+    background:linear-gradient(135deg,#25d366,#075e54);
     color:white;
     font-size:25px;
     font-weight:800;
@@ -786,24 +708,17 @@ button{
     border-bottom:1px solid #edf0f1;
 }
 
-.rowIcon{
-    font-size:21px;
-}
+.rowIcon{font-size:21px}
 
-.rowInfo{
-    flex:1;
-}
+.rowInfo{flex:1}
 
-.rowTitle{
-    font-size:15px;
-}
+.rowTitle{font-size:15px}
 
 .rowSub{
     margin-top:3px;
     color:#667781;
     font-size:12px;
 }
-
 
 /* MODAL */
 
@@ -817,9 +732,7 @@ button{
     background:rgba(0,0,0,.45);
 }
 
-.modal.show{
-    display:flex;
-}
+.modal.show{display:flex}
 
 .modalBox{
     width:100%;
@@ -869,13 +782,9 @@ button{
     border-bottom:1px solid #eee;
 }
 
-.userInfo{
-    flex:1;
-}
+.userInfo{flex:1}
 
-.userName{
-    font-weight:700;
-}
+.userName{font-weight:700}
 
 .user button{
     padding:8px 13px;
@@ -885,6 +794,64 @@ button{
     color:white;
 }
 
+/* DELETE CHAT MODAL */
+
+.deleteChatModal{
+    position:fixed;
+    inset:0;
+    z-index:300;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.55);
+}
+
+.deleteChatModal.show{
+    display:flex;
+}
+
+.deleteChatBox{
+    width:100%;
+    max-width:380px;
+    background:white;
+    border-radius:20px;
+    padding:22px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+
+.deleteChatBox h3{
+    margin:0 0 10px;
+}
+
+.deleteChatBox p{
+    color:#667781;
+    font-size:14px;
+    line-height:1.45;
+}
+
+.deleteChatButtons{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+}
+
+.deleteChatButtons button{
+    flex:1;
+    height:45px;
+    border:0;
+    border-radius:12px;
+    font-weight:700;
+}
+
+.cancelDelete{
+    background:#f0f2f5;
+}
+
+.confirmDelete{
+    background:#d32f2f;
+    color:white;
+}
 
 /* EMPTY */
 
@@ -894,7 +861,6 @@ button{
     color:#667781;
     line-height:1.5;
 }
-
 
 /* DARK */
 
@@ -959,12 +925,12 @@ body.dark .messageActions button{
     color:#e9edef;
 }
 
-body.dark .chatSelectionBar{
-    background:#075e54;
+body.dark .deleteChatBox{
+    background:#202c33;
+    color:white;
 }
 
-
-/* STORY VIEWER */
+/* STORY */
 
 .storyViewer{
     position:fixed;
@@ -976,9 +942,7 @@ body.dark .chatSelectionBar{
     background:#000;
 }
 
-.storyViewer.show{
-    display:flex;
-}
+.storyViewer.show{display:flex}
 
 .storyViewer img,
 .storyViewer video{
@@ -989,9 +953,7 @@ body.dark .chatSelectionBar{
 
 .storyClose{
     position:absolute;
-    top:calc(
-        15px + env(safe-area-inset-top)
-    );
+    top:calc(15px + env(safe-area-inset-top));
     right:15px;
     z-index:5;
     width:42px;
@@ -1003,29 +965,21 @@ body.dark .chatSelectionBar{
     font-size:22px;
 }
 
-
 @media(min-width:601px){
-
     body{
         display:flex;
         align-items:center;
         justify-content:center;
     }
 
-    .app{
-        height:100vh;
-    }
-
+    .app{height:100vh}
 }
-
 </style>
 </head>
-
 
 <body>
 
 <div class="app">
-
 
 <!-- LOGIN -->
 
@@ -1033,9 +987,7 @@ body.dark .chatSelectionBar{
 
 <div class="authBox">
 
-<div class="logo">
-WaveChat
-</div>
+<div class="logo">WaveChat</div>
 
 <div id="authSubtitle" class="logoSub">
 Mit Benutzername oder E-Mail anmelden
@@ -1043,44 +995,32 @@ Mit Benutzername oder E-Mail anmelden
 
 <div id="authError" class="error"></div>
 
-<input
-id="username"
+<input id="username"
 class="authInput"
 placeholder="Benutzername"
 style="display:none">
 
-<input
-id="email"
+<input id="email"
 class="authInput"
 placeholder="E-Mail oder Benutzername">
 
-<input
-id="password"
+<input id="password"
 class="authInput"
 type="password"
 placeholder="Passwort">
 
-<button
-id="authButton"
+<button id="authButton"
 class="authButton"
 onclick="handleAuth()">
 Anmelden
 </button>
 
 <div class="authSwitch">
-
-<span id="switchText">
-Noch kein Konto?
-</span>
-
-<button onclick="toggleAuthMode()">
-Registrieren
-</button>
-
+<span id="switchText">Noch kein Konto?</span>
+<button onclick="toggleAuthMode()">Registrieren</button>
 </div>
 
 </div>
-
 </section>
 
 
@@ -1088,24 +1028,20 @@ Registrieren
 
 <section id="homeScreen" class="screen">
 
-<header class="header">
+<header class="header" id="normalHomeHeader">
 
 <div class="headerRow">
 
-<div class="headerTitle">
-WaveChat
-</div>
+<div class="headerTitle">WaveChat</div>
 
 <div class="headerActions">
 
-<button
-class="headerButton"
-onclick="startSelectionMode()">
+<button class="headerButton"
+onclick="startChatSelection()">
 ☑
 </button>
 
-<button
-class="headerButton"
+<button class="headerButton"
 onclick="logout()">
 ↪
 </button>
@@ -1114,46 +1050,50 @@ onclick="logout()">
 
 </div>
 
-
 <div class="search">
-
 🔎
-
-<input
-id="search"
+<input id="search"
 placeholder="Chats suchen"
 oninput="filterChats()">
-
 </div>
 
 </header>
 
 
-<!-- STORIES -->
+<!-- CHAT AUSWAHL -->
 
-<div
-id="storyBar"
-class="storyBar">
+<header class="selectionHeader" id="chatSelectionHeader">
 
-<div
-class="storyItem"
+<button class="selectionBack"
+onclick="cancelChatSelection()">
+‹
+</button>
+
+<div id="selectedChatCount"
+class="selectionTitle">
+0 ausgewählt
+</div>
+
+<button class="selectionDelete"
+onclick="askDeleteSelectedChats()">
+🗑️
+</button>
+
+</header>
+
+
+<div id="storyBar" class="storyBar">
+
+<div class="storyItem"
 onclick="openStoryUpload()">
 
 <div class="storyCircle">
-
 <div class="storyCircleInner">
-
-<span class="storyAdd">
-＋
-</span>
-
+<span class="storyAdd">＋</span>
+</div>
 </div>
 
-</div>
-
-<div>
-Deine Story
-</div>
+<div>Deine Story</div>
 
 </div>
 
@@ -1162,49 +1102,29 @@ Deine Story
 
 <div class="homeWrap">
 
-<div
-id="chatList"
-class="list">
-
-<div class="empty">
-Chats werden geladen...
+<div id="chatList" class="list">
+<div class="empty">Chats werden geladen...</div>
 </div>
 
-</div>
-
-
-<button
+<button id="newChatButton"
 class="newChatButton"
-onclick="openNewChat()">
-＋
-</button>
+onclick="openNewChat()">＋</button>
 
 </div>
 
 
 <nav class="bottom">
 
-<button
-class="active"
-onclick="showHome()">
-
-<span>💬</span>
-Chats
-
+<button class="active" onclick="showHome()">
+<span>💬</span>Chats
 </button>
 
 <button onclick="showProfile()">
-
-<span>👤</span>
-Profil
-
+<span>👤</span>Profil
 </button>
 
 <button onclick="showSettings()">
-
-<span>⚙</span>
-Einstellungen
-
+<span>⚙</span>Einstellungen
 </button>
 
 </nav>
@@ -1218,29 +1138,15 @@ Einstellungen
 
 <header class="chatHeader">
 
-<button
-class="back"
-onclick="showHome()">
-‹
-</button>
+<button class="back" onclick="showHome()">‹</button>
 
-<div
-id="chatAvatar"
-class="chatAvatar">
-WC
-</div>
+<div id="chatAvatar" class="chatAvatar">WC</div>
 
 <div class="chatTitle">
 
-<div
-id="chatName"
-class="chatNameLarge">
-Chat
-</div>
+<div id="chatName" class="chatNameLarge">Chat</div>
 
-<div
-id="chatStatus"
-class="chatStatus">
+<div id="chatStatus" class="chatStatus">
 WaveChat
 </div>
 
@@ -1249,16 +1155,10 @@ WaveChat
 </header>
 
 
-<div
-id="messages"
-class="messages">
-</div>
+<div id="messages" class="messages"></div>
 
 
-<!-- MESSAGE ACTIONS -->
-
-<div
-id="messageActions"
+<div id="messageActions"
 class="messageActions"
 style="display:none">
 
@@ -1266,8 +1166,7 @@ style="display:none">
 🗑️ Für mich löschen
 </button>
 
-<button
-id="deleteEveryoneButton"
+<button id="deleteEveryoneButton"
 onclick="deleteSelectedForEveryone()">
 🗑️ Für alle löschen
 </button>
@@ -1279,36 +1178,25 @@ Abbrechen
 </div>
 
 
-<!-- COMPOSER -->
-
 <div class="composer">
 
-<button
-class="composerButton"
-onclick="openImagePicker()">
-＋
-</button>
+<button class="composerButton"
+onclick="openImagePicker()">＋</button>
 
-<button
-id="recordButton"
+<button id="recordButton"
 class="composerButton"
 onclick="toggleRecording()">
 🎤
 </button>
 
-<textarea
-id="messageInput"
+<textarea id="messageInput"
 class="messageInput"
 rows="1"
 placeholder="Nachricht"
-onkeydown="messageKey(event)">
-</textarea>
+onkeydown="messageKey(event)"></textarea>
 
-<button
-class="send"
-onclick="sendMessage()">
-➤
-</button>
+<button class="send"
+onclick="sendMessage()">➤</button>
 
 </div>
 
@@ -1317,60 +1205,37 @@ onclick="sendMessage()">
 
 <!-- PROFILE -->
 
-<section
-id="profileScreen"
-class="screen">
+<section id="profileScreen" class="screen">
 
-<div class="pageHeader">
-Mein Profil
-</div>
+<div class="pageHeader">Mein Profil</div>
 
 <div class="page">
 
 <div class="profileCard">
 
-<div
-id="profileAvatar"
-class="profileAvatar">
-WC
-</div>
+<div id="profileAvatar" class="profileAvatar">WC</div>
 
 <div>
-
-<div
-id="profileUsername"
-class="profileName">
-Benutzer
-</div>
-
-<div
-id="profileEmail"
-class="profileEmail">
-E-Mail
+<div id="profileUsername" class="profileName">Benutzer</div>
+<div id="profileEmail" class="profileEmail">E-Mail</div>
 </div>
 
 </div>
 
 </div>
-
-</div>
-
 
 <nav class="bottom">
 
 <button onclick="showHome()">
-<span>💬</span>
-Chats
+<span>💬</span>Chats
 </button>
 
 <button class="active">
-<span>👤</span>
-Profil
+<span>👤</span>Profil
 </button>
 
 <button onclick="showSettings()">
-<span>⚙</span>
-Einstellungen
+<span>⚙</span>Einstellungen
 </button>
 
 </nav>
@@ -1380,82 +1245,52 @@ Einstellungen
 
 <!-- SETTINGS -->
 
-<section
-id="settingsScreen"
-class="screen">
+<section id="settingsScreen" class="screen">
 
-<div class="pageHeader">
-Einstellungen
-</div>
+<div class="pageHeader">Einstellungen</div>
 
 <div class="page">
 
 <div class="row">
 
-<div class="rowIcon">
-🌙
-</div>
+<div class="rowIcon">🌙</div>
 
 <div class="rowInfo">
-
-<div class="rowTitle">
-Dark Mode
+<div class="rowTitle">Dark Mode</div>
+<div class="rowSub">Erscheinungsbild von WaveChat</div>
 </div>
 
-<div class="rowSub">
-Erscheinungsbild von WaveChat
-</div>
-
-</div>
-
-<input
-id="darkMode"
+<input id="darkMode"
 type="checkbox"
 onchange="toggleDark()">
 
 </div>
 
+<div class="row" onclick="logout()">
 
-<div
-class="row"
-onclick="logout()">
-
-<div class="rowIcon">
-🚪
-</div>
+<div class="rowIcon">🚪</div>
 
 <div class="rowInfo">
-
-<div class="rowTitle">
-Abmelden
-</div>
-
-<div class="rowSub">
-Von diesem Gerät abmelden
+<div class="rowTitle">Abmelden</div>
+<div class="rowSub">Von diesem Gerät abmelden</div>
 </div>
 
 </div>
 
 </div>
-
-</div>
-
 
 <nav class="bottom">
 
 <button onclick="showHome()">
-<span>💬</span>
-Chats
+<span>💬</span>Chats
 </button>
 
 <button onclick="showProfile()">
-<span>👤</span>
-Profil
+<span>👤</span>Profil
 </button>
 
 <button class="active">
-<span>⚙</span>
-Einstellungen
+<span>⚙</span>Einstellungen
 </button>
 
 </nav>
@@ -1465,36 +1300,27 @@ Einstellungen
 </div>
 
 
-<!-- NEW CHAT -->
+<!-- NEUER CHAT -->
 
-<div
-id="newChatModal"
-class="modal">
+<div id="newChatModal" class="modal">
 
 <div class="modalBox">
 
 <div class="modalHeader">
 
-<strong>
-Neuer Chat
-</strong>
+<strong>Neuer Chat</strong>
 
-<button
-class="close"
-onclick="closeNewChat()">
-✕
-</button>
+<button class="close"
+onclick="closeNewChat()">✕</button>
 
 </div>
 
-<input
-id="userSearch"
+<input id="userSearch"
 class="userSearch"
 placeholder="Benutzername suchen..."
 oninput="searchUsers()">
 
-<div
-id="userResults"
+<div id="userResults"
 class="userResults">
 
 <div class="empty">
@@ -1504,22 +1330,48 @@ Gib einen Benutzernamen ein.
 </div>
 
 </div>
+</div>
+
+
+<!-- CHAT LÖSCHEN -->
+
+<div id="deleteChatModal" class="deleteChatModal">
+
+<div class="deleteChatBox">
+
+<h3>Chats löschen?</h3>
+
+<p id="deleteChatText">
+Möchtest du die ausgewählten Chats aus deiner Chat-Liste entfernen?
+</p>
+
+<div class="deleteChatButtons">
+
+<button class="cancelDelete"
+onclick="closeDeleteChatModal()">
+Abbrechen
+</button>
+
+<button class="confirmDelete"
+onclick="deleteSelectedChats()">
+Löschen
+</button>
+
+</div>
+
+</div>
 
 </div>
 
 
-<!-- FILE INPUT -->
-
-<input
-id="imageInput"
+<input id="imageInput"
 type="file"
 accept="image/*"
 style="display:none"
 onchange="sendImage(event)">
 
 
-<input
-id="storyInput"
+<input id="storyInput"
 type="file"
 accept="image/*,video/*"
 style="display:none"
@@ -1528,15 +1380,10 @@ onchange="uploadStory(event)">
 
 <!-- STORY VIEWER -->
 
-<div
-id="storyViewer"
-class="storyViewer">
+<div id="storyViewer" class="storyViewer">
 
-<button
-class="storyClose"
-onclick="closeStoryViewer()">
-✕
-</button>
+<button class="storyClose"
+onclick="closeStoryViewer()">✕</button>
 
 <div id="storyContent"></div>
 
@@ -1545,14 +1392,15 @@ onclick="closeStoryViewer()">
 
 <script>
 
-
-/* SUPABASE */
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
 "https://qizrwzprphklnlurqbvj.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_U_iSB9kGfpbrfDkF60fz_Q_woh6jBhk";
+"sb_publishable_U_iSB9kFbrfDkF60fz_Q_woh6jBhk";
 
 const supabaseClient =
 window.supabase.createClient(
@@ -1561,40 +1409,39 @@ SUPABASE_KEY
 );
 
 
-/* GLOBAL */
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-let currentUser = null;
+let currentUser=null;
+let currentConversation=null;
+let currentOtherUser=null;
+let realtimeChannel=null;
 
-let currentConversation = null;
+let registerMode=false;
 
-let currentOtherUser = null;
-
-let realtimeChannel = null;
-
-let registerMode = false;
-
-let mediaRecorder = null;
-
-let audioChunks = [];
-
-let recordingStarted = 0;
+let mediaRecorder=null;
+let audioChunks=[];
+let recordingStarted=0;
 
 
-/* MESSAGE SELECTION */
+/* NACHRICHTEN-AUSWAHL */
 
-let selectedMessageIds = new Set();
-
-let selectionMessageMode = false;
-
-
-/* CHAT SELECTION */
-
-let chatSelectionMode = false;
-
-let selectedConversationIds = new Set();
+let selectedMessageIds=new Set();
+let selectionMessageMode=false;
 
 
-/* START */
+/* CHAT-AUSWAHL */
+
+let selectedChatIds=new Set();
+let chatSelectionMode=false;
+
+let chatLongPressTimer=null;
+
+
+/* =========================================================
+   START
+========================================================= */
 
 document.addEventListener(
 "DOMContentLoaded",
@@ -1604,3069 +1451,3023 @@ initialize
 
 async function initialize(){
 
-    loadDark();
+loadDark();
 
-    const result =
-        await supabaseClient.auth.getSession();
+const result =
+await supabaseClient.auth.getSession();
 
-    if(result.data.session){
+if(result.data.session){
 
-        currentUser =
-            result.data.session.user;
+currentUser=result.data.session.user;
 
-        await loadApplication();
+await loadApplication();
 
-    }
+}
 
-    supabaseClient.auth.onAuthStateChange(
-        async(event,session)=>{
+supabaseClient.auth.onAuthStateChange(
+async(event,session)=>{
 
-            if(session){
+if(session){
 
-                currentUser =
-                    session.user;
+currentUser=session.data?.user||session.user;
 
-                await loadApplication();
+await loadApplication();
 
-            }
+}
 
-        }
-    );
+});
 
 }
 
 
-/* AUTH */
+/* =========================================================
+   AUTH
+========================================================= */
 
 function toggleAuthMode(){
 
-    registerMode = !registerMode;
+registerMode=!registerMode;
 
-    document.getElementById(
-        "username"
-    ).style.display =
-        registerMode
-        ? "block"
-        : "none";
+document.getElementById("username").style.display=
+registerMode?"block":"none";
 
-    document.getElementById(
-        "email"
-    ).placeholder =
-        registerMode
-        ? "E-Mail-Adresse"
-        : "E-Mail oder Benutzername";
+document.getElementById("email").placeholder=
+registerMode
+?"E-Mail-Adresse"
+:"E-Mail oder Benutzername";
 
-    document.getElementById(
-        "authButton"
-    ).textContent =
-        registerMode
-        ? "Konto erstellen"
-        : "Anmelden";
+document.getElementById("authButton").textContent=
+registerMode
+?"Konto erstellen"
+:"Anmelden";
 
-    document.getElementById(
-        "authSubtitle"
-    ).textContent =
-        registerMode
-        ? "Neues WaveChat-Konto erstellen"
-        : "Mit Benutzername oder E-Mail anmelden";
+document.getElementById("authSubtitle").textContent=
+registerMode
+?"Neues WaveChat-Konto erstellen"
+:"Mit Benutzername oder E-Mail anmelden";
 
-    document.getElementById(
-        "switchText"
-    ).textContent =
-        registerMode
-        ? "Bereits registriert?"
-        : "Noch kein Konto?";
+document.getElementById("switchText").textContent=
+registerMode
+?"Bereits registriert?"
+:"Noch kein Konto?";
 
-    document
-        .querySelector(".authSwitch button")
-        .textContent =
-        registerMode
-        ? "Anmelden"
-        : "Registrieren";
+document.querySelector(".authSwitch button").textContent=
+registerMode
+?"Anmelden"
+:"Registrieren";
 
-    hideError();
+hideError();
 
 }
 
 
 async function handleAuth(){
 
-    hideError();
+hideError();
 
-    const login =
-        document.getElementById(
-            "email"
-        ).value.trim();
+const login=
+document.getElementById("email")
+.value.trim();
 
-    const password =
-        document.getElementById(
-            "password"
-        ).value;
+const password=
+document.getElementById("password")
+.value;
 
-    const username =
-        document.getElementById(
-            "username"
-        ).value.trim();
+const username=
+document.getElementById("username")
+.value.trim();
 
-    if(!login || !password){
+if(!login||!password){
 
-        showError(
-            "Bitte alle erforderlichen Felder ausfüllen."
-        );
+showError(
+"Bitte alle erforderlichen Felder ausfüllen."
+);
 
-        return;
+return;
 
-    }
+}
 
-    if(registerMode && !username){
+if(registerMode&&!username){
 
-        showError(
-            "Bitte einen Benutzernamen eingeben."
-        );
+showError(
+"Bitte einen Benutzernamen eingeben."
+);
 
-        return;
+return;
 
-    }
+}
 
-    const button =
-        document.getElementById(
-            "authButton"
-        );
+const button=
+document.getElementById("authButton");
 
-    button.disabled = true;
+button.disabled=true;
 
-    try{
+try{
 
-        let result;
+let result;
 
-        if(registerMode){
+if(registerMode){
 
-            result =
-                await supabaseClient.auth.signUp({
-                    email:login,
-                    password:password,
-                    options:{
-                        data:{
-                            username:username
-                        }
-                    }
-                });
+result=
+await supabaseClient.auth.signUp({
 
-        }else{
+email:login,
 
-            let email = login;
+password:password,
 
-            if(!login.includes("@")){
+options:{
+data:{
+username:username
+}
+}
 
-                const lookup =
-                    await supabaseClient.rpc(
-                        "get_login_email",
-                        {
-                            login_username:login
-                        }
-                    );
+});
 
-                if(
-                    lookup.error ||
-                    !lookup.data
-                ){
+}else{
 
-                    showError(
-                        "Benutzername wurde nicht gefunden."
-                    );
+let email=login;
 
-                    return;
+if(!login.includes("@")){
 
-                }
+const lookup=
+await supabaseClient.rpc(
+"get_login_email",
+{
+login_username:login
+}
+);
 
-                email =
-                    lookup.data;
+if(
+lookup.error||
+!lookup.data
+){
 
-            }
+showError(
+"Benutzername wurde nicht gefunden."
+);
 
-            result =
-                await supabaseClient.auth.signInWithPassword({
-                    email:email,
-                    password:password
-                });
+return;
 
-        }
+}
 
-        if(result.error){
+email=lookup.data;
 
-            showError(
-                result.error.message
-            );
+}
 
-            return;
+result=
+await supabaseClient.auth.signInWithPassword({
 
-        }
+email:email,
 
-        if(result.data.user){
+password:password
 
-            currentUser =
-                result.data.user;
+});
 
-            await loadApplication();
+}
 
-        }
+if(result.error){
 
-    }catch(error){
+showError(
+result.error.message
+);
 
-        showError(
-            error.message
-        );
+return;
 
-    }finally{
+}
 
-        button.disabled = false;
+if(result.data.user){
 
-    }
+currentUser=result.data.user;
+
+await loadApplication();
+
+}
+
+}catch(error){
+
+showError(
+error.message
+);
+
+}finally{
+
+button.disabled=false;
+
+}
 
 }
 
 
-/* APPLICATION */
+/* =========================================================
+   APPLICATION
+========================================================= */
 
 async function loadApplication(){
 
-    showHome();
+showHome();
 
-    await loadProfile();
+await loadProfile();
 
-    await loadConversations();
+await loadConversations();
 
-    await loadStories();
+await loadStories();
 
 }
 
 
-/* PROFILE */
+/* =========================================================
+   PROFILE
+========================================================= */
 
 async function loadProfile(){
 
-    if(!currentUser)return;
+if(!currentUser)return;
 
-    const result =
-        await supabaseClient
-        .from("profiles")
-        .select("id,username")
-        .eq("id",currentUser.id)
-        .maybeSingle();
+const result=
+await supabaseClient
+.from("profiles")
+.select("id,username")
+.eq("id",currentUser.id)
+.maybeSingle();
 
-    if(result.data){
+if(result.data){
 
-        const username =
-            result.data.username ||
-            "Benutzer";
+const username=
+result.data.username||"Benutzer";
 
-        document.getElementById(
-            "profileUsername"
-        ).textContent =
-            username;
+document.getElementById(
+"profileUsername"
+).textContent=username;
 
-        document.getElementById(
-            "profileAvatar"
-        ).textContent =
-            username
-            .substring(0,2)
-            .toUpperCase();
+document.getElementById(
+"profileAvatar"
+).textContent=
+username.substring(0,2).toUpperCase();
 
-    }
+}
 
-    document.getElementById(
-        "profileEmail"
-    ).textContent =
-        currentUser.email || "";
+document.getElementById(
+"profileEmail"
+).textContent=
+currentUser.email||"";
 
 }
 
 
-/* STORIES */
+/* =========================================================
+   STORIES
+========================================================= */
 
 async function loadStories(){
 
-    const bar =
-        document.getElementById(
-            "storyBar"
-        );
+const bar=
+document.getElementById("storyBar");
 
-    if(!currentUser)return;
+if(!currentUser)return;
 
-    const result =
-        await supabaseClient
-        .from("stories")
-        .select(
-            "id,user_id,media_url,media_type,created_at,expires_at"
-        )
-        .gt(
-            "expires_at",
-            new Date().toISOString()
-        )
-        .order(
-            "created_at",
-            {
-                ascending:false
-            }
-        );
+const result=
+await supabaseClient
+.from("stories")
+.select(
+"id,user_id,media_url,media_type,created_at,expires_at"
+)
+.gt(
+"expires_at",
+new Date().toISOString()
+)
+.order(
+"created_at",
+{
+ascending:false
+}
+);
 
-    if(result.error)return;
+if(result.error)return;
 
-    bar.innerHTML = "";
+bar.innerHTML="";
 
-    const own =
-        document.createElement("div");
+const own=
+document.createElement("div");
 
-    own.className =
-        "storyItem";
+own.className="storyItem";
 
-    own.onclick =
-        openStoryUpload;
+own.onclick=
+openStoryUpload;
 
-    own.innerHTML = `
+own.innerHTML=`
 
-        <div class="storyCircle">
+<div class="storyCircle">
+<div class="storyCircleInner">
+<span class="storyAdd">＋</span>
+</div>
+</div>
 
-            <div class="storyCircleInner">
+<div>Deine Story</div>
 
-                <span class="storyAdd">
-                    ＋
-                </span>
+`;
 
-            </div>
+bar.appendChild(own);
 
-        </div>
+const ids=[
+...new Set(
+result.data.map(x=>x.user_id)
+)
+];
 
-        <div>
-            Deine Story
-        </div>
-    `;
+if(!ids.length)return;
 
-    bar.appendChild(own);
+const profiles=
+await supabaseClient
+.from("profiles")
+.select("id,username")
+.in("id",ids);
 
-    const ids =
-        [
-            ...new Set(
-                result.data.map(
-                    x=>x.user_id
-                )
-            )
-        ];
+const map={};
 
-    if(!ids.length)return;
+(profiles.data||[])
+.forEach(
+x=>map[x.id]=x
+);
 
-    const profiles =
-        await supabaseClient
-        .from("profiles")
-        .select("id,username")
-        .in("id",ids);
+result.data.forEach(
+story=>{
 
-    const map = {};
+const profile=
+map[story.user_id];
 
-    (profiles.data || [])
-    .forEach(
-        x => map[x.id] = x
-    );
+if(!profile)return;
 
-    result.data.forEach(
-        story=>{
+const item=
+document.createElement("div");
 
-            const profile =
-                map[story.user_id];
+item.className="storyItem";
 
-            if(!profile)return;
+item.onclick=
+()=>openStory(story);
 
-            const item =
-                document.createElement("div");
+item.innerHTML=`
 
-            item.className =
-                "storyItem";
+<div class="storyCircle">
+<div class="storyCircleInner">
+<img src="${escapeAttribute(
+story.media_url
+)}">
+</div>
+</div>
 
-            item.onclick =
-                ()=>openStory(story);
+<div>
+${escapeHTML(profile.username)}
+</div>
 
-            item.innerHTML = `
+`;
 
-                <div class="storyCircle">
+bar.appendChild(item);
 
-                    <div class="storyCircleInner">
-
-                        <img
-                            src="${escapeAttribute(
-                                story.media_url
-                            )}">
-
-                    </div>
-
-                </div>
-
-                <div>
-                    ${escapeHTML(
-                        profile.username
-                    )}
-                </div>
-            `;
-
-            bar.appendChild(item);
-
-        }
-    );
+});
 
 }
 
 
 function openStoryUpload(){
 
-    document
-        .getElementById("storyInput")
-        .click();
+document.getElementById(
+"storyInput"
+).click();
 
 }
 
 
 async function uploadStory(event){
 
-    const file =
-        event.target.files[0];
+const file=
+event.target.files[0];
 
-    event.target.value = "";
+event.target.value="";
 
-    if(!file || !currentUser)return;
+if(!file||!currentUser)return;
 
-    const ext =
-        file.name
-        .split(".")
-        .pop();
+const ext=
+file.name.split(".").pop();
 
-    const path =
-        currentUser.id +
-        "/" +
-        crypto.randomUUID() +
-        "." +
-        ext;
+const path=
+currentUser.id+
+"/"+
+crypto.randomUUID()+
+"."+
+ext;
 
-    const upload =
-        await supabaseClient.storage
-        .from("stories")
-        .upload(
-            path,
-            file,
-            {
-                upsert:false,
-                contentType:file.type
-            }
-        );
+const upload=
+await supabaseClient.storage
+.from("stories")
+.upload(
+path,
+file,
+{
+upsert:false,
+contentType:file.type
+}
+);
 
-    if(upload.error){
+if(upload.error){
 
-        alert(
-            upload.error.message
-        );
+alert(upload.error.message);
 
-        return;
+return;
 
-    }
+}
 
-    const url =
-        supabaseClient.storage
-        .from("stories")
-        .getPublicUrl(path)
-        .data.publicUrl;
+const url=
+supabaseClient.storage
+.from("stories")
+.getPublicUrl(path)
+.data.publicUrl;
 
-    const type =
-        file.type.startsWith("video/")
-        ? "video"
-        : "image";
+const type=
+file.type.startsWith("video/")
+?"video"
+:"image";
 
-    const insert =
-        await supabaseClient
-        .from("stories")
-        .insert({
-            user_id:currentUser.id,
-            media_url:url,
-            media_type:type
-        });
+const insert=
+await supabaseClient
+.from("stories")
+.insert({
 
-    if(insert.error){
+user_id:currentUser.id,
 
-        alert(
-            insert.error.message
-        );
+media_url:url,
 
-        return;
+media_type:type
 
-    }
+});
 
-    await loadStories();
+if(insert.error){
+
+alert(insert.error.message);
+
+return;
+
+}
+
+await loadStories();
 
 }
 
 
 function openStory(story){
 
-    const viewer =
-        document.getElementById(
-            "storyViewer"
-        );
+const viewer=
+document.getElementById(
+"storyViewer"
+);
 
-    const content =
-        document.getElementById(
-            "storyContent"
-        );
+const content=
+document.getElementById(
+"storyContent"
+);
 
-    if(
-        story.media_type ===
-        "video"
-    ){
+if(story.media_type==="video"){
 
-        content.innerHTML =
-        `
-        <video
-            src="${escapeAttribute(
-                story.media_url
-            )}"
-            controls
-            autoplay
-            playsinline>
-        </video>
-        `;
+content.innerHTML=
+`
+<video
+src="${escapeAttribute(story.media_url)}"
+controls
+autoplay
+playsinline>
+</video>
+`;
 
-    }else{
+}else{
 
-        content.innerHTML =
-        `
-        <img
-            src="${escapeAttribute(
-                story.media_url
-            )}">
-        `;
+content.innerHTML=
+`
+<img
+src="${escapeAttribute(story.media_url)}">
+`;
 
-    }
+}
 
-    viewer.classList.add("show");
+viewer.classList.add("show");
 
 }
 
 
 function closeStoryViewer(){
 
-    document
-        .getElementById(
-            "storyViewer"
-        )
-        .classList.remove("show");
+document.getElementById(
+"storyViewer"
+).classList.remove("show");
 
-    document
-        .getElementById(
-            "storyContent"
-        ).innerHTML = "";
+document.getElementById(
+"storyContent"
+).innerHTML="";
 
 }
 
 
-/* CONVERSATIONS */
+/* =========================================================
+   CONVERSATIONS
+========================================================= */
 
 async function loadConversations(){
 
-    const list =
-        document.getElementById(
-            "chatList"
-        );
+const list=
+document.getElementById(
+"chatList"
+);
 
-    if(!currentUser)return;
+if(!currentUser)return;
 
-    const result =
-        await supabaseClient.rpc(
-            "get_my_chat_list"
-        );
+const result=
+await supabaseClient.rpc(
+"get_my_chat_list"
+);
 
-    if(result.error){
+if(result.error){
 
-        list.innerHTML =
-        `
-        <div class="empty">
-            ${escapeHTML(
-                result.error.message
-            )}
-        </div>
-        `;
+list.innerHTML=
+`
+<div class="empty">
+${escapeHTML(result.error.message)}
+</div>
+`;
 
-        return;
+return;
 
-    }
+}
 
-    const chats =
-        result.data || [];
+let chats=
+result.data||[];
 
-    if(!chats.length){
 
-        list.innerHTML =
-        `
-        <div class="empty">
+/*
+   Lokal gelöschte Chats ausblenden.
 
-            <div style="font-size:45px">
-                💬
-            </div>
+   Die IDs werden auf diesem Gerät gespeichert.
+   Dadurch verschwindet der Chat sofort aus
+   der eigenen Liste.
+*/
 
-            <br>
+const hidden=
+getHiddenChats();
 
-            <b>
-                Noch keine Chats
-            </b>
+chats=
+chats.filter(
+chat=>
+!hidden.has(
+String(chat.conversation_id)
+)
+);
 
-            <br><br>
 
-            Tippe auf ＋,
-            um einen Benutzer zu suchen.
+if(!chats.length){
 
-        </div>
-        `;
+list.innerHTML=
+`
+<div class="empty">
 
-        return;
+<div style="font-size:45px">
+💬
+</div>
 
-    }
+<br>
 
-    list.innerHTML = "";
+<b>Noch keine Chats</b>
 
-    chats.forEach(
-        createChatListItem
-    );
+<br><br>
+
+Tippe auf ＋,
+um einen Benutzer zu suchen.
+
+</div>
+`;
+
+return;
+
+}
+
+list.innerHTML="";
+
+chats.forEach(
+createChatListItem
+);
 
 }
 
 
-/* CHAT LISTE */
+/* =========================================================
+   CHAT LIST ITEM
+========================================================= */
 
 function createChatListItem(chat){
 
-    const username =
-        chat.username ||
-        "Unbekannter Benutzer";
+const username=
+chat.username||
+"Unbekannter Benutzer";
 
-    const div =
-        document.createElement("div");
+const conversationId=
+String(chat.conversation_id);
 
-    div.className = "chat";
+const div=
+document.createElement("div");
 
-    div.dataset.conversationId =
-        chat.conversation_id;
+div.className="chat";
 
-    div.onclick = ()=>{
-
-        if(chatSelectionMode){
-
-            toggleChatSelection(
-                chat.conversation_id,
-                div
-            );
-
-            return;
-
-        }
-
-        openConversationById(
-            chat.conversation_id,
-            username,
-            chat.last_seen
-        );
-
-    };
+div.dataset.conversationId=
+conversationId;
 
 
-    const avatarWrap =
-        document.createElement("div");
+/*
+   CHECKBOX FÜR AUSWAHLMODUS
+*/
 
-    avatarWrap.className =
-        "avatarWrap";
+const check=
+document.createElement("div");
 
+check.className=
+"chatSelectionCheck";
 
-    const avatar =
-        document.createElement("div");
+check.textContent="✓";
 
-    avatar.className =
-        "avatar";
-
-    avatar.textContent =
-        username
-        .substring(0,2)
-        .toUpperCase();
-
-    avatarWrap.appendChild(
-        avatar
-    );
+div.appendChild(check);
 
 
-    const info =
-        document.createElement("div");
+/*
+   NORMALER CLICK
+*/
 
-    info.className =
-        "chatInfo";
+div.addEventListener(
+"click",
+function(e){
 
+if(chatSelectionMode){
 
-    const top =
-        document.createElement("div");
+toggleChatSelection(
+conversationId,
+div
+);
 
-    top.className =
-        "chatTop";
+return;
 
+}
 
-    const name =
-        document.createElement("div");
+openConversationById(
+chat.conversation_id,
+username,
+chat.last_seen
+);
 
-    name.className =
-        "chatName";
-
-    name.textContent =
-        username;
-
-
-    const time =
-        document.createElement("div");
-
-    time.className =
-        "chatTime";
-
-    time.textContent =
-        formatChatTime(
-            chat.last_message_at
-        );
+}
+);
 
 
-    top.appendChild(name);
+/*
+   LANGDRÜCKEN AUF IPHONE
+*/
 
-    top.appendChild(time);
+div.addEventListener(
+"touchstart",
+function(){
 
+if(chatSelectionMode)return;
 
-    const preview =
-        document.createElement("div");
+clearTimeout(chatLongPressTimer);
 
-    preview.className =
-        "chatPreview";
+chatLongPressTimer=
+setTimeout(
+function(){
 
-    preview.textContent =
-        chat.last_message ||
-        "Keine Nachrichten";
+startChatSelection();
 
+toggleChatSelection(
+conversationId,
+div
+);
 
-    info.appendChild(top);
+},
+550
+);
 
-    info.appendChild(preview);
-
-
-    div.appendChild(
-        avatarWrap
-    );
-
-    div.appendChild(
-        info
-    );
-
-
-    /* AUSWAHL-KREIS */
-
-    const selection =
-        document.createElement("div");
-
-    selection.className =
-        "chatSelection";
-
-    selection.textContent =
-        "✓";
-
-    div.appendChild(
-        selection
-    );
+},
+{
+passive:true
+}
+);
 
 
-    document
-        .getElementById(
-            "chatList"
-        )
-        .appendChild(div);
+div.addEventListener(
+"touchend",
+function(){
+
+clearTimeout(chatLongPressTimer);
+
+}
+);
+
+
+div.addEventListener(
+"touchmove",
+function(){
+
+clearTimeout(chatLongPressTimer);
+
+}
+);
+
+
+/*
+   RECHTSKLICK DESKTOP
+*/
+
+div.addEventListener(
+"contextmenu",
+function(e){
+
+e.preventDefault();
+
+if(!chatSelectionMode){
+
+startChatSelection();
+
+}
+
+toggleChatSelection(
+conversationId,
+div
+);
+
+}
+);
+
+
+/*
+   AVATAR
+*/
+
+const avatarWrap=
+document.createElement("div");
+
+avatarWrap.className=
+"avatarWrap";
+
+const avatar=
+document.createElement("div");
+
+avatar.className="avatar";
+
+avatar.textContent=
+username
+.substring(0,2)
+.toUpperCase();
+
+avatarWrap.appendChild(
+avatar
+);
+
+
+/*
+   INFORMATIONEN
+*/
+
+const info=
+document.createElement("div");
+
+info.className="chatInfo";
+
+const top=
+document.createElement("div");
+
+top.className="chatTop";
+
+const name=
+document.createElement("div");
+
+name.className="chatName";
+
+name.textContent=username;
+
+const time=
+document.createElement("div");
+
+time.className="chatTime";
+
+time.textContent=
+formatChatTime(
+chat.last_message_at
+);
+
+top.appendChild(name);
+
+top.appendChild(time);
+
+const preview=
+document.createElement("div");
+
+preview.className="chatPreview";
+
+preview.textContent=
+chat.last_message||
+"Keine Nachrichten";
+
+info.appendChild(top);
+
+info.appendChild(preview);
+
+div.appendChild(
+avatarWrap
+);
+
+div.appendChild(
+info
+);
+
+document.getElementById(
+"chatList"
+).appendChild(div);
 
 }
 
 
-/* CHAT AUSWÄHLEN */
+/* =========================================================
+   CHAT AUSWAHL
+========================================================= */
 
-function startSelectionMode(){
+function startChatSelection(){
 
-    const chats =
-        document.querySelectorAll(
-            "#chatList .chat"
-        );
+chatSelectionMode=true;
 
-    if(!chats.length){
+selectedChatIds.clear();
 
-        return;
+document.getElementById(
+"normalHomeHeader"
+).style.display="none";
 
-    }
+document.getElementById(
+"selectionHeader"
+).style.display="flex";
 
-    chatSelectionMode = true;
+document.getElementById(
+"newChatButton"
+).style.display="none";
 
-    selectedConversationIds.clear();
-
-    chats.forEach(
-        chat=>{
-            chat.classList.add(
-                "selectionMode"
-            );
-        }
-    );
-
-    showChatSelectionBar();
-
-}
-
-
-function toggleChatSelection(
-    conversationId,
-    element
-){
-
-    const id =
-        String(conversationId);
-
-    if(
-        selectedConversationIds
-        .has(id)
-    ){
-
-        selectedConversationIds
-        .delete(id);
-
-        element.classList.remove(
-            "selected"
-        );
-
-    }else{
-
-        selectedConversationIds
-        .add(id);
-
-        element.classList.add(
-            "selected"
-        );
-
-    }
-
-    updateChatSelectionBar();
-
-}
-
-
-function showChatSelectionBar(){
-
-    let bar =
-        document.getElementById(
-            "chatSelectionBar"
-        );
-
-    if(!bar){
-
-        bar =
-            document.createElement(
-                "div"
-            );
-
-        bar.id =
-            "chatSelectionBar";
-
-        bar.className =
-            "chatSelectionBar";
-
-        bar.innerHTML = `
-
-            <button
-                onclick="cancelChatSelection()">
-                Abbrechen
-            </button>
-
-            <div class="chatSelectionCount">
-                0 ausgewählt
-            </div>
-
-            <button
-                class="deleteChatButton"
-                onclick="deleteSelectedChats()">
-                🗑️ Löschen
-            </button>
-
-        `;
-
-        document
-            .querySelector(
-                "#homeScreen .header"
-            )
-            .appendChild(bar);
-
-    }
-
-    bar.style.display =
-        "flex";
-
-    updateChatSelectionBar();
-
-}
-
-
-function updateChatSelectionBar(){
-
-    const bar =
-        document.getElementById(
-            "chatSelectionBar"
-        );
-
-    if(!bar)return;
-
-    const count =
-        selectedConversationIds.size;
-
-    const countElement =
-        bar.querySelector(
-            ".chatSelectionCount"
-        );
-
-    if(countElement){
-
-        countElement.textContent =
-            count +
-            (
-                count === 1
-                ? " Chat ausgewählt"
-                : " Chats ausgewählt"
-            );
-
-    }
-
-    const deleteButton =
-        bar.querySelector(
-            ".deleteChatButton"
-        );
-
-    if(deleteButton){
-
-        deleteButton.disabled =
-            count === 0;
-
-    }
+updateChatSelectionUI();
 
 }
 
 
 function cancelChatSelection(){
 
-    chatSelectionMode = false;
+chatSelectionMode=false;
 
-    selectedConversationIds.clear();
+selectedChatIds.clear();
 
-    document
-        .querySelectorAll(
-            "#chatList .chat"
-        )
-        .forEach(
-            chat=>{
+document.getElementById(
+"normalHomeHeader"
+).style.display="block";
 
-                chat.classList.remove(
-                    "selectionMode",
-                    "selected"
-                );
+document.getElementById(
+"selectionHeader"
+).style.display="none";
 
-            }
-        );
+document.getElementById(
+"newChatButton"
+).style.display="block";
 
-    const bar =
-        document.getElementById(
-            "chatSelectionBar"
-        );
+document.querySelectorAll(
+".chat.selected"
+)
+.forEach(
+el=>{
+el.classList.remove(
+"selected"
+);
 
-    if(bar){
+const check=
+el.querySelector(
+".chatSelectionCheck"
+);
 
-        bar.style.display =
-            "none";
+if(check)
+check.classList.remove(
+"checked"
+);
 
-    }
+}
+);
 
 }
 
 
-/* CHAT LÖSCHEN */
+function toggleChatSelection(
+conversationId,
+element
+){
+
+const id=
+String(conversationId);
+
+if(selectedChatIds.has(id)){
+
+selectedChatIds.delete(id);
+
+element.classList.remove(
+"selected"
+);
+
+const check=
+element.querySelector(
+".chatSelectionCheck"
+);
+
+if(check)
+check.classList.remove(
+"checked"
+);
+
+}else{
+
+selectedChatIds.add(id);
+
+element.classList.add(
+"selected"
+);
+
+const check=
+element.querySelector(
+".chatSelectionCheck"
+);
+
+if(check)
+check.classList.add(
+"checked"
+);
+
+}
+
+updateChatSelectionUI();
+
+}
+
+
+function updateChatSelectionUI(){
+
+const count=
+selectedChatIds.size;
+
+document.getElementById(
+"selectedChatCount"
+).textContent=
+count+
+(count===1
+?" Chat ausgewählt"
+:" Chats ausgewählt");
+
+}
+
+
+/* =========================================================
+   CHAT LÖSCHEN
+========================================================= */
+
+function askDeleteSelectedChats(){
+
+if(!selectedChatIds.size){
+
+alert(
+"Bitte zuerst mindestens einen Chat auswählen."
+);
+
+return;
+
+}
+
+const count=
+selectedChatIds.size;
+
+document.getElementById(
+"deleteChatText"
+).textContent=
+count===1
+?
+"Möchtest du diesen Chat aus deiner Chat-Liste entfernen?"
+:
+"Möchtest du die "+count+
+" ausgewählten Chats aus deiner Chat-Liste entfernen?";
+
+document.getElementById(
+"deleteChatModal"
+).classList.add("show");
+
+}
+
+
+function closeDeleteChatModal(){
+
+document.getElementById(
+"deleteChatModal"
+).classList.remove(
+"show"
+);
+
+}
+
+
+/*
+   WICHTIG:
+
+   Die Chat-Löschung ist absichtlich getrennt
+   von der Nachrichten-Löschung.
+
+   Deshalb wird hier NICHT
+   deleteSelectedForMe()
+   verwendet.
+
+   Das verhindert genau den Fehler:
+   "Halte eine Nachricht im Chat gedrückt..."
+*/
 
 async function deleteSelectedChats(){
 
-    if(
-        !selectedConversationIds.size
-    ){
+if(!selectedChatIds.size){
 
-        return;
+closeDeleteChatModal();
 
-    }
+return;
 
-    const count =
-        selectedConversationIds.size;
+}
 
-    const confirmed =
-        confirm(
-            count === 1
-            ? "Diesen Chat wirklich löschen?"
-            : `${count} Chats wirklich löschen?`
-        );
-
-    if(!confirmed)return;
+const ids=
+[...selectedChatIds]
+.map(String);
 
 
-    const ids =
-        [...selectedConversationIds];
+/*
+   Lokal gespeicherte Liste laden
+*/
+
+const hidden=
+getHiddenChats();
 
 
-    try{
+/*
+   Alle ausgewählten Chats hinzufügen
+*/
 
-        for(
-            const id of ids
-        ){
-
-            const result =
-                await supabaseClient
-                .from("conversations")
-                .delete()
-                .eq("id",id);
+ids.forEach(
+id=>hidden.add(id)
+);
 
 
-            if(result.error){
+/*
+   Speichern
+*/
 
-                throw result.error;
-
-            }
-
-        }
+saveHiddenChats(hidden);
 
 
-        cancelChatSelection();
+/*
+   Modal schließen
+*/
 
-        currentConversation =
-            null;
-
-
-        await loadConversations();
+closeDeleteChatModal();
 
 
-    }catch(error){
+/*
+   Auswahlmodus beenden
+*/
 
-        console.error(error);
+chatSelectionMode=false;
 
-        alert(
-            "Chat konnte nicht gelöscht werden:\n\n" +
-            error.message
-        );
+selectedChatIds.clear();
 
-    }
+document.getElementById(
+"normalHomeHeader"
+).style.display="block";
+
+document.getElementById(
+"selectionHeader"
+).style.display="none";
+
+document.getElementById(
+"newChatButton"
+).style.display="block";
+
+
+/*
+   Liste neu laden
+*/
+
+await loadConversations();
 
 }
 
 
-/* CHAT ÖFFNEN */
+/* =========================================================
+   LOKAL GELÖSCHTE CHATS
+========================================================= */
+
+function getHiddenChats(){
+
+try{
+
+const raw=
+localStorage.getItem(
+"wavechat_hidden_chats"
+);
+
+if(!raw)
+return new Set();
+
+const array=
+JSON.parse(raw);
+
+return new Set(
+Array.isArray(array)
+?array.map(String)
+:[]
+);
+
+}catch(error){
+
+return new Set();
+
+}
+
+}
+
+
+function saveHiddenChats(set){
+
+localStorage.setItem(
+"wavechat_hidden_chats",
+JSON.stringify(
+[...set]
+)
+);
+
+}
+
+
+/*
+   Falls ein neuer Chat mit einem Benutzer
+   gestartet wird, kann er wieder erscheinen.
+*/
+
+function unhideChat(conversationId){
+
+const hidden=
+getHiddenChats();
+
+hidden.delete(
+String(conversationId)
+);
+
+saveHiddenChats(hidden);
+
+}
+
+
+/* =========================================================
+   OPEN CHAT
+========================================================= */
 
 async function openConversationById(
-    conversationId,
-    username,
-    lastSeen
+conversationId,
+username,
+lastSeen
 ){
 
-    const result =
-        await supabaseClient
-        .from("conversations")
-        .select("*")
-        .eq("id",conversationId)
-        .single();
+/*
+   Falls der Chat vorher gelöscht wurde,
+   beim Öffnen wieder sichtbar machen.
+*/
 
+unhideChat(
+conversationId
+);
 
-    if(result.error){
+const result=
+await supabaseClient
+.from("conversations")
+.select("*")
+.eq("id",conversationId)
+.single();
 
-        alert(
-            result.error.message
-        );
+if(result.error){
 
-        return;
+alert(
+result.error.message
+);
 
-    }
+return;
 
+}
 
-    currentConversation =
-        result.data;
+currentConversation=
+result.data;
 
+currentOtherUser={
+username:username,
+last_seen:lastSeen
+};
 
-    currentOtherUser = {
-        username:username,
-        last_seen:lastSeen
-    };
+document.getElementById(
+"chatName"
+).textContent=username;
 
+document.getElementById(
+"chatAvatar"
+).textContent=
+username
+.substring(0,2)
+.toUpperCase();
 
-    document.getElementById(
-        "chatName"
-    ).textContent =
-        username;
+document.getElementById(
+"chatStatus"
+).textContent=
+isOnline(lastSeen)
+?"🟢 Online"
+:"Zuletzt online";
 
+showScreen(
+"chatScreen"
+);
 
-    document.getElementById(
-        "chatAvatar"
-    ).textContent =
-        username
-        .substring(0,2)
-        .toUpperCase();
+await loadMessages();
 
-
-    document.getElementById(
-        "chatStatus"
-    ).textContent =
-        isOnline(lastSeen)
-        ? "🟢 Online"
-        : "Zuletzt online";
-
-
-    showScreen(
-        "chatScreen"
-    );
-
-
-    await loadMessages();
-
-    subscribeToMessages();
+subscribeToMessages();
 
 }
 
 
-/* MESSAGES */
+/* =========================================================
+   LOAD MESSAGES
+========================================================= */
 
 async function loadMessages(){
 
-    const box =
-        document.getElementById(
-            "messages"
-        );
+const box=
+document.getElementById(
+"messages"
+);
 
-    box.innerHTML = "";
+box.innerHTML="";
 
+const result=
+await supabaseClient
+.from("messages")
+.select("*")
+.eq(
+"conversation_id",
+currentConversation.id
+)
+.order(
+"created_at",
+{
+ascending:true
+}
+);
 
-    const result =
-        await supabaseClient
-        .from("messages")
-        .select("*")
-        .eq(
-            "conversation_id",
-            currentConversation.id
-        )
-        .order(
-            "created_at",
-            {
-                ascending:true
-            }
-        );
+if(result.error){
 
+box.innerHTML=
+`
+<div class="empty">
+${escapeHTML(result.error.message)}
+</div>
+`;
 
-    if(result.error){
+return;
 
-        box.innerHTML =
-        `
-        <div class="empty">
-            ${escapeHTML(
-                result.error.message
-            )}
-        </div>
-        `;
+}
 
-        return;
+(result.data||[])
+.forEach(
+renderMessage
+);
 
-    }
-
-
-    (
-        result.data || []
-    ).forEach(
-        renderMessage
-    );
-
-
-    scrollMessages();
+scrollMessages();
 
 }
 
 
-/* RENDER MESSAGE */
+/* =========================================================
+   RENDER MESSAGE
+========================================================= */
 
 function renderMessage(message){
 
-    if(
-        document.querySelector(
-            `[data-message-id="${message.id}"]`
-        )
-    ){
+if(
+document.querySelector(
+`[data-message-id="${message.id}"]`
+)
+)return;
 
-        return;
+const div=
+document.createElement("div");
 
-    }
+div.className=
+"message "+
+(
+message.sender_id===currentUser.id
+?"out"
+:"in"
+);
 
+div.dataset.messageId=
+message.id;
 
-    const div =
-        document.createElement(
-            "div"
-        );
 
+/*
+   RECHTSKLICK
+*/
 
-    div.className =
-        "message " +
-        (
-            message.sender_id ===
-            currentUser.id
-            ? "out"
-            : "in"
-        );
+div.addEventListener(
+"contextmenu",
+e=>{
 
+e.preventDefault();
 
-    div.dataset.messageId =
-        message.id;
+selectMessage(message);
 
+}
+);
 
-    div.addEventListener(
-        "contextmenu",
-        e=>{
 
-            e.preventDefault();
+/*
+   CLICK BEI AUSWAHL
+*/
 
-            selectMessage(
-                message
-            );
+div.addEventListener(
+"click",
+()=>{
 
-        }
-    );
+if(selectionMessageMode){
 
-
-    div.addEventListener(
-        "click",
-        ()=>{
-
-            if(
-                selectionMessageMode
-            ){
-
-                toggleMessageSelection(
-                    message.id,
-                    div
-                );
-
-            }
-
-        }
-    );
-
-
-    if(
-        message.deleted_for_everyone ||
-        message.deleted_for_me
-    ){
-
-        const deleted =
-            document.createElement(
-                "div"
-            );
-
-        deleted.className =
-            "deletedMessage";
-
-        deleted.textContent =
-            "🚫 Diese Nachricht wurde gelöscht";
-
-        div.appendChild(
-            deleted
-        );
-
-
-    }else{
-
-
-        if(
-            message.message_type ===
-            "image"
-        ){
-
-            const img =
-                document.createElement(
-                    "img"
-                );
-
-            img.className =
-                "messageImage";
-
-            img.src =
-                message.media_url;
-
-            div.appendChild(img);
-
-
-        }else if(
-            message.message_type ===
-            "audio"
-        ){
-
-            renderAudioMessage(
-                div,
-                message
-            );
-
-
-        }else{
-
-            const text =
-                document.createElement(
-                    "div"
-                );
-
-            text.className =
-                "messageText";
-
-            text.textContent =
-                message.content || "";
-
-            div.appendChild(
-                text
-            );
-
-        }
-
-    }
-
-
-    const time =
-        document.createElement(
-            "div"
-        );
-
-    time.className =
-        "messageTime";
-
-    time.textContent =
-        formatTime(
-            message.created_at
-        );
-
-
-    if(
-        message.sender_id ===
-        currentUser.id
-    ){
-
-        const checks =
-            document.createElement(
-                "span"
-            );
-
-        checks.className =
-            "checks";
-
-
-        if(message.read_at){
-
-            checks.textContent =
-                "✓✓";
-
-            checks.classList.add(
-                "read"
-            );
-
-        }else if(
-            message.delivered_at
-        ){
-
-            checks.textContent =
-                "✓✓";
-
-        }else{
-
-            checks.textContent =
-                "✓";
-
-        }
-
-
-        time.appendChild(
-            checks
-        );
-
-    }
-
-
-    div.appendChild(
-        time
-    );
-
-
-    document
-        .getElementById(
-            "messages"
-        )
-        .appendChild(div);
+toggleMessageSelection(
+message.id,
+div
+);
 
 }
 
+}
+);
 
-/* AUDIO */
 
-function renderAudioMessage(
-    container,
-    message
+/*
+   INHALT
+*/
+
+if(
+message.deleted_for_everyone
 ){
 
-    const wrap =
-        document.createElement(
-            "div"
-        );
+const deleted=
+document.createElement("div");
 
-    wrap.className =
-        "audioMessage";
+deleted.className=
+"deletedMessage";
 
+deleted.textContent=
+"🚫 Diese Nachricht wurde gelöscht";
 
-    const button =
-        document.createElement(
-            "button"
-        );
+div.appendChild(
+deleted
+);
 
-    button.className =
-        "audioPlay";
+}else if(
+message.deleted_for_me
+){
 
-    button.textContent =
-        "▶";
+const deleted=
+document.createElement("div");
 
+deleted.className=
+"deletedMessage";
 
-    const audio =
-        document.createElement(
-            "audio"
-        );
+deleted.textContent=
+"🚫 Diese Nachricht wurde gelöscht";
 
-    audio.src =
-        message.media_url;
+div.appendChild(
+deleted
+);
 
-    audio.preload =
-        "metadata";
+}else{
 
-    audio.style.display =
-        "none";
+if(
+message.message_type==="image"
+){
 
+const img=
+document.createElement("img");
 
-    const info =
-        document.createElement(
-            "div"
-        );
+img.className=
+"messageImage";
 
-    info.className =
-        "audioInfo";
+img.src=
+message.media_url;
 
+div.appendChild(img);
 
-    const title =
-        document.createElement(
-            "div"
-        );
+}else if(
+message.message_type==="audio"
+){
 
-    title.className =
-        "audioTitle";
+renderAudioMessage(
+div,
+message
+);
 
-    title.textContent =
-        "Sprachnachricht";
+}else{
 
+const text=
+document.createElement("div");
 
-    const duration =
-        document.createElement(
-            "div"
-        );
+text.className=
+"messageText";
 
-    duration.className =
-        "audioDuration";
+text.textContent=
+message.content||"";
 
-    duration.textContent =
-        formatDuration(
-            message.media_duration || 0
-        );
+div.appendChild(text);
 
-
-    button.onclick = ()=>{
-
-        if(audio.paused){
-
-            audio.play();
-
-            button.textContent =
-                "❚❚";
-
-        }else{
-
-            audio.pause();
-
-            button.textContent =
-                "▶";
-
-        }
-
-    };
-
-
-    audio.onended = ()=>{
-
-        button.textContent =
-            "▶";
-
-    };
-
-
-    info.appendChild(title);
-
-    info.appendChild(duration);
-
-    wrap.appendChild(button);
-
-    wrap.appendChild(info);
-
-    wrap.appendChild(audio);
-
-    container.appendChild(wrap);
+}
 
 }
 
 
-/* SEND TEXT */
+/*
+   ZEIT
+*/
+
+const time=
+document.createElement("div");
+
+time.className=
+"messageTime";
+
+time.textContent=
+formatTime(
+message.created_at
+);
+
+
+if(
+message.sender_id===currentUser.id
+){
+
+const checks=
+document.createElement("span");
+
+checks.className="checks";
+
+if(message.read_at){
+
+checks.textContent="✓✓";
+
+checks.classList.add(
+"read"
+);
+
+}else if(
+message.delivered_at
+){
+
+checks.textContent="✓✓";
+
+}else{
+
+checks.textContent="✓";
+
+}
+
+time.appendChild(
+checks
+);
+
+}
+
+div.appendChild(time);
+
+document.getElementById(
+"messages"
+).appendChild(div);
+
+}
+
+
+/* =========================================================
+   AUDIO
+========================================================= */
+
+function renderAudioMessage(
+container,
+message
+){
+
+const wrap=
+document.createElement("div");
+
+wrap.className=
+"audioMessage";
+
+const button=
+document.createElement("button");
+
+button.className=
+"audioPlay";
+
+button.textContent="▶";
+
+const audio=
+document.createElement("audio");
+
+audio.src=
+message.media_url;
+
+audio.preload="metadata";
+
+audio.style.display="none";
+
+const info=
+document.createElement("div");
+
+info.className=
+"audioInfo";
+
+const title=
+document.createElement("div");
+
+title.className=
+"audioTitle";
+
+title.textContent=
+"Sprachnachricht";
+
+const duration=
+document.createElement("div");
+
+duration.className=
+"audioDuration";
+
+duration.textContent=
+formatDuration(
+message.media_duration||0
+);
+
+button.onclick=()=>{
+
+if(audio.paused){
+
+audio.play();
+
+button.textContent="❚❚";
+
+}else{
+
+audio.pause();
+
+button.textContent="▶";
+
+}
+
+};
+
+audio.onended=()=>{
+
+button.textContent="▶";
+
+};
+
+info.appendChild(title);
+
+info.appendChild(duration);
+
+wrap.appendChild(button);
+
+wrap.appendChild(info);
+
+wrap.appendChild(audio);
+
+container.appendChild(wrap);
+
+}
+
+
+/* =========================================================
+   SEND TEXT
+========================================================= */
 
 async function sendMessage(){
 
-    const input =
-        document.getElementById(
-            "messageInput"
-        );
+const input=
+document.getElementById(
+"messageInput"
+);
 
-    const content =
-        input.value.trim();
+const content=
+input.value.trim();
 
+if(
+!content||
+!currentConversation
+)
+return;
 
-    if(
-        !content ||
-        !currentConversation
-    ){
+input.disabled=true;
 
-        return;
+const result=
+await supabaseClient
+.from("messages")
+.insert({
 
-    }
+conversation_id:
+currentConversation.id,
 
+sender_id:
+currentUser.id,
 
-    input.disabled = true;
+content:content,
 
+message_type:"text",
 
-    const result =
-        await supabaseClient
-        .from("messages")
-        .insert({
-            conversation_id:
-                currentConversation.id,
+delivered_at:
+new Date().toISOString()
 
-            sender_id:
-                currentUser.id,
+})
+.select()
+.single();
 
-            content:
-                content,
+input.disabled=false;
 
-            message_type:
-                "text",
+if(result.error){
 
-            delivered_at:
-                new Date().toISOString()
-        })
-        .select()
-        .single();
+alert(
+result.error.message
+);
 
+return;
 
-    input.disabled = false;
+}
 
+input.value="";
 
-    if(result.error){
+renderMessage(
+result.data
+);
 
-        alert(
-            result.error.message
-        );
+scrollMessages();
 
-        return;
-
-    }
-
-
-    input.value = "";
-
-
-    renderMessage(
-        result.data
-    );
-
-
-    scrollMessages();
-
-
-    await loadConversations();
+await loadConversations();
 
 }
 
 
-/* IMAGE */
+/* =========================================================
+   IMAGE
+========================================================= */
 
 function openImagePicker(){
 
-    document
-        .getElementById(
-            "imageInput"
-        )
-        .click();
+document.getElementById(
+"imageInput"
+).click();
 
 }
 
 
 async function sendImage(event){
 
-    const file =
-        event.target.files[0];
+const file=
+event.target.files[0];
 
-    event.target.value = "";
+event.target.value="";
 
+if(
+!file||
+!currentConversation
+)
+return;
 
-    if(
-        !file ||
-        !currentConversation
-    ){
+const ext=
+file.name.split(".").pop();
 
-        return;
+const path=
+currentUser.id+
+"/chat/"+
+crypto.randomUUID()+
+"."+
+ext;
 
-    }
+const upload=
+await supabaseClient.storage
+.from("chat-media")
+.upload(
+path,
+file,
+{
+upsert:false,
+contentType:file.type
+}
+);
 
+if(upload.error){
 
-    const ext =
-        file.name
-        .split(".")
-        .pop();
+alert(
+upload.error.message
+);
 
+return;
 
-    const path =
-        currentUser.id +
-        "/chat/" +
-        crypto.randomUUID() +
-        "." +
-        ext;
+}
 
+const url=
+supabaseClient.storage
+.from("chat-media")
+.getPublicUrl(path)
+.data.publicUrl;
 
-    const upload =
-        await supabaseClient.storage
-        .from("chat-media")
-        .upload(
-            path,
-            file,
-            {
-                upsert:false,
-                contentType:file.type
-            }
-        );
+const result=
+await supabaseClient
+.from("messages")
+.insert({
 
+conversation_id:
+currentConversation.id,
 
-    if(upload.error){
+sender_id:
+currentUser.id,
 
-        alert(
-            upload.error.message
-        );
+content:"",
 
-        return;
+message_type:"image",
 
-    }
+media_url:url,
 
+file_name:file.name,
 
-    const url =
-        supabaseClient.storage
-        .from("chat-media")
-        .getPublicUrl(path)
-        .data.publicUrl;
+delivered_at:
+new Date().toISOString()
 
+})
+.select()
+.single();
 
-    const result =
-        await supabaseClient
-        .from("messages")
-        .insert({
+if(result.error){
 
-            conversation_id:
-                currentConversation.id,
+alert(
+result.error.message
+);
 
-            sender_id:
-                currentUser.id,
+return;
 
-            content:"",
+}
 
-            message_type:
-                "image",
+renderMessage(
+result.data
+);
 
-            media_url:url,
+scrollMessages();
 
-            file_name:
-                file.name,
-
-            delivered_at:
-                new Date().toISOString()
-
-        })
-        .select()
-        .single();
-
-
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-        return;
-
-    }
-
-
-    renderMessage(
-        result.data
-    );
-
-
-    scrollMessages();
-
-
-    await loadConversations();
+await loadConversations();
 
 }
 
 
-/* VOICE */
+/* =========================================================
+   VOICE
+========================================================= */
 
 async function toggleRecording(){
 
-    if(mediaRecorder){
+if(mediaRecorder){
 
-        stopRecording();
+stopRecording();
 
-        return;
+return;
 
-    }
+}
 
+try{
 
-    try{
+const stream=
+await navigator.mediaDevices.getUserMedia({
+audio:true
+});
 
-        const stream =
-            await navigator
-            .mediaDevices
-            .getUserMedia({
-                audio:true
-            });
+audioChunks=[];
 
+mediaRecorder=
+new MediaRecorder(stream);
 
-        audioChunks = [];
+recordingStarted=
+Date.now();
 
+const button=
+document.getElementById(
+"recordButton"
+);
 
-        mediaRecorder =
-            new MediaRecorder(
-                stream
-            );
+button.classList.add(
+"recording"
+);
 
+button.textContent="■";
 
-        recordingStarted =
-            Date.now();
+mediaRecorder.ondataavailable=
+e=>{
 
+if(e.data.size>0){
 
-        const button =
-            document.getElementById(
-                "recordButton"
-            );
+audioChunks.push(e.data);
 
+}
 
-        button.classList.add(
-            "recording"
-        );
+};
 
-        button.textContent =
-            "■";
+mediaRecorder.onstop=
+async()=>{
 
+stream.getTracks()
+.forEach(
+track=>
+track.stop()
+);
 
-        mediaRecorder.ondataavailable =
-            e=>{
+const blob=
+new Blob(
+audioChunks,
+{
+type:
+mediaRecorder.mimeType||
+"audio/webm"
+}
+);
 
-                if(e.data.size>0){
+const duration=
+Math.round(
+(Date.now()-recordingStarted)
+/1000
+);
 
-                    audioChunks.push(
-                        e.data
-                    );
+mediaRecorder=null;
 
-                }
+button.classList.remove(
+"recording"
+);
 
-            };
+button.textContent="🎤";
 
+await sendAudio(
+blob,
+duration
+);
 
-        mediaRecorder.onstop =
-            async()=>{
+};
 
-                stream
-                .getTracks()
-                .forEach(
-                    track =>
-                        track.stop()
-                );
+mediaRecorder.start();
 
+}catch(error){
 
-                const blob =
-                    new Blob(
-                        audioChunks,
-                        {
-                            type:
-                                mediaRecorder.mimeType ||
-                                "audio/webm"
-                        }
-                    );
+alert(
+"Mikrofon konnte nicht geöffnet werden.\n\n"+
+error.message
+);
 
-
-                const duration =
-                    Math.round(
-                        (
-                            Date.now() -
-                            recordingStarted
-                        ) / 1000
-                    );
-
-
-                mediaRecorder =
-                    null;
-
-
-                button.classList.remove(
-                    "recording"
-                );
-
-
-                button.textContent =
-                    "🎤";
-
-
-                await sendAudio(
-                    blob,
-                    duration
-                );
-
-            };
-
-
-        mediaRecorder.start();
-
-
-    }catch(error){
-
-        alert(
-            "Mikrofon konnte nicht geöffnet werden.\n\n" +
-            error.message
-        );
-
-    }
+}
 
 }
 
 
 function stopRecording(){
 
-    if(
-        mediaRecorder &&
-        mediaRecorder.state !==
-        "inactive"
-    ){
-
-        mediaRecorder.stop();
-
-    }
-
-}
-
-
-/* AUDIO SENDEN */
-
-async function sendAudio(
-    blob,
-    duration
+if(
+mediaRecorder&&
+mediaRecorder.state!=="inactive"
 ){
 
-    if(
-        !currentConversation ||
-        !currentUser
-    ){
+mediaRecorder.stop();
 
-        return;
-
-    }
-
-
-    const extension =
-        blob.type.includes("mp4")
-        ? "m4a"
-        : "webm";
-
-
-    const path =
-        currentUser.id +
-        "/audio/" +
-        crypto.randomUUID() +
-        "." +
-        extension;
-
-
-    const upload =
-        await supabaseClient.storage
-        .from("chat-media")
-        .upload(
-            path,
-            blob,
-            {
-                upsert:false,
-                contentType:
-                    blob.type
-            }
-        );
-
-
-    if(upload.error){
-
-        alert(
-            "Sprachnachricht konnte nicht gespeichert werden:\n\n" +
-            upload.error.message
-        );
-
-        return;
-
-    }
-
-
-    const url =
-        supabaseClient.storage
-        .from("chat-media")
-        .getPublicUrl(path)
-        .data.publicUrl;
-
-
-    const result =
-        await supabaseClient
-        .from("messages")
-        .insert({
-
-            conversation_id:
-                currentConversation.id,
-
-            sender_id:
-                currentUser.id,
-
-            content:"",
-
-            message_type:
-                "audio",
-
-            media_url:url,
-
-            media_duration:
-                Math.round(
-                    Number(duration) || 0
-                ),
-
-            file_name:
-                "Sprachnachricht." +
-                extension,
-
-            delivered_at:
-                new Date().toISOString()
-
-        })
-        .select()
-        .single();
-
-
-    if(result.error){
-
-        alert(
-            result.error.message
-        );
-
-        return;
-
-    }
-
-
-    renderMessage(
-        result.data
-    );
-
-
-    scrollMessages();
-
-
-    await loadConversations();
+}
 
 }
 
 
-/* MESSAGE AUSWAHL */
+/* =========================================================
+   AUDIO SENDEN
+========================================================= */
+
+async function sendAudio(
+blob,
+duration
+){
+
+if(
+!currentConversation||
+!currentUser
+)
+return;
+
+const extension=
+blob.type.includes("mp4")
+?"m4a"
+:"webm";
+
+const path=
+currentUser.id+
+"/audio/"+
+crypto.randomUUID()+
+"."+
+extension;
+
+const upload=
+await supabaseClient.storage
+.from("chat-media")
+.upload(
+path,
+blob,
+{
+upsert:false,
+contentType:blob.type
+}
+);
+
+if(upload.error){
+
+alert(
+"Sprachnachricht konnte nicht gespeichert werden:\n\n"+
+upload.error.message
+);
+
+return;
+
+}
+
+const url=
+supabaseClient.storage
+.from("chat-media")
+.getPublicUrl(path)
+.data.publicUrl;
+
+const result=
+await supabaseClient
+.from("messages")
+.insert({
+
+conversation_id:
+currentConversation.id,
+
+sender_id:
+currentUser.id,
+
+content:"",
+
+message_type:"audio",
+
+media_url:url,
+
+media_duration:
+Math.round(
+Number(duration)||0
+),
+
+file_name:
+"Sprachnachricht."+
+extension,
+
+delivered_at:
+new Date().toISOString()
+
+})
+.select()
+.single();
+
+if(result.error){
+
+alert(
+result.error.message
+);
+
+return;
+
+}
+
+renderMessage(
+result.data
+);
+
+scrollMessages();
+
+await loadConversations();
+
+}
+
+
+/* =========================================================
+   MESSAGE AUSWAHL
+========================================================= */
 
 function selectMessage(message){
 
-    selectedMessageIds.clear();
+selectedMessageIds.clear();
 
-    selectedMessageIds.add(
-        String(message.id)
-    );
+selectedMessageIds.add(
+String(message.id)
+);
 
-    selectionMessageMode = true;
+selectionMessageMode=true;
 
-    updateMessageSelection();
+updateMessageSelection();
 
-    showMessageActions();
+showMessageActions();
 
 }
 
 
 function toggleMessageSelection(
-    id,
-    element
+id,
+element
 ){
 
-    const key =
-        String(id);
+const key=
+String(id);
 
+if(
+selectedMessageIds.has(key)
+){
 
-    if(
-        selectedMessageIds.has(key)
-    ){
+selectedMessageIds.delete(key);
 
-        selectedMessageIds.delete(
-            key
-        );
+element.classList.remove(
+"selected"
+);
 
-        element.classList.remove(
-            "selected"
-        );
+}else{
 
-    }else{
+selectedMessageIds.add(key);
 
-        selectedMessageIds.add(
-            key
-        );
+element.classList.add(
+"selected"
+);
 
-        element.classList.add(
-            "selected"
-        );
+}
 
-    }
+if(
+!selectedMessageIds.size
+){
 
+closeMessageActions();
 
-    if(
-        !selectedMessageIds.size
-    ){
+return;
 
-        closeMessageActions();
+}
 
-        return;
-
-    }
-
-
-    updateMessageSelection();
+updateMessageSelection();
 
 }
 
 
 function updateMessageSelection(){
 
-    document
-        .querySelectorAll(
-            ".message"
-        )
-        .forEach(
-            el=>{
+document.querySelectorAll(
+".message"
+)
+.forEach(
+el=>{
 
-                const id =
-                    String(
-                        el.dataset.messageId
-                    );
+const id=
+String(
+el.dataset.messageId
+);
 
-                el.classList.toggle(
-                    "selected",
-                    selectedMessageIds.has(id)
-                );
+el.classList.toggle(
+"selected",
+selectedMessageIds.has(id)
+);
 
-            }
-        );
+}
+);
 
 }
 
 
 function showMessageActions(){
 
-    document.getElementById(
-        "messageActions"
-    ).style.display =
-        "block";
+document.getElementById(
+"messageActions"
+).style.display=
+"block";
 
+const button=
+document.getElementById(
+"deleteEveryoneButton"
+);
 
-    const button =
-        document.getElementById(
-            "deleteEveryoneButton"
-        );
+let allowed=false;
 
+selectedMessageIds.forEach(
+id=>{
 
-    let allowed = false;
+const el=
+document.querySelector(
+`[data-message-id="${id}"]`
+);
 
+if(!el)return;
 
-    selectedMessageIds.forEach(
-        id=>{
+if(
+el.classList.contains("out")
+){
 
-            const el =
-                document.querySelector(
-                    `[data-message-id="${id}"]`
-                );
+allowed=true;
 
+}
 
-            if(!el)return;
+}
+);
 
-
-            if(
-                el.classList.contains(
-                    "out"
-                )
-            ){
-
-                allowed = true;
-
-            }
-
-        }
-    );
-
-
-    button.style.display =
-        allowed
-        ? "block"
-        : "none";
+button.style.display=
+allowed
+?"block"
+:"none";
 
 }
 
 
 function closeMessageActions(){
 
-    selectedMessageIds.clear();
+selectedMessageIds.clear();
 
-    selectionMessageMode = false;
+selectionMessageMode=false;
 
+document.getElementById(
+"messageActions"
+).style.display=
+"none";
 
-    document.getElementById(
-        "messageActions"
-    ).style.display =
-        "none";
-
-
-    document
-        .querySelectorAll(
-            ".message.selected"
-        )
-        .forEach(
-            el =>
-                el.classList.remove(
-                    "selected"
-                )
-        );
+document.querySelectorAll(
+".message.selected"
+)
+.forEach(
+el=>
+el.classList.remove(
+"selected"
+)
+);
 
 }
 
 
-/* FÜR MICH */
+/* =========================================================
+   MESSAGE FÜR MICH
+========================================================= */
 
 async function deleteSelectedForMe(){
 
-    if(
-        !selectedMessageIds.size
-    ){
+if(
+!selectedMessageIds.size
+)
+return;
 
-        return;
+const ids=
+[...selectedMessageIds]
+.map(Number);
 
-    }
+for(
+const id of ids
+){
 
+const result=
+await supabaseClient
+.from("messages")
+.update({
+deleted_for_me:true
+})
+.eq(
+"id",
+id
+);
 
-    const ids =
-        [...selectedMessageIds]
-        .map(Number);
+if(result.error){
 
+alert(
+result.error.message
+);
 
-    for(
-        const id of ids
-    ){
+return;
 
-        const result =
-            await supabaseClient
-            .from("messages")
-            .update({
-                deleted_for_me:true
-            })
-            .eq("id",id);
+}
 
+}
 
-        if(result.error){
+closeMessageActions();
 
-            alert(
-                result.error.message
-            );
-
-            return;
-
-        }
-
-    }
-
-
-    closeMessageActions();
-
-    await loadMessages();
+await loadMessages();
 
 }
 
 
-/* FÜR ALLE */
+/* =========================================================
+   MESSAGE FÜR ALLE
+========================================================= */
 
 async function deleteSelectedForEveryone(){
 
-    if(
-        !selectedMessageIds.size
-    ){
+if(
+!selectedMessageIds.size
+)
+return;
 
-        return;
+const ids=
+[...selectedMessageIds]
+.map(Number);
 
-    }
+const messages=
+await supabaseClient
+.from("messages")
+.select(
+"id,sender_id,created_at"
+)
+.in(
+"id",
+ids
+);
 
+if(messages.error){
 
-    const ids =
-        [...selectedMessageIds]
-        .map(Number);
+alert(
+messages.error.message
+);
 
+return;
 
-    const messages =
-        await supabaseClient
-        .from("messages")
-        .select(
-            "id,sender_id,created_at"
-        )
-        .in("id",ids);
+}
 
+for(
+const message of messages.data
+){
 
-    if(messages.error){
+if(
+message.sender_id!==currentUser.id
+){
 
-        alert(
-            messages.error.message
-        );
+alert(
+"Du kannst nur deine eigenen Nachrichten für alle löschen."
+);
 
-        return;
+continue;
 
-    }
+}
 
+const age=
+Date.now()-
+new Date(
+message.created_at
+).getTime();
 
-    for(
-        const message
-        of messages.data
-    ){
+const oneHour=
+60*60*1000;
 
-        if(
-            message.sender_id !==
-            currentUser.id
-        ){
+if(age>oneHour){
 
-            continue;
+alert(
+"Eine Nachricht kann nur innerhalb von 1 Stunde für alle gelöscht werden."
+);
 
-        }
+continue;
 
+}
 
-        const age =
-            Date.now() -
-            new Date(
-                message.created_at
-            ).getTime();
+const result=
+await supabaseClient
+.from("messages")
+.update({
 
+deleted_for_everyone:true,
 
-        const oneHour =
-            60 * 60 * 1000;
+deleted_for_everyone_at:
+new Date().toISOString()
 
+})
+.eq(
+"id",
+message.id
+)
+.eq(
+"sender_id",
+currentUser.id
+);
 
-        if(age > oneHour){
+if(result.error){
 
-            continue;
+alert(
+result.error.message
+);
 
-        }
+return;
 
+}
 
-        const result =
-            await supabaseClient
-            .from("messages")
-            .update({
+}
 
-                deleted_for_everyone:
-                    true,
+closeMessageActions();
 
-                deleted_for_everyone_at:
-                    new Date().toISOString()
-
-            })
-            .eq(
-                "id",
-                message.id
-            )
-            .eq(
-                "sender_id",
-                currentUser.id
-            );
-
-
-        if(result.error){
-
-            alert(
-                result.error.message
-            );
-
-            return;
-
-        }
-
-    }
-
-
-    closeMessageActions();
-
-    await loadMessages();
+await loadMessages();
 
 }
 
 
-/* REALTIME */
+/* =========================================================
+   REALTIME
+========================================================= */
 
 function subscribeToMessages(){
 
-    if(realtimeChannel){
+if(realtimeChannel){
 
-        supabaseClient
-        .removeChannel(
-            realtimeChannel
-        );
+supabaseClient.removeChannel(
+realtimeChannel
+);
 
-    }
+}
 
+realtimeChannel=
+supabaseClient
+.channel(
+"chat-"+
+currentConversation.id+
+"-"+
+Date.now()
+)
+.on(
+"postgres_changes",
+{
 
-    realtimeChannel =
-        supabaseClient
-        .channel(
-            "chat-" +
-            currentConversation.id +
-            "-" +
-            Date.now()
-        )
-        .on(
-            "postgres_changes",
-            {
-                event:"INSERT",
-                schema:"public",
-                table:"messages",
-                filter:
-                    "conversation_id=eq." +
-                    currentConversation.id
-            },
-            payload=>{
+event:"INSERT",
 
-                renderMessage(
-                    payload.new
-                );
+schema:"public",
 
-                scrollMessages();
+table:"messages",
 
-            }
-        )
-        .on(
-            "postgres_changes",
-            {
-                event:"UPDATE",
-                schema:"public",
-                table:"messages",
-                filter:
-                    "conversation_id=eq." +
-                    currentConversation.id
-            },
-            payload=>{
+filter:
+"conversation_id=eq."+
+currentConversation.id
 
-                const old =
-                    document.querySelector(
-                        `[data-message-id="${payload.new.id}"]`
-                    );
+},
+payload=>{
 
+renderMessage(
+payload.new
+);
 
-                if(old){
+scrollMessages();
 
-                    old.remove();
+}
+)
+.on(
+"postgres_changes",
+{
 
-                }
+event:"UPDATE",
 
+schema:"public",
 
-                renderMessage(
-                    payload.new
-                );
+table:"messages",
 
-            }
-        )
-        .subscribe();
+filter:
+"conversation_id=eq."+
+currentConversation.id
+
+},
+payload=>{
+
+const old=
+document.querySelector(
+`[data-message-id="${payload.new.id}"]`
+);
+
+if(old){
+
+old.remove();
+
+}
+
+renderMessage(
+payload.new
+);
+
+}
+)
+.subscribe();
 
 }
 
 
-/* NEW CHAT */
+/* =========================================================
+   NEW CHAT
+========================================================= */
 
 function openNewChat(){
 
-    document.getElementById(
-        "newChatModal"
-    ).classList.add(
-        "show"
-    );
+document.getElementById(
+"newChatModal"
+).classList.add("show");
 
+document.getElementById(
+"userSearch"
+).value="";
 
-    document.getElementById(
-        "userSearch"
-    ).value = "";
-
-
-    document.getElementById(
-        "userResults"
-    ).innerHTML =
-        `
-        <div class="empty">
-            Gib einen Benutzernamen ein.
-        </div>
-        `;
+document.getElementById(
+"userResults"
+).innerHTML=
+`
+<div class="empty">
+Gib einen Benutzernamen ein.
+</div>
+`;
 
 }
 
 
 function closeNewChat(){
 
-    document.getElementById(
-        "newChatModal"
-    ).classList.remove(
-        "show"
-    );
+document.getElementById(
+"newChatModal"
+).classList.remove(
+"show"
+);
 
 }
 
 
 async function searchUsers(){
 
-    const query =
-        document.getElementById(
-            "userSearch"
-        ).value.trim();
+const query=
+document.getElementById(
+"userSearch"
+).value.trim();
 
+const results=
+document.getElementById(
+"userResults"
+);
 
-    const results =
-        document.getElementById(
-            "userResults"
-        );
+if(query.length<2){
 
+results.innerHTML=
+`
+<div class="empty">
+Mindestens 2 Zeichen eingeben.
+</div>
+`;
 
-    if(query.length < 2){
+return;
 
-        results.innerHTML =
-        `
-        <div class="empty">
-            Mindestens 2 Zeichen eingeben.
-        </div>
-        `;
+}
 
-        return;
+const result=
+await supabaseClient
+.from("profiles")
+.select(
+"id,username,last_seen"
+)
+.ilike(
+"username",
+"%"+query+"%"
+)
+.neq(
+"id",
+currentUser.id
+)
+.limit(20);
 
-    }
+if(result.error){
 
+results.innerHTML=
+`
+<div class="empty">
+${escapeHTML(
+result.error.message
+)}
+</div>
+`;
 
-    const result =
-        await supabaseClient
-        .from("profiles")
-        .select(
-            "id,username,last_seen"
-        )
-        .ilike(
-            "username",
-            "%" + query + "%"
-        )
-        .neq(
-            "id",
-            currentUser.id
-        )
-        .limit(20);
+return;
 
+}
 
-    if(result.error){
+if(!result.data.length){
 
-        results.innerHTML =
-        `
-        <div class="empty">
-            ${escapeHTML(
-                result.error.message
-            )}
-        </div>
-        `;
+results.innerHTML=
+`
+<div class="empty">
+Kein Benutzer gefunden.
+</div>
+`;
 
-        return;
+return;
 
-    }
+}
 
+results.innerHTML="";
 
-    if(!result.data.length){
+result.data.forEach(
+user=>{
 
-        results.innerHTML =
-        `
-        <div class="empty">
-            Kein Benutzer gefunden.
-        </div>
-        `;
+const row=
+document.createElement("div");
 
-        return;
+row.className="user";
 
-    }
+const avatar=
+document.createElement("div");
 
+avatar.className="avatar";
 
-    results.innerHTML = "";
+avatar.textContent=
+user.username
+.substring(0,2)
+.toUpperCase();
 
+const info=
+document.createElement("div");
 
-    result.data.forEach(
-        user=>{
+info.className="userInfo";
 
-            const row =
-                document.createElement(
-                    "div"
-                );
+info.innerHTML=
+`
+<div class="userName">
+${escapeHTML(
+user.username
+)}
+</div>
 
-            row.className =
-                "user";
+<div class="rowSub">
+${
+isOnline(user.last_seen)
+?"🟢 Online"
+:"Offline"
+}
+</div>
+`;
 
+const button=
+document.createElement("button");
 
-            const avatar =
-                document.createElement(
-                    "div"
-                );
+button.textContent="Chat";
 
-            avatar.className =
-                "avatar";
+button.onclick=
+()=>createConversation(user);
 
-            avatar.textContent =
-                user.username
-                .substring(0,2)
-                .toUpperCase();
+row.appendChild(avatar);
 
+row.appendChild(info);
 
-            const info =
-                document.createElement(
-                    "div"
-                );
+row.appendChild(button);
 
-            info.className =
-                "userInfo";
+results.appendChild(row);
 
-
-            info.innerHTML =
-            `
-            <div class="userName">
-                ${escapeHTML(
-                    user.username
-                )}
-            </div>
-
-            <div class="rowSub">
-                ${
-                    isOnline(
-                        user.last_seen
-                    )
-                    ? "🟢 Online"
-                    : "Offline"
-                }
-            </div>
-            `;
-
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-            button.textContent =
-                "Chat";
-
-
-            button.onclick =
-                ()=>createConversation(
-                    user
-                );
-
-
-            row.appendChild(
-                avatar
-            );
-
-            row.appendChild(
-                info
-            );
-
-            row.appendChild(
-                button
-            );
-
-
-            results.appendChild(
-                row
-            );
-
-        }
-    );
+}
+);
 
 }
 
 
-/* CREATE CHAT */
+/* =========================================================
+   CREATE CHAT
+========================================================= */
 
-async function createConversation(
-    user
-){
+async function createConversation(user){
 
-    const result =
-        await supabaseClient.rpc(
-            "create_private_conversation",
-            {
-                other_user_id:
-                    user.id
-            }
-        );
+const result=
+await supabaseClient.rpc(
+"create_private_conversation",
+{
+other_user_id:user.id
+}
+);
 
+if(result.error){
 
-    if(result.error){
+alert(
+result.error.message
+);
 
-        alert(
-            result.error.message
-        );
+return;
 
-        return;
+}
 
-    }
-
-
-    closeNewChat();
+closeNewChat();
 
 
-    await loadConversations();
+/*
+   Falls der Chat vorher gelöscht wurde,
+   wieder sichtbar machen.
+*/
 
+unhideChat(
+result.data
+);
 
-    await openConversationById(
-        result.data,
-        user.username,
-        user.last_seen
-    );
+await loadConversations();
+
+await openConversationById(
+result.data,
+user.username,
+user.last_seen
+);
 
 }
 
 
-/* NAVIGATION */
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 function showScreen(id){
 
-    document
-        .querySelectorAll(
-            ".screen"
-        )
-        .forEach(
-            x =>
-                x.classList.remove(
-                    "active"
-                )
-        );
+document.querySelectorAll(
+".screen"
+)
+.forEach(
+x=>
+x.classList.remove(
+"active"
+)
+);
 
-
-    document
-        .getElementById(id)
-        .classList.add(
-            "active"
-        );
+document.getElementById(
+id
+).classList.add(
+"active"
+);
 
 }
 
 
 function showHome(){
 
-    if(realtimeChannel){
+if(realtimeChannel){
 
-        supabaseClient
-        .removeChannel(
-            realtimeChannel
-        );
+supabaseClient.removeChannel(
+realtimeChannel
+);
 
-        realtimeChannel =
-            null;
+realtimeChannel=null;
 
-    }
+}
 
+closeMessageActions();
 
-    closeMessageActions();
+cancelChatSelection();
 
-    showScreen(
-        "homeScreen"
-    );
+showScreen(
+"homeScreen"
+);
 
+if(currentUser){
 
-    if(currentUser){
+loadConversations();
 
-        loadConversations();
-
-    }
+}
 
 }
 
 
 function showProfile(){
 
-    showScreen(
-        "profileScreen"
-    );
+showScreen(
+"profileScreen"
+);
 
-    loadProfile();
+loadProfile();
 
 }
 
 
 function showSettings(){
 
-    showScreen(
-        "settingsScreen"
-    );
+showScreen(
+"settingsScreen"
+);
 
 }
 
 
-/* LOGOUT */
+/* =========================================================
+   LOGOUT
+========================================================= */
 
 async function logout(){
 
-    if(realtimeChannel){
+if(realtimeChannel){
 
-        await supabaseClient
-        .removeChannel(
-            realtimeChannel
-        );
+await supabaseClient.removeChannel(
+realtimeChannel
+);
 
-        realtimeChannel =
-            null;
+realtimeChannel=null;
 
-    }
+}
 
+await supabaseClient.auth.signOut();
 
-    await supabaseClient.auth.signOut();
+currentUser=null;
 
+currentConversation=null;
 
-    currentUser =
-        null;
+selectedChatIds.clear();
 
-    currentConversation =
-        null;
+selectedMessageIds.clear();
 
+chatSelectionMode=false;
 
-    cancelChatSelection();
+selectionMessageMode=false;
 
-
-    showScreen(
-        "authScreen"
-    );
+showScreen(
+"authScreen"
+);
 
 }
 
 
-/* SEARCH */
+/* =========================================================
+   SEARCH
+========================================================= */
 
 function filterChats(){
 
-    const query =
-        document.getElementById(
-            "search"
-        ).value.toLowerCase();
+const query=
+document.getElementById(
+"search"
+)
+.value
+.toLowerCase();
 
+document.querySelectorAll(
+".chat"
+)
+.forEach(
+chat=>{
 
-    document
-        .querySelectorAll(
-            "#chatList .chat"
-        )
-        .forEach(
-            chat=>{
+chat.style.display=
+chat.textContent
+.toLowerCase()
+.includes(query)
+?"flex"
+:"none";
 
-                chat.style.display =
-                    chat.textContent
-                    .toLowerCase()
-                    .includes(query)
-                    ? "flex"
-                    : "none";
-
-            }
-        );
+}
+);
 
 }
 
 
-/* KEYBOARD */
+/* =========================================================
+   KEYBOARD
+========================================================= */
 
 function messageKey(event){
 
-    if(
-        event.key === "Enter" &&
-        !event.shiftKey
-    ){
+if(
+event.key==="Enter" &&
+!event.shiftKey
+){
 
-        event.preventDefault();
+event.preventDefault();
 
-        sendMessage();
+sendMessage();
 
-    }
+}
 
 }
 
 
-/* TIME */
+/* =========================================================
+   TIME
+========================================================= */
 
 function formatTime(timestamp){
 
-    return new Date(timestamp)
-        .toLocaleTimeString(
-            "de-DE",
-            {
-                hour:"2-digit",
-                minute:"2-digit"
-            }
-        );
+return new Date(timestamp)
+.toLocaleTimeString(
+"de-DE",
+{
+hour:"2-digit",
+minute:"2-digit"
+}
+);
 
 }
 
 
 function formatChatTime(timestamp){
 
-    if(!timestamp)return "";
+if(!timestamp)return "";
 
-    const date =
-        new Date(timestamp);
+const date=
+new Date(timestamp);
 
-    return date.toLocaleTimeString(
-        "de-DE",
-        {
-            hour:"2-digit",
-            minute:"2-digit"
-        }
-    );
+return date.toLocaleTimeString(
+"de-DE",
+{
+hour:"2-digit",
+minute:"2-digit"
+}
+);
 
 }
 
 
 function formatDuration(seconds){
 
-    seconds =
-        Math.max(
-            0,
-            Math.round(
-                Number(seconds) || 0
-            )
-        );
+seconds=
+Math.max(
+0,
+Math.round(
+Number(seconds)||0
+)
+);
 
+const minutes=
+Math.floor(
+seconds/60
+);
 
-    const minutes =
-        Math.floor(
-            seconds / 60
-        );
+const remaining=
+seconds%60;
 
-
-    const remaining =
-        seconds % 60;
-
-
-    return String(minutes)
-        .padStart(2,"0") +
-        ":" +
-        String(remaining)
-        .padStart(2,"0");
+return String(minutes)
+.padStart(2,"0")+
+":"+
+String(remaining)
+.padStart(2,"0");
 
 }
 
 
-/* ONLINE */
+/* =========================================================
+   ONLINE
+========================================================= */
 
 function isOnline(lastSeen){
 
-    if(!lastSeen)return false;
+if(!lastSeen)
+return false;
 
-
-    return (
-        Date.now() -
-        new Date(
-            lastSeen
-        ).getTime()
-    ) < 120000;
+return(
+Date.now()-
+new Date(lastSeen)
+.getTime()
+)<120000;
 
 }
 
 
-/* DARK */
+/* =========================================================
+   DARK MODE
+========================================================= */
 
 function toggleDark(){
 
-    const enabled =
-        document.getElementById(
-            "darkMode"
-        ).checked;
+const enabled=
+document.getElementById(
+"darkMode"
+).checked;
 
+document.body.classList.toggle(
+"dark",
+enabled
+);
 
-    document.body.classList.toggle(
-        "dark",
-        enabled
-    );
-
-
-    localStorage.setItem(
-        "wavechat_dark",
-        enabled
-        ? "true"
-        : "false"
-    );
+localStorage.setItem(
+"wavechat_dark",
+enabled
+?"true"
+:"false"
+);
 
 }
 
 
 function loadDark(){
 
-    const enabled =
-        localStorage.getItem(
-            "wavechat_dark"
-        ) === "true";
+const enabled=
+localStorage.getItem(
+"wavechat_dark"
+)==="true";
 
+const checkbox=
+document.getElementById(
+"darkMode"
+);
 
-    const checkbox =
-        document.getElementById(
-            "darkMode"
-        );
+if(checkbox)
+checkbox.checked=enabled;
 
-
-    if(checkbox){
-
-        checkbox.checked =
-            enabled;
-
-    }
-
-
-    document.body.classList.toggle(
-        "dark",
-        enabled
-    );
+document.body.classList.toggle(
+"dark",
+enabled
+);
 
 }
 
 
-/* HELPERS */
+/* =========================================================
+   HELPERS
+========================================================= */
 
 function scrollMessages(){
 
-    const box =
-        document.getElementById(
-            "messages"
-        );
+const box=
+document.getElementById(
+"messages"
+);
 
-
-    box.scrollTop =
-        box.scrollHeight;
+box.scrollTop=
+box.scrollHeight;
 
 }
 
 
 function showError(message){
 
-    const box =
-        document.getElementById(
-            "authError"
-        );
+const box=
+document.getElementById(
+"authError"
+);
 
+box.textContent=
+message;
 
-    box.textContent =
-        message;
-
-
-    box.style.display =
-        "block";
+box.style.display=
+"block";
 
 }
 
 
 function hideError(){
 
-    document
-        .getElementById(
-            "authError"
-        )
-        .style.display =
-        "none";
+document.getElementById(
+"authError"
+)
+.style.display=
+"none";
 
 }
 
 
 function escapeHTML(value){
 
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+return String(
+value??""
+)
+.replace(
+/&/g,
+"&amp;"
+)
+.replace(
+/</g,
+"&lt;"
+)
+.replace(
+/>/g,
+"&gt;"
+)
+.replace(
+/"/g,
+"&quot;"
+)
+.replace(
+/'/g,
+"&#039;"
+);
 
 }
 
 
 function escapeAttribute(value){
 
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    );
+return String(
+value??""
+)
+.replace(
+/&/g,
+"&amp;"
+)
+.replace(
+/"/g,
+"&quot;"
+)
+.replace(
+/</g,
+"&lt;"
+)
+.replace(
+/>/g,
+"&gt;"
+);
 
 }
 
