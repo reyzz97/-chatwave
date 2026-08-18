@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#075e54">
 <title>ChatWave</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
@@ -17,17 +17,34 @@ body{
 }
 button,input,textarea{font:inherit}
 button{cursor:pointer}
-.app{height:100dvh;max-width:520px;margin:auto;background:#f0f2f5;overflow:hidden}
-.screen{display:none;height:100%;flex-direction:column}
-.screen.active{display:flex}
+
+.app{
+  height:100dvh;
+  max-width:520px;
+  margin:auto;
+  background:#f0f2f5;
+  overflow:hidden;
+}
+
+.screen{
+  display:none;
+  height:100%;
+  flex-direction:column;
+}
+
+.screen.active{
+  display:flex;
+}
 
 /* LOGIN */
+
 #authScreen{
   align-items:center;
   justify-content:center;
   padding:24px;
   background:linear-gradient(145deg,#075e54,#128c7e);
 }
+
 .authBox{
   width:100%;
   max-width:410px;
@@ -36,8 +53,20 @@ button{cursor:pointer}
   padding:28px;
   box-shadow:0 20px 50px #0005;
 }
-.logo{text-align:center;color:#075e54;font-size:34px;font-weight:800}
-.logoSub{text-align:center;color:#667781;margin:5px 0 25px}
+
+.logo{
+  text-align:center;
+  color:#075e54;
+  font-size:34px;
+  font-weight:800;
+}
+
+.logoSub{
+  text-align:center;
+  color:#667781;
+  margin:5px 0 25px;
+}
+
 .authInput{
   width:100%;
   height:48px;
@@ -47,7 +76,11 @@ button{cursor:pointer}
   margin-bottom:10px;
   outline:0;
 }
-.authInput:focus{border-color:#128c7e}
+
+.authInput:focus{
+  border-color:#128c7e;
+}
+
 .authButton{
   width:100%;
   height:48px;
@@ -57,9 +90,25 @@ button{cursor:pointer}
   color:#fff;
   font-weight:700;
 }
-.authButton:disabled{opacity:.6}
-.authSwitch{text-align:center;margin-top:18px;color:#667781;font-size:14px}
-.authSwitch button{border:0;background:none;color:#075e54;font-weight:700}
+
+.authButton:disabled{
+  opacity:.6;
+}
+
+.authSwitch{
+  text-align:center;
+  margin-top:18px;
+  color:#667781;
+  font-size:14px;
+}
+
+.authSwitch button{
+  border:0;
+  background:none;
+  color:#075e54;
+  font-weight:700;
+}
+
 .error{
   display:none;
   padding:11px;
@@ -71,156 +120,346 @@ button{cursor:pointer}
 }
 
 /* HEADER */
+
 .header{
   background:#075e54;
   color:#fff;
   padding:calc(10px + env(safe-area-inset-top)) 14px 10px;
 }
-.headerRow{display:flex;align-items:center;justify-content:space-between}
-.headerTitle{font-size:24px;font-weight:800}
-.headerButton{
-  width:40px;height:40px;border:0;border-radius:50%;
-  background:transparent;color:white;font-size:22px;
-}
-.search{
-  display:flex;align-items:center;
-  background:#fff;color:#667781;
-  height:42px;border-radius:12px;margin-top:10px;padding:0 12px;
-}
-.search input{border:0;outline:0;flex:1;margin-left:8px}
 
-/* LIST */
-.list{flex:1;overflow:auto;background:#fff}
+.headerRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.headerTitle{
+  font-size:24px;
+  font-weight:800;
+}
+
+.headerButton{
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  color:white;
+  font-size:22px;
+}
+
+.search{
+  display:flex;
+  align-items:center;
+  background:#fff;
+  color:#667781;
+  height:42px;
+  border-radius:12px;
+  margin-top:10px;
+  padding:0 12px;
+}
+
+.search input{
+  border:0;
+  outline:0;
+  flex:1;
+  margin-left:8px;
+}
+
+/* CHAT LIST */
+
+.list{
+  flex:1;
+  overflow:auto;
+  background:#fff;
+}
+
 .chat{
-  display:flex;align-items:center;gap:12px;
-  padding:12px 15px;min-height:76px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 15px;
+  min-height:76px;
   border-bottom:1px solid #edf0f1;
 }
-.chat:active{background:#f0f2f5}
+
+.chat:active{
+  background:#f0f2f5;
+}
+
 .avatar{
-  width:54px;height:54px;min-width:54px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
+  width:54px;
+  height:54px;
+  min-width:54px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   background:linear-gradient(135deg,#25d366,#075e54);
-  color:#fff;font-weight:800;
+  color:#fff;
+  font-weight:800;
 }
-.chatInfo{flex:1;min-width:0}
-.chatName{font-weight:700}
+
+.chatInfo{
+  flex:1;
+  min-width:0;
+}
+
+.chatName{
+  font-weight:700;
+}
+
 .chatPreview{
-  color:#667781;font-size:13px;margin-top:4px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  color:#667781;
+  font-size:13px;
+  margin-top:4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
-.empty{text-align:center;color:#667781;padding:60px 25px;line-height:1.5}
+
+.empty{
+  text-align:center;
+  color:#667781;
+  padding:60px 25px;
+  line-height:1.5;
+}
 
 /* BOTTOM */
+
 .bottom{
-  display:flex;background:#fff;
+  display:flex;
+  background:#fff;
   border-top:1px solid #ddd;
   padding-bottom:env(safe-area-inset-bottom);
 }
+
 .bottom button{
-  flex:1;border:0;background:#fff;color:#667781;
-  padding:8px 2px;font-size:11px;
-}
-.bottom button.active{color:#075e54;font-weight:700}
-.bottom span{display:block;font-size:20px;margin-bottom:3px}
-
-/* CHAT */
-.chatHeader{
-  background:#075e54;color:#fff;
-  display:flex;align-items:center;gap:8px;
-  padding:calc(6px + env(safe-area-inset-top)) 8px 7px;
-}
-.back{
-  width:38px;height:38px;border:0;background:transparent;
-  color:white;font-size:32px;
-}
-.chatTitle{flex:1}
-.chatStatus{font-size:11px;color:#c8f7df}
-.messages{
-  flex:1;overflow:auto;padding:12px 9px;
-  background:#efeae2;
-}
-.message{
-  max-width:82%;padding:7px 9px;margin:5px 0;
-  border-radius:8px;box-shadow:0 1px 1px #0002;
-  word-break:break-word;
-}
-.message.in{background:#fff;margin-right:auto}
-.message.out{background:#d9fdd3;margin-left:auto}
-.messageTime{text-align:right;color:#667781;font-size:9px;margin-top:3px}
-.composer{
-  display:flex;align-items:center;gap:5px;
-  background:#f0f2f5;padding:7px;
-  padding-bottom:calc(7px + env(safe-area-inset-bottom));
-}
-.messageInput{
-  flex:1;min-height:40px;max-height:100px;
-  resize:none;border:0;outline:0;border-radius:20px;
-  padding:10px 14px;background:#fff;
-}
-.send{
-  width:42px;height:42px;border:0;border-radius:50%;
-  background:#075e54;color:white;font-size:18px;
+  flex:1;
+  border:0;
+  background:#fff;
+  color:#667781;
+  padding:8px 2px;
+  font-size:11px;
 }
 
-/* PAGES */
-.page{flex:1;overflow:auto;background:#f5f6f6}
-.pageHeader{
-  background:#075e54;color:#fff;
-  padding:calc(15px + env(safe-area-inset-top)) 15px 15px;
-  font-size:21px;font-weight:700;
+.bottom button.active{
+  color:#075e54;
+  font-weight:700;
 }
-.row{
-  display:flex;align-items:center;gap:13px;
-  min-height:65px;background:#fff;padding:10px 17px;
-  border-bottom:1px solid #edf0f1;
+
+.bottom span{
+  display:block;
+  font-size:20px;
+  margin-bottom:3px;
 }
-.rowIcon{font-size:20px}
-.rowInfo{flex:1}
-.rowTitle{font-size:15px}
-.rowSub{color:#667781;font-size:12px;margin-top:3px}
 
 /* NEW CHAT */
+
+.homeWrap{
+  position:relative;
+  flex:1;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
 .newChatButton{
   position:absolute;
   right:20px;
-  bottom:80px;
-  width:58px;height:58px;
-  border:0;border-radius:50%;
-  background:#25d366;color:white;
+  bottom:18px;
+  width:58px;
+  height:58px;
+  border:0;
+  border-radius:50%;
+  background:#25d366;
+  color:white;
   font-size:28px;
   box-shadow:0 5px 15px #0004;
 }
-.homeWrap{position:relative;flex:1;overflow:hidden;display:flex;flex-direction:column}
+
+/* CHAT */
+
+.chatHeader{
+  background:#075e54;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:calc(6px + env(safe-area-inset-top)) 8px 7px;
+}
+
+.back{
+  width:38px;
+  height:38px;
+  border:0;
+  background:transparent;
+  color:white;
+  font-size:32px;
+}
+
+.chatTitle{
+  flex:1;
+}
+
+.chatStatus{
+  font-size:11px;
+  color:#c8f7df;
+}
+
+.messages{
+  flex:1;
+  overflow:auto;
+  padding:12px 9px;
+  background:#efeae2;
+}
+
+.message{
+  max-width:82%;
+  padding:7px 9px;
+  margin:5px 0;
+  border-radius:8px;
+  box-shadow:0 1px 1px #0002;
+  word-break:break-word;
+}
+
+.message.in{
+  background:#fff;
+  margin-right:auto;
+}
+
+.message.out{
+  background:#d9fdd3;
+  margin-left:auto;
+}
+
+.messageTime{
+  text-align:right;
+  color:#667781;
+  font-size:9px;
+  margin-top:3px;
+}
+
+.composer{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  background:#f0f2f5;
+  padding:7px;
+  padding-bottom:calc(7px + env(safe-area-inset-bottom));
+}
+
+.messageInput{
+  flex:1;
+  min-height:40px;
+  max-height:100px;
+  resize:none;
+  border:0;
+  outline:0;
+  border-radius:20px;
+  padding:10px 14px;
+  background:#fff;
+}
+
+.send{
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:50%;
+  background:#075e54;
+  color:white;
+  font-size:18px;
+}
+
+/* PAGES */
+
+.page{
+  flex:1;
+  overflow:auto;
+  background:#f5f6f6;
+}
+
+.pageHeader{
+  background:#075e54;
+  color:#fff;
+  padding:calc(15px + env(safe-area-inset-top)) 15px 15px;
+  font-size:21px;
+  font-weight:700;
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  min-height:65px;
+  background:#fff;
+  padding:10px 17px;
+  border-bottom:1px solid #edf0f1;
+}
+
+.rowIcon{
+  font-size:20px;
+}
+
+.rowInfo{
+  flex:1;
+}
+
+.rowTitle{
+  font-size:15px;
+}
+
+.rowSub{
+  color:#667781;
+  font-size:12px;
+  margin-top:3px;
+}
 
 /* MODAL */
+
 .modal{
-  position:fixed;inset:0;
+  position:fixed;
+  inset:0;
   background:#0007;
   display:none;
   align-items:flex-end;
   justify-content:center;
   z-index:20;
 }
-.modal.show{display:flex}
+
+.modal.show{
+  display:flex;
+}
+
 .modalBox{
-  width:100%;max-width:520px;
+  width:100%;
+  max-width:520px;
   max-height:85dvh;
   background:#fff;
   border-radius:22px 22px 0 0;
   overflow:hidden;
 }
+
 .modalHeader{
-  display:flex;align-items:center;
+  display:flex;
+  align-items:center;
   justify-content:space-between;
   padding:16px;
   border-bottom:1px solid #eee;
 }
-.modalHeader strong{font-size:19px}
-.close{
-  border:0;background:#f0f2f5;
-  width:36px;height:36px;border-radius:50%;
+
+.modalHeader strong{
+  font-size:19px;
 }
+
+.close{
+  border:0;
+  background:#f0f2f5;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+}
+
 .userSearch{
   margin:12px;
   width:calc(100% - 24px);
@@ -230,37 +469,96 @@ button{cursor:pointer}
   padding:0 13px;
   outline:0;
 }
-.userResults{overflow:auto;max-height:55dvh}
-.user{
-  display:flex;align-items:center;gap:12px;
-  padding:11px 15px;border-bottom:1px solid #eee;
+
+.userResults{
+  overflow:auto;
+  max-height:55dvh;
 }
-.userInfo{flex:1}
-.userName{font-weight:700}
-.userEmail{font-size:12px;color:#667781}
+
+.user{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:11px 15px;
+  border-bottom:1px solid #eee;
+}
+
+.userInfo{
+  flex:1;
+}
+
+.userName{
+  font-weight:700;
+}
+
+.userEmail{
+  font-size:12px;
+  color:#667781;
+}
+
 .user button{
-  border:0;border-radius:10px;
-  background:#075e54;color:white;
+  border:0;
+  border-radius:10px;
+  background:#075e54;
+  color:white;
   padding:8px 12px;
 }
 
-/* DARK */
+/* DARK MODE */
+
 body.dark .app,
 body.dark .list,
 body.dark .bottom,
 body.dark .bottom button,
-body.dark .row{background:#111b21;color:#e9edef}
-body.dark .chat{border-color:#26343b}
+body.dark .row{
+  background:#111b21;
+  color:#e9edef;
+}
+
+body.dark .chat{
+  border-color:#26343b;
+}
+
 body.dark .chatPreview,
-body.dark .rowSub{color:#aebac1}
-body.dark .messages{background:#0b141a}
-body.dark .message.in{background:#202c33;color:white}
-body.dark .message.out{background:#005c4b;color:white}
-body.dark .composer{background:#202c33}
-body.dark .messageInput{background:#111b21;color:white}
-body.dark .modalBox{background:#202c33;color:#e9edef}
-body.dark .user{border-color:#34434b}
-body.dark .userEmail{color:#aebac1}
+body.dark .rowSub{
+  color:#aebac1;
+}
+
+body.dark .messages{
+  background:#0b141a;
+}
+
+body.dark .message.in{
+  background:#202c33;
+  color:white;
+}
+
+body.dark .message.out{
+  background:#005c4b;
+  color:white;
+}
+
+body.dark .composer{
+  background:#202c33;
+}
+
+body.dark .messageInput{
+  background:#111b21;
+  color:white;
+}
+
+body.dark .modalBox{
+  background:#202c33;
+  color:#e9edef;
+}
+
+body.dark .user{
+  border-color:#34434b;
+}
+
+body.dark .userEmail{
+  color:#aebac1;
+}
 </style>
 </head>
 
@@ -268,1983 +566,1829 @@ body.dark .userEmail{color:#aebac1}
 
 <div class="app">
 
-<!-- LOGIN -->
 <section id="authScreen" class="screen active">
-  <div class="authBox">
 
-    <div class="logo">ChatWave</div>
-    <div id="authSubtitle" class="logoSub">
-      Mit deinem Konto anmelden
-    </div>
+<div class="authBox">
 
-    <div id="authError" class="error"></div>
+<div class="logo">
+ChatWave
+</div>
 
-    <input
-      id="username"
-      class="authInput"
-      placeholder="Benutzername"
-      style="display:none">
+<div id="authSubtitle" class="logoSub">
+Mit deinem Konto anmelden
+</div>
 
-    <input
-      id="email"
-      class="authInput"
-      type="email"
-      placeholder="E-Mail-Adresse">
+<div id="authError" class="error"></div>
 
-    <input
-      id="password"
-      class="authInput"
-      type="password"
-      placeholder="Passwort">
+<input
+id="username"
+class="authInput"
+placeholder="Benutzername"
+style="display:none">
 
-    <button id="authButton"
-      class="authButton"
-      onclick="handleAuth()">
-      Anmelden
-    </button>
+<input
+id="email"
+class="authInput"
+type="email"
+placeholder="E-Mail-Adresse">
 
-    <div class="authSwitch">
-      <span id="switchText">Noch kein Konto?</span>
-      <button onclick="toggleAuthMode()">Registrieren</button>
-    </div>
+<input
+id="password"
+class="authInput"
+type="password"
+placeholder="Passwort">
 
-  </div>
+<button
+id="authButton"
+class="authButton"
+onclick="handleAuth()">
+Anmelden
+</button>
+
+<div class="authSwitch">
+
+<span id="switchText">
+Noch kein Konto?
+</span>
+
+<button onclick="toggleAuthMode()">
+Registrieren
+</button>
+
+</div>
+
+</div>
+
 </section>
 
 
-<!-- HOME -->
 <section id="homeScreen" class="screen">
 
-  <header class="header">
+<header class="header">
 
-    <div class="headerRow">
-      <div class="headerTitle">ChatWave</div>
+<div class="headerRow">
 
-      <button
-        class="headerButton"
-        onclick="logout()">
-        ↪
-      </button>
-    </div>
+<div class="headerTitle">
+ChatWave
+</div>
 
-    <div class="search">
-      🔎
-      <input
-        id="search"
-        placeholder="Chats suchen"
-        oninput="filterChats()">
-    </div>
+<button
+class="headerButton"
+onclick="logout()">
+↪
+</button>
 
-  </header>
+</div>
 
-  <div class="homeWrap">
+<div class="search">
 
-    <div id="chatList" class="list">
-      <div class="empty">
-        Deine Chats werden geladen...
-      </div>
-    </div>
+🔎
 
-    <button
-      class="newChatButton"
-      onclick="openNewChat()">
-      ＋
-    </button>
+<input
+id="search"
+placeholder="Chats suchen"
+oninput="filterChats()">
 
-  </div>
+</div>
 
-  <nav class="bottom">
+</header>
 
-    <button class="active" onclick="showHome()">
-      <span>💬</span>
-      Chats
-    </button>
 
-    <button onclick="showProfile()">
-      <span>👤</span>
-      Profil
-    </button>
+<div class="homeWrap">
 
-    <button onclick="showSettings()">
-      <span>⚙️</span>
-      Einstellungen
-    </button>
+<div id="chatList" class="list">
 
-  </nav>
+<div class="empty">
+Deine Chats werden geladen...
+</div>
+
+</div>
+
+<button
+class="newChatButton"
+onclick="openNewChat()">
+＋
+</button>
+
+</div>
+
+
+<nav class="bottom">
+
+<button
+class="active"
+onclick="showHome()">
+
+<span>💬</span>
+Chats
+
+</button>
+
+<button onclick="showProfile()">
+
+<span>👤</span>
+Profil
+
+</button>
+
+<button onclick="showSettings()">
+
+<span>⚙️</span>
+Einstellungen
+
+</button>
+
+</nav>
 
 </section>
 
 
-<!-- CHAT -->
 <section id="chatScreen" class="screen">
 
-  <header class="chatHeader">
+<header class="chatHeader">
 
-    <button
-      class="back"
-      onclick="showHome()">
-      ‹
-    </button>
+<button
+class="back"
+onclick="showHome()">
+‹
+</button>
 
-    <div id="chatAvatar" class="avatar">CW</div>
+<div id="chatAvatar" class="avatar">
+CW
+</div>
 
-    <div class="chatTitle">
-      <div id="chatName">Chat</div>
-      <div id="chatStatus" class="chatStatus">
-        ChatWave
-      </div>
-    </div>
+<div class="chatTitle">
 
-  </header>
+<div id="chatName">
+Chat
+</div>
 
-  <div id="messages" class="messages"></div>
+<div id="chatStatus" class="chatStatus">
+ChatWave
+</div>
 
-  <div class="composer">
+</div>
 
-    <textarea
-      id="messageInput"
-      class="messageInput"
-      rows="1"
-      placeholder="Nachricht"
-      onkeydown="messageKey(event)">
-    </textarea>
+</header>
 
-    <button
-      class="send"
-      onclick="sendMessage()">
-      ➤
-    </button>
+<div id="messages" class="messages"></div>
 
-  </div>
+<div class="composer">
+
+<textarea
+id="messageInput"
+class="messageInput"
+rows="1"
+placeholder="Nachricht"
+onkeydown="messageKey(event)">
+</textarea>
+
+<button
+class="send"
+onclick="sendMessage()">
+➤
+</button>
+
+</div>
 
 </section>
 
 
-<!-- PROFILE -->
 <section id="profileScreen" class="screen">
 
-  <div class="pageHeader">
-    Mein Profil
-  </div>
+<div class="pageHeader">
+Mein Profil
+</div>
 
-  <div class="page">
+<div class="page">
 
-    <div class="row">
+<div class="row">
 
-      <div class="avatar">CW</div>
+<div class="avatar">
+CW
+</div>
 
-      <div class="rowInfo">
+<div class="rowInfo">
 
-        <div
-          id="profileUsername"
-          class="rowTitle">
-          Benutzer
-        </div>
+<div
+id="profileUsername"
+class="rowTitle">
+Benutzer
+</div>
 
-        <div
-          id="profileEmail"
-          class="rowSub">
-          E-Mail
-        </div>
+<div
+id="profileEmail"
+class="rowSub">
+E-Mail
+</div>
 
-      </div>
+</div>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
-  <nav class="bottom">
+<nav class="bottom">
 
-    <button onclick="showHome()">
-      <span>💬</span>
-      Chats
-    </button>
+<button onclick="showHome()">
+<span>💬</span>
+Chats
+</button>
 
-    <button class="active">
-      <span>👤</span>
-      Profil
-    </button>
+<button class="active">
+<span>👤</span>
+Profil
+</button>
 
-    <button onclick="showSettings()">
-      <span>⚙️</span>
-      Einstellungen
-    </button>
+<button onclick="showSettings()">
+<span>⚙️</span>
+Einstellungen
+</button>
 
-  </nav>
+</nav>
 
 </section>
 
 
-<!-- SETTINGS -->
 <section id="settingsScreen" class="screen">
 
-  <div class="pageHeader">
-    Einstellungen
-  </div>
+<div class="pageHeader">
+Einstellungen
+</div>
 
-  <div class="page">
+<div class="page">
 
-    <div class="row">
+<div class="row">
 
-      <div class="rowIcon">🌙</div>
+<div class="rowIcon">
+🌙
+</div>
 
-      <div class="rowInfo">
-        <div class="rowTitle">Dark Mode</div>
-        <div class="rowSub">
-          Erscheinungsbild von ChatWave
-        </div>
-      </div>
+<div class="rowInfo">
 
-      <input
-        id="darkMode"
-        type="checkbox"
-        onchange="toggleDark()">
+<div class="rowTitle">
+Dark Mode
+</div>
 
-    </div>
+<div class="rowSub">
+Erscheinungsbild von ChatWave
+</div>
 
-    <div class="row">
+</div>
 
-      <div class="rowIcon">🔔</div>
+<input
+id="darkMode"
+type="checkbox"
+onchange="toggleDark()">
 
-      <div class="rowInfo">
-        <div class="rowTitle">
-          Benachrichtigungen
-        </div>
-        <div class="rowSub">
-          Neue Nachrichten
-        </div>
-      </div>
+</div>
 
-      <input type="checkbox" checked>
 
-    </div>
+<div class="row">
 
-    <div
-      class="row"
-      onclick="alert('Datenschutz-Einstellungen kommen als Nächstes.')">
+<div class="rowIcon">
+🔔
+</div>
 
-      <div class="rowIcon">🔐</div>
+<div class="rowInfo">
 
-      <div class="rowInfo">
-        <div class="rowTitle">
-          Datenschutz
-        </div>
-        <div class="rowSub">
-          Sicherheit und Privatsphäre
-        </div>
-      </div>
+<div class="rowTitle">
+Benachrichtigungen
+</div>
 
-      ›
-    </div>
+<div class="rowSub">
+Neue Nachrichten
+</div>
 
-    <div
-      class="row"
-      onclick="logout()">
+</div>
 
-      <div class="rowIcon">🚪</div>
+<input
+type="checkbox"
+checked>
 
-      <div class="rowInfo">
-        <div class="rowTitle">
-          Abmelden
-        </div>
-        <div class="rowSub">
-          Von diesem Gerät abmelden
-        </div>
-      </div>
+</div>
 
-    </div>
 
-  </div>
+<div
+class="row"
+onclick="alert('Datenschutz-Einstellungen kommen als Nächstes.')">
 
-  <nav class="bottom">
+<div class="rowIcon">
+🔐
+</div>
 
-    <button onclick="showHome()">
-      <span>💬</span>
-      Chats
-    </button>
+<div class="rowInfo">
 
-    <button onclick="showProfile()">
-      <span>👤</span>
-      Profil
-    </button>
+<div class="rowTitle">
+Datenschutz
+</div>
 
-    <button class="active">
-      <span>⚙️</span>
-      Einstellungen
-    </button>
+<div class="rowSub">
+Sicherheit und Privatsphäre
+</div>
 
-  </nav>
+</div>
+
+›
+
+</div>
+
+
+<div
+class="row"
+onclick="logout()">
+
+<div class="rowIcon">
+🚪
+</div>
+
+<div class="rowInfo">
+
+<div class="rowTitle">
+Abmelden
+</div>
+
+<div class="rowSub">
+Von diesem Gerät abmelden
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<nav class="bottom">
+
+<button onclick="showHome()">
+<span>💬</span>
+Chats
+</button>
+
+<button onclick="showProfile()">
+<span>👤</span>
+Profil
+</button>
+
+<button class="active">
+<span>⚙️</span>
+Einstellungen
+</button>
+
+</nav>
 
 </section>
 
 </div>
 
 
-<!-- NEW CHAT MODAL -->
+<div id="newChatModal" class="modal">
+
+<div class="modalBox">
+
+<div class="modalHeader">
+
+<strong>
+Neuer Chat
+</strong>
+
+<button
+class="close"
+onclick="closeNewChat()">
+✕
+</button>
+
+</div>
+
+<input
+id="userSearch"
+class="userSearch"
+placeholder="Benutzer suchen..."
+oninput="searchUsers()">
 
 <div
-  id="newChatModal"
-  class="modal">
+id="userResults"
+class="userResults">
 
-  <div class="modalBox">
+<div class="empty">
+Gib einen Benutzernamen ein.
+</div>
 
-    <div class="modalHeader">
+</div>
 
-      <strong>Neuer Chat</strong>
-
-      <button
-        class="close"
-        onclick="closeNewChat()">
-        ✕
-      </button>
-
-    </div>
-
-    <input
-      id="userSearch"
-      class="userSearch"
-      placeholder="Benutzer suchen..."
-      oninput="searchUsers()">
-
-    <div
-      id="userResults"
-      class="userResults">
-
-      <div class="empty">
-        Gib einen Benutzernamen ein.
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 </div>
 
 
 <script>
 
-/* =====================================================
-   SUPABASE
-===================================================== */
-
 const SUPABASE_URL =
-  "https://qizrwzprphklnlurqbvj.supabase.co";
+"https://qizrwzprphklnlurqbvj.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_U_iSB9kGfpbrfDkF60fz_Q_woh6jBhk";
+"sb_publishable_U_iSB9kGfpbrfDkF60fz_Q_woh6jBhk";
 
-let supabaseClient = null;
-
-let currentUser = null;
-
-let currentConversation = null;
-
-let realtimeChannel = null;
-
-let registerMode = false;
+let supabaseClient=null;
+let currentUser=null;
+let currentConversation=null;
+let realtimeChannel=null;
+let registerMode=false;
 
 
-/* =====================================================
-   START
-===================================================== */
+/* START */
 
 function startApp(){
 
-  if(
-    typeof window.supabase === "undefined" ||
-    typeof window.supabase.createClient !== "function"
-  ){
+if(
+typeof window.supabase==="undefined" ||
+typeof window.supabase.createClient!=="function"
+){
 
-    showFatalError(
-      "Supabase konnte nicht geladen werden. " +
-      "Bitte prüfe die Internetverbindung."
-    );
+showFatalError(
+"Supabase konnte nicht geladen werden."
+);
 
-    return;
+return;
 
-  }
+}
 
-  supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
+supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
-  initialize();
+initialize();
 
 }
 
 
-/* =====================================================
-   FATAL ERROR
-===================================================== */
+/* FEHLER */
 
 function showFatalError(message){
 
-  document.body.innerHTML = `
-    <div style="
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:#075e54;
-      padding:25px;
-      font-family:Arial;
-    ">
-      <div style="
-        background:white;
-        border-radius:20px;
-        padding:25px;
-        max-width:420px;
-        text-align:center;
-      ">
-        <h2>ChatWave</h2>
-        <p>${escapeHTML(message)}</p>
-        <button
-          onclick="location.reload()"
-          style="
-            background:#075e54;
-            color:white;
-            border:0;
-            border-radius:10px;
-            padding:12px 20px;
-          ">
-          Erneut versuchen
-        </button>
-      </div>
-    </div>
-  `;
+document.body.innerHTML=`
+
+<div style="
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#075e54;
+padding:25px;
+font-family:Arial;
+">
+
+<div style="
+background:white;
+border-radius:20px;
+padding:25px;
+max-width:420px;
+text-align:center;
+">
+
+<h2>ChatWave</h2>
+
+<p>
+${escapeHTML(message)}
+</p>
+
+<button
+onclick="location.reload()"
+style="
+background:#075e54;
+color:white;
+border:0;
+border-radius:10px;
+padding:12px 20px;
+">
+
+Erneut versuchen
+
+</button>
+
+</div>
+
+</div>
+
+`;
 
 }
 
 
-/* =====================================================
-   AUTH
-===================================================== */
+/* LOGIN / REGISTRIERUNG */
 
 function toggleAuthMode(){
 
-  registerMode =
-    !registerMode;
+registerMode=!registerMode;
 
-  document
-    .getElementById("username")
-    .style.display =
-      registerMode
-        ? "block"
-        : "none";
+document
+.getElementById("username")
+.style.display=
+registerMode
+?"block"
+:"none";
 
-  document
-    .getElementById("authButton")
-    .textContent =
-      registerMode
-        ? "Konto erstellen"
-        : "Anmelden";
+document
+.getElementById("authButton")
+.textContent=
+registerMode
+?"Konto erstellen"
+:"Anmelden";
 
-  document
-    .getElementById("authSubtitle")
-    .textContent =
-      registerMode
-        ? "Neues ChatWave-Konto erstellen"
-        : "Mit deinem Konto anmelden";
+document
+.getElementById("authSubtitle")
+.textContent=
+registerMode
+?"Neues ChatWave-Konto erstellen"
+:"Mit deinem Konto anmelden";
 
-  document
-    .getElementById("switchText")
-    .textContent =
-      registerMode
-        ? "Bereits registriert?"
-        : "Noch kein Konto?";
+document
+.getElementById("switchText")
+.textContent=
+registerMode
+?"Bereits registriert?"
+:"Noch kein Konto?";
 
-  document
-    .querySelector(".authSwitch button")
-    .textContent =
-      registerMode
-        ? "Anmelden"
-        : "Registrieren";
+document
+.querySelector(".authSwitch button")
+.textContent=
+registerMode
+?"Anmelden"
+:"Registrieren";
 
-  hideError();
+hideError();
 
 }
 
 
 async function handleAuth(){
 
-  hideError();
+hideError();
 
-  const email =
-    document
-      .getElementById("email")
-      .value
-      .trim();
+const email =
+document
+.getElementById("email")
+.value
+.trim();
 
-  const password =
-    document
-      .getElementById("password")
-      .value;
+const password =
+document
+.getElementById("password")
+.value;
 
-  const username =
-    document
-      .getElementById("username")
-      .value
-      .trim();
+const username =
+document
+.getElementById("username")
+.value
+.trim();
 
-  if(!email || !password){
+if(!email||!password){
 
-    showError(
-      "Bitte E-Mail und Passwort eingeben."
-    );
+showError(
+"Bitte E-Mail und Passwort eingeben."
+);
 
-    return;
+return;
 
-  }
+}
 
-  if(
-    registerMode &&
-    !username
-  ){
+if(registerMode&&!username){
 
-    showError(
-      "Bitte einen Benutzernamen eingeben."
-    );
+showError(
+"Bitte einen Benutzernamen eingeben."
+);
 
-    return;
+return;
 
-  }
+}
 
-  const button =
-    document.getElementById(
-      "authButton"
-    );
+const button =
+document.getElementById("authButton");
 
-  button.disabled = true;
+button.disabled=true;
 
-  button.textContent =
-    "Bitte warten...";
+button.textContent=
+"Bitte warten...";
 
-  try{
+try{
 
-    let result;
+let result;
 
-    if(registerMode){
+if(registerMode){
 
-      result =
-        await supabaseClient
-          .auth
-          .signUp({
-            email,
-            password,
-            options:{
-              data:{
-                username
-              }
-            }
-          });
+result=
+await supabaseClient
+.auth
+.signUp({
 
-    }else{
+email,
+password,
 
-      result =
-        await supabaseClient
-          .auth
-          .signInWithPassword({
-            email,
-            password
-          });
+options:{
+data:{
+username
+}
+}
 
-    }
+});
 
-    if(result.error){
+}else{
 
-      showError(
-        result.error.message
-      );
+result=
+await supabaseClient
+.auth
+.signInWithPassword({
 
-      return;
+email,
+password
 
-    }
+});
 
-    if(
-      registerMode &&
-      !result.data.session
-    ){
+}
 
-      showError(
-        "Registrierung erfolgreich. " +
-        "Bitte bestätige zuerst deine E-Mail-Adresse."
-      );
+if(result.error){
 
-      return;
+showError(
+result.error.message
+);
 
-    }
+return;
 
-    if(result.data.user){
+}
 
-      currentUser =
-        result.data.user;
+if(
+registerMode &&
+!result.data.session
+){
 
-      await loadApplication();
+showError(
+"Registrierung erfolgreich. Bitte bestätige zuerst deine E-Mail-Adresse."
+);
 
-    }
+return;
 
-  }catch(error){
+}
 
-    showError(
-      error.message ||
-      "Unbekannter Fehler."
-    );
+if(result.data.user){
 
-  }finally{
+currentUser=
+result.data.user;
 
-    button.disabled = false;
+await loadApplication();
 
-    button.textContent =
-      registerMode
-        ? "Konto erstellen"
-        : "Anmelden";
+}
 
-  }
+}catch(error){
+
+showError(
+error.message
+);
+
+}finally{
+
+button.disabled=false;
+
+button.textContent=
+registerMode
+?"Konto erstellen"
+:"Anmelden";
+
+}
 
 }
 
 
 function showError(message){
 
-  const box =
-    document.getElementById(
-      "authError"
-    );
+const box=
+document.getElementById(
+"authError"
+);
 
-  box.textContent =
-    message;
+box.textContent=message;
 
-  box.style.display =
-    "block";
+box.style.display="block";
 
 }
 
 
 function hideError(){
 
-  document
-    .getElementById(
-      "authError"
-    )
-    .style.display =
-      "none";
+document
+.getElementById("authError")
+.style.display="none";
 
 }
 
 
-/* =====================================================
-   INITIALIZE
-===================================================== */
+/* INITIALIZE */
 
 async function initialize(){
 
-  try{
+try{
 
-    const result =
-      await supabaseClient
-        .auth
-        .getSession();
+const result=
+await supabaseClient
+.auth
+.getSession();
 
-    if(
-      result.data &&
-      result.data.session
-    ){
+if(
+result.data &&
+result.data.session
+){
 
-      currentUser =
-        result.data.session.user;
+currentUser=
+result.data.session.user;
 
-      await loadApplication();
+await loadApplication();
 
-    }else{
+}else{
 
-      showAuth();
+showAuth();
 
-    }
+}
 
-    supabaseClient
-      .auth
-      .onAuthStateChange(
-        function(event,session){
+supabaseClient
+.auth
+.onAuthStateChange(
+function(event,session){
 
-          if(session){
+if(session){
 
-            currentUser =
-              session.user;
+currentUser=
+session.user;
 
-          }
+}
 
-        }
-      );
+}
+);
 
-  }catch(error){
+}catch(error){
 
-    showError(
-      error.message
-    );
+showError(
+error.message
+);
 
-  }
+}
 
 }
 
 
-/* =====================================================
-   APPLICATION
-===================================================== */
+/* APP */
 
 async function loadApplication(){
 
-  showHome();
+showHome();
 
-  await loadProfile();
+await loadProfile();
 
-  await loadConversations();
+await loadConversations();
 
 }
 
 
 function showAuth(){
 
-  showScreen(
-    "authScreen"
-  );
+showScreen(
+"authScreen"
+);
 
 }
 
 
 function showScreen(id){
 
-  document
-    .querySelectorAll(".screen")
-    .forEach(
-      function(screen){
+document
+.querySelectorAll(".screen")
+.forEach(
+function(screen){
 
-        screen.classList.remove(
-          "active"
-        );
+screen.classList.remove(
+"active"
+);
 
-      }
-    );
+}
+);
 
-  document
-    .getElementById(id)
-    .classList.add(
-      "active"
-    );
+document
+.getElementById(id)
+.classList.add(
+"active"
+);
 
 }
 
 
-/* =====================================================
-   PROFILE
-===================================================== */
+/* PROFIL */
 
 async function loadProfile(){
 
-  if(!currentUser)
-    return;
+if(!currentUser)
+return;
 
-  const result =
-    await supabaseClient
-      .from("profiles")
-      .select("*")
-      .eq(
-        "id",
-        currentUser.id
-      )
-      .maybeSingle();
+const result=
+await supabaseClient
+.from("profiles")
+.select("*")
+.eq(
+"id",
+currentUser.id
+)
+.maybeSingle();
 
-  if(result.error){
+if(result.error){
 
-    console.error(
-      result.error
-    );
+console.error(result.error);
 
-    return;
+return;
 
-  }
+}
 
-  if(result.data){
+if(result.data){
 
-    document
-      .getElementById(
-        "profileUsername"
-      )
-      .textContent =
-        result.data.username ||
-        "Benutzer";
+document
+.getElementById(
+"profileUsername"
+)
+.textContent=
+result.data.username ||
+"Benutzer";
 
-  }
+}
 
-  document
-    .getElementById(
-      "profileEmail"
-    )
-    .textContent =
-      currentUser.email || "";
+document
+.getElementById(
+"profileEmail"
+)
+.textContent=
+currentUser.email||"";
 
 }
 
 
-/* =====================================================
-   SEARCH USERS
-===================================================== */
+/* BENUTZER SUCHEN */
 
 async function searchUsers(){
 
-  const query =
-    document
-      .getElementById(
-        "userSearch"
-      )
-      .value
-      .trim()
-      .toLowerCase();
+const query=
+document
+.getElementById(
+"userSearch"
+)
+.value
+.trim()
+.toLowerCase();
 
-  const results =
-    document.getElementById(
-      "userResults"
-    );
+const results=
+document.getElementById(
+"userResults"
+);
 
-  if(query.length < 2){
+if(query.length<2){
 
-    results.innerHTML =
-      `<div class="empty">
-        Mindestens 2 Zeichen eingeben.
-      </div>`;
+results.innerHTML=
+`<div class="empty">
+Mindestens 2 Zeichen eingeben.
+</div>`;
 
-    return;
+return;
 
-  }
+}
 
-  results.innerHTML =
-    `<div class="empty">
-      Benutzer werden gesucht...
-    </div>`;
+results.innerHTML=
+`<div class="empty">
+Benutzer werden gesucht...
+</div>`;
 
-  const result =
-    await supabaseClient
-      .from("profiles")
-      .select("id,username")
-      .ilike(
-        "username",
-        "%" + query + "%"
-      )
-      .neq(
-        "id",
-        currentUser.id
-      )
-      .limit(30);
+const result=
+await supabaseClient
+.from("profiles")
+.select("id,username")
+.ilike(
+"username",
+"%"+query+"%"
+)
+.neq(
+"id",
+currentUser.id
+)
+.limit(30);
 
-  if(result.error){
+if(result.error){
 
-    results.innerHTML =
-      `<div class="empty">
-        ${escapeHTML(
-          result.error.message
-        )}
-      </div>`;
+results.innerHTML=
+`<div class="empty">
+${escapeHTML(result.error.message)}
+</div>`;
 
-    return;
+return;
 
-  }
+}
 
-  if(!result.data.length){
+if(!result.data.length){
 
-    results.innerHTML =
-      `<div class="empty">
-        Keine Benutzer gefunden.
-      </div>`;
+results.innerHTML=
+`<div class="empty">
+Keine Benutzer gefunden.
+</div>`;
 
-    return;
+return;
 
-  }
+}
 
-  results.innerHTML = "";
+results.innerHTML="";
 
-  result.data.forEach(
-    function(user){
+result.data.forEach(
+function(user){
 
-      const row =
-        document.createElement(
-          "div"
-        );
+const row=
+document.createElement("div");
 
-      row.className =
-        "user";
+row.className="user";
 
-      const avatar =
-        document.createElement(
-          "div"
-        );
+const avatar=
+document.createElement("div");
 
-      avatar.className =
-        "avatar";
+avatar.className="avatar";
 
-      avatar.textContent =
-        (
-          user.username ||
-          "CW"
-        )
-        .substring(0,2)
-        .toUpperCase();
+avatar.textContent=
+(
+user.username||
+"CW"
+)
+.substring(0,2)
+.toUpperCase();
 
-      const info =
-        document.createElement(
-          "div"
-        );
+const info=
+document.createElement("div");
 
-      info.className =
-        "userInfo";
+info.className="userInfo";
 
-      info.innerHTML = `
-        <div class="userName">
-          ${escapeHTML(
-            user.username ||
-            "Benutzer"
-          )}
-        </div>
+const name=
+document.createElement("div");
 
-        <div class="userEmail">
-          ChatWave-Benutzer
-        </div>
-      `;
+name.className="userName";
 
-      const button =
-        document.createElement(
-          "button"
-        );
+name.textContent=
+user.username||
+"Benutzer";
 
-      button.textContent =
-        "Chat";
+const sub=
+document.createElement("div");
 
-      button.onclick =
-        function(){
+sub.className="userEmail";
 
-          createConversation(
-            user
-          );
+sub.textContent=
+"ChatWave-Benutzer";
 
-        };
+info.appendChild(name);
+info.appendChild(sub);
 
-      row.appendChild(
-        avatar
-      );
+const button=
+document.createElement("button");
 
-      row.appendChild(
-        info
-      );
+button.textContent="Chat";
 
-      row.appendChild(
-        button
-      );
+button.onclick=
+function(){
 
-      results.appendChild(
-        row
-      );
+createConversation(user);
 
-    }
-  );
+};
+
+row.appendChild(avatar);
+row.appendChild(info);
+row.appendChild(button);
+
+results.appendChild(row);
+
+}
+);
 
 }
 
 
-/* =====================================================
-   NEW CHAT
-===================================================== */
+/* NEUER CHAT */
 
 function openNewChat(){
 
-  document
-    .getElementById(
-      "newChatModal"
-    )
-    .classList.add(
-      "show"
-    );
+document
+.getElementById(
+"newChatModal"
+)
+.classList.add("show");
 
-  document
-    .getElementById(
-      "userSearch"
-    )
-    .value = "";
+document
+.getElementById(
+"userSearch"
+)
+.value="";
 
-  document
-    .getElementById(
-      "userResults"
-    )
-    .innerHTML =
-      `<div class="empty">
-        Gib einen Benutzernamen ein.
-      </div>`;
+document
+.getElementById(
+"userResults"
+)
+.innerHTML=
+`<div class="empty">
+Gib einen Benutzernamen ein.
+</div>`;
 
 }
 
 
 function closeNewChat(){
 
-  document
-    .getElementById(
-      "newChatModal"
-    )
-    .classList.remove(
-      "show"
-    );
+document
+.getElementById(
+"newChatModal"
+)
+.classList.remove("show");
 
 }
 
 
-/* =====================================================
-   CREATE CONVERSATION
-===================================================== */
+/* CHAT ERSTELLEN */
 
 async function createConversation(user){
 
-  try{
+try{
 
-    /*
-      Prüfen, ob bereits eine private
-      Unterhaltung zwischen beiden
-      Benutzern existiert.
-    */
+const existing=
+await findExistingConversation(
+user.id
+);
 
-    const existing =
-      await findExistingConversation(
-        user.id
-      );
+if(existing){
 
-    if(existing){
+closeNewChat();
 
-      closeNewChat();
+await openConversation(existing);
 
-      await openConversation(
-        existing
-      );
-
-      return;
-
-    }
-
-
-    /*
-      Neue Unterhaltung erstellen.
-    */
-
-    const conversationResult =
-      await supabaseClient
-        .from("conversations")
-        .insert({
-          name:
-            user.username ||
-            "Chat",
-          is_group:false
-        })
-        .select()
-        .single();
-
-    if(conversationResult.error){
-
-      alert(
-        "Unterhaltung konnte nicht erstellt werden:\n\n" +
-        conversationResult.error.message
-      );
-
-      return;
-
-    }
-
-    const conversation =
-      conversationResult.data;
-
-
-    /*
-      Beide Benutzer zur Unterhaltung
-      hinzufügen.
-    */
-
-    const membersResult =
-      await supabaseClient
-        .from("conversation_members")
-        .insert([
-
-          {
-            conversation_id:
-              conversation.id,
-
-            user_id:
-              currentUser.id
-          },
-
-          {
-            conversation_id:
-              conversation.id,
-
-            user_id:
-              user.id
-          }
-
-        ]);
-
-    if(membersResult.error){
-
-      alert(
-        "Mitglieder konnten nicht hinzugefügt werden:\n\n" +
-        membersResult.error.message
-      );
-
-      return;
-
-    }
-
-
-    closeNewChat();
-
-    await loadConversations();
-
-    await openConversation(
-      conversation
-    );
-
-  }catch(error){
-
-    alert(
-      "Fehler:\n\n" +
-      error.message
-    );
-
-  }
+return;
 
 }
 
 
-/* =====================================================
-   FIND EXISTING CONVERSATION
-===================================================== */
+/*
+WICHTIG:
+
+Die Datenbankfunktion erstellt
+beide Mitglieder sicher auf
+der Serverseite.
+*/
+
+const result=
+await supabaseClient.rpc(
+"create_private_conversation",
+{
+other_user_id:user.id
+}
+);
+
+if(result.error){
+
+alert(
+"Unterhaltung konnte nicht erstellt werden:\n\n"+
+result.error.message
+);
+
+return;
+
+}
+
+const conversationId=
+result.data;
+
+closeNewChat();
+
+
+const conversationResult=
+await supabaseClient
+.from("conversations")
+.select("*")
+.eq(
+"id",
+conversationId
+)
+.single();
+
+if(conversationResult.error){
+
+alert(
+"Chat wurde erstellt, konnte aber nicht geladen werden:\n\n"+
+conversationResult.error.message
+);
+
+return;
+
+}
+
+await loadConversations();
+
+await openConversation(
+conversationResult.data
+);
+
+}catch(error){
+
+alert(
+"Fehler:\n\n"+
+error.message
+);
+
+}
+
+}
+
+
+/* VORHANDENEN CHAT SUCHEN */
 
 async function findExistingConversation(
-  otherUserId
+otherUserId
 ){
 
-  const result =
-    await supabaseClient
-      .from("conversation_members")
-      .select(
-        "conversation_id"
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      );
+const result=
+await supabaseClient
+.from("conversation_members")
+.select("conversation_id")
+.eq(
+"user_id",
+currentUser.id
+);
 
-  if(result.error){
+if(result.error){
 
-    console.error(
-      result.error
-    );
+console.error(result.error);
 
-    return null;
+return null;
 
-  }
+}
 
-  const myConversationIds =
-    (
-      result.data ||
-      []
-    )
-    .map(
-      function(row){
-        return row.conversation_id;
-      }
-    );
+const ids=
+(result.data||[])
+.map(
+function(row){
+return row.conversation_id;
+}
+);
 
-  if(!myConversationIds.length)
-    return null;
+if(!ids.length)
+return null;
 
+const other=
+await supabaseClient
+.from("conversation_members")
+.select("conversation_id")
+.eq(
+"user_id",
+otherUserId
+)
+.in(
+"conversation_id",
+ids
+);
 
-  const other =
-    await supabaseClient
-      .from("conversation_members")
-      .select(
-        "conversation_id"
-      )
-      .eq(
-        "user_id",
-        otherUserId
-      )
-      .in(
-        "conversation_id",
-        myConversationIds
-      );
+if(other.error)
+return null;
 
-  if(other.error)
-    return null;
+if(!other.data.length)
+return null;
 
+const id=
+other.data[0].conversation_id;
 
-  if(!other.data.length)
-    return null;
+const conversation=
+await supabaseClient
+.from("conversations")
+.select("*")
+.eq(
+"id",
+id
+)
+.single();
 
+if(conversation.error)
+return null;
 
-  const id =
-    other.data[0].conversation_id;
-
-
-  const conversation =
-    await supabaseClient
-      .from("conversations")
-      .select("*")
-      .eq(
-        "id",
-        id
-      )
-      .single();
-
-
-  if(conversation.error)
-    return null;
-
-
-  return conversation.data;
+return conversation.data;
 
 }
 
 
-/* =====================================================
-   LOAD CONVERSATIONS
-===================================================== */
+/* CHATS LADEN */
 
 async function loadConversations(){
 
-  const list =
-    document.getElementById(
-      "chatList"
-    );
+const list=
+document.getElementById(
+"chatList"
+);
 
-  list.innerHTML =
-    `<div class="empty">
-      Chats werden geladen...
-    </div>`;
+list.innerHTML=
+`<div class="empty">
+Chats werden geladen...
+</div>`;
 
-  if(!currentUser)
-    return;
+if(!currentUser)
+return;
 
+const result=
+await supabaseClient
+.from("conversation_members")
+.select(`
+conversation_id,
+conversations (
+id,
+name,
+is_group
+)
+`)
+.eq(
+"user_id",
+currentUser.id
+);
 
-  const result =
-    await supabaseClient
-      .from("conversation_members")
-      .select(`
-        conversation_id,
-        conversations (
-          id,
-          name,
-          is_group
-        )
-      `)
-      .eq(
-        "user_id",
-        currentUser.id
-      );
+if(result.error){
 
+list.innerHTML=
+`<div class="empty">
+Fehler beim Laden der Chats.<br><br>
+${escapeHTML(result.error.message)}
+</div>`;
 
-  if(result.error){
+return;
 
-    list.innerHTML =
-      `<div class="empty">
-        Fehler beim Laden der Chats.<br><br>
-        ${escapeHTML(
-          result.error.message
-        )}
-      </div>`;
+}
 
-    return;
+const rows=
+result.data||[];
 
-  }
+if(!rows.length){
 
+list.innerHTML=
+`<div class="empty">
 
-  const rows =
-    result.data || [];
+<div style="
+font-size:44px;
+margin-bottom:10px;
+">
+💬
+</div>
 
+<b>Noch keine Chats</b>
 
-  if(!rows.length){
+<br><br>
 
-    list.innerHTML =
-      `<div class="empty">
+Tippe unten rechts auf
+<b>＋</b>,
+um einen ChatWave-Benutzer zu suchen.
 
-        <div style="
-          font-size:44px;
-          margin-bottom:10px;
-        ">
-          💬
-        </div>
+</div>`;
 
-        <b>Noch keine Chats</b>
+return;
 
-        <br><br>
+}
 
-        Tippe unten rechts auf
-        <b>＋</b>, um einen
-        ChatWave-Benutzer zu suchen.
+list.innerHTML="";
 
-      </div>`;
+rows.forEach(
+function(row){
 
-    return;
+const conversation=
+row.conversations;
 
-  }
+if(!conversation)
+return;
 
+const div=
+document.createElement("div");
 
-  list.innerHTML = "";
+div.className="chat";
 
+div.onclick=
+function(){
 
-  rows.forEach(
-    function(row){
+openConversation(
+conversation
+);
 
-      const conversation =
-        row.conversations;
+};
 
-      if(!conversation)
-        return;
+const avatar=
+document.createElement("div");
 
+avatar.className="avatar";
 
-      const div =
-        document.createElement(
-          "div"
-        );
+avatar.textContent=
+(
+conversation.name||
+"CW"
+)
+.substring(0,2)
+.toUpperCase();
 
-      div.className =
-        "chat";
+const info=
+document.createElement("div");
 
-      div.onclick =
-        function(){
+info.className="chatInfo";
 
-          openConversation(
-            conversation
-          );
+const name=
+document.createElement("div");
 
-        };
+name.className="chatName";
 
+name.textContent=
+conversation.name||
+"Chat";
 
-      const avatar =
-        document.createElement(
-          "div"
-        );
+const preview=
+document.createElement("div");
 
-      avatar.className =
-        "avatar";
+preview.className="chatPreview";
 
-      avatar.textContent =
-        (
-          conversation.name ||
-          "CW"
-        )
-        .substring(0,2)
-        .toUpperCase();
+preview.textContent=
+conversation.is_group
+?"Gruppe"
+:"ChatWave-Chat";
 
+info.appendChild(name);
+info.appendChild(preview);
 
-      const info =
-        document.createElement(
-          "div"
-        );
+div.appendChild(avatar);
+div.appendChild(info);
 
-      info.className =
-        "chatInfo";
+list.appendChild(div);
 
-
-      const name =
-        document.createElement(
-          "div"
-        );
-
-      name.className =
-        "chatName";
-
-      name.textContent =
-        conversation.name ||
-        "Chat";
-
-
-      const preview =
-        document.createElement(
-          "div"
-        );
-
-      preview.className =
-        "chatPreview";
-
-      preview.textContent =
-        conversation.is_group
-          ? "Gruppe"
-          : "ChatWave-Chat";
-
-
-      info.appendChild(
-        name
-      );
-
-      info.appendChild(
-        preview
-      );
-
-      div.appendChild(
-        avatar
-      );
-
-      div.appendChild(
-        info
-      );
-
-      list.appendChild(
-        div
-      );
-
-    }
-  );
+}
+);
 
 }
 
 
-/* =====================================================
-   OPEN CONVERSATION
-===================================================== */
+/* CHAT ÖFFNEN */
 
 async function openConversation(
-  conversation
+conversation
 ){
 
-  currentConversation =
-    conversation;
+currentConversation=
+conversation;
 
+document
+.getElementById("chatName")
+.textContent=
+conversation.name||
+"Chat";
 
-  document
-    .getElementById(
-      "chatName"
-    )
-    .textContent =
-      conversation.name ||
-      "Chat";
+document
+.getElementById("chatAvatar")
+.textContent=
+(
+conversation.name||
+"CW"
+)
+.substring(0,2)
+.toUpperCase();
 
+showScreen(
+"chatScreen"
+);
 
-  document
-    .getElementById(
-      "chatAvatar"
-    )
-    .textContent =
-      (
-        conversation.name ||
-        "CW"
-      )
-      .substring(0,2)
-      .toUpperCase();
+await loadMessages();
 
-
-  showScreen(
-    "chatScreen"
-  );
-
-
-  await loadMessages();
-
-  subscribeToMessages();
+subscribeToMessages();
 
 }
 
 
-/* =====================================================
-   LOAD MESSAGES
-===================================================== */
+/* NACHRICHTEN LADEN */
 
 async function loadMessages(){
 
-  const box =
-    document.getElementById(
-      "messages"
-    );
+const box=
+document.getElementById(
+"messages"
+);
 
-  box.innerHTML = "";
+box.innerHTML="";
 
+if(!currentConversation)
+return;
 
-  if(!currentConversation)
-    return;
+const result=
+await supabaseClient
+.from("messages")
+.select("*")
+.eq(
+"conversation_id",
+currentConversation.id
+)
+.order(
+"created_at",
+{
+ascending:true
+}
+);
 
+if(result.error){
 
-  const result =
-    await supabaseClient
-      .from("messages")
-      .select("*")
-      .eq(
-        "conversation_id",
-        currentConversation.id
-      )
-      .order(
-        "created_at",
-        {
-          ascending:true
-        }
-      );
+box.innerHTML=
+`<div class="empty">
+${escapeHTML(result.error.message)}
+</div>`;
 
+return;
 
-  if(result.error){
+}
 
-    box.innerHTML =
-      `<div class="empty">
-        ${escapeHTML(
-          result.error.message
-        )}
-      </div>`;
+(result.data||[])
+.forEach(
+function(message){
 
-    return;
+renderMessage(message);
 
-  }
+}
+);
 
-
-  (
-    result.data ||
-    []
-  )
-  .forEach(
-    function(message){
-
-      renderMessage(
-        message
-      );
-
-    }
-  );
-
-
-  box.scrollTop =
-    box.scrollHeight;
+box.scrollTop=
+box.scrollHeight;
 
 }
 
 
-/* =====================================================
-   RENDER MESSAGE
-===================================================== */
+/* NACHRICHT DARSTELLEN */
 
-function renderMessage(
-  message
-){
+function renderMessage(message){
 
-  const box =
-    document.getElementById(
-      "messages"
-    );
+const box=
+document.getElementById(
+"messages"
+);
 
+if(
+document.querySelector(
+'[data-message-id="'+
+message.id+
+'"]'
+)
+)
+return;
 
-  if(
-    document.querySelector(
-      '[data-message-id="' +
-      message.id +
-      '"]'
-    )
-  )
-    return;
+const div=
+document.createElement("div");
 
+div.className=
+"message "+
+(
+message.sender_id===
+currentUser.id
+?"out"
+:"in"
+);
 
-  const div =
-    document.createElement(
-      "div"
-    );
+div.dataset.messageId=
+message.id;
 
-  div.className =
-    "message " +
-    (
-      message.sender_id ===
-      currentUser.id
-        ? "out"
-        : "in"
-    );
+const text=
+document.createElement("div");
 
-  div.dataset.messageId =
-    message.id;
+text.textContent=
+message.content;
 
+const time=
+document.createElement("div");
 
-  const text =
-    document.createElement(
-      "div"
-    );
+time.className=
+"messageTime";
 
-  text.textContent =
-    message.content;
+time.textContent=
+new Date(
+message.created_at
+)
+.toLocaleTimeString(
+"de-DE",
+{
+hour:"2-digit",
+minute:"2-digit"
+}
+);
 
+div.appendChild(text);
+div.appendChild(time);
 
-  const time =
-    document.createElement(
-      "div"
-    );
-
-  time.className =
-    "messageTime";
-
-  time.textContent =
-    new Date(
-      message.created_at
-    )
-    .toLocaleTimeString(
-      "de-DE",
-      {
-        hour:"2-digit",
-        minute:"2-digit"
-      }
-    );
-
-
-  div.appendChild(
-    text
-  );
-
-  div.appendChild(
-    time
-  );
-
-  box.appendChild(
-    div
-  );
+box.appendChild(div);
 
 }
 
 
-/* =====================================================
-   SEND MESSAGE
-===================================================== */
+/* NACHRICHT SENDEN */
 
 async function sendMessage(){
 
-  if(
-    !currentUser ||
-    !currentConversation
-  )
-    return;
+if(
+!currentUser||
+!currentConversation
+)
+return;
 
+const input=
+document.getElementById(
+"messageInput"
+);
 
-  const input =
-    document.getElementById(
-      "messageInput"
-    );
+const content=
+input.value.trim();
 
+if(!content)
+return;
 
-  const content =
-    input.value.trim();
+input.disabled=true;
 
+const result=
+await supabaseClient
+.from("messages")
+.insert({
 
-  if(!content)
-    return;
+conversation_id:
+currentConversation.id,
 
+sender_id:
+currentUser.id,
 
-  input.disabled = true;
+content
 
+})
+.select()
+.single();
 
-  const result =
-    await supabaseClient
-      .from("messages")
-      .insert({
-        conversation_id:
-          currentConversation.id,
+input.disabled=false;
 
-        sender_id:
-          currentUser.id,
+if(result.error){
 
-        content
-      })
-      .select()
-      .single();
+alert(
+"Nachricht konnte nicht gesendet werden:\n\n"+
+result.error.message
+);
 
+return;
 
-  input.disabled = false;
+}
 
-
-  if(result.error){
-
-    alert(
-      "Nachricht konnte nicht gesendet werden:\n\n" +
-      result.error.message
-    );
-
-    return;
-
-  }
-
-
-  input.value = "";
+input.value="";
 
 }
 
 
-/* =====================================================
-   REALTIME
-===================================================== */
+/* REALTIME */
 
 function subscribeToMessages(){
 
-  if(
-    realtimeChannel &&
-    supabaseClient
-  ){
+if(
+realtimeChannel&&
+supabaseClient
+){
 
-    supabaseClient
-      .removeChannel(
-        realtimeChannel
-      );
+supabaseClient
+.removeChannel(
+realtimeChannel
+);
 
-  }
+}
 
+realtimeChannel=
+supabaseClient
+.channel(
+"chat-"+
+currentConversation.id+
+"-"+
+Date.now()
+)
+.on(
+"postgres_changes",
+{
 
-  realtimeChannel =
-    supabaseClient
-      .channel(
-        "chat-" +
-        currentConversation.id +
-        "-" +
-        Date.now()
-      )
-      .on(
-        "postgres_changes",
-        {
-          event:"INSERT",
-          schema:"public",
-          table:"messages",
-          filter:
-            "conversation_id=eq." +
-            currentConversation.id
-        },
-        function(payload){
+event:"INSERT",
 
-          renderMessage(
-            payload.new
-          );
+schema:"public",
 
+table:"messages",
 
-          const box =
-            document.getElementById(
-              "messages"
-            );
+filter:
+"conversation_id=eq."+
+currentConversation.id
 
-          box.scrollTop =
-            box.scrollHeight;
+},
+function(payload){
 
-        }
-      )
-      .subscribe();
+renderMessage(
+payload.new
+);
+
+const box=
+document.getElementById(
+"messages"
+);
+
+box.scrollTop=
+box.scrollHeight;
+
+}
+)
+.subscribe();
 
 }
 
 
-/* =====================================================
-   NAVIGATION
-===================================================== */
+/* NAVIGATION */
 
 function showHome(){
 
-  if(realtimeChannel){
+if(realtimeChannel){
 
-    supabaseClient
-      .removeChannel(
-        realtimeChannel
-      );
+supabaseClient
+.removeChannel(
+realtimeChannel
+);
 
-    realtimeChannel =
-      null;
+realtimeChannel=null;
 
-  }
+}
 
+showScreen(
+"homeScreen"
+);
 
-  showScreen(
-    "homeScreen"
-  );
-
-
-  if(currentUser)
-    loadConversations();
+if(currentUser)
+loadConversations();
 
 }
 
 
 function showProfile(){
 
-  showScreen(
-    "profileScreen"
-  );
+showScreen(
+"profileScreen"
+);
 
-  loadProfile();
+loadProfile();
 
 }
 
 
 function showSettings(){
 
-  showScreen(
-    "settingsScreen"
-  );
+showScreen(
+"settingsScreen"
+);
 
 }
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
+/* ABMELDEN */
 
 async function logout(){
 
-  if(realtimeChannel){
+if(realtimeChannel){
 
-    await supabaseClient
-      .removeChannel(
-        realtimeChannel
-      );
+await supabaseClient
+.removeChannel(
+realtimeChannel
+);
 
-    realtimeChannel =
-      null;
+realtimeChannel=null;
 
-  }
+}
 
+await supabaseClient
+.auth
+.signOut();
 
-  await supabaseClient
-    .auth
-    .signOut();
+currentUser=null;
+currentConversation=null;
 
-
-  currentUser =
-    null;
-
-  currentConversation =
-    null;
-
-
-  showAuth();
+showAuth();
 
 }
 
 
-/* =====================================================
-   SEARCH CHATS
-===================================================== */
+/* CHAT-SUCHE */
 
 function filterChats(){
 
-  const query =
-    document
-      .getElementById(
-        "search"
-      )
-      .value
-      .toLowerCase();
+const query=
+document
+.getElementById(
+"search"
+)
+.value
+.toLowerCase();
 
+document
+.querySelectorAll(
+".chat"
+)
+.forEach(
+function(chat){
 
-  document
-    .querySelectorAll(
-      ".chat"
-    )
-    .forEach(
-      function(chat){
+chat.style.display=
+chat.textContent
+.toLowerCase()
+.includes(query)
+?"flex"
+:"none";
 
-        chat.style.display =
-          chat.textContent
-            .toLowerCase()
-            .includes(query)
-              ? "flex"
-              : "none";
-
-      }
-    );
+}
+);
 
 }
 
 
-/* =====================================================
-   DARK MODE
-===================================================== */
+/* DARK MODE */
 
 function toggleDark(){
 
-  const enabled =
-    document
-      .getElementById(
-        "darkMode"
-      )
-      .checked;
+const enabled=
+document
+.getElementById(
+"darkMode"
+)
+.checked;
 
+document.body
+.classList.toggle(
+"dark",
+enabled
+);
 
-  document.body
-    .classList.toggle(
-      "dark",
-      enabled
-    );
-
-
-  localStorage.setItem(
-    "chatwave_dark",
-    enabled
-      ? "true"
-      : "false"
-  );
+localStorage.setItem(
+"chatwave_dark",
+enabled
+?"true"
+:"false"
+);
 
 }
 
 
 function loadDarkMode(){
 
-  const enabled =
-    localStorage.getItem(
-      "chatwave_dark"
-    ) === "true";
+const enabled=
+localStorage.getItem(
+"chatwave_dark"
+)==="true";
 
+document
+.getElementById(
+"darkMode"
+)
+.checked=
+enabled;
 
-  document
-    .getElementById(
-      "darkMode"
-    )
-    .checked =
-      enabled;
-
-
-  document.body
-    .classList.toggle(
-      "dark",
-      enabled
-    );
+document.body
+.classList.toggle(
+"dark",
+enabled
+);
 
 }
 
 
-/* =====================================================
-   ENTER SEND
-===================================================== */
+/* ENTER */
 
 function messageKey(event){
 
-  if(
-    event.key === "Enter" &&
-    !event.shiftKey
-  ){
+if(
+event.key==="Enter" &&
+!event.shiftKey
+){
 
-    event.preventDefault();
+event.preventDefault();
 
-    sendMessage();
+sendMessage();
 
-  }
+}
 
 }
 
 
-/* =====================================================
-   ESCAPE
-===================================================== */
+/* HTML SICHER MACHEN */
 
 function escapeHTML(value){
 
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
 
-/* =====================================================
-   START
-===================================================== */
+/* START */
 
 loadDarkMode();
 
