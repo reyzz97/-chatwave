@@ -421,6 +421,8 @@ button{cursor:pointer}
     box-shadow:0 1px 1px rgba(0,0,0,.12);
     word-break:break-word;
     user-select:none;
+    -webkit-user-select:none;
+    touch-action:manipulation;
 }
 
 .message.in{
@@ -435,6 +437,7 @@ button{cursor:pointer}
 
 .message.selected{
     outline:3px solid rgba(0,95,80,.35);
+    transform:scale(.99);
 }
 
 .messageText{
@@ -460,6 +463,7 @@ button{cursor:pointer}
 .deletedMessage{
     color:#667781;
     font-style:italic;
+    padding:3px 2px;
 }
 
 .messageImage{
@@ -581,6 +585,13 @@ button{cursor:pointer}
 
 .messageActions button.danger{
     color:#d32f2f;
+}
+
+.actionHint{
+    text-align:center;
+    color:#667781;
+    font-size:12px;
+    margin-bottom:7px;
 }
 
 /* PAGES */
@@ -799,6 +810,10 @@ body.dark .messageActions button{
     color:#e9edef;
 }
 
+body.dark .actionHint{
+    color:#aebac1;
+}
+
 /* STORY */
 
 .storyViewer{
@@ -835,13 +850,17 @@ body.dark .messageActions button{
 }
 
 @media(min-width:601px){
-    body{
-        display:flex;
-        align-items:center;
-        justify-content:center;
-    }
 
-    .app{height:100vh}
+body{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.app{
+    height:100vh
+}
+
 }
 </style>
 </head>
@@ -915,7 +934,7 @@ onclick="logout()">↪</button>
 🔎
 <input id="search"
 placeholder="Chats suchen"
-oninput="filterChats()">
+oninput="filterChats">
 </div>
 
 </header>
@@ -993,6 +1012,10 @@ WaveChat
 class="messageActions"
 style="display:none">
 
+<div class="actionHint">
+Nachricht ausgewählt
+</div>
+
 <button onclick="deleteSelectedForMe()">
 🗑️ Für mich löschen
 </button>
@@ -1003,7 +1026,7 @@ onclick="deleteSelectedForEveryone()">
 </button>
 
 <button onclick="closeMessageActions()">
-Abbrechen
+✕ Abbrechen
 </button>
 
 </div>
@@ -1207,16 +1230,25 @@ let recordingStarted=0;
 let selectedMessageIds=new Set();
 let selectionMessageMode=false;
 
+let deletedForMeIds=new Set();
+let currentLoadedMessages=[];
+
+let longPressTimer=null;
+let longPressTriggered=false;
+
 
 /* START */
 
-document.addEventListener("DOMContentLoaded",initialize);
+document.addEventListener(
+"DOMContentLoaded",
+initialize
+);
 
 async function initialize(){
 
 loadDark();
 
-const result =
+const result=
 await supabaseClient.auth.getSession();
 
 if(result.data.session){
@@ -1232,7 +1264,9 @@ async(event,session)=>{
 
 if(session){
 
-currentUser=session.user;
+currentUser=session.data
+?session.data.user
+:session.user;
 
 await loadApplication();
 
@@ -1258,7 +1292,9 @@ registerMode
 :"E-Mail oder Benutzername";
 
 document.getElementById("authButton").textContent=
-registerMode?"Konto erstellen":"Anmelden";
+registerMode
+?"Konto erstellen"
+:"Anmelden";
 
 document.getElementById("authSubtitle").textContent=
 registerMode
@@ -1270,8 +1306,12 @@ registerMode
 ?"Bereits registriert?"
 :"Noch kein Konto?";
 
-document.querySelector(".authSwitch button").textContent=
-registerMode?"Anmelden":"Registrieren";
+document.querySelector(
+".authSwitch button"
+).textContent=
+registerMode
+?"Anmelden"
+:"Registrieren";
 
 hideError();
 
@@ -1282,25 +1322,40 @@ async function handleAuth(){
 
 hideError();
 
-const login=document.getElementById("email").value.trim();
-const password=document.getElementById("password").value;
-const username=document.getElementById("username").value.trim();
+const login=
+document.getElementById("email")
+.value.trim();
+
+const password=
+document.getElementById("password")
+.value;
+
+const username=
+document.getElementById("username")
+.value.trim();
 
 if(!login||!password){
 
-showError("Bitte alle erforderlichen Felder ausfüllen.");
+showError(
+"Bitte alle erforderlichen Felder ausfüllen."
+);
+
 return;
 
 }
 
 if(registerMode&&!username){
 
-showError("Bitte einen Benutzernamen eingeben.");
+showError(
+"Bitte einen Benutzernamen eingeben."
+);
+
 return;
 
 }
 
-const button=document.getElementById("authButton");
+const button=
+document.getElementById("authButton");
 
 button.disabled=true;
 
@@ -1310,11 +1365,14 @@ let result;
 
 if(registerMode){
 
-result=await supabaseClient.auth.signUp({
+result=
+await supabaseClient.auth.signUp({
 email:login,
 password:password,
 options:{
-data:{username:username}
+data:{
+username:username
+}
 }
 });
 
@@ -1327,12 +1385,17 @@ if(!login.includes("@")){
 const lookup=
 await supabaseClient.rpc(
 "get_login_email",
-{login_username:login}
+{
+login_username:login
+}
 );
 
 if(lookup.error||!lookup.data){
 
-showError("Benutzername wurde nicht gefunden.");
+showError(
+"Benutzername wurde nicht gefunden."
+);
+
 return;
 
 }
@@ -1405,16 +1468,23 @@ await supabaseClient
 
 if(result.data){
 
-const username=result.data.username||"Benutzer";
+const username=
+result.data.username||"Benutzer";
 
-document.getElementById("profileUsername").textContent=username;
+document.getElementById(
+"profileUsername"
+).textContent=username;
 
-document.getElementById("profileAvatar").textContent=
+document.getElementById(
+"profileAvatar"
+).textContent=
 username.substring(0,2).toUpperCase();
 
 }
 
-document.getElementById("profileEmail").textContent=
+document.getElementById(
+"profileEmail"
+).textContent=
 currentUser.email||"";
 
 }
@@ -1424,16 +1494,27 @@ currentUser.email||"";
 
 async function loadStories(){
 
-const bar=document.getElementById("storyBar");
+const bar=
+document.getElementById("storyBar");
 
 if(!currentUser)return;
 
 const result=
 await supabaseClient
 .from("stories")
-.select("id,user_id,media_url,media_type,created_at,expires_at")
-.gt("expires_at",new Date().toISOString())
-.order("created_at",{ascending:false});
+.select(
+"id,user_id,media_url,media_type,created_at,expires_at"
+)
+.gt(
+"expires_at",
+new Date().toISOString()
+)
+.order(
+"created_at",
+{
+ascending:false
+}
+);
 
 if(result.error)return;
 
@@ -1455,7 +1536,11 @@ own.innerHTML=`
 
 bar.appendChild(own);
 
-const ids=[...new Set(result.data.map(x=>x.user_id))];
+const ids=[
+...new Set(
+result.data.map(x=>x.user_id)
+)
+];
 
 if(!ids.length)return;
 
@@ -1467,18 +1552,23 @@ await supabaseClient
 
 const map={};
 
-(profiles.data||[]).forEach(x=>map[x.id]=x);
+(profiles.data||[])
+.forEach(x=>map[x.id]=x);
 
 result.data.forEach(story=>{
 
-const profile=map[story.user_id];
+const profile=
+map[story.user_id];
 
 if(!profile)return;
 
-const item=document.createElement("div");
+const item=
+document.createElement("div");
 
 item.className="storyItem";
-item.onclick=()=>openStory(story);
+
+item.onclick=
+()=>openStory(story);
 
 item.innerHTML=`
 <div class="storyCircle">
@@ -1498,20 +1588,24 @@ bar.appendChild(item);
 
 function openStoryUpload(){
 
-document.getElementById("storyInput").click();
+document.getElementById(
+"storyInput"
+).click();
 
 }
 
 
 async function uploadStory(event){
 
-const file=event.target.files[0];
+const file=
+event.target.files[0];
 
 event.target.value="";
 
 if(!file||!currentUser)return;
 
-const ext=file.name.split(".").pop();
+const ext=
+file.name.split(".").pop();
 
 const path=
 currentUser.id+
@@ -1523,10 +1617,14 @@ ext;
 const upload=
 await supabaseClient.storage
 .from("stories")
-.upload(path,file,{
+.upload(
+path,
+file,
+{
 upsert:false,
 contentType:file.type
-});
+}
+);
 
 if(upload.error){
 
@@ -1541,8 +1639,10 @@ supabaseClient.storage
 .getPublicUrl(path)
 .data.publicUrl;
 
-const type=file.type.startsWith("video/")
-?"video":"image";
+const type=
+file.type.startsWith("video/")
+?"video"
+:"image";
 
 const insert=
 await supabaseClient
@@ -1567,14 +1667,20 @@ await loadStories();
 
 function openStory(story){
 
-const viewer=document.getElementById("storyViewer");
-const content=document.getElementById("storyContent");
+const viewer=
+document.getElementById("storyViewer");
+
+const content=
+document.getElementById("storyContent");
 
 if(story.media_type==="video"){
 
 content.innerHTML=
-`<video src="${escapeAttribute(story.media_url)}"
-controls autoplay playsinline></video>`;
+`<video
+src="${escapeAttribute(story.media_url)}"
+controls
+autoplay
+playsinline></video>`;
 
 }else{
 
@@ -1590,8 +1696,13 @@ viewer.classList.add("show");
 
 function closeStoryViewer(){
 
-document.getElementById("storyViewer").classList.remove("show");
-document.getElementById("storyContent").innerHTML="";
+document.getElementById(
+"storyViewer"
+).classList.remove("show");
+
+document.getElementById(
+"storyContent"
+).innerHTML="";
 
 }
 
@@ -1600,17 +1711,22 @@ document.getElementById("storyContent").innerHTML="";
 
 async function loadConversations(){
 
-const list=document.getElementById("chatList");
+const list=
+document.getElementById("chatList");
 
 if(!currentUser)return;
 
 const result=
-await supabaseClient.rpc("get_my_chat_list");
+await supabaseClient.rpc(
+"get_my_chat_list"
+);
 
 if(result.error){
 
 list.innerHTML=
-`<div class="empty">${escapeHTML(result.error.message)}</div>`;
+`<div class="empty">
+${escapeHTML(result.error.message)}
+</div>`;
 
 return;
 
@@ -1635,20 +1751,26 @@ return;
 
 list.innerHTML="";
 
-chats.forEach(createChatListItem);
+chats.forEach(
+createChatListItem
+);
 
 }
 
 
 function createChatListItem(chat){
 
-const username=chat.username||"Unbekannter Benutzer";
+const username=
+chat.username||
+"Unbekannter Benutzer";
 
-const div=document.createElement("div");
+const div=
+document.createElement("div");
 
 div.className="chat";
 
-div.dataset.conversationId=chat.conversation_id;
+div.dataset.conversationId=
+chat.conversation_id;
 
 div.onclick=()=>{
 
@@ -1660,11 +1782,14 @@ chat.last_seen
 
 };
 
-const avatarWrap=document.createElement("div");
+const avatarWrap=
+document.createElement("div");
 
-avatarWrap.className="avatarWrap";
+avatarWrap.className=
+"avatarWrap";
 
-const avatar=document.createElement("div");
+const avatar=
+document.createElement("div");
 
 avatar.className="avatar";
 
@@ -1673,35 +1798,45 @@ username.substring(0,2).toUpperCase();
 
 avatarWrap.appendChild(avatar);
 
-const info=document.createElement("div");
+const info=
+document.createElement("div");
 
 info.className="chatInfo";
 
-const top=document.createElement("div");
+const top=
+document.createElement("div");
 
 top.className="chatTop";
 
-const name=document.createElement("div");
+const name=
+document.createElement("div");
 
 name.className="chatName";
+
 name.textContent=username;
 
-const time=document.createElement("div");
+const time=
+document.createElement("div");
 
 time.className="chatTime";
 
 time.textContent=
-formatChatTime(chat.last_message_at);
+formatChatTime(
+chat.last_message_at
+);
 
 top.appendChild(name);
 top.appendChild(time);
 
-const preview=document.createElement("div");
+const preview=
+document.createElement("div");
 
-preview.className="chatPreview";
+preview.className=
+"chatPreview";
 
 preview.textContent=
-chat.last_message||"Keine Nachrichten";
+chat.last_message||
+"Keine Nachrichten";
 
 info.appendChild(top);
 info.appendChild(preview);
@@ -1709,7 +1844,9 @@ info.appendChild(preview);
 div.appendChild(avatarWrap);
 div.appendChild(info);
 
-document.getElementById("chatList").appendChild(div);
+document.getElementById(
+"chatList"
+).appendChild(div);
 
 }
 
@@ -1743,12 +1880,18 @@ username:username,
 last_seen:lastSeen
 };
 
-document.getElementById("chatName").textContent=username;
+document.getElementById(
+"chatName"
+).textContent=username;
 
-document.getElementById("chatAvatar").textContent=
+document.getElementById(
+"chatAvatar"
+).textContent=
 username.substring(0,2).toUpperCase();
 
-document.getElementById("chatStatus").textContent=
+document.getElementById(
+"chatStatus"
+).textContent=
 isOnline(lastSeen)
 ?"🟢 Online"
 :"Zuletzt online";
@@ -1766,27 +1909,80 @@ subscribeToMessages();
 
 async function loadMessages(){
 
-const box=document.getElementById("messages");
+const box=
+document.getElementById("messages");
 
 box.innerHTML="";
+
+deletedForMeIds=new Set();
+currentLoadedMessages=[];
 
 const result=
 await supabaseClient
 .from("messages")
 .select("*")
-.eq("conversation_id",currentConversation.id)
-.order("created_at",{ascending:true});
+.eq(
+"conversation_id",
+currentConversation.id
+)
+.order(
+"created_at",
+{
+ascending:true
+}
+);
 
 if(result.error){
 
 box.innerHTML=
-`<div class="empty">${escapeHTML(result.error.message)}</div>`;
+`<div class="empty">
+${escapeHTML(result.error.message)}
+</div>`;
 
 return;
 
 }
 
-(result.data||[]).forEach(renderMessage);
+const messages=
+result.data||[];
+
+currentLoadedMessages=
+messages;
+
+if(messages.length){
+
+const ids=
+messages.map(x=>x.id);
+
+const deletions=
+await supabaseClient
+.from("message_deletions")
+.select("message_id")
+.eq(
+"user_id",
+currentUser.id
+)
+.in(
+"message_id",
+ids
+);
+
+if(!deletions.error){
+
+(deletions.data||[])
+.forEach(row=>{
+deletedForMeIds.add(
+String(row.message_id)
+);
+});
+
+}
+
+}
+
+messages.forEach(
+renderMessage
+);
 
 scrollMessages();
 
@@ -1801,40 +1997,132 @@ if(document.querySelector(
 `[data-message-id="${message.id}"]`
 ))return;
 
-const div=document.createElement("div");
+const div=
+document.createElement("div");
+
+const isMine=
+message.sender_id===
+currentUser.id;
+
+const deletedForMe=
+deletedForMeIds.has(
+String(message.id)
+);
+
+const deletedForEveryone=
+!!message.deleted_for_everyone_at;
 
 div.className=
 "message "+
-(message.sender_id===currentUser.id?"out":"in");
+(isMine?"out":"in");
 
-div.dataset.messageId=message.id;
+div.dataset.messageId=
+message.id;
 
-div.addEventListener("contextmenu",e=>{
-e.preventDefault();
+
+/* LONG PRESS */
+
+div.addEventListener(
+"pointerdown",
+()=>{
+
+longPressTriggered=false;
+
+clearTimeout(longPressTimer);
+
+longPressTimer=
+setTimeout(()=>{
+
+longPressTriggered=true;
+
 selectMessage(message);
-});
 
-div.addEventListener("click",()=>{
-if(selectionMessageMode)
-toggleMessageSelection(message.id,div);
-});
+},550);
 
-if(message.deleted_for_everyone){
+}
+);
 
-const deleted=document.createElement("div");
+div.addEventListener(
+"pointerup",
+()=>{
 
-deleted.className="deletedMessage";
+clearTimeout(longPressTimer);
 
-deleted.textContent=
-"🚫 Diese Nachricht wurde gelöscht";
+}
+);
 
-div.appendChild(deleted);
+div.addEventListener(
+"pointerleave",
+()=>{
 
-}else if(message.deleted_for_me){
+clearTimeout(longPressTimer);
 
-const deleted=document.createElement("div");
+}
+);
 
-deleted.className="deletedMessage";
+div.addEventListener(
+"pointercancel",
+()=>{
+
+clearTimeout(longPressTimer);
+
+}
+);
+
+
+/* RIGHT CLICK */
+
+div.addEventListener(
+"contextmenu",
+e=>{
+
+e.preventDefault();
+
+selectMessage(message);
+
+}
+);
+
+
+/* NORMAL CLICK */
+
+div.addEventListener(
+"click",
+()=>{
+
+if(longPressTriggered){
+
+longPressTriggered=false;
+
+return;
+
+}
+
+if(selectionMessageMode){
+
+toggleMessageSelection(
+message.id,
+div
+);
+
+}
+
+}
+);
+
+
+/* CONTENT */
+
+if(
+deletedForEveryone||
+deletedForMe
+){
+
+const deleted=
+document.createElement("div");
+
+deleted.className=
+"deletedMessage";
 
 deleted.textContent=
 "🚫 Diese Nachricht wurde gelöscht";
@@ -1845,24 +2133,40 @@ div.appendChild(deleted);
 
 if(message.message_type==="image"){
 
-const img=document.createElement("img");
+const img=
+document.createElement("img");
 
-img.className="messageImage";
-img.src=message.media_url;
+img.className=
+"messageImage";
+
+img.src=
+escapeAttribute(
+message.media_url
+);
 
 div.appendChild(img);
 
-}else if(message.message_type==="audio"){
+}
+else if(
+message.message_type==="audio"
+){
 
-renderAudioMessage(div,message);
+renderAudioMessage(
+div,
+message
+);
 
-}else{
+}
+else{
 
-const text=document.createElement("div");
+const text=
+document.createElement("div");
 
-text.className="messageText";
+text.className=
+"messageText";
 
-text.textContent=message.content||"";
+text.textContent=
+message.content||"";
 
 div.appendChild(text);
 
@@ -1870,24 +2174,39 @@ div.appendChild(text);
 
 }
 
-const time=document.createElement("div");
 
-time.className="messageTime";
+/* TIME */
 
-time.textContent=formatTime(message.created_at);
+const time=
+document.createElement("div");
 
-if(message.sender_id===currentUser.id){
+time.className=
+"messageTime";
 
-const checks=document.createElement("span");
+time.textContent=
+formatTime(
+message.created_at
+);
 
-checks.className="checks";
+if(isMine){
+
+const checks=
+document.createElement("span");
+
+checks.className=
+"checks";
 
 if(message.read_at){
 
 checks.textContent="✓✓";
-checks.classList.add("read");
 
-}else if(message.delivered_at){
+checks.classList.add(
+"read"
+);
+
+}else if(
+message.delivered_at
+){
 
 checks.textContent="✓✓";
 
@@ -1903,56 +2222,82 @@ time.appendChild(checks);
 
 div.appendChild(time);
 
-document.getElementById("messages").appendChild(div);
+document.getElementById(
+"messages"
+).appendChild(div);
 
 }
 
 
 /* AUDIO */
 
-function renderAudioMessage(container,message){
+function renderAudioMessage(
+container,
+message
+){
 
-const wrap=document.createElement("div");
+const wrap=
+document.createElement("div");
 
-wrap.className="audioMessage";
+wrap.className=
+"audioMessage";
 
-const button=document.createElement("button");
+const button=
+document.createElement("button");
 
-button.className="audioPlay";
+button.className=
+"audioPlay";
+
 button.textContent="▶";
 
-const audio=document.createElement("audio");
+const audio=
+document.createElement("audio");
 
-audio.src=message.media_url;
+audio.src=
+message.media_url;
+
 audio.preload="metadata";
+
 audio.style.display="none";
 
-const info=document.createElement("div");
+const info=
+document.createElement("div");
 
-info.className="audioInfo";
+info.className=
+"audioInfo";
 
-const title=document.createElement("div");
+const title=
+document.createElement("div");
 
-title.className="audioTitle";
-title.textContent="Sprachnachricht";
+title.className=
+"audioTitle";
 
-const duration=document.createElement("div");
+title.textContent=
+"Sprachnachricht";
 
-duration.className="audioDuration";
+const duration=
+document.createElement("div");
+
+duration.className=
+"audioDuration";
 
 duration.textContent=
-formatDuration(message.media_duration||0);
+formatDuration(
+message.media_duration||0
+);
 
 button.onclick=()=>{
 
 if(audio.paused){
 
 audio.play();
+
 button.textContent="❚❚";
 
 }else{
 
 audio.pause();
+
 button.textContent="▶";
 
 }
@@ -1979,11 +2324,18 @@ container.appendChild(wrap);
 
 async function sendMessage(){
 
-const input=document.getElementById("messageInput");
+const input=
+document.getElementById(
+"messageInput"
+);
 
-const content=input.value.trim();
+const content=
+input.value.trim();
 
-if(!content||!currentConversation)return;
+if(
+!content||
+!currentConversation
+)return;
 
 input.disabled=true;
 
@@ -1991,11 +2343,21 @@ const result=
 await supabaseClient
 .from("messages")
 .insert({
-conversation_id:currentConversation.id,
-sender_id:currentUser.id,
-content:content,
-message_type:"text",
-delivered_at:new Date().toISOString()
+conversation_id:
+currentConversation.id,
+
+sender_id:
+currentUser.id,
+
+content:
+content,
+
+message_type:
+"text",
+
+delivered_at:
+new Date().toISOString()
+
 })
 .select()
 .single();
@@ -2011,7 +2373,13 @@ return;
 
 input.value="";
 
-renderMessage(result.data);
+currentLoadedMessages.push(
+result.data
+);
+
+renderMessage(
+result.data
+);
 
 scrollMessages();
 
@@ -2024,20 +2392,27 @@ await loadConversations();
 
 function openImagePicker(){
 
-document.getElementById("imageInput").click();
+document.getElementById(
+"imageInput"
+).click();
 
 }
 
 
 async function sendImage(event){
 
-const file=event.target.files[0];
+const file=
+event.target.files[0];
 
 event.target.value="";
 
-if(!file||!currentConversation)return;
+if(
+!file||
+!currentConversation
+)return;
 
-const ext=file.name.split(".").pop();
+const ext=
+file.name.split(".").pop();
 
 const path=
 currentUser.id+
@@ -2049,10 +2424,14 @@ ext;
 const upload=
 await supabaseClient.storage
 .from("chat-media")
-.upload(path,file,{
+.upload(
+path,
+file,
+{
 upsert:false,
 contentType:file.type
-});
+}
+);
 
 if(upload.error){
 
@@ -2071,13 +2450,26 @@ const result=
 await supabaseClient
 .from("messages")
 .insert({
-conversation_id:currentConversation.id,
-sender_id:currentUser.id,
+conversation_id:
+currentConversation.id,
+
+sender_id:
+currentUser.id,
+
 content:"",
-message_type:"image",
-media_url:url,
-file_name:file.name,
-delivered_at:new Date().toISOString()
+
+message_type:
+"image",
+
+media_url:
+url,
+
+file_name:
+file.name,
+
+delivered_at:
+new Date().toISOString()
+
 })
 .select()
 .single();
@@ -2089,7 +2481,13 @@ return;
 
 }
 
-renderMessage(result.data);
+currentLoadedMessages.push(
+result.data
+);
+
+renderMessage(
+result.data
+);
 
 scrollMessages();
 
@@ -2121,45 +2519,65 @@ audioChunks=[];
 mediaRecorder=
 new MediaRecorder(stream);
 
-recordingStarted=Date.now();
+recordingStarted=
+Date.now();
 
 const button=
-document.getElementById("recordButton");
+document.getElementById(
+"recordButton"
+);
 
-button.classList.add("recording");
+button.classList.add(
+"recording"
+);
 
 button.textContent="■";
 
 mediaRecorder.ondataavailable=e=>{
 
-if(e.data.size>0)
+if(e.data.size>0){
+
 audioChunks.push(e.data);
+
+}
 
 };
 
-mediaRecorder.onstop=async()=>{
+mediaRecorder.onstop=
+async()=>{
 
 stream.getTracks().forEach(
 track=>track.stop()
 );
 
 const blob=
-new Blob(audioChunks,{
-type:mediaRecorder.mimeType||"audio/webm"
-});
+new Blob(
+audioChunks,
+{
+type:
+mediaRecorder.mimeType||
+"audio/webm"
+}
+);
 
 const duration=
 Math.round(
-(Date.now()-recordingStarted)/1000
+(Date.now()-
+recordingStarted)/1000
 );
 
 mediaRecorder=null;
 
-button.classList.remove("recording");
+button.classList.remove(
+"recording"
+);
 
 button.textContent="🎤";
 
-await sendAudio(blob,duration);
+await sendAudio(
+blob,
+duration
+);
 
 };
 
@@ -2179,7 +2597,10 @@ error.message
 
 function stopRecording(){
 
-if(mediaRecorder&&mediaRecorder.state!=="inactive"){
+if(
+mediaRecorder&&
+mediaRecorder.state!=="inactive"
+){
 
 mediaRecorder.stop();
 
@@ -2190,12 +2611,20 @@ mediaRecorder.stop();
 
 /* AUDIO SENDEN */
 
-async function sendAudio(blob,duration){
+async function sendAudio(
+blob,
+duration
+){
 
-if(!currentConversation||!currentUser)return;
+if(
+!currentConversation||
+!currentUser
+)return;
 
 const extension=
-blob.type.includes("mp4")?"m4a":"webm";
+blob.type.includes("mp4")
+?"m4a"
+:"webm";
 
 const path=
 currentUser.id+
@@ -2207,10 +2636,15 @@ extension;
 const upload=
 await supabaseClient.storage
 .from("chat-media")
-.upload(path,blob,{
+.upload(
+path,
+blob,
+{
 upsert:false,
-contentType:blob.type
-});
+contentType:
+blob.type
+}
+);
 
 if(upload.error){
 
@@ -2233,22 +2667,32 @@ const result=
 await supabaseClient
 .from("messages")
 .insert({
-conversation_id:currentConversation.id,
-sender_id:currentUser.id,
+
+conversation_id:
+currentConversation.id,
+
+sender_id:
+currentUser.id,
+
 content:"",
-message_type:"audio",
-media_url:url,
 
-/*
-WICHTIG:
-Die Datenbank erwartet INTEGER.
-Deshalb niemals 2.3 speichern.
-*/
-media_duration:Math.round(Number(duration)||0),
+message_type:
+"audio",
 
-file_name:"Sprachnachricht."+extension,
+media_url:
+url,
 
-delivered_at:new Date().toISOString()
+media_duration:
+Math.round(
+Number(duration)||0
+),
+
+file_name:
+"Sprachnachricht."+
+extension,
+
+delivered_at:
+new Date().toISOString()
 
 })
 .select()
@@ -2256,12 +2700,21 @@ delivered_at:new Date().toISOString()
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
 
-renderMessage(result.data);
+currentLoadedMessages.push(
+result.data
+);
+
+renderMessage(
+result.data
+);
 
 scrollMessages();
 
@@ -2276,7 +2729,9 @@ function selectMessage(message){
 
 selectedMessageIds.clear();
 
-selectedMessageIds.add(String(message.id));
+selectedMessageIds.add(
+String(message.id)
+);
 
 selectionMessageMode=true;
 
@@ -2289,25 +2744,36 @@ showMessageActions();
 
 /* MULTI SELECT */
 
-function toggleMessageSelection(id,element){
+function toggleMessageSelection(
+id,
+element
+){
 
 const key=String(id);
 
-if(selectedMessageIds.has(key)){
+if(
+selectedMessageIds.has(key)
+){
 
 selectedMessageIds.delete(key);
 
-element.classList.remove("selected");
+element.classList.remove(
+"selected"
+);
 
 }else{
 
 selectedMessageIds.add(key);
 
-element.classList.add("selected");
+element.classList.add(
+"selected"
+);
 
 }
 
-if(!selectedMessageIds.size){
+if(
+!selectedMessageIds.size
+){
 
 closeMessageActions();
 
@@ -2316,15 +2782,22 @@ return;
 }
 
 updateMessageSelection();
+showMessageActions();
 
 }
 
 
 function updateMessageSelection(){
 
-document.querySelectorAll(".message").forEach(el=>{
+document.querySelectorAll(
+".message"
+)
+.forEach(el=>{
 
-const id=String(el.dataset.messageId);
+const id=
+String(
+el.dataset.messageId
+);
 
 el.classList.toggle(
 "selected",
@@ -2340,23 +2813,45 @@ selectedMessageIds.has(id)
 
 function showMessageActions(){
 
-document.getElementById("messageActions").style.display="block";
+document.getElementById(
+"messageActions"
+).style.display=
+"block";
 
 const button=
-document.getElementById("deleteEveryoneButton");
+document.getElementById(
+"deleteEveryoneButton"
+);
 
 let allowed=false;
 
 selectedMessageIds.forEach(id=>{
 
-const el=
-document.querySelector(
-`[data-message-id="${id}"]`
+const message=
+currentLoadedMessages.find(
+m=>String(m.id)===String(id)
 );
 
-if(!el)return;
+if(!message)return;
 
-if(el.classList.contains("out")){
+if(
+message.sender_id!==
+currentUser.id
+)return;
+
+if(
+message.deleted_for_everyone_at
+)return;
+
+const age=
+Date.now()-
+new Date(
+message.created_at
+).getTime();
+
+if(
+age<=60*60*1000
+){
 
 allowed=true;
 
@@ -2365,7 +2860,9 @@ allowed=true;
 });
 
 button.style.display=
-allowed?"block":"none";
+allowed
+?"block"
+:"none";
 
 }
 
@@ -2376,10 +2873,23 @@ selectedMessageIds.clear();
 
 selectionMessageMode=false;
 
-document.getElementById("messageActions").style.display="none";
+clearTimeout(
+longPressTimer
+);
 
-document.querySelectorAll(".message.selected")
-.forEach(el=>el.classList.remove("selected"));
+document.getElementById(
+"messageActions"
+).style.display=
+"none";
+
+document.querySelectorAll(
+".message.selected"
+)
+.forEach(
+el=>el.classList.remove(
+"selected"
+)
+);
 
 }
 
@@ -2388,26 +2898,46 @@ document.querySelectorAll(".message.selected")
 
 async function deleteSelectedForMe(){
 
-if(!selectedMessageIds.size)return;
+if(
+!selectedMessageIds.size
+)return;
 
-const ids=[...selectedMessageIds].map(Number);
+const ids=
+[...selectedMessageIds]
+.map(Number);
 
-for(const id of ids){
+for(
+const id of ids
+){
 
 const result=
 await supabaseClient
-.from("messages")
-.update({
-deleted_for_me:true
-})
-.eq("id",id);
+.from("message_deletions")
+.upsert(
+{
+message_id:id,
+user_id:currentUser.id
+},
+{
+onConflict:
+"message_id,user_id"
+}
+);
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+"Nachricht konnte nicht gelöscht werden:\n\n"+
+result.error.message
+);
+
 return;
 
 }
+
+deletedForMeIds.add(
+String(id)
+);
 
 }
 
@@ -2422,26 +2952,29 @@ await loadMessages();
 
 async function deleteSelectedForEveryone(){
 
-if(!selectedMessageIds.size)return;
+if(
+!selectedMessageIds.size
+)return;
 
-const ids=[...selectedMessageIds].map(Number);
+const ids=
+[...selectedMessageIds]
+.map(Number);
 
-const messages=
-await supabaseClient
-.from("messages")
-.select("id,sender_id,created_at")
-.in("id",ids);
+for(
+const id of ids
+){
 
-if(messages.error){
+const message=
+currentLoadedMessages.find(
+m=>Number(m.id)===id
+);
 
-alert(messages.error.message);
-return;
+if(!message)continue;
 
-}
-
-for(const message of messages.data){
-
-if(message.sender_id!==currentUser.id){
+if(
+message.sender_id!==
+currentUser.id
+){
 
 alert(
 "Du kannst nur deine eigenen Nachrichten für alle löschen."
@@ -2453,14 +2986,16 @@ continue;
 
 const age=
 Date.now()-
-new Date(message.created_at).getTime();
+new Date(
+message.created_at
+).getTime();
 
-const oneHour=60*60*1000;
-
-if(age>oneHour){
+if(
+age>60*60*1000
+){
 
 alert(
-"Eine Nachricht kann nur innerhalb von 1 Stunde für alle gelöscht werden."
+"Diese Nachricht ist älter als 1 Stunde und kann nicht mehr für alle gelöscht werden."
 );
 
 continue;
@@ -2468,19 +3003,31 @@ continue;
 }
 
 const result=
-await supabaseClient
-.from("messages")
-.update({
-deleted_for_everyone:true,
-deleted_for_everyone_at:new Date().toISOString()
-})
-.eq("id",message.id)
-.eq("sender_id",currentUser.id);
+await supabaseClient.rpc(
+"delete_message_for_everyone",
+{
+p_message_id:id
+}
+);
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+"Nachricht konnte nicht für alle gelöscht werden:\n\n"+
+result.error.message
+);
+
 return;
+
+}
+
+if(
+result.data!==true
+){
+
+alert(
+"Diese Nachricht kann nicht mehr für alle gelöscht werden."
+);
 
 }
 
@@ -2499,13 +3046,20 @@ function subscribeToMessages(){
 
 if(realtimeChannel){
 
-supabaseClient.removeChannel(realtimeChannel);
+supabaseClient.removeChannel(
+realtimeChannel
+);
 
 }
 
 realtimeChannel=
 supabaseClient
-.channel("chat-"+currentConversation.id+"-"+Date.now())
+.channel(
+"chat-"+
+currentConversation.id+
+"-"+
+Date.now()
+)
 .on(
 "postgres_changes",
 {
@@ -2513,13 +3067,29 @@ event:"INSERT",
 schema:"public",
 table:"messages",
 filter:
-"conversation_id=eq."+currentConversation.id
+"conversation_id=eq."+
+currentConversation.id
 },
 payload=>{
 
-renderMessage(payload.new);
+if(
+!currentLoadedMessages.some(
+m=>Number(m.id)===
+Number(payload.new.id)
+)
+){
+
+currentLoadedMessages.push(
+payload.new
+);
+
+renderMessage(
+payload.new
+);
 
 scrollMessages();
+
+}
 
 }
 )
@@ -2530,9 +3100,10 @@ event:"UPDATE",
 schema:"public",
 table:"messages",
 filter:
-"conversation_id=eq."+currentConversation.id
+"conversation_id=eq."+
+currentConversation.id
 },
-payload=>{
+async payload=>{
 
 const old=
 document.querySelector(
@@ -2545,7 +3116,30 @@ old.remove();
 
 }
 
-renderMessage(payload.new);
+const index=
+currentLoadedMessages.findIndex(
+m=>Number(m.id)===
+Number(payload.new.id)
+);
+
+if(index!==-1){
+
+currentLoadedMessages[index]=
+payload.new;
+
+}else{
+
+currentLoadedMessages.push(
+payload.new
+);
+
+}
+
+renderMessage(
+payload.new
+);
+
+scrollMessages();
 
 }
 )
@@ -2558,19 +3152,29 @@ renderMessage(payload.new);
 
 function openNewChat(){
 
-document.getElementById("newChatModal").classList.add("show");
+document.getElementById(
+"newChatModal"
+).classList.add("show");
 
-document.getElementById("userSearch").value="";
+document.getElementById(
+"userSearch"
+).value="";
 
-document.getElementById("userResults").innerHTML=
-`<div class="empty">Gib einen Benutzernamen ein.</div>`;
+document.getElementById(
+"userResults"
+).innerHTML=
+`<div class="empty">
+Gib einen Benutzernamen ein.
+</div>`;
 
 }
 
 
 function closeNewChat(){
 
-document.getElementById("newChatModal").classList.remove("show");
+document.getElementById(
+"newChatModal"
+).classList.remove("show");
 
 }
 
@@ -2578,15 +3182,21 @@ document.getElementById("newChatModal").classList.remove("show");
 async function searchUsers(){
 
 const query=
-document.getElementById("userSearch").value.trim();
+document.getElementById(
+"userSearch"
+).value.trim();
 
 const results=
-document.getElementById("userResults");
+document.getElementById(
+"userResults"
+);
 
 if(query.length<2){
 
 results.innerHTML=
-`<div class="empty">Mindestens 2 Zeichen eingeben.</div>`;
+`<div class="empty">
+Mindestens 2 Zeichen eingeben.
+</div>`;
 
 return;
 
@@ -2595,15 +3205,25 @@ return;
 const result=
 await supabaseClient
 .from("profiles")
-.select("id,username,last_seen")
-.ilike("username","%"+query+"%")
-.neq("id",currentUser.id)
+.select(
+"id,username,last_seen"
+)
+.ilike(
+"username",
+"%"+query+"%"
+)
+.neq(
+"id",
+currentUser.id
+)
 .limit(20);
 
 if(result.error){
 
 results.innerHTML=
-`<div class="empty">${escapeHTML(result.error.message)}</div>`;
+`<div class="empty">
+${escapeHTML(result.error.message)}
+</div>`;
 
 return;
 
@@ -2612,7 +3232,9 @@ return;
 if(!result.data.length){
 
 results.innerHTML=
-`<div class="empty">Kein Benutzer gefunden.</div>`;
+`<div class="empty">
+Kein Benutzer gefunden.
+</div>`;
 
 return;
 
@@ -2622,18 +3244,23 @@ results.innerHTML="";
 
 result.data.forEach(user=>{
 
-const row=document.createElement("div");
+const row=
+document.createElement("div");
 
 row.className="user";
 
-const avatar=document.createElement("div");
+const avatar=
+document.createElement("div");
 
 avatar.className="avatar";
 
 avatar.textContent=
-user.username.substring(0,2).toUpperCase();
+user.username
+.substring(0,2)
+.toUpperCase();
 
-const info=document.createElement("div");
+const info=
+document.createElement("div");
 
 info.className="userInfo";
 
@@ -2642,14 +3269,20 @@ info.innerHTML=
 ${escapeHTML(user.username)}
 </div>
 <div class="rowSub">
-${isOnline(user.last_seen)?"🟢 Online":"Offline"}
+${
+isOnline(user.last_seen)
+?"🟢 Online"
+:"Offline"
+}
 </div>`;
 
-const button=document.createElement("button");
+const button=
+document.createElement("button");
 
 button.textContent="Chat";
 
-button.onclick=()=>createConversation(user);
+button.onclick=
+()=>createConversation(user);
 
 row.appendChild(avatar);
 row.appendChild(info);
@@ -2698,8 +3331,12 @@ user.last_seen
 
 function showScreen(id){
 
-document.querySelectorAll(".screen")
-.forEach(x=>x.classList.remove("active"));
+document.querySelectorAll(
+".screen"
+)
+.forEach(
+x=>x.classList.remove("active")
+);
 
 document.getElementById(id)
 .classList.add("active");
@@ -2711,7 +3348,9 @@ function showHome(){
 
 if(realtimeChannel){
 
-supabaseClient.removeChannel(realtimeChannel);
+supabaseClient.removeChannel(
+realtimeChannel
+);
 
 realtimeChannel=null;
 
@@ -2721,15 +3360,20 @@ closeMessageActions();
 
 showScreen("homeScreen");
 
-if(currentUser)
+if(currentUser){
+
 loadConversations();
+
+}
 
 }
 
 
 function showProfile(){
 
-showScreen("profileScreen");
+showScreen(
+"profileScreen"
+);
 
 loadProfile();
 
@@ -2738,7 +3382,9 @@ loadProfile();
 
 function showSettings(){
 
-showScreen("settingsScreen");
+showScreen(
+"settingsScreen"
+);
 
 }
 
@@ -2763,7 +3409,13 @@ currentUser=null;
 
 currentConversation=null;
 
-showScreen("authScreen");
+currentLoadedMessages=[];
+
+deletedForMeIds=new Set();
+
+showScreen(
+"authScreen"
+);
 
 }
 
@@ -2773,14 +3425,19 @@ showScreen("authScreen");
 function filterChats(){
 
 const query=
-document.getElementById("search")
-.value.toLowerCase();
+document.getElementById(
+"search"
+).value.toLowerCase();
 
-document.querySelectorAll(".chat")
+document.querySelectorAll(
+".chat"
+)
 .forEach(chat=>{
 
 chat.style.display=
-chat.textContent.toLowerCase().includes(query)
+chat.textContent
+.toLowerCase()
+.includes(query)
 ?"flex"
 :"none";
 
@@ -2794,7 +3451,7 @@ chat.textContent.toLowerCase().includes(query)
 function messageKey(event){
 
 if(
-event.key==="Enter" &&
+event.key==="Enter"&&
 !event.shiftKey
 ){
 
@@ -2827,7 +3484,8 @@ function formatChatTime(timestamp){
 
 if(!timestamp)return "";
 
-const date=new Date(timestamp);
+const date=
+new Date(timestamp);
 
 return date.toLocaleTimeString(
 "de-DE",
@@ -2844,16 +3502,24 @@ function formatDuration(seconds){
 
 seconds=Math.max(
 0,
-Math.round(Number(seconds)||0)
+Math.round(
+Number(seconds)||0
+)
 );
 
-const minutes=Math.floor(seconds/60);
+const minutes=
+Math.floor(
+seconds/60
+);
 
-const remaining=seconds%60;
+const remaining=
+seconds%60;
 
-return String(minutes).padStart(2,"0")+
+return String(minutes)
+.padStart(2,"0")+
 ":"+
-String(remaining).padStart(2,"0");
+String(remaining)
+.padStart(2,"0");
 
 }
 
@@ -2877,7 +3543,9 @@ new Date(lastSeen).getTime()
 function toggleDark(){
 
 const enabled=
-document.getElementById("darkMode").checked;
+document.getElementById(
+"darkMode"
+).checked;
 
 document.body.classList.toggle(
 "dark",
@@ -2886,7 +3554,9 @@ enabled
 
 localStorage.setItem(
 "wavechat_dark",
-enabled?"true":"false"
+enabled
+?"true"
+:"false"
 );
 
 }
@@ -2895,10 +3565,14 @@ enabled?"true":"false"
 function loadDark(){
 
 const enabled=
-localStorage.getItem("wavechat_dark")==="true";
+localStorage.getItem(
+"wavechat_dark"
+)==="true";
 
 const checkbox=
-document.getElementById("darkMode");
+document.getElementById(
+"darkMode"
+);
 
 if(checkbox)
 checkbox.checked=enabled;
@@ -2911,14 +3585,28 @@ enabled
 }
 
 
+/* SELECTION BUTTON */
+
+function startSelectionMode(){
+
+alert(
+"Halte eine Nachricht im Chat gedrückt, um sie auszuwählen."
+);
+
+}
+
+
 /* HELPERS */
 
 function scrollMessages(){
 
 const box=
-document.getElementById("messages");
+document.getElementById(
+"messages"
+);
 
-box.scrollTop=box.scrollHeight;
+box.scrollTop=
+box.scrollHeight;
 
 }
 
@@ -2926,18 +3614,23 @@ box.scrollTop=box.scrollHeight;
 function showError(message){
 
 const box=
-document.getElementById("authError");
+document.getElementById(
+"authError"
+);
 
 box.textContent=message;
 
-box.style.display="block";
+box.style.display=
+"block";
 
 }
 
 
 function hideError(){
 
-document.getElementById("authError")
+document.getElementById(
+"authError"
+)
 .style.display="none";
 
 }
