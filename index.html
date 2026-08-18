@@ -2,10 +2,8 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#075e54">
-
 <title>WaveChat</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -20,8 +18,7 @@ html,body{
 }
 
 body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",
-                 Roboto,Arial,sans-serif;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     background:#111b21;
     color:#111;
 }
@@ -55,16 +52,13 @@ button{
     display:flex;
 }
 
-/* =========================
-   LOGIN
-========================= */
+/* LOGIN */
 
 #authScreen{
     align-items:center;
     justify-content:center;
     padding:25px;
-    background:
-        radial-gradient(circle at top,#20bfae,#075e54 55%,#043b36);
+    background:radial-gradient(circle at top,#20bfae,#075e54 55%,#043b36);
 }
 
 .authBox{
@@ -137,16 +131,12 @@ button{
     font-size:13px;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 .header{
     background:#075e54;
     color:white;
-    padding:
-        calc(12px + env(safe-area-inset-top))
-        15px 12px;
+    padding:calc(12px + env(safe-area-inset-top)) 15px 12px;
 }
 
 .headerRow{
@@ -194,9 +184,7 @@ button{
     color:#111;
 }
 
-/* =========================
-   STORY BAR
-========================= */
+/* STORIES */
 
 .storyBar{
     background:#fff;
@@ -252,9 +240,7 @@ button{
     text-overflow:ellipsis;
 }
 
-/* =========================
-   CHAT LIST
-========================= */
+/* CHAT LIST */
 
 .homeWrap{
     position:relative;
@@ -348,20 +334,6 @@ button{
     text-overflow:ellipsis;
 }
 
-.unreadBadge{
-    min-width:21px;
-    height:21px;
-    padding:0 6px;
-    border-radius:11px;
-    background:#25d366;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:11px;
-    font-weight:700;
-}
-
 .newChatButton{
     position:absolute;
     right:20px;
@@ -376,17 +348,13 @@ button{
     box-shadow:0 6px 20px rgba(0,0,0,.25);
 }
 
-/* =========================
-   SELECTION BAR
-========================= */
+/* SELECTION */
 
 .selectionBar{
     display:none;
     align-items:center;
     justify-content:space-between;
-    padding:
-        calc(8px + env(safe-area-inset-top))
-        12px 8px;
+    padding:calc(8px + env(safe-area-inset-top)) 12px 8px;
     background:#075e54;
     color:white;
 }
@@ -408,9 +376,7 @@ button{
     font-size:23px;
 }
 
-/* =========================
-   BOTTOM
-========================= */
+/* BOTTOM */
 
 .bottom{
     display:flex;
@@ -439,17 +405,13 @@ button{
     font-size:21px;
 }
 
-/* =========================
-   CHAT HEADER
-========================= */
+/* CHAT HEADER */
 
 .chatHeader{
     display:flex;
     align-items:center;
     gap:8px;
-    padding:
-        calc(7px + env(safe-area-inset-top))
-        8px 8px;
+    padding:calc(7px + env(safe-area-inset-top)) 8px 8px;
     background:#075e54;
     color:white;
 }
@@ -503,9 +465,7 @@ button{
     font-size:20px;
 }
 
-/* =========================
-   MESSAGES
-========================= */
+/* MESSAGES */
 
 .messages{
     flex:1;
@@ -595,17 +555,14 @@ button{
     font-size:11px;
 }
 
-/* =========================
-   COMPOSER
-========================= */
+/* COMPOSER */
 
 .composer{
     display:flex;
     align-items:flex-end;
     gap:6px;
     padding:7px;
-    padding-bottom:
-        calc(7px + env(safe-area-inset-bottom));
+    padding-bottom:calc(7px + env(safe-area-inset-bottom));
     background:#f0f2f5;
 }
 
@@ -647,9 +604,7 @@ button{
     font-size:19px;
 }
 
-/* =========================
-   PAGES
-========================= */
+/* PAGES */
 
 .page{
     flex:1;
@@ -658,9 +613,7 @@ button{
 }
 
 .pageHeader{
-    padding:
-        calc(15px + env(safe-area-inset-top))
-        15px 15px;
+    padding:calc(15px + env(safe-area-inset-top)) 15px 15px;
     background:#075e54;
     color:white;
     font-size:22px;
@@ -727,9 +680,7 @@ button{
     font-size:12px;
 }
 
-/* =========================
-   MODAL
-========================= */
+/* MODAL */
 
 .modal{
     position:fixed;
@@ -809,9 +760,7 @@ button{
     color:white;
 }
 
-/* =========================
-   STORY VIEWER
-========================= */
+/* STORY VIEWER */
 
 .storyViewer{
     position:fixed;
@@ -848,9 +797,7 @@ button{
     font-size:22px;
 }
 
-/* =========================
-   EMPTY
-========================= */
+/* EMPTY */
 
 .empty{
     padding:60px 25px;
@@ -859,9 +806,7 @@ button{
     line-height:1.5;
 }
 
-/* =========================
-   DARK
-========================= */
+/* DARK */
 
 body.dark .app{
     background:#111b21;
@@ -930,10 +875,6 @@ body.dark .user{
     border-color:#34434b;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
 @media(min-width:601px){
     body{
         display:flex;
@@ -952,9 +893,7 @@ body.dark .user{
 
 <div class="app">
 
-<!-- =====================================================
-     LOGIN
-===================================================== -->
+<!-- LOGIN -->
 
 <section id="authScreen" class="screen active">
 
@@ -1004,9 +943,7 @@ Anmelden
 </section>
 
 
-<!-- =====================================================
-     HOME
-===================================================== -->
+<!-- HOME -->
 
 <section id="homeScreen" class="screen">
 
@@ -1020,15 +957,11 @@ Anmelden
 
 <button
 class="headerButton"
-onclick="startSelectionMode()">
-☑
-</button>
+onclick="startSelectionMode()">☑</button>
 
 <button
 class="headerButton"
-onclick="logout()">
-↪
-</button>
+onclick="logout()">↪</button>
 
 </div>
 </div>
@@ -1043,8 +976,6 @@ oninput="filterChats()">
 
 </header>
 
-
-<!-- STORIES -->
 
 <div id="storyBar" class="storyBar">
 
@@ -1062,8 +993,6 @@ oninput="filterChats()">
 
 </div>
 
-
-<!-- SELECTION -->
 
 <div id="selectionBar" class="selectionBar">
 
@@ -1096,9 +1025,7 @@ Chats werden geladen...
 
 <button
 class="newChatButton"
-onclick="openNewChat()">
-＋
-</button>
+onclick="openNewChat()">＋</button>
 
 </div>
 
@@ -1125,9 +1052,7 @@ Einstellungen
 </section>
 
 
-<!-- =====================================================
-     CHAT
-===================================================== -->
+<!-- CHAT -->
 
 <section id="chatScreen" class="screen">
 
@@ -1151,9 +1076,7 @@ WaveChat
 
 <button
 class="action"
-onclick="openChatMenu()">
-⋮
-</button>
+onclick="openChatMenu()">⋮</button>
 
 </header>
 
@@ -1165,39 +1088,30 @@ onclick="openChatMenu()">
 
 <button
 class="composerButton"
-onclick="openImagePicker()">
-＋
-</button>
+onclick="openImagePicker()">＋</button>
 
 <button
 id="recordButton"
 class="composerButton"
-onclick="toggleRecording()">
-🎤
-</button>
+onclick="toggleRecording()">🎤</button>
 
 <textarea
 id="messageInput"
 class="messageInput"
 rows="1"
 placeholder="Nachricht"
-onkeydown="messageKey(event)">
-</textarea>
+onkeydown="messageKey(event)"></textarea>
 
 <button
 class="send"
-onclick="sendMessage()">
-➤
-</button>
+onclick="sendMessage()">➤</button>
 
 </div>
 
 </section>
 
 
-<!-- =====================================================
-     PROFILE
-===================================================== -->
+<!-- PROFILE -->
 
 <section id="profileScreen" class="screen">
 
@@ -1249,9 +1163,7 @@ Einstellungen
 </section>
 
 
-<!-- =====================================================
-     SETTINGS
-===================================================== -->
+<!-- SETTINGS -->
 
 <section id="settingsScreen" class="screen">
 
@@ -1342,9 +1254,7 @@ Einstellungen
 </div>
 
 
-<!-- =====================================================
-     NEW CHAT MODAL
-===================================================== -->
+<!-- NEW CHAT -->
 
 <div id="newChatModal" class="modal">
 
@@ -1356,9 +1266,7 @@ Einstellungen
 
 <button
 class="close"
-onclick="closeNewChat()">
-✕
-</button>
+onclick="closeNewChat()">✕</button>
 
 </div>
 
@@ -1381,10 +1289,6 @@ Gib einen Benutzernamen ein.
 </div>
 
 
-<!-- =====================================================
-     HIDDEN FILE INPUTS
-===================================================== -->
-
 <input
 id="imageInput"
 type="file"
@@ -1400,17 +1304,11 @@ style="display:none"
 onchange="uploadStory(event)">
 
 
-<!-- =====================================================
-     STORY VIEWER
-===================================================== -->
-
 <div id="storyViewer" class="storyViewer">
 
 <button
 class="storyClose"
-onclick="closeStoryViewer()">
-✕
-</button>
+onclick="closeStoryViewer()">✕</button>
 
 <div id="storyContent"></div>
 
@@ -1440,29 +1338,18 @@ window.supabase.createClient(
    STATE
 ===================================================== */
 
-let currentUser = null;
+let currentUser=null;
+let currentConversation=null;
+let currentOtherUser=null;
+let realtimeChannel=null;
+let registerMode=false;
+let presenceTimer=null;
+let selectionMode=false;
+let selectedChats=new Set();
 
-let currentConversation = null;
-
-let currentOtherUser = null;
-
-let realtimeChannel = null;
-
-let registerMode = false;
-
-let presenceTimer = null;
-
-let selectionMode = false;
-
-let selectedChats = new Set();
-
-let mediaRecorder = null;
-
-let audioChunks = [];
-
-let recordingStarted = 0;
-
-let recordingTimer = null;
+let mediaRecorder=null;
+let audioChunks=[];
+let recordingStarted=0;
 
 
 /* =====================================================
@@ -1471,21 +1358,13 @@ let recordingTimer = null;
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
-
-        loadDark();
-
-        initialize();
-
-    }
+    initialize
 );
 
 
-/* =====================================================
-   INITIALIZE
-===================================================== */
-
 async function initialize(){
+
+    loadDark();
 
     const result =
         await supabaseClient.auth.getSession();
@@ -1500,7 +1379,7 @@ async function initialize(){
     }
 
     supabaseClient.auth.onAuthStateChange(
-        async (event,session) => {
+        async(event,session)=>{
 
             if(session){
 
@@ -1523,8 +1402,7 @@ async function initialize(){
 
 function toggleAuthMode(){
 
-    registerMode =
-        !registerMode;
+    registerMode=!registerMode;
 
     const username =
         document.getElementById("username");
@@ -1542,9 +1420,7 @@ function toggleAuthMode(){
         document.getElementById("switchText");
 
     username.style.display =
-        registerMode
-        ? "block"
-        : "none";
+        registerMode ? "block":"none";
 
     email.placeholder =
         registerMode
@@ -1574,7 +1450,6 @@ function toggleAuthMode(){
         : "Registrieren";
 
     hideError();
-
 }
 
 
@@ -1601,7 +1476,6 @@ async function handleAuth(){
         );
 
         return;
-
     }
 
     if(registerMode && !username){
@@ -1611,13 +1485,12 @@ async function handleAuth(){
         );
 
         return;
-
     }
 
     const button =
         document.getElementById("authButton");
 
-    button.disabled = true;
+    button.disabled=true;
 
     try{
 
@@ -1642,7 +1515,7 @@ async function handleAuth(){
 
         }else{
 
-            let email = login;
+            let email=login;
 
             if(!login.includes("@")){
 
@@ -1664,19 +1537,15 @@ async function handleAuth(){
                     );
 
                     return;
-
                 }
 
-                email =
-                    lookup.data;
-
+                email=lookup.data;
             }
 
             result =
                 await supabaseClient.auth.signInWithPassword({
 
                     email:email,
-
                     password:password
 
                 });
@@ -1690,7 +1559,6 @@ async function handleAuth(){
             );
 
             return;
-
         }
 
         if(
@@ -1704,13 +1572,11 @@ async function handleAuth(){
             );
 
             return;
-
         }
 
         if(result.data.user){
 
-            currentUser =
-                result.data.user;
+            currentUser=result.data.user;
 
             await loadApplication();
 
@@ -1718,13 +1584,11 @@ async function handleAuth(){
 
     }catch(error){
 
-        showError(
-            error.message
-        );
+        showError(error.message);
 
     }finally{
 
-        button.disabled = false;
+        button.disabled=false;
 
     }
 
@@ -1752,19 +1616,15 @@ async function loadApplication(){
 
     presenceTimer =
         setInterval(
-            async () => {
-
-                if(!currentUser)
-                    return;
+            async()=>{
+                if(!currentUser)return;
 
                 await updateLastSeen();
-
                 await loadStories();
 
             },
             60000
         );
-
 }
 
 
@@ -1774,13 +1634,11 @@ async function loadApplication(){
 
 async function updateLastSeen(){
 
-    if(!currentUser)
-        return;
+    if(!currentUser)return;
 
     await supabaseClient.rpc(
         "update_my_last_seen"
     );
-
 }
 
 
@@ -1790,8 +1648,7 @@ async function updateLastSeen(){
 
 async function loadProfile(){
 
-    if(!currentUser)
-        return;
+    if(!currentUser)return;
 
     const result =
         await supabaseClient
@@ -1808,23 +1665,18 @@ async function loadProfile(){
 
         document.getElementById(
             "profileUsername"
-        ).textContent =
-            username;
+        ).textContent=username;
 
         document.getElementById(
             "profileAvatar"
-        ).textContent =
-            username
-            .substring(0,2)
-            .toUpperCase();
-
+        ).textContent=
+            username.substring(0,2).toUpperCase();
     }
 
     document.getElementById(
         "profileEmail"
-    ).textContent =
+    ).textContent=
         currentUser.email || "";
-
 }
 
 
@@ -1835,12 +1687,9 @@ async function loadProfile(){
 async function loadStories(){
 
     const bar =
-        document.getElementById(
-            "storyBar"
-        );
+        document.getElementById("storyBar");
 
-    if(!currentUser)
-        return;
+    if(!currentUser)return;
 
     const result =
         await supabaseClient
@@ -1857,21 +1706,18 @@ async function loadStories(){
             {ascending:false}
         );
 
-    if(result.error)
-        return;
+    if(result.error)return;
 
-    bar.innerHTML = "";
+    bar.innerHTML="";
 
     const own =
         document.createElement("div");
 
-    own.className =
-        "storyItem";
+    own.className="storyItem";
 
-    own.onclick =
-        openStoryUpload;
+    own.onclick=openStoryUpload;
 
-    own.innerHTML = `
+    own.innerHTML=`
         <div class="storyCircle">
             <div class="storyCircleInner">
                 <span class="storyAdd">＋</span>
@@ -1885,12 +1731,11 @@ async function loadStories(){
     const userIds =
         [...new Set(
             result.data.map(
-                s => s.user_id
+                s=>s.user_id
             )
         )];
 
-    if(!userIds.length)
-        return;
+    if(!userIds.length)return;
 
     const profiles =
         await supabaseClient
@@ -1898,46 +1743,41 @@ async function loadStories(){
         .select("id,username")
         .in("id",userIds);
 
-    const profileMap = {};
+    const profileMap={};
 
-    (profiles.data || []).forEach(
-        p => profileMap[p.id] = p
+    (profiles.data||[]).forEach(
+        p=>profileMap[p.id]=p
     );
 
-    result.data.forEach(
-        story => {
+    result.data.forEach(story=>{
 
-            const profile =
-                profileMap[story.user_id];
+        const profile =
+            profileMap[story.user_id];
 
-            if(!profile)
-                return;
+        if(!profile)return;
 
-            const item =
-                document.createElement("div");
+        const item =
+            document.createElement("div");
 
-            item.className =
-                "storyItem";
+        item.className="storyItem";
 
-            item.onclick =
-                () => openStory(story);
+        item.onclick=
+            ()=>openStory(story);
 
-            item.innerHTML = `
-                <div class="storyCircle">
-                    <div class="storyCircleInner">
-                        <img src="${escapeAttribute(story.media_url)}">
-                    </div>
+        item.innerHTML=`
+            <div class="storyCircle">
+                <div class="storyCircleInner">
+                    <img src="${escapeAttribute(story.media_url)}">
                 </div>
-                <div class="storyName">
-                    ${escapeHTML(profile.username)}
-                </div>
-            `;
+            </div>
+            <div class="storyName">
+                ${escapeHTML(profile.username)}
+            </div>
+        `;
 
-            bar.appendChild(item);
+        bar.appendChild(item);
 
-        }
-    );
-
+    });
 }
 
 
@@ -1955,19 +1795,18 @@ async function uploadStory(event){
     const file =
         event.target.files[0];
 
-    event.target.value = "";
+    event.target.value="";
 
-    if(!file || !currentUser)
-        return;
+    if(!file || !currentUser)return;
 
     const extension =
         file.name.split(".").pop();
 
     const path =
-        currentUser.id +
-        "/" +
-        crypto.randomUUID() +
-        "." +
+        currentUser.id+
+        "/"+
+        crypto.randomUUID()+
+        "."+
         extension;
 
     const upload =
@@ -1985,12 +1824,11 @@ async function uploadStory(event){
     if(upload.error){
 
         alert(
-            "Story konnte nicht hochgeladen werden:\n\n" +
+            "Story konnte nicht hochgeladen werden:\n\n"+
             upload.error.message
         );
 
         return;
-
     }
 
     const url =
@@ -2009,61 +1847,49 @@ async function uploadStory(event){
         .from("stories")
         .insert({
 
-            user_id:
-                currentUser.id,
-
-            media_url:
-                url,
-
-            media_type:
-                type
+            user_id:currentUser.id,
+            media_url:url,
+            media_type:type
 
         });
 
     if(insert.error){
 
-        alert(
-            insert.error.message
-        );
-
+        alert(insert.error.message);
         return;
 
     }
 
     await loadStories();
-
 }
 
 
 function openStory(story){
 
     const viewer =
-        document.getElementById(
-            "storyViewer"
-        );
+        document.getElementById("storyViewer");
 
     const content =
-        document.getElementById(
-            "storyContent"
-        );
+        document.getElementById("storyContent");
 
-    if(story.media_type === "video"){
+    if(story.media_type==="video"){
 
-        content.innerHTML =
-            `<video src="${escapeAttribute(story.media_url)}"
-                    controls
-                    autoplay
-                    playsinline></video>`;
+        content.innerHTML=
+        `<video
+            src="${escapeAttribute(story.media_url)}"
+            controls
+            autoplay
+            playsinline>
+        </video>`;
 
     }else{
 
-        content.innerHTML =
-            `<img src="${escapeAttribute(story.media_url)}">`;
+        content.innerHTML=
+        `<img src="${escapeAttribute(story.media_url)}">`;
 
     }
 
     viewer.classList.add("show");
-
 }
 
 
@@ -2075,7 +1901,7 @@ function closeStoryViewer(){
 
     document
         .getElementById("storyContent")
-        .innerHTML = "";
+        .innerHTML="";
 
 }
 
@@ -2089,10 +1915,9 @@ async function loadConversations(){
     const list =
         document.getElementById("chatList");
 
-    if(!currentUser)
-        return;
+    if(!currentUser)return;
 
-    list.innerHTML =
+    list.innerHTML=
         '<div class="empty">Chats werden geladen...</div>';
 
     const result =
@@ -2102,39 +1927,35 @@ async function loadConversations(){
 
     if(result.error){
 
-        list.innerHTML =
-            `<div class="empty">
-                ${escapeHTML(result.error.message)}
-             </div>`;
+        list.innerHTML=
+        `<div class="empty">
+            ${escapeHTML(result.error.message)}
+        </div>`;
 
         return;
-
     }
 
-    const chats =
-        result.data || [];
+    const chats=result.data||[];
 
     if(!chats.length){
 
-        list.innerHTML =
-            `<div class="empty">
-                <div style="font-size:45px">💬</div>
-                <br>
-                <b>Noch keine Chats</b>
-                <br><br>
-                Tippe auf ＋, um einen Benutzer zu suchen.
-             </div>`;
+        list.innerHTML=
+        `<div class="empty">
+            <div style="font-size:45px">💬</div>
+            <br>
+            <b>Noch keine Chats</b>
+            <br><br>
+            Tippe auf ＋, um einen Benutzer zu suchen.
+        </div>`;
 
         return;
-
     }
 
-    list.innerHTML = "";
+    list.innerHTML="";
 
     chats.forEach(
-        chat => createChatListItem(chat)
+        chat=>createChatListItem(chat)
     );
-
 }
 
 
@@ -2150,56 +1971,52 @@ function createChatListItem(chat){
     const div =
         document.createElement("div");
 
-    div.className =
-        "chat";
+    div.className="chat";
 
     div.dataset.conversationId =
         chat.conversation_id;
 
-    if(selectedChats.has(
-        String(chat.conversation_id)
-    )){
+    if(
+        selectedChats.has(
+            String(chat.conversation_id)
+        )
+    ){
         div.classList.add("selected");
     }
 
-    div.onclick =
-        () => {
+    div.onclick=()=>{
 
-            if(selectionMode){
+        if(selectionMode){
 
-                toggleChatSelection(
-                    chat.conversation_id,
-                    div
-                );
+            toggleChatSelection(
+                chat.conversation_id,
+                div
+            );
 
-            }else{
+        }else{
 
-                openConversationById(
-                    chat.conversation_id,
-                    username,
-                    chat.last_seen
-                );
+            openConversationById(
+                chat.conversation_id,
+                username,
+                chat.last_seen
+            );
 
-            }
+        }
 
-        };
+    };
 
     const avatarWrap =
         document.createElement("div");
 
-    avatarWrap.className =
-        "avatarWrap";
+    avatarWrap.className="avatarWrap";
 
     const avatar =
         document.createElement("div");
 
-    avatar.className =
-        "avatar";
+    avatar.className="avatar";
 
-    avatar.textContent =
-        username
-        .substring(0,2)
-        .toUpperCase();
+    avatar.textContent=
+        username.substring(0,2).toUpperCase();
 
     avatarWrap.appendChild(avatar);
 
@@ -2208,41 +2025,34 @@ function createChatListItem(chat){
         const dot =
             document.createElement("div");
 
-        dot.className =
-            "onlineDot";
+        dot.className="onlineDot";
 
         avatarWrap.appendChild(dot);
-
     }
 
     const info =
         document.createElement("div");
 
-    info.className =
-        "chatInfo";
+    info.className="chatInfo";
 
     const top =
         document.createElement("div");
 
-    top.className =
-        "chatTop";
+    top.className="chatTop";
 
     const name =
         document.createElement("div");
 
-    name.className =
-        "chatName";
+    name.className="chatName";
 
-    name.textContent =
-        username;
+    name.textContent=username;
 
     const time =
         document.createElement("div");
 
-    time.className =
-        "chatTime";
+    time.className="chatTime";
 
-    time.textContent =
+    time.textContent=
         formatChatTime(
             chat.last_message_at
         );
@@ -2253,10 +2063,9 @@ function createChatListItem(chat){
     const preview =
         document.createElement("div");
 
-    preview.className =
-        "chatPreview";
+    preview.className="chatPreview";
 
-    preview.textContent =
+    preview.textContent=
         chat.last_message ||
         (
             online
@@ -2270,17 +2079,9 @@ function createChatListItem(chat){
     div.appendChild(avatarWrap);
     div.appendChild(info);
 
-    listAppend(div);
-
-}
-
-
-function listAppend(div){
-
     document
         .getElementById("chatList")
         .appendChild(div);
-
 }
 
 
@@ -2290,10 +2091,8 @@ function listAppend(div){
 
 function startSelectionMode(){
 
-    selectionMode = true;
-
+    selectionMode=true;
     selectedChats.clear();
-
     updateSelectionBar();
 
 }
@@ -2301,8 +2100,7 @@ function startSelectionMode(){
 
 function cancelSelection(){
 
-    selectionMode = false;
-
+    selectionMode=false;
     selectedChats.clear();
 
     document
@@ -2312,90 +2110,70 @@ function cancelSelection(){
     document
         .querySelectorAll(".chat.selected")
         .forEach(
-            el => el.classList.remove("selected")
+            el=>el.classList.remove("selected")
         );
-
 }
 
 
 function toggleChatSelection(id,element){
 
-    const key =
-        String(id);
+    const key=String(id);
 
     if(selectedChats.has(key)){
 
         selectedChats.delete(key);
 
-        element.classList.remove(
-            "selected"
-        );
+        element.classList.remove("selected");
 
     }else{
 
         selectedChats.add(key);
 
-        element.classList.add(
-            "selected"
-        );
+        element.classList.add("selected");
 
     }
 
     updateSelectionBar();
-
 }
 
 
 function updateSelectionBar(){
 
     const bar =
-        document.getElementById(
-            "selectionBar"
-        );
+        document.getElementById("selectionBar");
 
     const count =
-        document.getElementById(
-            "selectedCount"
-        );
+        document.getElementById("selectedCount");
 
     if(!selectionMode){
 
         bar.classList.remove("show");
-
         return;
 
     }
 
     bar.classList.add("show");
 
-    count.textContent =
-        selectedChats.size +
-        (
-            selectedChats.size === 1
-            ? " ausgewählt"
-            : " ausgewählt"
-        );
-
+    count.textContent=
+        selectedChats.size+
+        " ausgewählt";
 }
 
 
 async function deleteSelectedChats(){
 
-    if(!selectedChats.size)
-        return;
+    if(!selectedChats.size)return;
 
     const ok =
         confirm(
-            selectedChats.size +
+            selectedChats.size+
             " Chat(s) wirklich nur aus deiner Liste entfernen?"
         );
 
-    if(!ok)
-        return;
+    if(!ok)return;
 
     const ids =
-        [...selectedChats]
-        .map(Number);
+        [...selectedChats].map(Number);
 
     const result =
         await supabaseClient.rpc(
@@ -2408,18 +2186,16 @@ async function deleteSelectedChats(){
     if(result.error){
 
         alert(
-            "Chats konnten nicht gelöscht werden:\n\n" +
+            "Chats konnten nicht gelöscht werden:\n\n"+
             result.error.message
         );
 
         return;
-
     }
 
     cancelSelection();
 
     await loadConversations();
-
 }
 
 
@@ -2442,37 +2218,27 @@ async function openConversationById(
 
     if(result.error){
 
-        alert(
-            result.error.message
-        );
-
+        alert(result.error.message);
         return;
 
     }
 
-    currentConversation =
-        result.data;
+    currentConversation=result.data;
 
-    currentOtherUser = {
+    currentOtherUser={
         username:username,
         last_seen:lastSeen
     };
 
-    document.getElementById(
-        "chatName"
-    ).textContent =
-        username;
+    document.getElementById("chatName")
+        .textContent=username;
 
-    document.getElementById(
-        "chatAvatar"
-    ).textContent =
-        username
-        .substring(0,2)
-        .toUpperCase();
+    document.getElementById("chatAvatar")
+        .textContent=
+        username.substring(0,2).toUpperCase();
 
-    document.getElementById(
-        "chatStatus"
-    ).textContent =
+    document.getElementById("chatStatus")
+        .textContent=
         getLastSeenText(lastSeen);
 
     showScreen("chatScreen");
@@ -2480,7 +2246,6 @@ async function openConversationById(
     await loadMessages();
 
     subscribeToMessages();
-
 }
 
 
@@ -2491,11 +2256,9 @@ async function openConversationById(
 async function loadMessages(){
 
     const box =
-        document.getElementById(
-            "messages"
-        );
+        document.getElementById("messages");
 
-    box.innerHTML = "";
+    box.innerHTML="";
 
     const result =
         await supabaseClient
@@ -2512,31 +2275,26 @@ async function loadMessages(){
 
     if(result.error){
 
-        box.innerHTML =
-            `<div class="empty">
-                ${escapeHTML(result.error.message)}
-             </div>`;
+        box.innerHTML=
+        `<div class="empty">
+            ${escapeHTML(result.error.message)}
+        </div>`;
 
         return;
-
     }
 
-    (result.data || []).forEach(
-        message => renderMessage(message)
+    (result.data||[]).forEach(
+        message=>renderMessage(message)
     );
 
-    box.scrollTop =
-        box.scrollHeight;
-
+    box.scrollTop=box.scrollHeight;
 }
 
 
 function renderMessage(message){
 
     const box =
-        document.getElementById(
-            "messages"
-        );
+        document.getElementById("messages");
 
     if(
         document.querySelector(
@@ -2548,39 +2306,34 @@ function renderMessage(message){
     const div =
         document.createElement("div");
 
-    div.className =
-        "message " +
+    div.className=
+        "message "+
         (
-            message.sender_id === currentUser.id
+            message.sender_id===currentUser.id
             ? "out"
             : "in"
         );
 
-    div.dataset.messageId =
-        message.id;
+    div.dataset.messageId=message.id;
 
-    if(message.message_type === "image"){
+    if(message.message_type==="image"){
 
         const img =
             document.createElement("img");
 
-        img.className =
-            "messageImage";
+        img.className="messageImage";
 
-        img.src =
-            message.media_url;
+        img.src=message.media_url;
 
-        img.onclick =
-            () => window.open(
+        img.onclick=
+            ()=>window.open(
                 message.media_url,
                 "_blank"
             );
 
         div.appendChild(img);
 
-    }else if(
-        message.message_type === "audio"
-    ){
+    }else if(message.message_type==="audio"){
 
         renderAudioMessage(
             div,
@@ -2592,11 +2345,10 @@ function renderMessage(message){
         const text =
             document.createElement("div");
 
-        text.className =
-            "messageText";
+        text.className="messageText";
 
-        text.textContent =
-            message.content || "";
+        text.textContent=
+            message.content||"";
 
         div.appendChild(text);
 
@@ -2605,29 +2357,28 @@ function renderMessage(message){
     const time =
         document.createElement("div");
 
-    time.className =
-        "messageTime";
+    time.className="messageTime";
 
-    time.textContent =
+    time.textContent=
         formatTime(message.created_at);
 
     if(
-        message.sender_id ===
+        message.sender_id===
         currentUser.id
     ){
 
         const checks =
             document.createElement("span");
 
-        checks.className =
-            "checks " +
+        checks.className=
+            "checks "+
             (
                 message.read_at
                 ? "read"
                 : ""
             );
 
-        checks.textContent =
+        checks.textContent=
             message.read_at
             ? "✓✓"
             : message.delivered_at
@@ -2635,15 +2386,17 @@ function renderMessage(message){
             : "✓";
 
         time.appendChild(checks);
-
     }
 
     div.appendChild(time);
 
     box.appendChild(div);
-
 }
 
+
+/* =====================================================
+   AUDIO MESSAGE
+===================================================== */
 
 function renderAudioMessage(
     container,
@@ -2653,98 +2406,82 @@ function renderAudioMessage(
     const wrap =
         document.createElement("div");
 
-    wrap.className =
-        "audioMessage";
+    wrap.className="audioMessage";
 
     const button =
         document.createElement("button");
 
-    button.className =
-        "audioPlay";
-
-    button.textContent =
-        "▶";
+    button.className="audioPlay";
+    button.textContent="▶";
 
     const audio =
         document.createElement("audio");
 
-    audio.src =
-        message.media_url;
-
-    audio.preload =
-        "metadata";
-
-    audio.style.display =
-        "none";
+    audio.src=message.media_url;
+    audio.preload="metadata";
+    audio.style.display="none";
 
     const info =
         document.createElement("div");
 
-    info.className =
-        "audioInfo";
+    info.className="audioInfo";
 
     const title =
         document.createElement("div");
 
-    title.className =
-        "audioTitle";
-
-    title.textContent =
-        "Sprachnachricht";
+    title.className="audioTitle";
+    title.textContent="Sprachnachricht";
 
     const duration =
         document.createElement("div");
 
-    duration.className =
-        "audioDuration";
+    duration.className="audioDuration";
 
-    duration.textContent =
-        formatDuration(
-            message.media_duration || 0
+    const savedDuration =
+        Number(
+            message.audio_duration ??
+            message.media_duration ??
+            0
         );
 
-    button.onclick =
-        () => {
+    duration.textContent=
+        formatDuration(savedDuration);
 
-            if(audio.paused){
+    button.onclick=()=>{
 
-                audio.play();
+        if(audio.paused){
 
-                button.textContent =
-                    "❚❚";
+            audio.play();
+            button.textContent="❚❚";
 
-            }else{
+        }else{
 
-                audio.pause();
+            audio.pause();
+            button.textContent="▶";
 
-                button.textContent =
-                    "▶";
+        }
 
-            }
+    };
 
-        };
+    audio.onended=()=>{
+        button.textContent="▶";
+    };
 
-    audio.onended =
-        () => {
-            button.textContent = "▶";
-        };
+    audio.onloadedmetadata=()=>{
 
-    audio.onloadedmetadata =
-        () => {
+        if(
+            !savedDuration &&
+            isFinite(audio.duration)
+        ){
 
-            if(
-                !message.media_duration &&
-                isFinite(audio.duration)
-            ){
+            duration.textContent=
+                formatDuration(
+                    Math.round(audio.duration)
+                );
 
-                duration.textContent =
-                    formatDuration(
-                        audio.duration
-                    );
+        }
 
-            }
-
-        };
+    };
 
     info.appendChild(title);
     info.appendChild(duration);
@@ -2754,7 +2491,6 @@ function renderAudioMessage(
     wrap.appendChild(audio);
 
     container.appendChild(wrap);
-
 }
 
 
@@ -2765,9 +2501,7 @@ function renderAudioMessage(
 async function sendMessage(){
 
     const input =
-        document.getElementById(
-            "messageInput"
-        );
+        document.getElementById("messageInput");
 
     const content =
         input.value.trim();
@@ -2778,7 +2512,7 @@ async function sendMessage(){
     )
         return;
 
-    input.disabled = true;
+    input.disabled=true;
 
     const result =
         await supabaseClient
@@ -2802,19 +2536,16 @@ async function sendMessage(){
         .select()
         .single();
 
-    input.disabled = false;
+    input.disabled=false;
 
     if(result.error){
 
-        alert(
-            result.error.message
-        );
-
+        alert(result.error.message);
         return;
 
     }
 
-    input.value = "";
+    input.value="";
 
     renderMessage(result.data);
 
@@ -2823,7 +2554,6 @@ async function sendMessage(){
     await restoreConversation();
 
     await loadConversations();
-
 }
 
 
@@ -2836,7 +2566,6 @@ function openImagePicker(){
     document
         .getElementById("imageInput")
         .click();
-
 }
 
 
@@ -2845,7 +2574,7 @@ async function sendImage(event){
     const file =
         event.target.files[0];
 
-    event.target.value = "";
+    event.target.value="";
 
     if(
         !file ||
@@ -2856,10 +2585,7 @@ async function sendImage(event){
 
     if(!file.type.startsWith("image/")){
 
-        alert(
-            "Bitte ein Bild auswählen."
-        );
-
+        alert("Bitte ein Bild auswählen.");
         return;
 
     }
@@ -2868,10 +2594,10 @@ async function sendImage(event){
         file.name.split(".").pop();
 
     const path =
-        currentUser.id +
-        "/chat/" +
-        crypto.randomUUID() +
-        "." +
+        currentUser.id+
+        "/chat/"+
+        crypto.randomUUID()+
+        "."+
         extension;
 
     const upload =
@@ -2889,12 +2615,11 @@ async function sendImage(event){
     if(upload.error){
 
         alert(
-            "Bild konnte nicht hochgeladen werden:\n\n" +
+            "Bild konnte nicht hochgeladen werden:\n\n"+
             upload.error.message
         );
 
         return;
-
     }
 
     const url =
@@ -2931,10 +2656,7 @@ async function sendImage(event){
 
     if(result.error){
 
-        alert(
-            result.error.message
-        );
-
+        alert(result.error.message);
         return;
 
     }
@@ -2946,7 +2668,6 @@ async function sendImage(event){
     await restoreConversation();
 
     await loadConversations();
-
 }
 
 
@@ -2959,9 +2680,20 @@ async function toggleRecording(){
     if(mediaRecorder){
 
         stopRecording();
-
         return;
 
+    }
+
+    if(
+        !currentUser ||
+        !currentConversation
+    ){
+
+        alert(
+            "Bitte zuerst einen Chat öffnen."
+        );
+
+        return;
     }
 
     try{
@@ -2971,69 +2703,130 @@ async function toggleRecording(){
                 audio:true
             });
 
-        audioChunks = [];
+        audioChunks=[];
+
+        let mimeType="";
+
+        if(
+            MediaRecorder.isTypeSupported(
+                "audio/webm;codecs=opus"
+            )
+        ){
+
+            mimeType="audio/webm;codecs=opus";
+
+        }else if(
+            MediaRecorder.isTypeSupported(
+                "audio/webm"
+            )
+        ){
+
+            mimeType="audio/webm";
+
+        }else if(
+            MediaRecorder.isTypeSupported(
+                "audio/mp4"
+            )
+        ){
+
+            mimeType="audio/mp4";
+
+        }
 
         mediaRecorder =
-            new MediaRecorder(stream);
+            mimeType
+            ? new MediaRecorder(
+                stream,
+                {mimeType:mimeType}
+              )
+            : new MediaRecorder(stream);
 
-        recordingStarted =
-            Date.now();
+        recordingStarted=Date.now();
 
         const button =
             document.getElementById(
                 "recordButton"
             );
 
-        button.classList.add(
-            "recording"
-        );
+        button.classList.add("recording");
+        button.textContent="■";
 
-        button.textContent =
-            "■";
+        mediaRecorder.ondataavailable=
+            event=>{
 
-        mediaRecorder.ondataavailable =
-            event => {
-
-                if(event.data.size > 0)
+                if(event.data.size>0)
                     audioChunks.push(event.data);
 
             };
 
-        mediaRecorder.onstop =
-            async () => {
+        mediaRecorder.onerror=
+            event=>{
+
+                console.error(
+                    "MediaRecorder Fehler:",
+                    event
+                );
+
+            };
+
+        mediaRecorder.onstop=
+            async()=>{
 
                 stream
                     .getTracks()
                     .forEach(
-                        track => track.stop()
+                        track=>track.stop()
                     );
+
+                const elapsedMs =
+                    Date.now()-
+                    recordingStarted;
+
+                /*
+                 * WICHTIG:
+                 * audio_duration und media_duration
+                 * sind INTEGER.
+                 *
+                 * Deshalb wird hier immer
+                 * auf eine ganze Zahl gerundet.
+                 */
+                const duration =
+                    Math.max(
+                        1,
+                        Math.round(
+                            elapsedMs/1000
+                        )
+                    );
+
+                const recorderMime =
+                    mediaRecorder.mimeType ||
+                    mimeType ||
+                    "audio/webm";
 
                 const blob =
                     new Blob(
                         audioChunks,
                         {
-                            type:
-                                mediaRecorder.mimeType ||
-                                "audio/webm"
+                            type:recorderMime
                         }
                     );
 
-                const duration =
-                    (Date.now() -
-                     recordingStarted) / 1000;
-
-                mediaRecorder = null;
-
-                clearInterval(
-                    recordingTimer
-                );
+                mediaRecorder=null;
 
                 button.classList.remove(
                     "recording"
                 );
 
-                button.textContent =
-                    "🎤";
+                button.textContent="🎤";
+
+                if(blob.size===0){
+
+                    alert(
+                        "Es wurde keine Audiodatei aufgenommen."
+                    );
+
+                    return;
+                }
 
                 await sendAudio(
                     blob,
@@ -3044,16 +2837,10 @@ async function toggleRecording(){
 
         mediaRecorder.start();
 
-        recordingTimer =
-            setInterval(
-                () => {},
-                500
-            );
-
     }catch(error){
 
         alert(
-            "Mikrofon konnte nicht geöffnet werden.\n\n" +
+            "Mikrofon konnte nicht geöffnet werden.\n\n"+
             error.message
         );
 
@@ -3066,7 +2853,7 @@ function stopRecording(){
 
     if(
         mediaRecorder &&
-        mediaRecorder.state !== "inactive"
+        mediaRecorder.state!=="inactive"
     ){
 
         mediaRecorder.stop();
@@ -3075,6 +2862,10 @@ function stopRecording(){
 
 }
 
+
+/* =====================================================
+   SEND AUDIO
+===================================================== */
 
 async function sendAudio(
     blob,
@@ -3087,16 +2878,29 @@ async function sendAudio(
     )
         return;
 
-    const extension =
-        blob.type.includes("mp4")
-        ? "m4a"
-        : "webm";
+    /*
+     * Sicherheitskorrektur:
+     * duration wird garantiert zu INTEGER.
+     */
+    const integerDuration =
+        Math.max(
+            1,
+            Math.round(
+                Number(duration)||1
+            )
+        );
+
+    let extension="webm";
+
+    if(blob.type.includes("mp4")){
+        extension="m4a";
+    }
 
     const path =
-        currentUser.id +
-        "/audio/" +
-        crypto.randomUUID() +
-        "." +
+        currentUser.id+
+        "/audio/"+
+        crypto.randomUUID()+
+        "."+
         extension;
 
     const upload =
@@ -3108,19 +2912,19 @@ async function sendAudio(
             {
                 upsert:false,
                 contentType:
-                    blob.type
+                    blob.type ||
+                    "audio/webm"
             }
         );
 
     if(upload.error){
 
         alert(
-            "Sprachnachricht konnte nicht gespeichert werden:\n\n" +
+            "Sprachnachricht konnte nicht gespeichert werden:\n\n"+
             upload.error.message
         );
 
         return;
-
     }
 
     const url =
@@ -3129,45 +2933,56 @@ async function sendAudio(
         .getPublicUrl(path)
         .data.publicUrl;
 
+    /*
+     * Beide Integer-Spalten werden mit einer
+     * ganzen Zahl befüllt.
+     */
+    const messageData={
+
+        conversation_id:
+            currentConversation.id,
+
+        sender_id:
+            currentUser.id,
+
+        content:"",
+
+        message_type:"audio",
+
+        media_url:url,
+
+        audio_url:url,
+
+        audio_duration:
+            integerDuration,
+
+        media_duration:
+            integerDuration,
+
+        file_name:
+            "Sprachnachricht."+
+            extension,
+
+        delivered_at:
+            new Date().toISOString()
+
+    };
+
     const result =
         await supabaseClient
         .from("messages")
-        .insert({
-
-            conversation_id:
-                currentConversation.id,
-
-            sender_id:
-                currentUser.id,
-
-            content:"",
-
-            message_type:"audio",
-
-            media_url:url,
-
-            media_duration:
-                Math.round(duration * 10) / 10,
-
-            file_name:
-                "Sprachnachricht." +
-                extension,
-
-            delivered_at:
-                new Date().toISOString()
-
-        })
+        .insert(messageData)
         .select()
         .single();
 
     if(result.error){
 
         alert(
+            "Sprachnachricht konnte nicht gespeichert werden:\n\n"+
             result.error.message
         );
 
         return;
-
     }
 
     renderMessage(result.data);
@@ -3177,7 +2992,6 @@ async function sendAudio(
     await restoreConversation();
 
     await loadConversations();
-
 }
 
 
@@ -3187,8 +3001,7 @@ async function sendAudio(
 
 async function restoreConversation(){
 
-    if(!currentConversation)
-        return;
+    if(!currentConversation)return;
 
     await supabaseClient.rpc(
         "restore_my_conversation",
@@ -3197,7 +3010,6 @@ async function restoreConversation(){
                 currentConversation.id
         }
     );
-
 }
 
 
@@ -3218,9 +3030,9 @@ function subscribeToMessages(){
     realtimeChannel =
         supabaseClient
         .channel(
-            "chat-" +
-            currentConversation.id +
-            "-" +
+            "chat-"+
+            currentConversation.id+
+            "-"+
             Date.now()
         )
         .on(
@@ -3230,10 +3042,10 @@ function subscribeToMessages(){
                 schema:"public",
                 table:"messages",
                 filter:
-                    "conversation_id=eq." +
+                    "conversation_id=eq."+
                     currentConversation.id
             },
-            payload => {
+            payload=>{
 
                 renderMessage(
                     payload.new
@@ -3242,7 +3054,7 @@ function subscribeToMessages(){
                 scrollMessages();
 
                 if(
-                    payload.new.sender_id !==
+                    payload.new.sender_id!==
                     currentUser.id
                 ){
 
@@ -3255,7 +3067,6 @@ function subscribeToMessages(){
             }
         )
         .subscribe();
-
 }
 
 
@@ -3267,11 +3078,7 @@ async function markMessageRead(id){
             read_at:
                 new Date().toISOString()
         })
-        .eq(
-            "id",
-            id
-        );
-
+        .eq("id",id);
 }
 
 
@@ -3287,15 +3094,14 @@ function openNewChat(){
 
     document
         .getElementById("userSearch")
-        .value = "";
+        .value="";
 
     document
         .getElementById("userResults")
-        .innerHTML =
+        .innerHTML=
         `<div class="empty">
             Gib einen Benutzernamen ein.
-         </div>`;
-
+        </div>`;
 }
 
 
@@ -3304,14 +3110,12 @@ function closeNewChat(){
     document
         .getElementById("newChatModal")
         .classList.remove("show");
-
 }
 
 
 async function searchUsers(){
 
-    if(!currentUser)
-        return;
+    if(!currentUser)return;
 
     const query =
         document
@@ -3320,29 +3124,25 @@ async function searchUsers(){
         .trim();
 
     const results =
-        document
-        .getElementById("userResults");
+        document.getElementById("userResults");
 
-    if(query.length < 2){
+    if(query.length<2){
 
-        results.innerHTML =
-            `<div class="empty">
-                Mindestens 2 Zeichen eingeben.
-             </div>`;
+        results.innerHTML=
+        `<div class="empty">
+            Mindestens 2 Zeichen eingeben.
+        </div>`;
 
         return;
-
     }
 
     const result =
         await supabaseClient
         .from("profiles")
-        .select(
-            "id,username,last_seen"
-        )
+        .select("id,username,last_seen")
         .ilike(
             "username",
-            "%" + query + "%"
+            "%"+query+"%"
         )
         .neq(
             "id",
@@ -3352,82 +3152,75 @@ async function searchUsers(){
 
     if(result.error){
 
-        results.innerHTML =
-            `<div class="empty">
-                ${escapeHTML(result.error.message)}
-             </div>`;
+        results.innerHTML=
+        `<div class="empty">
+            ${escapeHTML(result.error.message)}
+        </div>`;
 
         return;
-
     }
 
     if(!result.data.length){
 
-        results.innerHTML =
-            `<div class="empty">
-                Kein Benutzer gefunden.
-             </div>`;
+        results.innerHTML=
+        `<div class="empty">
+            Kein Benutzer gefunden.
+        </div>`;
 
         return;
-
     }
 
-    results.innerHTML = "";
+    results.innerHTML="";
 
-    result.data.forEach(
-        user => {
+    result.data.forEach(user=>{
 
-            const row =
-                document.createElement("div");
+        const row =
+            document.createElement("div");
 
-            row.className =
-                "user";
+        row.className="user";
 
-            const avatar =
-                document.createElement("div");
+        const avatar =
+            document.createElement("div");
 
-            avatar.className =
-                "avatar";
+        avatar.className="avatar";
 
-            avatar.textContent =
-                user.username
-                .substring(0,2)
-                .toUpperCase();
+        avatar.textContent=
+            user.username
+            .substring(0,2)
+            .toUpperCase();
 
-            const info =
-                document.createElement("div");
+        const info =
+            document.createElement("div");
 
-            info.className =
-                "userInfo";
+        info.className="userInfo";
 
-            info.innerHTML =
-                `<div class="userName">
-                    ${escapeHTML(user.username)}
-                 </div>
-                 <div class="rowSub">
-                    ${escapeHTML(
-                        getLastSeenText(user.last_seen)
-                    )}
-                 </div>`;
+        info.innerHTML=
+        `<div class="userName">
+            ${escapeHTML(user.username)}
+        </div>
+        <div class="rowSub">
+            ${escapeHTML(
+                getLastSeenText(
+                    user.last_seen
+                )
+            )}
+        </div>`;
 
-            const button =
-                document.createElement("button");
+        const button =
+            document.createElement("button");
 
-            button.textContent =
-                "Chat";
+        button.textContent="Chat";
 
-            button.onclick =
-                () => createConversation(user);
+        button.onclick=
+            ()=>createConversation(user);
 
-            row.appendChild(avatar);
-            row.appendChild(info);
-            row.appendChild(button);
+        row.appendChild(avatar);
+        row.appendChild(info);
+        row.appendChild(button);
 
-            results.appendChild(row);
+        results.appendChild(row);
 
-        }
-    );
-
+    });
 }
 
 
@@ -3455,7 +3248,6 @@ async function createConversation(user){
             );
 
             return;
-
         }
 
         const result =
@@ -3469,12 +3261,8 @@ async function createConversation(user){
 
         if(result.error){
 
-            alert(
-                result.error.message
-            );
-
+            alert(result.error.message);
             return;
-
         }
 
         closeNewChat();
@@ -3489,12 +3277,9 @@ async function createConversation(user){
 
     }catch(error){
 
-        alert(
-            error.message
-        );
+        alert(error.message);
 
     }
-
 }
 
 
@@ -3519,7 +3304,7 @@ async function findExistingConversation(
 
     const ids =
         own.data.map(
-            item => item.conversation_id
+            item=>item.conversation_id
         );
 
     const other =
@@ -3551,8 +3336,7 @@ async function findExistingConversation(
         )
         .single();
 
-    return conversation.data || null;
-
+    return conversation.data||null;
 }
 
 
@@ -3562,16 +3346,14 @@ async function findExistingConversation(
 
 async function openChatMenu(){
 
-    if(!currentConversation)
-        return;
+    if(!currentConversation)return;
 
     const remove =
         confirm(
             "Diesen Chat nur aus deiner Chat-Liste entfernen?"
         );
 
-    if(!remove)
-        return;
+    if(!remove)return;
 
     const result =
         await supabaseClient.rpc(
@@ -3584,17 +3366,12 @@ async function openChatMenu(){
 
     if(result.error){
 
-        alert(
-            result.error.message
-        );
-
+        alert(result.error.message);
         return;
-
     }
 
-    currentConversation = null;
-
-    currentOtherUser = null;
+    currentConversation=null;
+    currentOtherUser=null;
 
     if(realtimeChannel){
 
@@ -3602,14 +3379,13 @@ async function openChatMenu(){
             realtimeChannel
         );
 
-        realtimeChannel = null;
+        realtimeChannel=null;
 
     }
 
     await loadConversations();
 
     showHome();
-
 }
 
 
@@ -3622,14 +3398,13 @@ function showScreen(id){
     document
         .querySelectorAll(".screen")
         .forEach(
-            screen =>
+            screen=>
                 screen.classList.remove("active")
         );
 
     document
         .getElementById(id)
         .classList.add("active");
-
 }
 
 
@@ -3641,15 +3416,13 @@ function showHome(){
             realtimeChannel
         );
 
-        realtimeChannel = null;
-
+        realtimeChannel=null;
     }
 
     showScreen("homeScreen");
 
     if(currentUser)
         loadConversations();
-
 }
 
 
@@ -3658,14 +3431,12 @@ function showProfile(){
     showScreen("profileScreen");
 
     loadProfile();
-
 }
 
 
 function showSettings(){
 
     showScreen("settingsScreen");
-
 }
 
 
@@ -3684,20 +3455,16 @@ async function logout(){
             realtimeChannel
         );
 
-        realtimeChannel = null;
-
+        realtimeChannel=null;
     }
 
     await supabaseClient.auth.signOut();
 
-    currentUser = null;
-
-    currentConversation = null;
-
-    currentOtherUser = null;
+    currentUser=null;
+    currentConversation=null;
+    currentOtherUser=null;
 
     showScreen("authScreen");
-
 }
 
 
@@ -3715,19 +3482,16 @@ function filterChats(){
 
     document
         .querySelectorAll(".chat")
-        .forEach(
-            chat => {
+        .forEach(chat=>{
 
-                chat.style.display =
-                    chat.textContent
-                    .toLowerCase()
-                    .includes(query)
-                    ? "flex"
-                    : "none";
+            chat.style.display =
+                chat.textContent
+                .toLowerCase()
+                .includes(query)
+                ? "flex"
+                : "none";
 
-            }
-        );
-
+        });
 }
 
 
@@ -3738,7 +3502,7 @@ function filterChats(){
 function messageKey(event){
 
     if(
-        event.key === "Enter" &&
+        event.key==="Enter" &&
         !event.shiftKey
     ){
 
@@ -3757,15 +3521,13 @@ function messageKey(event){
 
 function isOnline(lastSeen){
 
-    if(!lastSeen)
-        return false;
+    if(!lastSeen)return false;
 
-    return (
-        Date.now() -
+    return(
+        Date.now()-
         new Date(lastSeen).getTime()
-    ) <
-    2 * 60 * 1000;
-
+    )<
+    2*60*1000;
 }
 
 
@@ -3777,27 +3539,23 @@ function getLastSeenText(lastSeen){
     if(!lastSeen)
         return "Zuletzt online unbekannt";
 
-    return "Zuletzt online " +
+    return "Zuletzt online "+
         formatLastSeen(lastSeen);
-
 }
 
 
 function formatLastSeen(lastSeen){
 
-    const date =
-        new Date(lastSeen);
-
-    const now =
-        new Date();
+    const date=new Date(lastSeen);
+    const now=new Date();
 
     if(
-        date.toDateString() ===
+        date.toDateString()===
         now.toDateString()
     ){
 
-        return (
-            "heute um " +
+        return(
+            "heute um "+
             date.toLocaleTimeString(
                 "de-DE",
                 {
@@ -3809,7 +3567,7 @@ function formatLastSeen(lastSeen){
 
     }
 
-    return (
+    return(
         date.toLocaleDateString(
             "de-DE",
             {
@@ -3817,8 +3575,8 @@ function formatLastSeen(lastSeen){
                 month:"2-digit",
                 year:"numeric"
             }
-        ) +
-        " um " +
+        )+
+        " um "+
         date.toLocaleTimeString(
             "de-DE",
             {
@@ -3827,23 +3585,18 @@ function formatLastSeen(lastSeen){
             }
         )
     );
-
 }
 
 
 function formatChatTime(timestamp){
 
-    if(!timestamp)
-        return "";
+    if(!timestamp)return "";
 
-    const date =
-        new Date(timestamp);
-
-    const now =
-        new Date();
+    const date=new Date(timestamp);
+    const now=new Date();
 
     if(
-        date.toDateString() ===
+        date.toDateString()===
         now.toDateString()
     ){
 
@@ -3864,7 +3617,6 @@ function formatChatTime(timestamp){
             month:"2-digit"
         }
     );
-
 }
 
 
@@ -3878,32 +3630,39 @@ function formatTime(timestamp){
                 minute:"2-digit"
             }
         );
-
 }
 
 
+/* =====================================================
+   DURATION
+===================================================== */
+
 function formatDuration(seconds){
 
-    seconds =
-        Math.max(
-            0,
-            Math.round(
-                Number(seconds) || 0
-            )
-        );
+    /*
+     * Auch hier wird alles auf INTEGER
+     * reduziert, damit niemals 2.3
+     * als Dauer angezeigt/gespeichert wird.
+     */
 
-    const minutes =
-        Math.floor(seconds / 60);
-
-    const remaining =
-        seconds % 60;
-
-    return (
-        String(minutes).padStart(2,"0") +
-        ":" +
-        String(remaining).padStart(2,"0")
+    seconds=Math.max(
+        0,
+        Math.round(
+            Number(seconds)||0
+        )
     );
 
+    const minutes =
+        Math.floor(seconds/60);
+
+    const remaining =
+        seconds%60;
+
+    return(
+        String(minutes).padStart(2,"0")+
+        ":"+
+        String(remaining).padStart(2,"0")
+    );
 }
 
 
@@ -3925,11 +3684,8 @@ function toggleDark(){
 
     localStorage.setItem(
         "wavechat_dark",
-        enabled
-        ? "true"
-        : "false"
+        enabled?"true":"false"
     );
-
 }
 
 
@@ -3938,19 +3694,18 @@ function loadDark(){
     const enabled =
         localStorage.getItem(
             "wavechat_dark"
-        ) === "true";
+        )==="true";
 
     const checkbox =
         document.getElementById("darkMode");
 
     if(checkbox)
-        checkbox.checked = enabled;
+        checkbox.checked=enabled;
 
     document.body.classList.toggle(
         "dark",
         enabled
     );
-
 }
 
 
@@ -3961,29 +3716,21 @@ function loadDark(){
 function scrollMessages(){
 
     const box =
-        document.getElementById(
-            "messages"
-        );
+        document.getElementById("messages");
 
-    box.scrollTop =
+    box.scrollTop=
         box.scrollHeight;
-
 }
 
 
 function showError(message){
 
     const box =
-        document.getElementById(
-            "authError"
-        );
+        document.getElementById("authError");
 
-    box.textContent =
-        message;
+    box.textContent=message;
 
-    box.style.display =
-        "block";
-
+    box.style.display="block";
 }
 
 
@@ -3991,32 +3738,28 @@ function hideError(){
 
     document.getElementById(
         "authError"
-    ).style.display =
-        "none";
-
+    ).style.display="none";
 }
 
 
 function escapeHTML(value){
 
-    return String(value ?? "")
+    return String(value??"")
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
-
 }
 
 
 function escapeAttribute(value){
 
-    return String(value ?? "")
+    return String(value??"")
         .replace(/&/g,"&amp;")
         .replace(/"/g,"&quot;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;");
-
 }
 
 </script>
