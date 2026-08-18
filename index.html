@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width,initial-scale=1,viewport-fit=cover">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#075e54">
 
 <title>WaveChat</title>
@@ -14,886 +10,735 @@ content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html,body{
-margin:0;
-width:100%;
-height:100%;
+    margin:0;
+    width:100%;
+    height:100%;
 }
 
 body{
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",
-Roboto,Arial,sans-serif;
-background:#111b21;
-color:#111;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:#111b21;
+    color:#111;
 }
 
-button,input,textarea{
-font:inherit;
-}
-
-button{
-cursor:pointer;
-}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
 
 .app{
-width:100%;
-max-width:600px;
-height:100dvh;
-margin:auto;
-background:#f5f7f8;
-overflow:hidden;
-position:relative;
+    width:100%;
+    max-width:600px;
+    height:100dvh;
+    margin:auto;
+    background:#f5f7f8;
+    overflow:hidden;
+    position:relative;
 }
 
 .screen{
-display:none;
-width:100%;
-height:100%;
-flex-direction:column;
+    display:none;
+    width:100%;
+    height:100%;
+    flex-direction:column;
 }
 
-.screen.active{
-display:flex;
-}
+.screen.active{display:flex}
 
 /* LOGIN */
 
 #authScreen{
-align-items:center;
-justify-content:center;
-padding:25px;
-background:
-radial-gradient(circle at top,#20bfae,#075e54 55%,#043b36);
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+    background:radial-gradient(circle at top,#20bfae,#075e54 55%,#043b36);
 }
 
 .authBox{
-width:100%;
-max-width:420px;
-padding:30px;
-background:white;
-border-radius:25px;
-box-shadow:0 25px 70px rgba(0,0,0,.35);
+    width:100%;
+    max-width:420px;
+    padding:30px;
+    background:white;
+    border-radius:25px;
+    box-shadow:0 25px 70px rgba(0,0,0,.35);
 }
 
 .logo{
-text-align:center;
-color:#075e54;
-font-size:38px;
-font-weight:800;
+    text-align:center;
+    color:#075e54;
+    font-size:38px;
+    font-weight:800;
 }
 
 .logoSub{
-text-align:center;
-color:#667781;
-margin:7px 0 25px;
+    text-align:center;
+    color:#667781;
+    margin:7px 0 25px;
 }
 
 .authInput{
-width:100%;
-height:50px;
-padding:0 15px;
-margin-bottom:10px;
-border:1px solid #d7dde0;
-border-radius:13px;
-outline:none;
-}
-
-.authInput:focus{
-border-color:#128c7e;
+    width:100%;
+    height:50px;
+    padding:0 15px;
+    margin-bottom:10px;
+    border:1px solid #d7dde0;
+    border-radius:13px;
+    outline:none;
 }
 
 .authButton{
-width:100%;
-height:50px;
-border:0;
-border-radius:13px;
-background:#075e54;
-color:white;
-font-weight:700;
+    width:100%;
+    height:50px;
+    border:0;
+    border-radius:13px;
+    background:#075e54;
+    color:white;
+    font-weight:700;
 }
 
 .authSwitch{
-text-align:center;
-margin-top:18px;
-color:#667781;
-font-size:14px;
+    text-align:center;
+    margin-top:18px;
+    color:#667781;
+    font-size:14px;
 }
 
 .authSwitch button{
-border:0;
-background:none;
-color:#075e54;
-font-weight:700;
+    border:0;
+    background:none;
+    color:#075e54;
+    font-weight:700;
 }
 
 .error{
-display:none;
-padding:12px;
-margin-bottom:10px;
-border-radius:10px;
-background:#fee2e2;
-color:#991b1b;
-font-size:13px;
+    display:none;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:10px;
+    background:#fee2e2;
+    color:#991b1b;
+    font-size:13px;
 }
 
 /* HEADER */
 
 .header{
-background:#075e54;
-color:white;
-padding:
-calc(12px + env(safe-area-inset-top))
-15px 12px;
+    background:#075e54;
+    color:white;
+    padding:calc(12px + env(safe-area-inset-top)) 15px 12px;
 }
 
 .headerRow{
-display:flex;
-align-items:center;
-justify-content:space-between;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
 .headerTitle{
-font-size:26px;
-font-weight:800;
+    font-size:26px;
+    font-weight:800;
 }
 
 .headerActions{
-display:flex;
-gap:7px;
+    display:flex;
+    gap:7px;
 }
 
 .headerButton{
-width:42px;
-height:42px;
-border:0;
-border-radius:50%;
-background:rgba(255,255,255,.12);
-color:white;
-font-size:20px;
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:50%;
+    background:rgba(255,255,255,.12);
+    color:white;
+    font-size:20px;
 }
 
 .search{
-display:flex;
-align-items:center;
-height:45px;
-margin-top:11px;
-padding:0 13px;
-border-radius:13px;
-background:white;
-color:#667781;
+    display:flex;
+    align-items:center;
+    height:45px;
+    margin-top:11px;
+    padding:0 13px;
+    border-radius:13px;
+    background:white;
+    color:#667781;
 }
 
 .search input{
-flex:1;
-margin-left:8px;
-border:0;
-outline:0;
-color:#111;
+    flex:1;
+    margin-left:8px;
+    border:0;
+    outline:0;
 }
 
 /* STORIES */
 
 .storyBar{
-background:#fff;
-display:flex;
-gap:14px;
-padding:11px 12px;
-overflow-x:auto;
-border-bottom:1px solid #edf0f1;
+    background:#fff;
+    display:flex;
+    gap:14px;
+    padding:11px 12px;
+    overflow-x:auto;
+    border-bottom:1px solid #edf0f1;
 }
 
 .storyItem{
-min-width:62px;
-text-align:center;
-font-size:11px;
-color:#667781;
+    min-width:62px;
+    text-align:center;
+    font-size:11px;
+    color:#667781;
 }
 
 .storyCircle{
-width:58px;
-height:58px;
-margin:auto;
-border-radius:50%;
-padding:3px;
-background:linear-gradient(135deg,#25d366,#9b59ff,#ff3b30);
+    width:58px;
+    height:58px;
+    margin:auto;
+    border-radius:50%;
+    padding:3px;
+    background:linear-gradient(135deg,#25d366,#9b59ff,#ff3b30);
 }
 
 .storyCircleInner{
-width:100%;
-height:100%;
-border-radius:50%;
-background:#fff;
-overflow:hidden;
-display:flex;
-align-items:center;
-justify-content:center;
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:#fff;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .storyCircleInner img{
-width:100%;
-height:100%;
-object-fit:cover;
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
 .storyAdd{
-font-size:28px;
-color:#075e54;
+    font-size:28px;
+    color:#075e54;
 }
 
-.storyName{
-margin-top:4px;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-}
-
-/* CHAT LIST */
+/* HOME */
 
 .homeWrap{
-position:relative;
-flex:1;
-overflow:hidden;
-display:flex;
-flex-direction:column;
+    position:relative;
+    flex:1;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
 }
 
 .list{
-flex:1;
-overflow:auto;
-background:#fff;
+    flex:1;
+    overflow:auto;
+    background:#fff;
 }
 
 .chat{
-display:flex;
-align-items:center;
-gap:13px;
-min-height:82px;
-padding:12px 15px;
-border-bottom:1px solid #edf0f1;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    min-height:82px;
+    padding:12px 15px;
+    border-bottom:1px solid #edf0f1;
 }
 
 .chat.selected{
-background:#e8f5f2;
+    background:#d9fdd3;
 }
 
 .avatarWrap{
-position:relative;
-width:56px;
-min-width:56px;
-height:56px;
+    position:relative;
+    width:56px;
+    min-width:56px;
+    height:56px;
 }
 
 .avatar{
-width:56px;
-height:56px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-background:linear-gradient(135deg,#25d366,#075e54);
-color:white;
-font-size:18px;
-font-weight:800;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#25d366,#075e54);
+    color:white;
+    font-size:18px;
+    font-weight:800;
 }
 
 .onlineDot{
-position:absolute;
-right:0;
-bottom:1px;
-width:15px;
-height:15px;
-border:3px solid white;
-border-radius:50%;
-background:#25d366;
+    position:absolute;
+    right:0;
+    bottom:1px;
+    width:15px;
+    height:15px;
+    border:3px solid white;
+    border-radius:50%;
+    background:#25d366;
 }
 
 .chatInfo{
-flex:1;
-min-width:0;
+    flex:1;
+    min-width:0;
 }
 
 .chatTop{
-display:flex;
-justify-content:space-between;
-gap:10px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
 }
 
 .chatName{
-font-size:16px;
-font-weight:700;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
+    font-size:16px;
+    font-weight:700;
 }
 
 .chatTime{
-flex-shrink:0;
-color:#667781;
-font-size:11px;
+    color:#667781;
+    font-size:11px;
 }
 
 .chatPreview{
-margin-top:5px;
-color:#667781;
-font-size:13px;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-}
-
-.unreadBadge{
-min-width:21px;
-height:21px;
-padding:0 6px;
-border-radius:11px;
-background:#25d366;
-color:white;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:11px;
-font-weight:700;
+    margin-top:5px;
+    color:#667781;
+    font-size:13px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 .newChatButton{
-position:absolute;
-right:20px;
-bottom:20px;
-width:60px;
-height:60px;
-border:0;
-border-radius:50%;
-background:#25d366;
-color:white;
-font-size:30px;
-box-shadow:0 6px 20px rgba(0,0,0,.25);
-}
-
-/* SELECTION */
-
-.selectionBar{
-display:none;
-align-items:center;
-justify-content:space-between;
-padding:
-calc(8px + env(safe-area-inset-top))
-12px 8px;
-background:#075e54;
-color:white;
-}
-
-.selectionBar.show{
-display:flex;
-}
-
-.selectionLeft{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.selectionBar button{
-border:0;
-background:none;
-color:white;
-font-size:23px;
+    position:absolute;
+    right:20px;
+    bottom:20px;
+    width:60px;
+    height:60px;
+    border:0;
+    border-radius:50%;
+    background:#25d366;
+    color:white;
+    font-size:30px;
+    box-shadow:0 6px 20px rgba(0,0,0,.25);
 }
 
 /* BOTTOM */
 
 .bottom{
-display:flex;
-background:white;
-border-top:1px solid #ddd;
-padding-bottom:env(safe-area-inset-bottom);
+    display:flex;
+    background:white;
+    border-top:1px solid #ddd;
+    padding-bottom:env(safe-area-inset-bottom);
 }
 
 .bottom button{
-flex:1;
-border:0;
-background:white;
-color:#667781;
-padding:8px 2px;
-font-size:11px;
+    flex:1;
+    border:0;
+    background:white;
+    color:#667781;
+    padding:8px 2px;
+    font-size:11px;
 }
 
 .bottom button.active{
-color:#075e54;
-font-weight:700;
+    color:#075e54;
+    font-weight:700;
 }
 
 .bottom span{
-display:block;
-margin-bottom:3px;
-font-size:21px;
+    display:block;
+    margin-bottom:3px;
+    font-size:21px;
 }
 
 /* CHAT HEADER */
 
 .chatHeader{
-display:flex;
-align-items:center;
-gap:8px;
-padding:
-calc(7px + env(safe-area-inset-top))
-8px 8px;
-background:#075e54;
-color:white;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:calc(7px + env(safe-area-inset-top)) 8px 8px;
+    background:#075e54;
+    color:white;
 }
 
 .back{
-width:40px;
-height:40px;
-border:0;
-background:transparent;
-color:white;
-font-size:34px;
+    width:40px;
+    height:40px;
+    border:0;
+    background:transparent;
+    color:white;
+    font-size:34px;
 }
 
 .chatAvatar{
-width:46px;
-height:46px;
-min-width:46px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-background:linear-gradient(135deg,#25d366,#075e54);
-color:white;
-font-weight:800;
+    width:46px;
+    height:46px;
+    min-width:46px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#25d366,#075e54);
+    color:white;
+    font-weight:800;
 }
 
 .chatTitle{
-flex:1;
-min-width:0;
+    flex:1;
+    min-width:0;
 }
 
 .chatNameLarge{
-font-weight:700;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
+    font-weight:700;
 }
 
 .chatStatus{
-margin-top:2px;
-color:#c8f7df;
-font-size:11px;
+    margin-top:2px;
+    color:#c8f7df;
+    font-size:11px;
 }
 
-.chatHeader button.action{
-width:38px;
-height:38px;
-border:0;
-background:transparent;
-color:white;
-font-size:20px;
-}
-
-/* MESSAGES */
+/* MESSAGE AREA */
 
 .messages{
-flex:1;
-overflow:auto;
-padding:12px 9px;
-background:#efeae2;
+    flex:1;
+    overflow:auto;
+    padding:12px 9px;
+    background:#efeae2;
 }
 
 .message{
-position:relative;
-max-width:82%;
-margin:5px 0;
-padding:7px 9px;
-border-radius:8px;
-box-shadow:0 1px 1px rgba(0,0,0,.12);
-word-break:break-word;
+    position:relative;
+    max-width:82%;
+    margin:5px 0;
+    padding:7px 9px;
+    border-radius:8px;
+    box-shadow:0 1px 1px rgba(0,0,0,.12);
+    word-break:break-word;
+    user-select:none;
 }
 
 .message.in{
-margin-right:auto;
-background:white;
+    margin-right:auto;
+    background:white;
 }
 
 .message.out{
-margin-left:auto;
-background:#d9fdd3;
+    margin-left:auto;
+    background:#d9fdd3;
+}
+
+.message.selected{
+    outline:3px solid rgba(0,95,80,.35);
 }
 
 .messageText{
-white-space:pre-wrap;
+    white-space:pre-wrap;
 }
 
 .messageTime{
-margin-top:4px;
-color:#667781;
-font-size:9px;
-text-align:right;
+    margin-top:4px;
+    color:#667781;
+    font-size:9px;
+    text-align:right;
 }
 
 .checks{
-margin-left:4px;
-font-weight:700;
-letter-spacing:-2px;
+    margin-left:4px;
+    font-weight:700;
 }
 
 .checks.read{
-color:#1b8fd1;
+    color:#1b8fd1;
+}
+
+.deletedMessage{
+    color:#667781;
+    font-style:italic;
 }
 
 .messageImage{
-display:block;
-width:100%;
-max-width:280px;
-max-height:330px;
-object-fit:cover;
-border-radius:7px;
-cursor:pointer;
+    display:block;
+    width:100%;
+    max-width:280px;
+    max-height:330px;
+    object-fit:cover;
+    border-radius:7px;
 }
 
 /* AUDIO */
 
 .audioMessage{
-display:flex;
-align-items:center;
-gap:9px;
-min-width:230px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    min-width:210px;
 }
 
 .audioPlay{
-width:42px;
-height:42px;
-border:0;
-border-radius:50%;
-background:#075e54;
-color:white;
-flex-shrink:0;
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:50%;
+    background:#075e54;
+    color:white;
 }
 
 .audioInfo{
-flex:1;
-min-width:0;
+    flex:1;
 }
 
 .audioTitle{
-font-size:13px;
-font-weight:600;
+    font-size:13px;
+    font-weight:600;
 }
 
 .audioDuration{
-margin-top:3px;
-color:#667781;
-font-size:11px;
-}
-
-.audioProgress{
-height:4px;
-border-radius:4px;
-background:#d5d5d5;
-margin-top:7px;
-overflow:hidden;
-}
-
-.audioProgressBar{
-height:100%;
-width:0%;
-background:#075e54;
-transition:width .1s linear;
-}
-
-/* RECORDING */
-
-.recordingInfo{
-display:none;
-align-items:center;
-gap:8px;
-padding:0 10px;
-font-size:12px;
-color:#e53935;
-font-weight:600;
-}
-
-.recordingInfo.show{
-display:flex;
-}
-
-.recordDot{
-width:8px;
-height:8px;
-border-radius:50%;
-background:#e53935;
-animation:pulse 1s infinite;
-}
-
-@keyframes pulse{
-0%,100%{opacity:1}
-50%{opacity:.3}
+    margin-top:3px;
+    color:#667781;
+    font-size:11px;
 }
 
 /* COMPOSER */
 
 .composer{
-display:flex;
-align-items:flex-end;
-gap:6px;
-padding:7px;
-padding-bottom:
-calc(7px + env(safe-area-inset-bottom));
-background:#f0f2f5;
+    display:flex;
+    align-items:flex-end;
+    gap:6px;
+    padding:7px;
+    padding-bottom:calc(7px + env(safe-area-inset-bottom));
+    background:#f0f2f5;
 }
 
 .composerButton{
-width:43px;
-height:43px;
-flex-shrink:0;
-border:0;
-border-radius:50%;
-background:white;
-color:#075e54;
-font-size:20px;
+    width:43px;
+    height:43px;
+    flex-shrink:0;
+    border:0;
+    border-radius:50%;
+    background:white;
+    color:#075e54;
+    font-size:20px;
 }
 
 .composerButton.recording{
-background:#e53935;
-color:white;
+    background:#e53935;
+    color:white;
+    transform:scale(1.05);
 }
 
 .messageInput{
-flex:1;
-min-height:42px;
-max-height:110px;
-resize:none;
-border:0;
-outline:0;
-border-radius:21px;
-padding:10px 14px;
-background:white;
+    flex:1;
+    min-height:42px;
+    max-height:110px;
+    resize:none;
+    border:0;
+    outline:0;
+    border-radius:21px;
+    padding:10px 14px;
+    background:white;
 }
 
 .send{
-width:43px;
-height:43px;
-border:0;
-border-radius:50%;
-background:#075e54;
-color:white;
-font-size:19px;
+    width:43px;
+    height:43px;
+    border:0;
+    border-radius:50%;
+    background:#075e54;
+    color:white;
+    font-size:19px;
+}
+
+/* ACTION BAR */
+
+.messageActions{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:50;
+    background:white;
+    border-top:1px solid #ddd;
+    box-shadow:0 -5px 20px rgba(0,0,0,.15);
+    padding:12px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom));
+}
+
+.messageActions button{
+    width:100%;
+    padding:13px;
+    margin:4px 0;
+    border:0;
+    border-radius:12px;
+    background:#f0f2f5;
+    text-align:left;
+}
+
+.messageActions button.danger{
+    color:#d32f2f;
 }
 
 /* PAGES */
 
 .page{
-flex:1;
-overflow:auto;
-background:#f5f6f6;
+    flex:1;
+    overflow:auto;
+    background:#f5f6f6;
 }
 
 .pageHeader{
-padding:
-calc(15px + env(safe-area-inset-top))
-15px 15px;
-background:#075e54;
-color:white;
-font-size:22px;
-font-weight:700;
+    padding:calc(15px + env(safe-area-inset-top)) 15px 15px;
+    background:#075e54;
+    color:white;
+    font-size:22px;
+    font-weight:700;
 }
 
 .profileCard{
-padding:25px 15px;
-background:white;
-display:flex;
-align-items:center;
-gap:15px;
+    padding:25px 15px;
+    background:white;
+    display:flex;
+    align-items:center;
+    gap:15px;
 }
 
 .profileAvatar{
-width:70px;
-height:70px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-background:linear-gradient(135deg,#25d366,#075e54);
-color:white;
-font-size:25px;
-font-weight:800;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#25d366,#075e54);
+    color:white;
+    font-size:25px;
+    font-weight:800;
 }
 
 .profileName{
-font-size:19px;
-font-weight:700;
+    font-size:19px;
+    font-weight:700;
 }
 
 .profileEmail{
-margin-top:4px;
-color:#667781;
-font-size:13px;
+    margin-top:4px;
+    color:#667781;
+    font-size:13px;
 }
 
 .row{
-display:flex;
-align-items:center;
-gap:13px;
-min-height:68px;
-padding:10px 17px;
-background:white;
-border-bottom:1px solid #edf0f1;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    min-height:68px;
+    padding:10px 17px;
+    background:white;
+    border-bottom:1px solid #edf0f1;
 }
 
-.rowIcon{
-font-size:21px;
-}
+.rowIcon{font-size:21px}
 
-.rowInfo{
-flex:1;
-}
+.rowInfo{flex:1}
 
-.rowTitle{
-font-size:15px;
-}
+.rowTitle{font-size:15px}
 
 .rowSub{
-margin-top:3px;
-color:#667781;
-font-size:12px;
+    margin-top:3px;
+    color:#667781;
+    font-size:12px;
 }
 
 /* MODAL */
 
 .modal{
-position:fixed;
-inset:0;
-z-index:100;
-display:none;
-align-items:flex-end;
-justify-content:center;
-background:rgba(0,0,0,.45);
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    background:rgba(0,0,0,.45);
 }
 
-.modal.show{
-display:flex;
-}
+.modal.show{display:flex}
 
 .modalBox{
-width:100%;
-max-width:600px;
-max-height:88dvh;
-overflow:hidden;
-border-radius:22px 22px 0 0;
-background:white;
+    width:100%;
+    max-width:600px;
+    max-height:88dvh;
+    overflow:hidden;
+    border-radius:22px 22px 0 0;
+    background:white;
 }
 
 .modalHeader{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:16px;
-border-bottom:1px solid #eee;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px;
+    border-bottom:1px solid #eee;
 }
 
 .close{
-width:36px;
-height:36px;
-border:0;
-border-radius:50%;
-background:#f0f2f5;
+    width:36px;
+    height:36px;
+    border:0;
+    border-radius:50%;
+    background:#f0f2f5;
 }
 
 .userSearch{
-width:calc(100% - 24px);
-height:45px;
-margin:12px;
-padding:0 13px;
-border:1px solid #ddd;
-border-radius:12px;
-outline:0;
+    width:calc(100% - 24px);
+    height:45px;
+    margin:12px;
+    padding:0 13px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    outline:0;
 }
 
 .userResults{
-max-height:55dvh;
-overflow:auto;
+    max-height:55dvh;
+    overflow:auto;
 }
 
 .user{
-display:flex;
-align-items:center;
-gap:12px;
-padding:11px 15px;
-border-bottom:1px solid #eee;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:11px 15px;
+    border-bottom:1px solid #eee;
 }
 
-.userInfo{
-flex:1;
-}
+.userInfo{flex:1}
 
-.userName{
-font-weight:700;
-}
+.userName{font-weight:700}
 
 .user button{
-padding:8px 13px;
-border:0;
-border-radius:10px;
-background:#075e54;
-color:white;
-}
-
-/* STORY */
-
-.storyViewer{
-position:fixed;
-inset:0;
-z-index:200;
-display:none;
-align-items:center;
-justify-content:center;
-background:#000;
-}
-
-.storyViewer.show{
-display:flex;
-}
-
-.storyViewer img,
-.storyViewer video{
-max-width:100%;
-max-height:100%;
-object-fit:contain;
-}
-
-.storyClose{
-position:absolute;
-top:calc(15px + env(safe-area-inset-top));
-right:15px;
-z-index:5;
-width:42px;
-height:42px;
-border:0;
-border-radius:50%;
-background:rgba(255,255,255,.15);
-color:white;
-font-size:22px;
+    padding:8px 13px;
+    border:0;
+    border-radius:10px;
+    background:#075e54;
+    color:white;
 }
 
 /* EMPTY */
 
 .empty{
-padding:60px 25px;
-text-align:center;
-color:#667781;
-line-height:1.5;
+    padding:60px 25px;
+    text-align:center;
+    color:#667781;
+    line-height:1.5;
 }
 
 /* DARK */
 
-body.dark .app{
-background:#111b21;
-}
-
+body.dark .app,
 body.dark .list,
 body.dark .bottom,
 body.dark .bottom button,
@@ -901,84 +746,109 @@ body.dark .page,
 body.dark .row,
 body.dark .profileCard,
 body.dark .storyBar{
-background:#111b21;
-color:#e9edef;
+    background:#111b21;
+    color:#e9edef;
 }
 
 body.dark .chat{
-border-color:#26343b;
+    border-color:#26343b;
 }
 
 body.dark .chatPreview,
 body.dark .chatTime,
 body.dark .rowSub,
 body.dark .profileEmail{
-color:#aebac1;
+    color:#aebac1;
 }
 
 body.dark .messages{
-background:#0b141a;
+    background:#0b141a;
 }
 
 body.dark .message.in{
-background:#202c33;
-color:white;
+    background:#202c33;
+    color:white;
 }
 
 body.dark .message.out{
-background:#005c4b;
-color:white;
+    background:#005c4b;
+    color:white;
 }
 
 body.dark .messageTime,
 body.dark .audioDuration{
-color:#aebac1;
+    color:#aebac1;
 }
 
 body.dark .composer{
-background:#202c33;
+    background:#202c33;
 }
 
-body.dark .messageInput{
-background:#111b21;
-color:white;
-}
-
+body.dark .messageInput,
 body.dark .composerButton{
-background:#111b21;
+    background:#111b21;
+    color:white;
 }
 
-body.dark .modalBox{
-background:#202c33;
-color:#e9edef;
+body.dark .messageActions{
+    background:#202c33;
 }
 
-body.dark .user{
-border-color:#34434b;
+body.dark .messageActions button{
+    background:#111b21;
+    color:#e9edef;
+}
+
+/* STORY */
+
+.storyViewer{
+    position:fixed;
+    inset:0;
+    z-index:200;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:#000;
+}
+
+.storyViewer.show{display:flex}
+
+.storyViewer img,
+.storyViewer video{
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+}
+
+.storyClose{
+    position:absolute;
+    top:calc(15px + env(safe-area-inset-top));
+    right:15px;
+    z-index:5;
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:50%;
+    background:rgba(255,255,255,.15);
+    color:white;
+    font-size:22px;
 }
 
 @media(min-width:601px){
+    body{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
 
-body{
-display:flex;
-align-items:center;
-justify-content:center;
+    .app{height:100vh}
 }
-
-.app{
-height:100vh;
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
 <div class="app">
-
-<!-- LOGIN -->
 
 <section id="authScreen" class="screen active">
 
@@ -992,51 +862,34 @@ Mit Benutzername oder E-Mail anmelden
 
 <div id="authError" class="error"></div>
 
-<input
-id="username"
+<input id="username"
 class="authInput"
 placeholder="Benutzername"
-style="display:none"
-autocomplete="username">
+style="display:none">
 
-<input
-id="email"
+<input id="email"
 class="authInput"
-placeholder="E-Mail oder Benutzername"
-autocomplete="username">
+placeholder="E-Mail oder Benutzername">
 
-<input
-id="password"
+<input id="password"
 class="authInput"
 type="password"
-placeholder="Passwort"
-autocomplete="current-password">
+placeholder="Passwort">
 
-<button
-id="authButton"
+<button id="authButton"
 class="authButton"
 onclick="handleAuth()">
 Anmelden
 </button>
 
 <div class="authSwitch">
-
-<span id="switchText">
-Noch kein Konto?
-</span>
-
-<button onclick="toggleAuthMode()">
-Registrieren
-</button>
-
+<span id="switchText">Noch kein Konto?</span>
+<button onclick="toggleAuthMode()">Registrieren</button>
 </div>
 
 </div>
-
 </section>
 
-
-<!-- HOME -->
 
 <section id="homeScreen" class="screen">
 
@@ -1044,41 +897,28 @@ Registrieren
 
 <div class="headerRow">
 
-<div class="headerTitle">
-WaveChat
-</div>
+<div class="headerTitle">WaveChat</div>
 
 <div class="headerActions">
 
-<button
-class="headerButton"
-onclick="startSelectionMode()">
-☑
-</button>
+<button class="headerButton"
+onclick="startSelectionMode()">☑</button>
 
-<button
-class="headerButton"
-onclick="logout()">
-↪
-</button>
+<button class="headerButton"
+onclick="logout()">↪</button>
 
 </div>
 
 </div>
 
 <div class="search">
-
 🔎
-
-<input
-id="search"
+<input id="search"
 placeholder="Chats suchen"
 oninput="filterChats()">
-
 </div>
 
 </header>
-
 
 <div id="storyBar" class="storyBar">
 
@@ -1086,223 +926,126 @@ oninput="filterChats()">
 onclick="openStoryUpload()">
 
 <div class="storyCircle">
-
 <div class="storyCircleInner">
+<span class="storyAdd">＋</span>
+</div>
+</div>
 
-<span class="storyAdd">
-＋
-</span>
+<div>Deine Story</div>
 
 </div>
 
 </div>
-
-<div class="storyName">
-Deine Story
-</div>
-
-</div>
-
-</div>
-
-
-<div id="selectionBar"
-class="selectionBar">
-
-<div class="selectionLeft">
-
-<button onclick="cancelSelection()">
-‹
-</button>
-
-<strong id="selectedCount">
-0 ausgewählt
-</strong>
-
-</div>
-
-<div>
-
-<button onclick="deleteSelectedChats()">
-🗑
-</button>
-
-</div>
-
-</div>
-
 
 <div class="homeWrap">
 
 <div id="chatList" class="list">
-
-<div class="empty">
-Chats werden geladen...
+<div class="empty">Chats werden geladen...</div>
 </div>
 
-</div>
-
-<button
-class="newChatButton"
-onclick="openNewChat()">
-＋
-</button>
+<button class="newChatButton"
+onclick="openNewChat()">＋</button>
 
 </div>
-
 
 <nav class="bottom">
 
-<button
-class="active"
-onclick="showHome()">
-
-<span>💬</span>
-Chats
-
+<button class="active" onclick="showHome()">
+<span>💬</span>Chats
 </button>
 
 <button onclick="showProfile()">
-
-<span>👤</span>
-Profil
-
+<span>👤</span>Profil
 </button>
 
 <button onclick="showSettings()">
-
-<span>⚙</span>
-Einstellungen
-
+<span>⚙</span>Einstellungen
 </button>
 
 </nav>
 
 </section>
 
-
-<!-- CHAT -->
 
 <section id="chatScreen" class="screen">
 
 <header class="chatHeader">
 
-<button
-class="back"
-onclick="showHome()">
-‹
-</button>
+<button class="back" onclick="showHome()">‹</button>
 
-<div id="chatAvatar"
-class="chatAvatar">
-WC
-</div>
+<div id="chatAvatar" class="chatAvatar">WC</div>
 
 <div class="chatTitle">
 
-<div id="chatName"
-class="chatNameLarge">
-Chat
-</div>
+<div id="chatName" class="chatNameLarge">Chat</div>
 
-<div id="chatStatus"
-class="chatStatus">
+<div id="chatStatus" class="chatStatus">
 WaveChat
 </div>
 
 </div>
 
-<button
-class="action"
-onclick="openChatMenu()">
-⋮
-</button>
-
 </header>
 
+<div id="messages" class="messages"></div>
 
-<div id="messages"
-class="messages">
+<div id="messageActions"
+class="messageActions"
+style="display:none">
+
+<button onclick="deleteSelectedForMe()">
+🗑️ Für mich löschen
+</button>
+
+<button id="deleteEveryoneButton"
+onclick="deleteSelectedForEveryone()">
+🗑️ Für alle löschen
+</button>
+
+<button onclick="closeMessageActions()">
+Abbrechen
+</button>
+
 </div>
-
-
-<div id="recordingInfo"
-class="recordingInfo">
-
-<div class="recordDot"></div>
-
-<span>Aufnahme</span>
-
-<strong id="recordingTime">
-00:00
-</strong>
-
-</div>
-
 
 <div class="composer">
 
-<button
-class="composerButton"
-onclick="openImagePicker()">
-＋
-</button>
+<button class="composerButton"
+onclick="openImagePicker()">＋</button>
 
-<button
-id="recordButton"
+<button id="recordButton"
 class="composerButton"
 onclick="toggleRecording()">
 🎤
 </button>
 
-<textarea
-id="messageInput"
+<textarea id="messageInput"
 class="messageInput"
 rows="1"
 placeholder="Nachricht"
-onkeydown="messageKey(event)">
-</textarea>
+onkeydown="messageKey(event)"></textarea>
 
-<button
-class="send"
-onclick="sendMessage()">
-➤
-</button>
+<button class="send"
+onclick="sendMessage()">➤</button>
 
 </div>
 
 </section>
 
 
-<!-- PROFILE -->
-
 <section id="profileScreen" class="screen">
 
-<div class="pageHeader">
-Mein Profil
-</div>
+<div class="pageHeader">Mein Profil</div>
 
 <div class="page">
 
 <div class="profileCard">
 
-<div id="profileAvatar"
-class="profileAvatar">
-WC
-</div>
+<div id="profileAvatar" class="profileAvatar">WC</div>
 
 <div>
-
-<div id="profileUsername"
-class="profileName">
-Benutzer
-</div>
-
-<div id="profileEmail"
-class="profileEmail">
-E-Mail
-</div>
-
+<div id="profileUsername" class="profileName">Benutzer</div>
+<div id="profileEmail" class="profileEmail">E-Mail</div>
 </div>
 
 </div>
@@ -1312,24 +1055,15 @@ E-Mail
 <nav class="bottom">
 
 <button onclick="showHome()">
-
-<span>💬</span>
-Chats
-
+<span>💬</span>Chats
 </button>
 
 <button class="active">
-
-<span>👤</span>
-Profil
-
+<span>👤</span>Profil
 </button>
 
 <button onclick="showSettings()">
-
-<span>⚙</span>
-Einstellungen
-
+<span>⚙</span>Einstellungen
 </button>
 
 </nav>
@@ -1337,110 +1071,52 @@ Einstellungen
 </section>
 
 
-<!-- SETTINGS -->
-
 <section id="settingsScreen" class="screen">
 
-<div class="pageHeader">
-Einstellungen
-</div>
+<div class="pageHeader">Einstellungen</div>
 
 <div class="page">
 
 <div class="row">
 
-<div class="rowIcon">
-🌙
-</div>
+<div class="rowIcon">🌙</div>
 
 <div class="rowInfo">
-
-<div class="rowTitle">
-Dark Mode
+<div class="rowTitle">Dark Mode</div>
+<div class="rowSub">Erscheinungsbild von WaveChat</div>
 </div>
 
-<div class="rowSub">
-Erscheinungsbild von WaveChat
-</div>
-
-</div>
-
-<input
-id="darkMode"
+<input id="darkMode"
 type="checkbox"
 onchange="toggleDark()">
 
 </div>
 
+<div class="row" onclick="logout()">
 
-<div class="row">
-
-<div class="rowIcon">
-🔔
-</div>
+<div class="rowIcon">🚪</div>
 
 <div class="rowInfo">
-
-<div class="rowTitle">
-Benachrichtigungen
-</div>
-
-<div class="rowSub">
-Neue Nachrichten
-</div>
-
-</div>
-
-<input type="checkbox" checked>
-
-</div>
-
-
-<div class="row"
-onclick="logout()">
-
-<div class="rowIcon">
-🚪
-</div>
-
-<div class="rowInfo">
-
-<div class="rowTitle">
-Abmelden
-</div>
-
-<div class="rowSub">
-Von diesem Gerät abmelden
+<div class="rowTitle">Abmelden</div>
+<div class="rowSub">Von diesem Gerät abmelden</div>
 </div>
 
 </div>
 
 </div>
-
-</div>
-
 
 <nav class="bottom">
 
 <button onclick="showHome()">
-
-<span>💬</span>
-Chats
-
+<span>💬</span>Chats
 </button>
 
 <button onclick="showProfile()">
-
-<span>👤</span>
-Profil
-
+<span>👤</span>Profil
 </button>
 
 <button class="active">
-
-<span>⚙</span>
-Einstellungen
-
+<span>⚙</span>Einstellungen
 </button>
 
 </nav>
@@ -1450,35 +1126,25 @@ Einstellungen
 </div>
 
 
-<!-- NEW CHAT -->
-
-<div id="newChatModal"
-class="modal">
+<div id="newChatModal" class="modal">
 
 <div class="modalBox">
 
 <div class="modalHeader">
 
-<strong>
-Neuer Chat
-</strong>
+<strong>Neuer Chat</strong>
 
-<button
-class="close"
-onclick="closeNewChat()">
-✕
-</button>
+<button class="close"
+onclick="closeNewChat()">✕</button>
 
 </div>
 
-<input
-id="userSearch"
+<input id="userSearch"
 class="userSearch"
 placeholder="Benutzername suchen..."
 oninput="searchUsers()">
 
-<div
-id="userResults"
+<div id="userResults"
 class="userResults">
 
 <div class="empty">
@@ -1488,34 +1154,26 @@ Gib einen Benutzernamen ein.
 </div>
 
 </div>
-
 </div>
 
 
-<input
-id="imageInput"
+<input id="imageInput"
 type="file"
 accept="image/*"
 style="display:none"
 onchange="sendImage(event)">
 
-
-<input
-id="storyInput"
+<input id="storyInput"
 type="file"
 accept="image/*,video/*"
 style="display:none"
 onchange="uploadStory(event)">
 
 
-<div id="storyViewer"
-class="storyViewer">
+<div id="storyViewer" class="storyViewer">
 
-<button
-class="storyClose"
-onclick="closeStoryViewer()">
-✕
-</button>
+<button class="storyClose"
+onclick="closeStoryViewer()">✕</button>
 
 <div id="storyContent"></div>
 
@@ -1523,10 +1181,6 @@ onclick="closeStoryViewer()">
 
 
 <script>
-
-/* =====================================================
-SUPABASE
-===================================================== */
 
 const SUPABASE_URL =
 "https://qizrwzprphklnlurqbvj.supabase.co";
@@ -1540,47 +1194,34 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 
-
-/* STATE */
-
 let currentUser=null;
 let currentConversation=null;
 let currentOtherUser=null;
 let realtimeChannel=null;
 let registerMode=false;
-let presenceTimer=null;
-
-let selectionMode=false;
-let selectedChats=new Set();
 
 let mediaRecorder=null;
 let audioChunks=[];
 let recordingStarted=0;
-let recordingTimer=null;
+
+let selectedMessageIds=new Set();
+let selectionMessageMode=false;
 
 
 /* START */
 
-document.addEventListener(
-"DOMContentLoaded",
-()=>{
-loadDark();
-initialize();
-}
-);
-
-
-/* INITIALIZE */
+document.addEventListener("DOMContentLoaded",initialize);
 
 async function initialize(){
+
+loadDark();
 
 const result =
 await supabaseClient.auth.getSession();
 
 if(result.data.session){
 
-currentUser =
-result.data.session.user;
+currentUser=result.data.session.user;
 
 await loadApplication();
 
@@ -1591,15 +1232,13 @@ async(event,session)=>{
 
 if(session){
 
-currentUser =
-session.user;
+currentUser=session.user;
 
 await loadApplication();
 
 }
 
-}
-);
+});
 
 }
 
@@ -1610,50 +1249,29 @@ function toggleAuthMode(){
 
 registerMode=!registerMode;
 
-const username=
-document.getElementById("username");
-
-const email=
-document.getElementById("email");
-
-const button=
-document.getElementById("authButton");
-
-const subtitle=
-document.getElementById("authSubtitle");
-
-const switchText=
-document.getElementById("switchText");
-
-username.style.display=
+document.getElementById("username").style.display=
 registerMode?"block":"none";
 
-email.placeholder=
+document.getElementById("email").placeholder=
 registerMode
 ?"E-Mail-Adresse"
 :"E-Mail oder Benutzername";
 
-button.textContent=
-registerMode
-?"Konto erstellen"
-:"Anmelden";
+document.getElementById("authButton").textContent=
+registerMode?"Konto erstellen":"Anmelden";
 
-subtitle.textContent=
+document.getElementById("authSubtitle").textContent=
 registerMode
 ?"Neues WaveChat-Konto erstellen"
 :"Mit Benutzername oder E-Mail anmelden";
 
-switchText.textContent=
+document.getElementById("switchText").textContent=
 registerMode
 ?"Bereits registriert?"
 :"Noch kein Konto?";
 
-document
-.querySelector(".authSwitch button")
-.textContent=
-registerMode
-?"Anmelden"
-:"Registrieren";
+document.querySelector(".authSwitch button").textContent=
+registerMode?"Anmelden":"Registrieren";
 
 hideError();
 
@@ -1664,40 +1282,25 @@ async function handleAuth(){
 
 hideError();
 
-const login=
-document.getElementById("email")
-.value.trim();
-
-const password=
-document.getElementById("password")
-.value;
-
-const username=
-document.getElementById("username")
-.value.trim();
+const login=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
+const username=document.getElementById("username").value.trim();
 
 if(!login||!password){
 
-showError(
-"Bitte alle erforderlichen Felder ausfüllen."
-);
-
+showError("Bitte alle erforderlichen Felder ausfüllen.");
 return;
 
 }
 
 if(registerMode&&!username){
 
-showError(
-"Bitte einen Benutzernamen eingeben."
-);
-
+showError("Bitte einen Benutzernamen eingeben.");
 return;
 
 }
 
-const button=
-document.getElementById("authButton");
+const button=document.getElementById("authButton");
 
 button.disabled=true;
 
@@ -1707,19 +1310,12 @@ let result;
 
 if(registerMode){
 
-result=
-await supabaseClient.auth.signUp({
-
+result=await supabaseClient.auth.signUp({
 email:login,
-
 password:password,
-
 options:{
-data:{
-username:username
+data:{username:username}
 }
-}
-
 });
 
 }else{
@@ -1731,20 +1327,12 @@ if(!login.includes("@")){
 const lookup=
 await supabaseClient.rpc(
 "get_login_email",
-{
-login_username:login
-}
+{login_username:login}
 );
 
-if(
-lookup.error||
-!lookup.data
-){
+if(lookup.error||!lookup.data){
 
-showError(
-"Benutzername wurde nicht gefunden."
-);
-
+showError("Benutzername wurde nicht gefunden.");
 return;
 
 }
@@ -1755,35 +1343,15 @@ email=lookup.data;
 
 result=
 await supabaseClient.auth.signInWithPassword({
-
 email:email,
-
 password:password
-
 });
 
 }
 
 if(result.error){
 
-showError(
-result.error.message
-);
-
-return;
-
-}
-
-if(
-registerMode&&
-result.data&&
-!result.data.session
-){
-
-showError(
-"Konto erstellt. Bitte bestätige deine E-Mail-Adresse."
-);
-
+showError(result.error.message);
 return;
 
 }
@@ -1816,37 +1384,8 @@ async function loadApplication(){
 showHome();
 
 await loadProfile();
-
-await updateLastSeen();
-
 await loadConversations();
-
 await loadStories();
-
-if(presenceTimer)
-clearInterval(presenceTimer);
-
-presenceTimer=
-setInterval(
-async()=>{
-if(!currentUser)return;
-await updateLastSeen();
-},
-60000
-);
-
-}
-
-
-/* LAST SEEN */
-
-async function updateLastSeen(){
-
-if(!currentUser)return;
-
-await supabaseClient.rpc(
-"update_my_last_seen"
-);
 
 }
 
@@ -1866,24 +1405,16 @@ await supabaseClient
 
 if(result.data){
 
-const username=
-result.data.username||
-"Benutzer";
+const username=result.data.username||"Benutzer";
 
-document.getElementById(
-"profileUsername"
-).textContent=username;
+document.getElementById("profileUsername").textContent=username;
 
-document.getElementById(
-"profileAvatar"
-).textContent=
+document.getElementById("profileAvatar").textContent=
 username.substring(0,2).toUpperCase();
 
 }
 
-document.getElementById(
-"profileEmail"
-).textContent=
+document.getElementById("profileEmail").textContent=
 currentUser.email||"";
 
 }
@@ -1893,32 +1424,22 @@ currentUser.email||"";
 
 async function loadStories(){
 
-const bar=
-document.getElementById("storyBar");
+const bar=document.getElementById("storyBar");
 
 if(!currentUser)return;
 
 const result=
 await supabaseClient
 .from("stories")
-.select(
-"id,user_id,media_url,media_type,created_at,expires_at"
-)
-.gt(
-"expires_at",
-new Date().toISOString()
-)
-.order(
-"created_at",
-{ascending:false}
-);
+.select("id,user_id,media_url,media_type,created_at,expires_at")
+.gt("expires_at",new Date().toISOString())
+.order("created_at",{ascending:false});
 
 if(result.error)return;
 
 bar.innerHTML="";
 
-const own=
-document.createElement("div");
+const own=document.createElement("div");
 
 own.className="storyItem";
 own.onclick=openStoryUpload;
@@ -1929,47 +1450,35 @@ own.innerHTML=`
 <span class="storyAdd">＋</span>
 </div>
 </div>
-<div class="storyName">Deine Story</div>
+<div>Deine Story</div>
 `;
 
 bar.appendChild(own);
 
-const userIds=[
-...new Set(
-result.data.map(s=>s.user_id)
-)
-];
+const ids=[...new Set(result.data.map(x=>x.user_id))];
 
-if(!userIds.length)return;
+if(!ids.length)return;
 
 const profiles=
 await supabaseClient
 .from("profiles")
 .select("id,username")
-.in("id",userIds);
+.in("id",ids);
 
-const profileMap={};
+const map={};
 
-(profiles.data||[])
-.forEach(
-p=>profileMap[p.id]=p
-);
+(profiles.data||[]).forEach(x=>map[x.id]=x);
 
-result.data.forEach(
-story=>{
+result.data.forEach(story=>{
 
-const profile=
-profileMap[story.user_id];
+const profile=map[story.user_id];
 
 if(!profile)return;
 
-const item=
-document.createElement("div");
+const item=document.createElement("div");
 
 item.className="storyItem";
-
-item.onclick=
-()=>openStory(story);
+item.onclick=()=>openStory(story);
 
 item.innerHTML=`
 <div class="storyCircle">
@@ -1977,24 +1486,19 @@ item.innerHTML=`
 <img src="${escapeAttribute(story.media_url)}">
 </div>
 </div>
-<div class="storyName">
-${escapeHTML(profile.username)}
-</div>
+<div>${escapeHTML(profile.username)}</div>
 `;
 
 bar.appendChild(item);
 
-}
-);
+});
 
 }
 
 
 function openStoryUpload(){
 
-document
-.getElementById("storyInput")
-.click();
+document.getElementById("storyInput").click();
 
 }
 
@@ -2007,35 +1511,26 @@ event.target.value="";
 
 if(!file||!currentUser)return;
 
-const extension=
-file.name.split(".").pop();
+const ext=file.name.split(".").pop();
 
 const path=
 currentUser.id+
 "/"+
 crypto.randomUUID()+
 "."+
-extension;
+ext;
 
 const upload=
 await supabaseClient.storage
 .from("stories")
-.upload(
-path,
-file,
-{
+.upload(path,file,{
 upsert:false,
 contentType:file.type
-}
-);
+});
 
 if(upload.error){
 
-alert(
-"Story konnte nicht hochgeladen werden:\n\n"+
-upload.error.message
-);
-
+alert(upload.error.message);
 return;
 
 }
@@ -2046,20 +1541,16 @@ supabaseClient.storage
 .getPublicUrl(path)
 .data.publicUrl;
 
-const type=
-file.type.startsWith("video/")
-?"video"
-:"image";
+const type=file.type.startsWith("video/")
+?"video":"image";
 
 const insert=
 await supabaseClient
 .from("stories")
 .insert({
-
 user_id:currentUser.id,
 media_url:url,
 media_type:type
-
 });
 
 if(insert.error){
@@ -2076,26 +1567,19 @@ await loadStories();
 
 function openStory(story){
 
-const viewer=
-document.getElementById("storyViewer");
-
-const content=
-document.getElementById("storyContent");
+const viewer=document.getElementById("storyViewer");
+const content=document.getElementById("storyContent");
 
 if(story.media_type==="video"){
 
 content.innerHTML=
-`<video
-src="${escapeAttribute(story.media_url)}"
-controls
-autoplay
-playsinline></video>`;
+`<video src="${escapeAttribute(story.media_url)}"
+controls autoplay playsinline></video>`;
 
 }else{
 
 content.innerHTML=
-`<img
-src="${escapeAttribute(story.media_url)}">`;
+`<img src="${escapeAttribute(story.media_url)}">`;
 
 }
 
@@ -2106,13 +1590,8 @@ viewer.classList.add("show");
 
 function closeStoryViewer(){
 
-document
-.getElementById("storyViewer")
-.classList.remove("show");
-
-document
-.getElementById("storyContent")
-.innerHTML="";
+document.getElementById("storyViewer").classList.remove("show");
+document.getElementById("storyContent").innerHTML="";
 
 }
 
@@ -2121,25 +1600,17 @@ document
 
 async function loadConversations(){
 
-const list=
-document.getElementById("chatList");
+const list=document.getElementById("chatList");
 
 if(!currentUser)return;
 
-list.innerHTML=
-'<div class="empty">Chats werden geladen...</div>';
-
 const result=
-await supabaseClient.rpc(
-"get_my_chat_list"
-);
+await supabaseClient.rpc("get_my_chat_list");
 
 if(result.error){
 
 list.innerHTML=
-`<div class="empty">
-${escapeHTML(result.error.message)}
-</div>`;
+`<div class="empty">${escapeHTML(result.error.message)}</div>`;
 
 return;
 
@@ -2151,20 +1622,11 @@ if(!chats.length){
 
 list.innerHTML=
 `<div class="empty">
-
-<div style="font-size:45px">
-💬
-</div>
-
+<div style="font-size:45px">💬</div>
 <br>
-
 <b>Noch keine Chats</b>
-
 <br><br>
-
-Tippe auf ＋,
-um einen Benutzer zu suchen.
-
+Tippe auf ＋, um einen Benutzer zu suchen.
 </div>`;
 
 return;
@@ -2173,47 +1635,22 @@ return;
 
 list.innerHTML="";
 
-chats.forEach(
-chat=>createChatListItem(chat)
-);
+chats.forEach(createChatListItem);
 
 }
 
 
 function createChatListItem(chat){
 
-const username=
-chat.username||
-"Unbekannter Benutzer";
+const username=chat.username||"Unbekannter Benutzer";
 
-const online=
-isOnline(chat.last_seen);
-
-const div=
-document.createElement("div");
+const div=document.createElement("div");
 
 div.className="chat";
 
-div.dataset.conversationId=
-chat.conversation_id;
-
-if(
-selectedChats.has(
-String(chat.conversation_id)
-)
-)
-div.classList.add("selected");
+div.dataset.conversationId=chat.conversation_id;
 
 div.onclick=()=>{
-
-if(selectionMode){
-
-toggleChatSelection(
-chat.conversation_id,
-div
-);
-
-}else{
 
 openConversationById(
 chat.conversation_id,
@@ -2221,17 +1658,13 @@ username,
 chat.last_seen
 );
 
-}
-
 };
 
-const avatarWrap=
-document.createElement("div");
+const avatarWrap=document.createElement("div");
 
 avatarWrap.className="avatarWrap";
 
-const avatar=
-document.createElement("div");
+const avatar=document.createElement("div");
 
 avatar.className="avatar";
 
@@ -2240,58 +1673,35 @@ username.substring(0,2).toUpperCase();
 
 avatarWrap.appendChild(avatar);
 
-if(online){
-
-const dot=
-document.createElement("div");
-
-dot.className="onlineDot";
-
-avatarWrap.appendChild(dot);
-
-}
-
-const info=
-document.createElement("div");
+const info=document.createElement("div");
 
 info.className="chatInfo";
 
-const top=
-document.createElement("div");
+const top=document.createElement("div");
 
 top.className="chatTop";
 
-const name=
-document.createElement("div");
+const name=document.createElement("div");
 
 name.className="chatName";
 name.textContent=username;
 
-const time=
-document.createElement("div");
+const time=document.createElement("div");
 
 time.className="chatTime";
 
 time.textContent=
-formatChatTime(
-chat.last_message_at
-);
+formatChatTime(chat.last_message_at);
 
 top.appendChild(name);
 top.appendChild(time);
 
-const preview=
-document.createElement("div");
+const preview=document.createElement("div");
 
 preview.className="chatPreview";
 
 preview.textContent=
-chat.last_message||
-(
-online
-?"🟢 Online"
-:getLastSeenText(chat.last_seen)
-);
+chat.last_message||"Keine Nachrichten";
 
 info.appendChild(top);
 info.appendChild(preview);
@@ -2299,128 +1709,7 @@ info.appendChild(preview);
 div.appendChild(avatarWrap);
 div.appendChild(info);
 
-document
-.getElementById("chatList")
-.appendChild(div);
-
-}
-
-
-/* SELECTION */
-
-function startSelectionMode(){
-
-selectionMode=true;
-
-selectedChats.clear();
-
-updateSelectionBar();
-
-}
-
-
-function cancelSelection(){
-
-selectionMode=false;
-
-selectedChats.clear();
-
-document
-.getElementById("selectionBar")
-.classList.remove("show");
-
-document
-.querySelectorAll(".chat.selected")
-.forEach(
-el=>el.classList.remove("selected")
-);
-
-}
-
-
-function toggleChatSelection(id,element){
-
-const key=String(id);
-
-if(selectedChats.has(key)){
-
-selectedChats.delete(key);
-
-element.classList.remove("selected");
-
-}else{
-
-selectedChats.add(key);
-
-element.classList.add("selected");
-
-}
-
-updateSelectionBar();
-
-}
-
-
-function updateSelectionBar(){
-
-const bar=
-document.getElementById("selectionBar");
-
-const count=
-document.getElementById("selectedCount");
-
-if(!selectionMode){
-
-bar.classList.remove("show");
-return;
-
-}
-
-bar.classList.add("show");
-
-count.textContent=
-selectedChats.size+
-" ausgewählt";
-
-}
-
-
-async function deleteSelectedChats(){
-
-if(!selectedChats.size)return;
-
-if(
-!confirm(
-selectedChats.size+
-" Chat(s) wirklich löschen?"
-)
-)return;
-
-const ids=
-[...selectedChats].map(Number);
-
-const result=
-await supabaseClient.rpc(
-"delete_my_conversations",
-{
-conversation_ids:ids
-}
-);
-
-if(result.error){
-
-alert(
-"Chats konnten nicht gelöscht werden:\n\n"+
-result.error.message
-);
-
-return;
-
-}
-
-cancelSelection();
-
-await loadConversations();
+document.getElementById("chatList").appendChild(div);
 
 }
 
@@ -2454,19 +1743,15 @@ username:username,
 last_seen:lastSeen
 };
 
-document.getElementById(
-"chatName"
-).textContent=username;
+document.getElementById("chatName").textContent=username;
 
-document.getElementById(
-"chatAvatar"
-).textContent=
+document.getElementById("chatAvatar").textContent=
 username.substring(0,2).toUpperCase();
 
-document.getElementById(
-"chatStatus"
-).textContent=
-getLastSeenText(lastSeen);
+document.getElementById("chatStatus").textContent=
+isOnline(lastSeen)
+?"🟢 Online"
+:"Zuletzt online";
 
 showScreen("chatScreen");
 
@@ -2477,12 +1762,11 @@ subscribeToMessages();
 }
 
 
-/* MESSAGES */
+/* LOAD MESSAGES */
 
 async function loadMessages(){
 
-const box=
-document.getElementById("messages");
+const box=document.getElementById("messages");
 
 box.innerHTML="";
 
@@ -2490,127 +1774,118 @@ const result=
 await supabaseClient
 .from("messages")
 .select("*")
-.eq(
-"conversation_id",
-currentConversation.id
-)
-.order(
-"created_at",
-{ascending:true}
-);
+.eq("conversation_id",currentConversation.id)
+.order("created_at",{ascending:true});
 
 if(result.error){
 
 box.innerHTML=
-`<div class="empty">
-${escapeHTML(result.error.message)}
-</div>`;
+`<div class="empty">${escapeHTML(result.error.message)}</div>`;
 
 return;
 
 }
 
-(result.data||[])
-.forEach(
-message=>renderMessage(message)
-);
+(result.data||[]).forEach(renderMessage);
 
-box.scrollTop=box.scrollHeight;
+scrollMessages();
 
 }
 
+
+/* RENDER MESSAGE */
 
 function renderMessage(message){
 
-const box=
-document.getElementById("messages");
-
-if(
-document.querySelector(
+if(document.querySelector(
 `[data-message-id="${message.id}"]`
-)
-)
-return;
+))return;
 
-const div=
-document.createElement("div");
+const div=document.createElement("div");
 
 div.className=
 "message "+
-(
-message.sender_id===currentUser.id
-?"out"
-:"in"
-);
+(message.sender_id===currentUser.id?"out":"in");
 
 div.dataset.messageId=message.id;
 
-if(message.message_type==="image"){
+div.addEventListener("contextmenu",e=>{
+e.preventDefault();
+selectMessage(message);
+});
 
-const img=
-document.createElement("img");
+div.addEventListener("click",()=>{
+if(selectionMessageMode)
+toggleMessageSelection(message.id,div);
+});
 
-img.className="messageImage";
+if(message.deleted_for_everyone){
 
-img.src=message.media_url;
+const deleted=document.createElement("div");
 
-img.onclick=
-()=>window.open(
-message.media_url,
-"_blank"
-);
+deleted.className="deletedMessage";
 
-div.appendChild(img);
+deleted.textContent=
+"🚫 Diese Nachricht wurde gelöscht";
 
-}else if(
-message.message_type==="audio"
-){
+div.appendChild(deleted);
 
-renderAudioMessage(
-div,
-message
-);
+}else if(message.deleted_for_me){
+
+const deleted=document.createElement("div");
+
+deleted.className="deletedMessage";
+
+deleted.textContent=
+"🚫 Diese Nachricht wurde gelöscht";
+
+div.appendChild(deleted);
 
 }else{
 
-const text=
-document.createElement("div");
+if(message.message_type==="image"){
+
+const img=document.createElement("img");
+
+img.className="messageImage";
+img.src=message.media_url;
+
+div.appendChild(img);
+
+}else if(message.message_type==="audio"){
+
+renderAudioMessage(div,message);
+
+}else{
+
+const text=document.createElement("div");
 
 text.className="messageText";
 
-text.textContent=
-message.content||"";
+text.textContent=message.content||"";
 
 div.appendChild(text);
 
 }
 
-const time=
-document.createElement("div");
+}
+
+const time=document.createElement("div");
 
 time.className="messageTime";
 
-time.textContent=
-formatTime(message.created_at);
+time.textContent=formatTime(message.created_at);
 
-if(
-message.sender_id===currentUser.id
-){
+if(message.sender_id===currentUser.id){
 
-const checks=
-document.createElement("span");
+const checks=document.createElement("span");
 
-checks.className=
-"checks "+
-(
-message.read_at
-?"read"
-:""
-);
+checks.className="checks";
 
 if(message.read_at){
 
 checks.textContent="✓✓";
+checks.classList.add("read");
 
 }else if(message.delivered_at){
 
@@ -2628,129 +1903,68 @@ time.appendChild(checks);
 
 div.appendChild(time);
 
-box.appendChild(div);
+document.getElementById("messages").appendChild(div);
 
 }
 
 
-/* AUDIO PLAYER */
+/* AUDIO */
 
-function renderAudioMessage(
-container,
-message
-){
+function renderAudioMessage(container,message){
 
-const wrap=
-document.createElement("div");
+const wrap=document.createElement("div");
 
 wrap.className="audioMessage";
 
-const button=
-document.createElement("button");
+const button=document.createElement("button");
 
 button.className="audioPlay";
-
 button.textContent="▶";
 
-const audio=
-document.createElement("audio");
+const audio=document.createElement("audio");
 
 audio.src=message.media_url;
-
 audio.preload="metadata";
-
 audio.style.display="none";
 
-const info=
-document.createElement("div");
+const info=document.createElement("div");
 
 info.className="audioInfo";
 
-const title=
-document.createElement("div");
+const title=document.createElement("div");
 
 title.className="audioTitle";
+title.textContent="Sprachnachricht";
 
-title.textContent=
-"Sprachnachricht";
-
-const duration=
-document.createElement("div");
+const duration=document.createElement("div");
 
 duration.className="audioDuration";
 
-let total=
-Number(message.media_duration)||0;
-
 duration.textContent=
-formatDuration(total);
-
-const progress=
-document.createElement("div");
-
-progress.className="audioProgress";
-
-const progressBar=
-document.createElement("div");
-
-progressBar.className="audioProgressBar";
-
-progress.appendChild(progressBar);
+formatDuration(message.media_duration||0);
 
 button.onclick=()=>{
 
 if(audio.paused){
 
 audio.play();
-
 button.textContent="❚❚";
 
 }else{
 
 audio.pause();
-
 button.textContent="▶";
-
-}
-
-};
-
-audio.ontimeupdate=()=>{
-
-if(audio.duration){
-
-progressBar.style.width=
-(
-audio.currentTime/audio.duration*100
-)+"%";
 
 }
 
 };
 
 audio.onended=()=>{
-
 button.textContent="▶";
-progressBar.style.width="0%";
-
-};
-
-audio.onloadedmetadata=()=>{
-
-if(!total&&isFinite(audio.duration)){
-
-duration.textContent=
-formatDuration(
-Math.round(audio.duration)
-);
-
-}
-
 };
 
 info.appendChild(title);
 info.appendChild(duration);
-info.appendChild(progress);
 
 wrap.appendChild(button);
 wrap.appendChild(info);
@@ -2765,17 +1979,11 @@ container.appendChild(wrap);
 
 async function sendMessage(){
 
-const input=
-document.getElementById("messageInput");
+const input=document.getElementById("messageInput");
 
-const content=
-input.value.trim();
+const content=input.value.trim();
 
-if(
-!content||
-!currentConversation
-)
-return;
+if(!content||!currentConversation)return;
 
 input.disabled=true;
 
@@ -2783,20 +1991,11 @@ const result=
 await supabaseClient
 .from("messages")
 .insert({
-
-conversation_id:
-currentConversation.id,
-
-sender_id:
-currentUser.id,
-
+conversation_id:currentConversation.id,
+sender_id:currentUser.id,
 content:content,
-
 message_type:"text",
-
-delivered_at:
-new Date().toISOString()
-
+delivered_at:new Date().toISOString()
 })
 .select()
 .single();
@@ -2816,8 +2015,6 @@ renderMessage(result.data);
 
 scrollMessages();
 
-await restoreConversation();
-
 await loadConversations();
 
 }
@@ -2827,9 +2024,7 @@ await loadConversations();
 
 function openImagePicker(){
 
-document
-.getElementById("imageInput")
-.click();
+document.getElementById("imageInput").click();
 
 }
 
@@ -2840,49 +2035,28 @@ const file=event.target.files[0];
 
 event.target.value="";
 
-if(
-!file||
-!currentConversation||
-!currentUser
-)
-return;
+if(!file||!currentConversation)return;
 
-if(!file.type.startsWith("image/")){
-
-alert("Bitte ein Bild auswählen.");
-return;
-
-}
-
-const extension=
-file.name.split(".").pop();
+const ext=file.name.split(".").pop();
 
 const path=
 currentUser.id+
 "/chat/"+
 crypto.randomUUID()+
 "."+
-extension;
+ext;
 
 const upload=
 await supabaseClient.storage
 .from("chat-media")
-.upload(
-path,
-file,
-{
+.upload(path,file,{
 upsert:false,
 contentType:file.type
-}
-);
+});
 
 if(upload.error){
 
-alert(
-"Bild konnte nicht hochgeladen werden:\n\n"+
-upload.error.message
-);
-
+alert(upload.error.message);
 return;
 
 }
@@ -2897,24 +2071,13 @@ const result=
 await supabaseClient
 .from("messages")
 .insert({
-
-conversation_id:
-currentConversation.id,
-
-sender_id:
-currentUser.id,
-
+conversation_id:currentConversation.id,
+sender_id:currentUser.id,
 content:"",
-
 message_type:"image",
-
 media_url:url,
-
 file_name:file.name,
-
-delivered_at:
-new Date().toISOString()
-
+delivered_at:new Date().toISOString()
 })
 .select()
 .single();
@@ -2930,32 +2093,18 @@ renderMessage(result.data);
 
 scrollMessages();
 
-await restoreConversation();
-
 await loadConversations();
 
 }
 
 
-/* =====================================================
-VOICE RECORDING
-===================================================== */
+/* VOICE */
 
 async function toggleRecording(){
 
 if(mediaRecorder){
 
 stopRecording();
-return;
-
-}
-
-if(
-!currentConversation||
-!currentUser
-){
-
-alert("Bitte zuerst einen Chat öffnen.");
 return;
 
 }
@@ -2975,93 +2124,46 @@ new MediaRecorder(stream);
 recordingStarted=Date.now();
 
 const button=
-document.getElementById(
-"recordButton"
-);
-
-const info=
-document.getElementById(
-"recordingInfo"
-);
+document.getElementById("recordButton");
 
 button.classList.add("recording");
 
 button.textContent="■";
 
-info.classList.add("show");
+mediaRecorder.ondataavailable=e=>{
 
-document.getElementById(
-"recordingTime"
-).textContent="00:00";
-
-mediaRecorder.ondataavailable=
-event=>{
-
-if(event.data.size>0)
-audioChunks.push(event.data);
+if(e.data.size>0)
+audioChunks.push(e.data);
 
 };
 
-mediaRecorder.onstop=
-async()=>{
+mediaRecorder.onstop=async()=>{
 
-stream
-.getTracks()
-.forEach(
+stream.getTracks().forEach(
 track=>track.stop()
 );
 
-const mime=
-mediaRecorder.mimeType||
-"audio/webm";
-
 const blob=
-new Blob(
-audioChunks,
-{type:mime}
-);
+new Blob(audioChunks,{
+type:mediaRecorder.mimeType||"audio/webm"
+});
 
-const durationSeconds=
-Math.max(
-1,
+const duration=
 Math.round(
 (Date.now()-recordingStarted)/1000
-)
 );
 
 mediaRecorder=null;
-
-clearInterval(recordingTimer);
-
-info.classList.remove("show");
 
 button.classList.remove("recording");
 
 button.textContent="🎤";
 
-await sendAudio(
-blob,
-durationSeconds
-);
+await sendAudio(blob,duration);
 
 };
 
 mediaRecorder.start();
-
-recordingTimer=
-setInterval(()=>{
-
-const seconds=
-Math.floor(
-(Date.now()-recordingStarted)/1000
-);
-
-document.getElementById(
-"recordingTime"
-).textContent=
-formatDuration(seconds);
-
-},250);
 
 }catch(error){
 
@@ -3077,10 +2179,7 @@ error.message
 
 function stopRecording(){
 
-if(
-mediaRecorder&&
-mediaRecorder.state!=="inactive"
-){
+if(mediaRecorder&&mediaRecorder.state!=="inactive"){
 
 mediaRecorder.stop();
 
@@ -3089,37 +2188,14 @@ mediaRecorder.stop();
 }
 
 
-/* SEND AUDIO */
+/* AUDIO SENDEN */
 
-async function sendAudio(
-blob,
-duration
-){
+async function sendAudio(blob,duration){
 
-if(
-!currentConversation||
-!currentUser
-)
-return;
+if(!currentConversation||!currentUser)return;
 
-/*
-WICHTIG:
-duration wird hier ausdrücklich
-als INTEGER gespeichert.
-*/
-
-const integerDuration=
-Math.max(
-1,
-Math.round(
-Number(duration)||1
-)
-);
-
-let extension="webm";
-
-if(blob.type.includes("mp4"))
-extension="m4a";
+const extension=
+blob.type.includes("mp4")?"m4a":"webm";
 
 const path=
 currentUser.id+
@@ -3131,14 +2207,10 @@ extension;
 const upload=
 await supabaseClient.storage
 .from("chat-media")
-.upload(
-path,
-blob,
-{
+.upload(path,blob,{
 upsert:false,
 contentType:blob.type
-}
-);
+});
 
 if(upload.error){
 
@@ -3161,32 +2233,22 @@ const result=
 await supabaseClient
 .from("messages")
 .insert({
-
-conversation_id:
-currentConversation.id,
-
-sender_id:
-currentUser.id,
-
+conversation_id:currentConversation.id,
+sender_id:currentUser.id,
 content:"",
-
 message_type:"audio",
-
 media_url:url,
 
 /*
-INTEGER – niemals 2.3,
-sondern z.B. 2
+WICHTIG:
+Die Datenbank erwartet INTEGER.
+Deshalb niemals 2.3 speichern.
 */
+media_duration:Math.round(Number(duration)||0),
 
-media_duration:
-integerDuration,
+file_name:"Sprachnachricht."+extension,
 
-file_name:
-"Sprachnachricht."+extension,
-
-delivered_at:
-new Date().toISOString()
+delivered_at:new Date().toISOString()
 
 })
 .select()
@@ -3194,11 +2256,7 @@ new Date().toISOString()
 
 if(result.error){
 
-alert(
-"Sprachnachricht konnte nicht gespeichert werden:\n\n"+
-result.error.message
-);
-
+alert(result.error.message);
 return;
 
 }
@@ -3207,26 +2265,230 @@ renderMessage(result.data);
 
 scrollMessages();
 
-await restoreConversation();
-
 await loadConversations();
 
 }
 
 
-/* RESTORE */
+/* MESSAGE AUSWÄHLEN */
 
-async function restoreConversation(){
+function selectMessage(message){
 
-if(!currentConversation)return;
+selectedMessageIds.clear();
 
-await supabaseClient.rpc(
-"restore_my_conversation",
-{
-target_conversation_id:
-currentConversation.id
+selectedMessageIds.add(String(message.id));
+
+selectionMessageMode=true;
+
+updateMessageSelection();
+
+showMessageActions();
+
 }
+
+
+/* MULTI SELECT */
+
+function toggleMessageSelection(id,element){
+
+const key=String(id);
+
+if(selectedMessageIds.has(key)){
+
+selectedMessageIds.delete(key);
+
+element.classList.remove("selected");
+
+}else{
+
+selectedMessageIds.add(key);
+
+element.classList.add("selected");
+
+}
+
+if(!selectedMessageIds.size){
+
+closeMessageActions();
+
+return;
+
+}
+
+updateMessageSelection();
+
+}
+
+
+function updateMessageSelection(){
+
+document.querySelectorAll(".message").forEach(el=>{
+
+const id=String(el.dataset.messageId);
+
+el.classList.toggle(
+"selected",
+selectedMessageIds.has(id)
 );
+
+});
+
+}
+
+
+/* ACTIONS */
+
+function showMessageActions(){
+
+document.getElementById("messageActions").style.display="block";
+
+const button=
+document.getElementById("deleteEveryoneButton");
+
+let allowed=false;
+
+selectedMessageIds.forEach(id=>{
+
+const el=
+document.querySelector(
+`[data-message-id="${id}"]`
+);
+
+if(!el)return;
+
+if(el.classList.contains("out")){
+
+allowed=true;
+
+}
+
+});
+
+button.style.display=
+allowed?"block":"none";
+
+}
+
+
+function closeMessageActions(){
+
+selectedMessageIds.clear();
+
+selectionMessageMode=false;
+
+document.getElementById("messageActions").style.display="none";
+
+document.querySelectorAll(".message.selected")
+.forEach(el=>el.classList.remove("selected"));
+
+}
+
+
+/* FÜR MICH */
+
+async function deleteSelectedForMe(){
+
+if(!selectedMessageIds.size)return;
+
+const ids=[...selectedMessageIds].map(Number);
+
+for(const id of ids){
+
+const result=
+await supabaseClient
+.from("messages")
+.update({
+deleted_for_me:true
+})
+.eq("id",id);
+
+if(result.error){
+
+alert(result.error.message);
+return;
+
+}
+
+}
+
+closeMessageActions();
+
+await loadMessages();
+
+}
+
+
+/* FÜR ALLE */
+
+async function deleteSelectedForEveryone(){
+
+if(!selectedMessageIds.size)return;
+
+const ids=[...selectedMessageIds].map(Number);
+
+const messages=
+await supabaseClient
+.from("messages")
+.select("id,sender_id,created_at")
+.in("id",ids);
+
+if(messages.error){
+
+alert(messages.error.message);
+return;
+
+}
+
+for(const message of messages.data){
+
+if(message.sender_id!==currentUser.id){
+
+alert(
+"Du kannst nur deine eigenen Nachrichten für alle löschen."
+);
+
+continue;
+
+}
+
+const age=
+Date.now()-
+new Date(message.created_at).getTime();
+
+const oneHour=60*60*1000;
+
+if(age>oneHour){
+
+alert(
+"Eine Nachricht kann nur innerhalb von 1 Stunde für alle gelöscht werden."
+);
+
+continue;
+
+}
+
+const result=
+await supabaseClient
+.from("messages")
+.update({
+deleted_for_everyone:true,
+deleted_for_everyone_at:new Date().toISOString()
+})
+.eq("id",message.id)
+.eq("sender_id",currentUser.id);
+
+if(result.error){
+
+alert(result.error.message);
+return;
+
+}
+
+}
+
+closeMessageActions();
+
+await loadMessages();
 
 }
 
@@ -3237,20 +2499,13 @@ function subscribeToMessages(){
 
 if(realtimeChannel){
 
-supabaseClient.removeChannel(
-realtimeChannel
-);
+supabaseClient.removeChannel(realtimeChannel);
 
 }
 
 realtimeChannel=
 supabaseClient
-.channel(
-"chat-"+
-currentConversation.id+
-"-"+
-Date.now()
-)
+.channel("chat-"+currentConversation.id+"-"+Date.now())
 .on(
 "postgres_changes",
 {
@@ -3258,8 +2513,7 @@ event:"INSERT",
 schema:"public",
 table:"messages",
 filter:
-"conversation_id=eq."+
-currentConversation.id
+"conversation_id=eq."+currentConversation.id
 },
 payload=>{
 
@@ -3267,16 +2521,31 @@ renderMessage(payload.new);
 
 scrollMessages();
 
-if(
-payload.new.sender_id!==
-currentUser.id
-){
+}
+)
+.on(
+"postgres_changes",
+{
+event:"UPDATE",
+schema:"public",
+table:"messages",
+filter:
+"conversation_id=eq."+currentConversation.id
+},
+payload=>{
 
-markMessageRead(
-payload.new.id
+const old=
+document.querySelector(
+`[data-message-id="${payload.new.id}"]`
 );
 
+if(old){
+
+old.remove();
+
 }
+
+renderMessage(payload.new);
 
 }
 )
@@ -3285,71 +2554,39 @@ payload.new.id
 }
 
 
-async function markMessageRead(id){
-
-await supabaseClient
-.from("messages")
-.update({
-read_at:
-new Date().toISOString()
-})
-.eq("id",id);
-
-}
-
-
 /* NEW CHAT */
 
 function openNewChat(){
 
-document
-.getElementById("newChatModal")
-.classList.add("show");
+document.getElementById("newChatModal").classList.add("show");
 
-document
-.getElementById("userSearch")
-.value="";
+document.getElementById("userSearch").value="";
 
-document
-.getElementById("userResults")
-.innerHTML=
-`<div class="empty">
-Gib einen Benutzernamen ein.
-</div>`;
+document.getElementById("userResults").innerHTML=
+`<div class="empty">Gib einen Benutzernamen ein.</div>`;
 
 }
 
 
 function closeNewChat(){
 
-document
-.getElementById("newChatModal")
-.classList.remove("show");
+document.getElementById("newChatModal").classList.remove("show");
 
 }
 
 
 async function searchUsers(){
 
-if(!currentUser)return;
-
 const query=
-document
-.getElementById("userSearch")
-.value
-.trim();
+document.getElementById("userSearch").value.trim();
 
 const results=
-document.getElementById(
-"userResults"
-);
+document.getElementById("userResults");
 
 if(query.length<2){
 
 results.innerHTML=
-`<div class="empty">
-Mindestens 2 Zeichen eingeben.
-</div>`;
+`<div class="empty">Mindestens 2 Zeichen eingeben.</div>`;
 
 return;
 
@@ -3358,25 +2595,15 @@ return;
 const result=
 await supabaseClient
 .from("profiles")
-.select(
-"id,username,last_seen"
-)
-.ilike(
-"username",
-"%"+query+"%"
-)
-.neq(
-"id",
-currentUser.id
-)
+.select("id,username,last_seen")
+.ilike("username","%"+query+"%")
+.neq("id",currentUser.id)
 .limit(20);
 
 if(result.error){
 
 results.innerHTML=
-`<div class="empty">
-${escapeHTML(result.error.message)}
-</div>`;
+`<div class="empty">${escapeHTML(result.error.message)}</div>`;
 
 return;
 
@@ -3385,9 +2612,7 @@ return;
 if(!result.data.length){
 
 results.innerHTML=
-`<div class="empty">
-Kein Benutzer gefunden.
-</div>`;
+`<div class="empty">Kein Benutzer gefunden.</div>`;
 
 return;
 
@@ -3395,26 +2620,20 @@ return;
 
 results.innerHTML="";
 
-result.data.forEach(
-user=>{
+result.data.forEach(user=>{
 
-const row=
-document.createElement("div");
+const row=document.createElement("div");
 
 row.className="user";
 
-const avatar=
-document.createElement("div");
+const avatar=document.createElement("div");
 
 avatar.className="avatar";
 
 avatar.textContent=
-user.username
-.substring(0,2)
-.toUpperCase();
+user.username.substring(0,2).toUpperCase();
 
-const info=
-document.createElement("div");
+const info=document.createElement("div");
 
 info.className="userInfo";
 
@@ -3423,18 +2642,14 @@ info.innerHTML=
 ${escapeHTML(user.username)}
 </div>
 <div class="rowSub">
-${escapeHTML(
-getLastSeenText(user.last_seen)
-)}
+${isOnline(user.last_seen)?"🟢 Online":"Offline"}
 </div>`;
 
-const button=
-document.createElement("button");
+const button=document.createElement("button");
 
 button.textContent="Chat";
 
-button.onclick=
-()=>createConversation(user);
+button.onclick=()=>createConversation(user);
 
 row.appendChild(avatar);
 row.appendChild(info);
@@ -3442,8 +2657,7 @@ row.appendChild(button);
 
 results.appendChild(row);
 
-}
-);
+});
 
 }
 
@@ -3451,27 +2665,6 @@ results.appendChild(row);
 /* CREATE CHAT */
 
 async function createConversation(user){
-
-try{
-
-const existing=
-await findExistingConversation(
-user.id
-);
-
-if(existing){
-
-closeNewChat();
-
-await openConversationById(
-existing.id,
-user.username,
-user.last_seen
-);
-
-return;
-
-}
 
 const result=
 await supabaseClient.rpc(
@@ -3498,121 +2691,6 @@ user.username,
 user.last_seen
 );
 
-}catch(error){
-
-alert(error.message);
-
-}
-
-}
-
-
-/* FIND CHAT */
-
-async function findExistingConversation(
-otherUserId
-){
-
-const own=
-await supabaseClient
-.from("conversation_members")
-.select("conversation_id")
-.eq(
-"user_id",
-currentUser.id
-);
-
-if(
-own.error||
-!own.data.length
-)
-return null;
-
-const ids=
-own.data.map(
-item=>item.conversation_id
-);
-
-const other=
-await supabaseClient
-.from("conversation_members")
-.select("conversation_id")
-.eq(
-"user_id",
-otherUserId
-)
-.in(
-"conversation_id",
-ids
-);
-
-if(
-other.error||
-!other.data.length
-)
-return null;
-
-const conversation=
-await supabaseClient
-.from("conversations")
-.select("*")
-.eq(
-"id",
-other.data[0].conversation_id
-)
-.single();
-
-return conversation.data||null;
-
-}
-
-
-/* CHAT MENU */
-
-async function openChatMenu(){
-
-if(!currentConversation)return;
-
-const remove=
-confirm(
-"Diesen Chat nur aus deiner Chat-Liste entfernen?"
-);
-
-if(!remove)return;
-
-const result=
-await supabaseClient.rpc(
-"delete_my_conversation",
-{
-target_conversation_id:
-currentConversation.id
-}
-);
-
-if(result.error){
-
-alert(result.error.message);
-return;
-
-}
-
-currentConversation=null;
-currentOtherUser=null;
-
-if(realtimeChannel){
-
-supabaseClient.removeChannel(
-realtimeChannel
-);
-
-realtimeChannel=null;
-
-}
-
-await loadConversations();
-
-showHome();
-
 }
 
 
@@ -3620,15 +2698,10 @@ showHome();
 
 function showScreen(id){
 
-document
-.querySelectorAll(".screen")
-.forEach(
-screen=>
-screen.classList.remove("active")
-);
+document.querySelectorAll(".screen")
+.forEach(x=>x.classList.remove("active"));
 
-document
-.getElementById(id)
+document.getElementById(id)
 .classList.add("active");
 
 }
@@ -3638,13 +2711,13 @@ function showHome(){
 
 if(realtimeChannel){
 
-supabaseClient.removeChannel(
-realtimeChannel
-);
+supabaseClient.removeChannel(realtimeChannel);
 
 realtimeChannel=null;
 
 }
+
+closeMessageActions();
 
 showScreen("homeScreen");
 
@@ -3674,9 +2747,6 @@ showScreen("settingsScreen");
 
 async function logout(){
 
-if(presenceTimer)
-clearInterval(presenceTimer);
-
 if(realtimeChannel){
 
 await supabaseClient.removeChannel(
@@ -3690,8 +2760,8 @@ realtimeChannel=null;
 await supabaseClient.auth.signOut();
 
 currentUser=null;
+
 currentConversation=null;
-currentOtherUser=null;
 
 showScreen("authScreen");
 
@@ -3703,25 +2773,18 @@ showScreen("authScreen");
 function filterChats(){
 
 const query=
-document
-.getElementById("search")
-.value
-.toLowerCase();
+document.getElementById("search")
+.value.toLowerCase();
 
-document
-.querySelectorAll(".chat")
-.forEach(
-chat=>{
+document.querySelectorAll(".chat")
+.forEach(chat=>{
 
 chat.style.display=
-chat.textContent
-.toLowerCase()
-.includes(query)
+chat.textContent.toLowerCase().includes(query)
 ?"flex"
 :"none";
 
-}
-);
+});
 
 }
 
@@ -3731,7 +2794,7 @@ chat.textContent
 function messageKey(event){
 
 if(
-event.key==="Enter"&&
+event.key==="Enter" &&
 !event.shiftKey
 ){
 
@@ -3744,113 +2807,7 @@ sendMessage();
 }
 
 
-/* ONLINE */
-
-function isOnline(lastSeen){
-
-if(!lastSeen)
-return false;
-
-return(
-Date.now()-
-new Date(lastSeen).getTime()
-)<
-2*60*1000;
-
-}
-
-
-function getLastSeenText(lastSeen){
-
-if(isOnline(lastSeen))
-return "🟢 Online";
-
-if(!lastSeen)
-return "Zuletzt online unbekannt";
-
-return "Zuletzt online "+
-formatLastSeen(lastSeen);
-
-}
-
-
-function formatLastSeen(lastSeen){
-
-const date=new Date(lastSeen);
-const now=new Date();
-
-if(
-date.toDateString()===
-now.toDateString()
-){
-
-return(
-"heute um "+
-date.toLocaleTimeString(
-"de-DE",
-{
-hour:"2-digit",
-minute:"2-digit"
-}
-)
-);
-
-}
-
-return(
-date.toLocaleDateString(
-"de-DE",
-{
-day:"2-digit",
-month:"2-digit",
-year:"numeric"
-}
-)+
-" um "+
-date.toLocaleTimeString(
-"de-DE",
-{
-hour:"2-digit",
-minute:"2-digit"
-}
-)
-);
-
-}
-
-
-function formatChatTime(timestamp){
-
-if(!timestamp)return "";
-
-const date=new Date(timestamp);
-const now=new Date();
-
-if(
-date.toDateString()===
-now.toDateString()
-){
-
-return date.toLocaleTimeString(
-"de-DE",
-{
-hour:"2-digit",
-minute:"2-digit"
-}
-);
-
-}
-
-return date.toLocaleDateString(
-"de-DE",
-{
-day:"2-digit",
-month:"2-digit"
-}
-);
-
-}
-
+/* TIME */
 
 function formatTime(timestamp){
 
@@ -3866,46 +2823,61 @@ minute:"2-digit"
 }
 
 
-/*
-Audio-Dauer:
-Immer ganze Sekunden.
-*/
+function formatChatTime(timestamp){
 
-function formatDuration(seconds){
+if(!timestamp)return "";
 
-seconds=
-Math.max(
-0,
-Math.round(
-Number(seconds)||0
-)
-);
+const date=new Date(timestamp);
 
-const minutes=
-Math.floor(seconds/60);
-
-const remaining=
-seconds%60;
-
-return(
-String(minutes)
-.padStart(2,"0")+
-":"+
-String(remaining)
-.padStart(2,"0")
+return date.toLocaleTimeString(
+"de-DE",
+{
+hour:"2-digit",
+minute:"2-digit"
+}
 );
 
 }
 
 
-/* DARK MODE */
+function formatDuration(seconds){
+
+seconds=Math.max(
+0,
+Math.round(Number(seconds)||0)
+);
+
+const minutes=Math.floor(seconds/60);
+
+const remaining=seconds%60;
+
+return String(minutes).padStart(2,"0")+
+":"+
+String(remaining).padStart(2,"0");
+
+}
+
+
+/* ONLINE */
+
+function isOnline(lastSeen){
+
+if(!lastSeen)return false;
+
+return(
+Date.now()-
+new Date(lastSeen).getTime()
+)<120000;
+
+}
+
+
+/* DARK */
 
 function toggleDark(){
 
 const enabled=
-document
-.getElementById("darkMode")
-.checked;
+document.getElementById("darkMode").checked;
 
 document.body.classList.toggle(
 "dark",
@@ -3923,9 +2895,7 @@ enabled?"true":"false"
 function loadDark(){
 
 const enabled=
-localStorage.getItem(
-"wavechat_dark"
-)==="true";
+localStorage.getItem("wavechat_dark")==="true";
 
 const checkbox=
 document.getElementById("darkMode");
@@ -3948,8 +2918,7 @@ function scrollMessages(){
 const box=
 document.getElementById("messages");
 
-box.scrollTop=
-box.scrollHeight;
+box.scrollTop=box.scrollHeight;
 
 }
 
@@ -3968,9 +2937,8 @@ box.style.display="block";
 
 function hideError(){
 
-document.getElementById(
-"authError"
-).style.display="none";
+document.getElementById("authError")
+.style.display="none";
 
 }
 
