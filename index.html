@@ -787,6 +787,62 @@ font-size:11px;
 }
 
 
+/* RECORDING TIMER */
+
+.recordTimer{
+display:none;
+
+align-items:center;
+justify-content:center;
+
+min-width:58px;
+height:43px;
+
+padding:0 8px;
+
+border-radius:22px;
+
+background:#e53935;
+
+color:white;
+
+font-size:13px;
+font-weight:700;
+
+font-variant-numeric:tabular-nums;
+}
+
+.recordTimer.show{
+display:flex;
+}
+
+.recordingDot{
+width:7px;
+height:7px;
+
+margin-right:5px;
+
+border-radius:50%;
+
+background:white;
+
+animation:
+recordPulse 1s infinite;
+}
+
+@keyframes recordPulse{
+
+0%,100%{
+opacity:1;
+}
+
+50%{
+opacity:.35;
+}
+
+}
+
+
 /* COMPOSER */
 
 .composer{
@@ -1551,6 +1607,8 @@ class="messages">
 </div>
 
 
+<!-- MESSAGE ACTIONS -->
+
 <div
 id="messageActions"
 class="messageActions"
@@ -1583,6 +1641,8 @@ Abbrechen
 </div>
 
 
+<!-- COMPOSER -->
+
 <div class="composer">
 
 <button
@@ -1590,6 +1650,16 @@ class="composerButton"
 onclick="openImagePicker()">
 ＋
 </button>
+
+
+<div
+id="recordTimer"
+class="recordTimer">
+
+<span class="recordingDot"></span>
+<span id="recordTimerText">00:00</span>
+
+</div>
 
 
 <button
@@ -1854,7 +1924,7 @@ onclick="closeStoryViewer()">
 
 /* =========================================================
    SUPABASE
-   ========================================================= */
+========================================================= */
 
 const SUPABASE_URL =
 "https://qizrwzprphklnlurqbvj.supabase.co";
@@ -1862,75 +1932,16 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_U_iSB9kGfpbrfDkF60fz_Q_woh6jBhk";
 
-let supabaseClient = null;
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 
-/*
-   Supabase Client sicher initialisieren.
-*/
-
-function initializeSupabase(){
-
-    try{
-
-        if(
-            !window.supabase ||
-            typeof window.supabase.createClient !== "function"
-        ){
-
-            throw new Error(
-                "Die Supabase-Bibliothek konnte nicht geladen werden."
-            );
-
-        }
-
-        supabaseClient =
-            window.supabase.createClient(
-                SUPABASE_URL.trim(),
-                SUPABASE_KEY.trim(),
-                {
-                    auth:{
-                        autoRefreshToken:true,
-                        persistSession:true,
-                        detectSessionInUrl:true
-                    }
-                }
-            );
-
-        console.log(
-            "WaveChat: Supabase Client erfolgreich erstellt."
-        );
-
-        return true;
-
-    }catch(error){
-
-        console.error(
-            "WaveChat: Supabase Initialisierungsfehler:",
-            error
-        );
-
-        const errorBox =
-            document.getElementById("authError");
-
-        if(errorBox){
-
-            errorBox.textContent =
-                "Supabase konnte nicht gestartet werden:\n\n" +
-                error.message;
-
-            errorBox.style.display="block";
-
-        }
-
-        return false;
-
-    }
-
-}
-
-
-/* STATE */
+/* =========================================================
+   STATE
+========================================================= */
 
 let currentUser=null;
 
@@ -1942,11 +1953,16 @@ let realtimeChannel=null;
 
 let registerMode=false;
 
+
+/* VOICE */
+
 let mediaRecorder=null;
 
 let audioChunks=[];
 
 let recordingStarted=0;
+
+let recordingTimerInterval=null;
 
 
 /* MESSAGE SELECTION */
@@ -1969,7 +1985,93 @@ let chatLongPressTimer=null;
 let messageLongPressTimer=null;
 
 
-/* START */
+/* =========================================================
+   LOKALE AUSGEBLENDETE NACHRICHTEN
+========================================================= */
+
+function getHiddenMessageIds(){
+
+try{
+
+const raw=
+localStorage.getItem(
+"wavechat_hidden_messages"
+);
+
+if(!raw)return new Set();
+
+return new Set(
+JSON.parse(raw).map(
+id=>String(id)
+)
+);
+
+}catch(e){
+
+return new Set();
+
+}
+
+}
+
+
+function saveHiddenMessageIds(set){
+
+localStorage.setItem(
+"wavechat_hidden_messages",
+JSON.stringify(
+[...set]
+)
+);
+
+}
+
+
+/* =========================================================
+   LOKAL AUSGEBLENDETE CHATS
+========================================================= */
+
+function getHiddenConversationIds(){
+
+try{
+
+const raw=
+localStorage.getItem(
+"wavechat_hidden_conversations"
+);
+
+if(!raw)return new Set();
+
+return new Set(
+JSON.parse(raw).map(
+id=>String(id)
+)
+);
+
+}catch(e){
+
+return new Set();
+
+}
+
+}
+
+
+function saveHiddenConversationIds(set){
+
+localStorage.setItem(
+"wavechat_hidden_conversations",
+JSON.stringify(
+[...set]
+)
+);
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
 
 document.addEventListener(
 "DOMContentLoaded",
@@ -1979,114 +2081,42 @@ initialize
 
 async function initialize(){
 
-    loadDark();
+loadDark();
 
-    /*
-       Supabase zuerst initialisieren.
-    */
+const result=
+await supabaseClient.auth.getSession();
 
-    const ready =
-        initializeSupabase();
+if(result.data.session){
 
-    if(!ready){
+currentUser=
+result.data.session.user;
 
-        return;
+await loadApplication();
 
-    }
+}
 
-    try{
+supabaseClient.auth.onAuthStateChange(
+async(event,session)=>{
 
-        const result =
-            await supabaseClient.auth.getSession();
+if(session){
 
-        if(result.error){
+currentUser=
+session.user;
 
-            console.error(
-                "getSession Fehler:",
-                result.error
-            );
+await loadApplication();
 
-            showError(
-                result.error.message
-            );
+}
 
-        }
-
-        if(result.data.session){
-
-            currentUser =
-                result.data.session.user;
-
-            await loadApplication();
-
-        }
-
-    }catch(error){
-
-        console.error(
-            "WaveChat Startfehler:",
-            error
-        );
-
-        showError(
-            error.message
-        );
-
-    }
-
-
-    /*
-       Auth-State überwachen.
-    */
-
-    supabaseClient.auth.onAuthStateChange(
-        async(event,session)=>{
-
-            console.log(
-                "WaveChat Auth Event:",
-                event
-            );
-
-            if(session){
-
-                currentUser =
-                    session.user;
-
-                /*
-                   INITIAL_SESSION / SIGNED_IN
-                   nicht mehrfach unnötig laden.
-                */
-
-                if(
-                    document
-                    .getElementById("homeScreen")
-                    .classList
-                    .contains("active")
-                ){
-
-                    return;
-
-                }
-
-                await loadApplication();
-
-            }
-
-        }
-    );
+});
 
 }
 
 
-/* AUTH */
+/* =========================================================
+   AUTH
+========================================================= */
 
 function toggleAuthMode(){
-
-document.getElementById("username")
-.style.display=
-registerMode
-?"block"
-:"none";
 
 registerMode=!registerMode;
 
@@ -2135,16 +2165,6 @@ hideError();
 async function handleAuth(){
 
 hideError();
-
-if(!supabaseClient){
-
-showError(
-"Supabase ist nicht initialisiert."
-);
-
-return;
-
-}
 
 const login=
 document.getElementById("email")
@@ -2220,17 +2240,7 @@ login_username:login
 }
 );
 
-if(lookup.error){
-
-showError(
-lookup.error.message
-);
-
-return;
-
-}
-
-if(!lookup.data){
+if(lookup.error||!lookup.data){
 
 showError(
 "Benutzername wurde nicht gefunden."
@@ -2255,9 +2265,7 @@ password:password
 
 if(result.error){
 
-showError(
-result.error.message
-);
+showError(result.error.message);
 
 return;
 
@@ -2274,14 +2282,7 @@ await loadApplication();
 
 }catch(error){
 
-console.error(
-"Auth Fehler:",
-error
-);
-
-showError(
-error.message
-);
+showError(error.message);
 
 }finally{
 
@@ -2292,11 +2293,11 @@ button.disabled=false;
 }
 
 
-/* APPLICATION */
+/* =========================================================
+   APPLICATION
+========================================================= */
 
 async function loadApplication(){
-
-if(!currentUser)return;
 
 showHome();
 
@@ -2309,7 +2310,9 @@ await loadStories();
 }
 
 
-/* PROFILE */
+/* =========================================================
+   PROFILE
+========================================================= */
 
 async function loadProfile(){
 
@@ -2321,15 +2324,6 @@ await supabaseClient
 .select("id,username")
 .eq("id",currentUser.id)
 .maybeSingle();
-
-if(result.error){
-
-console.error(
-"Profil Fehler:",
-result.error
-);
-
-}
 
 if(result.data){
 
@@ -2358,7 +2352,9 @@ currentUser.email||"";
 }
 
 
-/* STORIES */
+/* =========================================================
+   STORIES
+========================================================= */
 
 async function loadStories(){
 
@@ -2384,16 +2380,7 @@ ascending:false
 }
 );
 
-if(result.error){
-
-console.error(
-"Stories Fehler:",
-result.error
-);
-
-return;
-
-}
+if(result.error)return;
 
 bar.innerHTML="";
 
@@ -2630,7 +2617,9 @@ document.getElementById(
 }
 
 
-/* CONVERSATIONS */
+/* =========================================================
+   CONVERSATIONS
+========================================================= */
 
 async function loadConversations(){
 
@@ -2657,8 +2646,16 @@ return;
 
 }
 
+const hiddenChats=
+getHiddenConversationIds();
+
 const chats=
-result.data||[];
+(result.data||[]).filter(
+chat=>
+!hiddenChats.has(
+String(chat.conversation_id)
+)
+);
 
 if(!chats.length){
 
@@ -2698,7 +2695,9 @@ createChatListItem
 }
 
 
-/* CREATE CHAT LIST ITEM */
+/* =========================================================
+   CREATE CHAT LIST ITEM
+========================================================= */
 
 function createChatListItem(chat){
 
@@ -2714,6 +2713,8 @@ div.className="chat";
 div.dataset.conversationId=
 chat.conversation_id;
 
+
+/* NORMALER KLICK */
 
 div.addEventListener(
 "click",
@@ -2738,6 +2739,8 @@ chat.last_seen
 
 });
 
+
+/* LANGDRUCK */
 
 div.addEventListener(
 "touchstart",
@@ -2804,6 +2807,8 @@ chatLongPressTimer=null;
 );
 
 
+/* MAUS - PC */
+
 div.addEventListener(
 "mousedown",
 function(){
@@ -2826,7 +2831,6 @@ div
 }
 );
 
-
 div.addEventListener(
 "mouseup",
 function(){
@@ -2843,7 +2847,6 @@ chatLongPressTimer=null;
 
 }
 );
-
 
 div.addEventListener(
 "mouseleave",
@@ -2972,7 +2975,9 @@ document
 }
 
 
-/* CHAT SELECTION */
+/* =========================================================
+   CHAT SELECTION
+========================================================= */
 
 function startChatSelectionMode(){
 
@@ -3094,6 +3099,10 @@ document
 }
 
 
+/* =========================================================
+   CHAT AUS DER EIGENEN LISTE LÖSCHEN
+========================================================= */
+
 async function deleteSelectedChats(){
 
 if(!selectedChatIds.size)
@@ -3106,59 +3115,28 @@ const confirmed=
 confirm(
 ids.length===1
 ?
-"Möchtest du diesen Chat dauerhaft löschen?"
+"Möchtest du diesen Chat aus deiner Chatliste löschen?"
 :
-`Möchtest du ${ids.length} Chats dauerhaft löschen?`
+`Möchtest du ${ids.length} Chats aus deiner Chatliste löschen?`
 );
 
 if(!confirmed)
 return;
 
-for(const id of ids){
+const hiddenChats=
+getHiddenConversationIds();
 
-let deleted=false;
-
-try{
-
-const rpc=
-await supabaseClient.rpc(
-"delete_conversation_for_me",
-{
-conversation_id:Number(id)
+ids.forEach(
+id=>{
+hiddenChats.add(
+String(id)
+);
 }
 );
 
-if(!rpc.error){
-
-deleted=true;
-
-}
-
-}catch(e){}
-
-if(!deleted){
-
-const result=
-await supabaseClient
-.from("conversations")
-.delete()
-.eq("id",Number(id));
-
-if(result.error){
-
-alert(
-"Der Chat konnte nicht dauerhaft gelöscht werden.\n\n"+
-result.error.message+
-"\n\nBitte prüfe die RLS-Regel für conversations."
+saveHiddenConversationIds(
+hiddenChats
 );
-
-return;
-
-}
-
-}
-
-}
 
 cancelChatSelection();
 
@@ -3167,7 +3145,9 @@ await loadConversations();
 }
 
 
-/* OPEN CHAT */
+/* =========================================================
+   OPEN CHAT
+========================================================= */
 
 async function openConversationById(
 conversationId,
@@ -3178,6 +3158,30 @@ lastSeen
 if(chatSelectionMode){
 
 cancelChatSelection();
+
+}
+
+
+/*
+Wenn der Benutzer einen vorher
+ausgeblendeten Chat wieder öffnet,
+wird er wieder sichtbar.
+*/
+
+const hiddenChats=
+getHiddenConversationIds();
+
+if(hiddenChats.has(
+String(conversationId)
+)){
+
+hiddenChats.delete(
+String(conversationId)
+);
+
+saveHiddenConversationIds(
+hiddenChats
+);
 
 }
 
@@ -3231,7 +3235,9 @@ subscribeToMessages();
 }
 
 
-/* LOAD MESSAGES */
+/* =========================================================
+   LOAD MESSAGES
+========================================================= */
 
 async function loadMessages(){
 
@@ -3268,7 +3274,16 @@ return;
 
 }
 
+const hiddenMessages=
+getHiddenMessageIds();
+
 (result.data||[])
+.filter(
+message=>
+!hiddenMessages.has(
+String(message.id)
+)
+)
 .forEach(renderMessage);
 
 scrollMessages();
@@ -3276,9 +3291,22 @@ scrollMessages();
 }
 
 
-/* RENDER MESSAGE */
+/* =========================================================
+   RENDER MESSAGE
+========================================================= */
 
 function renderMessage(message){
+
+const hiddenMessages=
+getHiddenMessageIds();
+
+if(hiddenMessages.has(
+String(message.id)
+)){
+
+return;
+
+}
 
 if(document.querySelector(
 `[data-message-id="${message.id}"]`
@@ -3303,6 +3331,8 @@ currentUser.id
 div.dataset.messageId=
 message.id;
 
+
+/* LANGDRUCK MOBILE */
 
 div.addEventListener(
 "touchstart",
@@ -3360,6 +3390,8 @@ messageLongPressTimer=null;
 );
 
 
+/* LANGDRUCK PC */
+
 div.addEventListener(
 "mousedown",
 function(){
@@ -3377,7 +3409,6 @@ selectMessage(message);
 }
 );
 
-
 div.addEventListener(
 "mouseup",
 function(){
@@ -3393,6 +3424,8 @@ messageLongPressTimer=null;
 }
 );
 
+
+/* KLICK */
 
 div.addEventListener(
 "click",
@@ -3413,19 +3446,6 @@ div
 /* CONTENT */
 
 if(message.deleted_for_everyone){
-
-const deleted=
-document.createElement("div");
-
-deleted.className=
-"deletedMessage";
-
-deleted.textContent=
-"🚫 Diese Nachricht wurde gelöscht";
-
-div.appendChild(deleted);
-
-}else if(message.deleted_for_me){
 
 const deleted=
 document.createElement("div");
@@ -3531,7 +3551,9 @@ document
 }
 
 
-/* AUDIO */
+/* =========================================================
+   AUDIO
+========================================================= */
 
 function renderAudioMessage(
 container,
@@ -3627,7 +3649,9 @@ container.appendChild(wrap);
 }
 
 
-/* SEND TEXT */
+/* =========================================================
+   SEND TEXT
+========================================================= */
 
 async function sendMessage(){
 
@@ -3690,7 +3714,9 @@ await loadConversations();
 }
 
 
-/* IMAGE */
+/* =========================================================
+   IMAGE
+========================================================= */
 
 function openImagePicker(){
 
@@ -3795,7 +3821,9 @@ await loadConversations();
 }
 
 
-/* VOICE */
+/* =========================================================
+   VOICE RECORDING
+========================================================= */
 
 async function toggleRecording(){
 
@@ -3828,11 +3856,45 @@ document.getElementById(
 "recordButton"
 );
 
+const timer=
+document.getElementById(
+"recordTimer"
+);
+
+const timerText=
+document.getElementById(
+"recordTimerText"
+);
+
 button.classList.add(
 "recording"
 );
 
 button.textContent="■";
+
+timer.classList.add("show");
+
+timerText.textContent="00:00";
+
+
+/*
+LIVE TIMER STARTEN
+*/
+
+if(recordingTimerInterval){
+
+clearInterval(
+recordingTimerInterval
+);
+
+}
+
+recordingTimerInterval=
+setInterval(
+updateRecordingTimer,
+250
+);
+
 
 mediaRecorder.ondataavailable=
 e=>{
@@ -3845,6 +3907,7 @@ audioChunks.push(e.data);
 
 };
 
+
 mediaRecorder.onstop=
 async()=>{
 
@@ -3855,21 +3918,48 @@ track=>
 track.stop()
 );
 
+
+const mimeType=
+mediaRecorder.mimeType||
+"audio/webm";
+
+
 const blob=
 new Blob(
 audioChunks,
 {
-type:
-mediaRecorder.mimeType||
-"audio/webm"
+type:mimeType
 }
 );
 
+
 const duration=
+Math.max(
+1,
 Math.round(
 (Date.now()-
 recordingStarted)/1000
+)
 );
+
+
+/*
+TIMER STOPPEN
+*/
+
+if(recordingTimerInterval){
+
+clearInterval(
+recordingTimerInterval
+);
+
+recordingTimerInterval=null;
+
+}
+
+timer.classList.remove("show");
+
+timerText.textContent="00:00";
 
 mediaRecorder=null;
 
@@ -3879,6 +3969,7 @@ button.classList.remove(
 
 button.textContent="🎤";
 
+
 await sendAudio(
 blob,
 duration
@@ -3886,7 +3977,9 @@ duration
 
 };
 
+
 mediaRecorder.start();
+
 
 }catch(error){
 
@@ -3894,6 +3987,36 @@ alert(
 "Mikrofon konnte nicht geöffnet werden.\n\n"+
 error.message
 );
+
+}
+
+}
+
+
+/*
+LIVE AUFNAHMEZEIT
+*/
+
+function updateRecordingTimer(){
+
+if(!recordingStarted)
+return;
+
+const elapsed=
+Math.floor(
+(Date.now()-
+recordingStarted)/1000
+);
+
+const timerText=
+document.getElementById(
+"recordTimerText"
+);
+
+if(timerText){
+
+timerText.textContent=
+formatDuration(elapsed);
 
 }
 
@@ -3914,7 +4037,9 @@ mediaRecorder.stop();
 }
 
 
-/* AUDIO SENDEN */
+/* =========================================================
+   AUDIO SENDEN
+========================================================= */
 
 async function sendAudio(
 blob,
@@ -4018,7 +4143,9 @@ await loadConversations();
 }
 
 
-/* MESSAGE SELECTION */
+/* =========================================================
+   MESSAGE SELECTION
+========================================================= */
 
 function selectMessage(message){
 
@@ -4101,7 +4228,9 @@ selectedMessageIds.has(id)
 }
 
 
-/* ACTIONS */
+/* =========================================================
+   ACTIONS
+========================================================= */
 
 function showMessageActions(){
 
@@ -4164,57 +4293,91 @@ document
 )
 .forEach(
 el=>
-el.classList.remove(
-"selected"
-)
+el.classList.remove("selected")
 );
 
 }
 
 
-/* FÜR MICH */
+/* =========================================================
+   FÜR MICH LÖSCHEN
+========================================================= */
 
 async function deleteSelectedForMe(){
 
 if(!selectedMessageIds.size)
 return;
 
-const ids=
-[...selectedMessageIds]
-.map(Number);
-
-for(
-const id of ids
-){
-
-const result=
-await supabaseClient
-.from("messages")
-.update({
-deleted_for_me:true
-})
-.eq("id",id);
-
-if(result.error){
-
-alert(
-result.error.message
+const confirmed=
+confirm(
+selectedMessageIds.size===1
+?
+"Nachricht für dich löschen?"
+:
+`${selectedMessageIds.size} Nachrichten für dich löschen?`
 );
 
+if(!confirmed)
 return;
 
+
+/*
+Die Nachricht wird nur auf diesem Gerät
+ausgeblendet.
+
+Sie bleibt in Supabase erhalten und ist
+für den anderen Benutzer weiterhin sichtbar.
+*/
+
+const hiddenMessages=
+getHiddenMessageIds();
+
+[...selectedMessageIds]
+.forEach(
+id=>{
+hiddenMessages.add(
+String(id)
+);
 }
+);
+
+saveHiddenMessageIds(
+hiddenMessages
+);
+
+
+/*
+Sofort aus der aktuellen Ansicht entfernen.
+*/
+
+[...selectedMessageIds]
+.forEach(
+id=>{
+
+const element=
+document.querySelector(
+`[data-message-id="${id}"]`
+);
+
+if(element){
+
+element.remove();
 
 }
+
+});
+
 
 closeMessageActions();
 
-await loadMessages();
+scrollMessages();
 
 }
 
 
-/* FÜR ALLE */
+/* =========================================================
+   FÜR ALLE
+========================================================= */
 
 async function deleteSelectedForEveryone(){
 
@@ -4317,7 +4480,9 @@ await loadMessages();
 }
 
 
-/* REALTIME */
+/* =========================================================
+   REALTIME
+========================================================= */
 
 function subscribeToMessages(){
 
@@ -4355,6 +4520,19 @@ currentConversation.id
 },
 payload=>{
 
+const hiddenMessages=
+getHiddenMessageIds();
+
+if(
+hiddenMessages.has(
+String(payload.new.id)
+)
+){
+
+return;
+
+}
+
 renderMessage(
 payload.new
 );
@@ -4380,6 +4558,19 @@ currentConversation.id
 },
 payload=>{
 
+const hiddenMessages=
+getHiddenMessageIds();
+
+if(
+hiddenMessages.has(
+String(payload.new.id)
+)
+){
+
+return;
+
+}
+
 const old=
 document.querySelector(
 `[data-message-id="${payload.new.id}"]`
@@ -4402,7 +4593,9 @@ payload.new
 }
 
 
-/* NEW CHAT */
+/* =========================================================
+   NEW CHAT
+========================================================= */
 
 function openNewChat(){
 
@@ -4569,7 +4762,9 @@ results.appendChild(row);
 }
 
 
-/* CREATE CHAT */
+/* =========================================================
+   CREATE CHAT
+========================================================= */
 
 async function createConversation(
 user
@@ -4593,6 +4788,23 @@ return;
 
 }
 
+
+/*
+Wenn dieser Chat vorher lokal ausgeblendet
+wurde, wird er wieder eingeblendet.
+*/
+
+const hiddenChats=
+getHiddenConversationIds();
+
+hiddenChats.delete(
+String(result.data)
+);
+
+saveHiddenConversationIds(
+hiddenChats
+);
+
 closeNewChat();
 
 await loadConversations();
@@ -4606,7 +4818,9 @@ user.last_seen
 }
 
 
-/* NAVIGATION */
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 function showScreen(id){
 
@@ -4674,9 +4888,31 @@ showScreen(
 }
 
 
-/* LOGOUT */
+/* =========================================================
+   LOGOUT
+========================================================= */
 
 async function logout(){
+
+if(mediaRecorder){
+
+try{
+
+stopRecording();
+
+}catch(e){}
+
+}
+
+if(recordingTimerInterval){
+
+clearInterval(
+recordingTimerInterval
+);
+
+recordingTimerInterval=null;
+
+}
 
 if(realtimeChannel){
 
@@ -4702,7 +4938,9 @@ showScreen(
 }
 
 
-/* SEARCH */
+/* =========================================================
+   SEARCH
+========================================================= */
 
 function filterChats(){
 
@@ -4729,7 +4967,9 @@ chat.textContent
 }
 
 
-/* KEYBOARD */
+/* =========================================================
+   KEYBOARD
+========================================================= */
 
 function messageKey(event){
 
@@ -4747,7 +4987,9 @@ sendMessage();
 }
 
 
-/* TIME */
+/* =========================================================
+   TIME
+========================================================= */
 
 function formatTime(timestamp){
 
@@ -4812,7 +5054,9 @@ String(remaining)
 }
 
 
-/* ONLINE */
+/* =========================================================
+   ONLINE
+========================================================= */
 
 function isOnline(
 lastSeen
@@ -4829,7 +5073,9 @@ new Date(lastSeen).getTime()
 }
 
 
-/* DARK */
+/* =========================================================
+   DARK
+========================================================= */
 
 function toggleDark(){
 
@@ -4881,7 +5127,9 @@ enabled
 }
 
 
-/* HELPERS */
+/* =========================================================
+   HELPERS
+========================================================= */
 
 function scrollMessages(){
 
