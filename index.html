@@ -72,7 +72,9 @@ display:flex;
 }
 
 
-/* AUTH */
+/* =========================================================
+   AUTH
+========================================================= */
 
 #authScreen{
 align-items:center;
@@ -169,7 +171,9 @@ font-size:13px;
 }
 
 
-/* HEADER */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .header{
 background:#075e54;
@@ -234,7 +238,9 @@ outline:0;
 }
 
 
-/* CHAT SELECTION HEADER */
+/* =========================================================
+   CHAT SELECTION
+========================================================= */
 
 .chatSelectionHeader{
 display:none;
@@ -287,7 +293,9 @@ font-size:20px;
 }
 
 
-/* STORIES */
+/* =========================================================
+   STORIES
+========================================================= */
 
 .storyBar{
 background:#fff;
@@ -357,7 +365,9 @@ color:#075e54;
 }
 
 
-/* HOME */
+/* =========================================================
+   HOME
+========================================================= */
 
 .homeWrap{
 position:relative;
@@ -379,7 +389,9 @@ background:#fff;
 }
 
 
-/* CHAT LIST */
+/* =========================================================
+   CHAT LIST
+========================================================= */
 
 .chat{
 display:flex;
@@ -399,10 +411,7 @@ transition:
 background .15s ease;
 }
 
-.chat.selected{
-background:#d9fdd3;
-}
-
+.chat.selected,
 .chat.longPressed{
 background:#d9fdd3;
 }
@@ -487,9 +496,6 @@ overflow:hidden;
 text-overflow:ellipsis;
 }
 
-
-/* CHAT SELECTION CHECK */
-
 .chatSelectCheck{
 display:none;
 
@@ -516,7 +522,9 @@ display:flex;
 }
 
 
-/* NEW CHAT */
+/* =========================================================
+   NEW CHAT
+========================================================= */
 
 .newChatButton{
 position:absolute;
@@ -541,7 +549,9 @@ box-shadow:
 }
 
 
-/* BOTTOM */
+/* =========================================================
+   BOTTOM
+========================================================= */
 
 .bottom{
 display:flex;
@@ -565,7 +575,9 @@ color:#667781;
 
 padding:8px 2px;
 
-font-size:11px;
+font-size:10px;
+
+position:relative;
 }
 
 .bottom button.active{
@@ -581,8 +593,35 @@ margin-bottom:3px;
 font-size:21px;
 }
 
+.bottomBadge{
+position:absolute;
 
-/* CHAT HEADER */
+top:4px;
+right:28%;
+
+min-width:17px;
+height:17px;
+
+padding:0 4px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+border-radius:10px;
+
+background:#e53935;
+
+color:white;
+
+font-size:9px;
+font-weight:700;
+}
+
+
+/* =========================================================
+   CHAT HEADER
+========================================================= */
 
 .chatHeader{
 display:flex;
@@ -653,9 +692,6 @@ color:#c8f7df;
 font-size:11px;
 }
 
-
-/* CALL BUTTON */
-
 .callHeaderButton{
 width:42px;
 height:42px;
@@ -677,7 +713,9 @@ transform:scale(.92);
 }
 
 
-/* MESSAGES */
+/* =========================================================
+   MESSAGES
+========================================================= */
 
 .messages{
 flex:1;
@@ -712,13 +750,11 @@ user-select:none;
 
 .message.in{
 margin-right:auto;
-
 background:white;
 }
 
 .message.out{
 margin-left:auto;
-
 background:#d9fdd3;
 }
 
@@ -743,7 +779,6 @@ text-align:right;
 
 .checks{
 margin-left:4px;
-
 font-weight:700;
 }
 
@@ -769,7 +804,9 @@ border-radius:7px;
 }
 
 
-/* AUDIO */
+/* =========================================================
+   AUDIO
+========================================================= */
 
 .audioMessage{
 display:flex;
@@ -823,7 +860,9 @@ white-space:nowrap;
 }
 
 
-/* RECORDING TIMER */
+/* =========================================================
+   RECORDING
+========================================================= */
 
 .recordTimer{
 display:none;
@@ -862,24 +901,18 @@ border-radius:50%;
 
 background:white;
 
-animation:
-recordPulse 1s infinite;
+animation:recordPulse 1s infinite;
 }
 
 @keyframes recordPulse{
-
-0%,100%{
-opacity:1;
-}
-
-50%{
-opacity:.35;
-}
-
+0%,100%{opacity:1;}
+50%{opacity:.35;}
 }
 
 
-/* COMPOSER */
+/* =========================================================
+   COMPOSER
+========================================================= */
 
 .composer{
 display:flex;
@@ -913,9 +946,7 @@ font-size:20px;
 
 .composerButton.recording{
 background:#e53935;
-
 color:white;
-
 transform:scale(1.05);
 }
 
@@ -952,7 +983,9 @@ font-size:19px;
 }
 
 
-/* MESSAGE ACTIONS */
+/* =========================================================
+   MESSAGE ACTIONS
+========================================================= */
 
 .messageActions{
 position:absolute;
@@ -997,7 +1030,9 @@ color:#d32f2f;
 }
 
 
-/* PAGES */
+/* =========================================================
+   PAGES
+========================================================= */
 
 .page{
 flex:1;
@@ -1104,7 +1139,195 @@ font-size:12px;
 }
 
 
-/* MODAL */
+/* =========================================================
+   CALL HISTORY
+========================================================= */
+
+.callHeader{
+padding:
+calc(15px + env(safe-area-inset-top))
+15px
+0;
+
+background:#075e54;
+
+color:white;
+}
+
+.callHeaderTop{
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.callPageTitle{
+font-size:25px;
+font-weight:800;
+}
+
+.callNewButton{
+width:42px;
+height:42px;
+
+border:0;
+border-radius:50%;
+
+background:rgba(255,255,255,.13);
+
+color:white;
+
+font-size:21px;
+}
+
+.callFilters{
+display:flex;
+gap:25px;
+
+margin-top:15px;
+}
+
+.callFilter{
+padding:0 3px 10px;
+
+border:0;
+
+border-bottom:3px solid transparent;
+
+background:transparent;
+
+color:rgba(255,255,255,.65);
+
+font-size:14px;
+font-weight:600;
+}
+
+.callFilter.active{
+color:white;
+border-bottom-color:white;
+}
+
+.callList{
+flex:1;
+
+overflow:auto;
+
+background:white;
+}
+
+.callItem{
+display:flex;
+align-items:center;
+
+gap:13px;
+
+min-height:78px;
+
+padding:11px 15px;
+
+border-bottom:1px solid #edf0f1;
+}
+
+.callItem:active{
+background:#f0f2f5;
+}
+
+.callItemAvatar{
+width:52px;
+height:52px;
+
+min-width:52px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:
+linear-gradient(
+135deg,
+#25d366,
+#075e54
+);
+
+color:white;
+
+font-size:17px;
+font-weight:800;
+}
+
+.callItemInfo{
+flex:1;
+min-width:0;
+}
+
+.callItemName{
+font-size:16px;
+font-weight:700;
+
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.callItemDetails{
+margin-top:4px;
+
+display:flex;
+align-items:center;
+
+gap:5px;
+
+color:#667781;
+
+font-size:12px;
+}
+
+.callItem.missed .callItemName,
+.callItem.missed .callItemDetails{
+color:#e53935;
+}
+
+.callItemTime{
+font-size:11px;
+color:#667781;
+
+white-space:nowrap;
+align-self:flex-start;
+margin-top:3px;
+}
+
+.callBackButton{
+width:42px;
+height:42px;
+
+border:0;
+border-radius:50%;
+
+background:#e8f8f2;
+
+color:#075e54;
+
+font-size:20px;
+}
+
+.callEmpty{
+padding:70px 25px;
+
+text-align:center;
+
+color:#667781;
+}
+
+.callEmptyIcon{
+font-size:50px;
+margin-bottom:15px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
 
 .modal{
 position:fixed;
@@ -1213,7 +1436,9 @@ color:white;
 }
 
 
-/* EMPTY */
+/* =========================================================
+   EMPTY
+========================================================= */
 
 .empty{
 padding:60px 25px;
@@ -1226,7 +1451,9 @@ line-height:1.5;
 }
 
 
-/* DARK */
+/* =========================================================
+   DARK MODE
+========================================================= */
 
 body.dark .app,
 body.dark .list,
@@ -1235,7 +1462,8 @@ body.dark .bottom button,
 body.dark .page,
 body.dark .row,
 body.dark .profileCard,
-body.dark .storyBar{
+body.dark .storyBar,
+body.dark .callList{
 background:#111b21;
 color:#e9edef;
 }
@@ -1247,7 +1475,9 @@ border-color:#26343b;
 body.dark .chatPreview,
 body.dark .chatTime,
 body.dark .rowSub,
-body.dark .profileEmail{
+body.dark .profileEmail,
+body.dark .callItemDetails,
+body.dark .callItemTime{
 color:#aebac1;
 }
 
@@ -1293,8 +1523,23 @@ body.dark .chat.selected{
 background:#064e43;
 }
 
+body.dark .callItem{
+border-color:#26343b;
+}
 
-/* STORY VIEWER */
+body.dark .callItem:active{
+background:#202c33;
+}
+
+body.dark .callBackButton{
+background:#064e43;
+color:#25d366;
+}
+
+
+/* =========================================================
+   STORY VIEWER
+========================================================= */
 
 .storyViewer{
 position:fixed;
@@ -1365,9 +1610,10 @@ align-items:center;
 justify-content:center;
 
 background:
-linear-gradient(
-180deg,
-#075e54,
+radial-gradient(
+circle at 50% 25%,
+#168c7e,
+#075e54 45%,
 #043b36
 );
 
@@ -1398,8 +1644,8 @@ calc(40px + env(safe-area-inset-bottom));
 }
 
 .callAvatar{
-width:120px;
-height:120px;
+width:135px;
+height:135px;
 
 border-radius:50%;
 
@@ -1416,17 +1662,17 @@ linear-gradient(
 
 border:4px solid rgba(255,255,255,.35);
 
-font-size:40px;
+font-size:42px;
 font-weight:800;
 
 box-shadow:
-0 10px 40px rgba(0,0,0,.25);
+0 15px 50px rgba(0,0,0,.3);
 
 margin-bottom:25px;
 }
 
 .callName{
-font-size:28px;
+font-size:29px;
 font-weight:800;
 }
 
@@ -1441,7 +1687,7 @@ color:#c8f7df;
 .callDuration{
 margin-top:8px;
 
-font-size:14px;
+font-size:15px;
 
 color:#c8f7df;
 
@@ -1454,23 +1700,23 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-gap:18px;
+gap:25px;
 
-margin-top:70px;
+margin-top:75px;
 }
 
 .callControl{
-width:58px;
-height:58px;
+width:62px;
+height:62px;
 
 border:0;
 border-radius:50%;
 
-background:rgba(255,255,255,.15);
+background:rgba(255,255,255,.16);
 
 color:white;
 
-font-size:22px;
+font-size:23px;
 }
 
 .callControl.active{
@@ -1479,25 +1725,25 @@ color:#075e54;
 }
 
 .callControl.end{
-width:68px;
-height:68px;
+width:72px;
+height:72px;
 
 background:#e53935;
 
-font-size:25px;
+font-size:26px;
 }
 
 .incomingCallButtons{
 display:flex;
 
-gap:45px;
+gap:55px;
 
-margin-top:65px;
+margin-top:70px;
 }
 
 .incomingButton{
-width:68px;
-height:68px;
+width:70px;
+height:70px;
 
 border:0;
 
@@ -1505,7 +1751,7 @@ border-radius:50%;
 
 color:white;
 
-font-size:25px;
+font-size:26px;
 }
 
 .incomingButton.accept{
@@ -1520,6 +1766,18 @@ background:#e53935;
 display:none;
 }
 
+.callSpeakerLabel{
+margin-top:15px;
+
+font-size:12px;
+
+color:#c8f7df;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
 @media(min-width:601px){
 
@@ -1545,7 +1803,9 @@ height:100vh;
 <div class="app">
 
 
-<!-- LOGIN -->
+<!-- =======================================================
+     LOGIN
+======================================================= -->
 
 <section id="authScreen"
 class="screen active">
@@ -1608,11 +1868,12 @@ Registrieren
 </section>
 
 
-<!-- HOME -->
+<!-- =======================================================
+     HOME
+======================================================= -->
 
 <section id="homeScreen"
 class="screen">
-
 
 <header
 id="normalHomeHeader"
@@ -1642,7 +1903,6 @@ onclick="logout()">
 
 </div>
 
-
 <div class="search">
 
 🔎
@@ -1650,14 +1910,12 @@ onclick="logout()">
 <input
 id="search"
 placeholder="Chats suchen"
-oninput="filterChats">
+oninput="filterChats()">
 
 </div>
 
 </header>
 
-
-<!-- CHAT SELECTION HEADER -->
 
 <header
 id="chatSelectionHeader"
@@ -1683,8 +1941,6 @@ onclick="deleteSelectedChats()">
 
 </header>
 
-
-<!-- STORIES -->
 
 <div
 id="storyBar"
@@ -1727,7 +1983,6 @@ Chats werden geladen...
 
 </div>
 
-
 <button
 id="newChatButton"
 class="newChatButton"
@@ -1751,16 +2006,26 @@ Chats
 
 </button>
 
-<button onclick="showProfile()">
+<button
+onclick="showCalls()">
+
+<span>📞</span>
+Anrufe
+
+</button>
+
+<button
+onclick="showProfile()">
 
 <span>👤</span>
 Profil
 
 </button>
 
-<button onclick="showSettings()">
+<button
+onclick="showSettings()">
 
-<span>⚙</span>
+<span>⚙️</span>
 Einstellungen
 
 </button>
@@ -1770,12 +2035,13 @@ Einstellungen
 </section>
 
 
-<!-- CHAT -->
+<!-- =======================================================
+     CHAT
+======================================================= -->
 
 <section
 id="chatScreen"
 class="screen">
-
 
 <header class="chatHeader">
 
@@ -1823,8 +2089,6 @@ class="messages">
 </div>
 
 
-<!-- MESSAGE ACTIONS -->
-
 <div
 id="messageActions"
 class="messageActions"
@@ -1837,7 +2101,6 @@ onclick="deleteSelectedForMe()">
 
 </button>
 
-
 <button
 id="deleteEveryoneButton"
 onclick="deleteSelectedForEveryone()">
@@ -1845,7 +2108,6 @@ onclick="deleteSelectedForEveryone()">
 🗑️ Für alle löschen
 
 </button>
-
 
 <button
 onclick="closeMessageActions()">
@@ -1857,8 +2119,6 @@ Abbrechen
 </div>
 
 
-<!-- COMPOSER -->
-
 <div class="composer">
 
 <button
@@ -1866,7 +2126,6 @@ class="composerButton"
 onclick="openImagePicker()">
 ＋
 </button>
-
 
 <div
 id="recordTimer"
@@ -1877,14 +2136,12 @@ class="recordTimer">
 
 </div>
 
-
 <button
 id="recordButton"
 class="composerButton"
 onclick="toggleRecording()">
 🎤
 </button>
-
 
 <textarea
 id="messageInput"
@@ -1893,7 +2150,6 @@ rows="1"
 placeholder="Nachricht"
 onkeydown="messageKey(event)">
 </textarea>
-
 
 <button
 class="send"
@@ -1906,7 +2162,108 @@ onclick="sendMessage()">
 </section>
 
 
-<!-- PROFILE -->
+<!-- =======================================================
+     CALLS
+======================================================= -->
+
+<section
+id="callsScreen"
+class="screen">
+
+<div class="callHeader">
+
+<div class="callHeaderTop">
+
+<div class="callPageTitle">
+Anrufe
+</div>
+
+<button
+class="callNewButton"
+onclick="openNewCall()">
+📞
+</button>
+
+</div>
+
+<div class="callFilters">
+
+<button
+id="callFilterAll"
+class="callFilter active"
+onclick="setCallFilter('all')">
+Alle
+</button>
+
+<button
+id="callFilterMissed"
+class="callFilter"
+onclick="setCallFilter('missed')">
+Verpasst
+</button>
+
+</div>
+
+</div>
+
+
+<div
+id="callList"
+class="callList">
+
+<div class="callEmpty">
+
+<div class="callEmptyIcon">
+📞
+</div>
+
+Noch keine Anrufe
+
+</div>
+
+</div>
+
+
+<nav class="bottom">
+
+<button onclick="showHome()">
+
+<span>💬</span>
+Chats
+
+</button>
+
+<button
+class="active"
+onclick="showCalls()">
+
+<span>📞</span>
+Anrufe
+
+</button>
+
+<button onclick="showProfile()">
+
+<span>👤</span>
+Profil
+
+</button>
+
+<button onclick="showSettings()">
+
+<span>⚙️</span>
+Einstellungen
+
+</button>
+
+</nav>
+
+</section>
+
+
+<!-- =======================================================
+     PROFILE
+======================================================= -->
 
 <section
 id="profileScreen"
@@ -1954,13 +2311,18 @@ E-Mail
 Chats
 </button>
 
+<button onclick="showCalls()">
+<span>📞</span>
+Anrufe
+</button>
+
 <button class="active">
 <span>👤</span>
 Profil
 </button>
 
 <button onclick="showSettings()">
-<span>⚙</span>
+<span>⚙️</span>
 Einstellungen
 </button>
 
@@ -1969,7 +2331,9 @@ Einstellungen
 </section>
 
 
-<!-- SETTINGS -->
+<!-- =======================================================
+     SETTINGS
+======================================================= -->
 
 <section
 id="settingsScreen"
@@ -2039,13 +2403,18 @@ Von diesem Gerät abmelden
 Chats
 </button>
 
+<button onclick="showCalls()">
+<span>📞</span>
+Anrufe
+</button>
+
 <button onclick="showProfile()">
 <span>👤</span>
 Profil
 </button>
 
 <button class="active">
-<span>⚙</span>
+<span>⚙️</span>
 Einstellungen
 </button>
 
@@ -2056,7 +2425,9 @@ Einstellungen
 </div>
 
 
-<!-- NEW CHAT -->
+<!-- =======================================================
+     NEW CHAT
+======================================================= -->
 
 <div
 id="newChatModal"
@@ -2099,7 +2470,9 @@ Gib einen Benutzernamen ein.
 </div>
 
 
-<!-- FILES -->
+<!-- =======================================================
+     FILES
+======================================================= -->
 
 <input
 id="imageInput"
@@ -2107,7 +2480,6 @@ type="file"
 accept="image/*"
 style="display:none"
 onchange="sendImage(event)">
-
 
 <input
 id="storyInput"
@@ -2117,7 +2489,9 @@ style="display:none"
 onchange="uploadStory(event)">
 
 
-<!-- STORY VIEWER -->
+<!-- =======================================================
+     STORY VIEWER
+======================================================= -->
 
 <div
 id="storyViewer"
@@ -2135,7 +2509,9 @@ onclick="closeStoryViewer()">
 </div>
 
 
-<!-- VOICE CALL -->
+<!-- =======================================================
+     VOICE CALL
+======================================================= -->
 
 <div
 id="callScreen"
@@ -2197,6 +2573,13 @@ onclick="toggleCallMute()">
 </button>
 
 <button
+id="speakerCallButton"
+class="callControl"
+onclick="toggleCallSpeaker()">
+🔊
+</button>
+
+<button
 class="callControl end"
 onclick="endVoiceCall()">
 📵
@@ -2204,9 +2587,16 @@ onclick="endVoiceCall()">
 
 </div>
 
+<div
+class="callSpeakerLabel"
+id="callSpeakerLabel">
+Lautsprecher aus
 </div>
 
 </div>
+
+</div>
+
 
 <audio
 id="callRemoteAudio"
@@ -2241,12 +2631,11 @@ SUPABASE_KEY
 ========================================================= */
 
 let currentUser=null;
-
 let currentConversation=null;
-
 let currentOtherUser=null;
 
 let realtimeChannel=null;
+let callChannel=null;
 
 let registerMode=false;
 
@@ -2254,31 +2643,23 @@ let registerMode=false;
 /* VOICE MESSAGE */
 
 let mediaRecorder=null;
-
 let audioChunks=[];
-
 let recordingStarted=0;
-
 let recordingTimerInterval=null;
 
 
 /* MESSAGE SELECTION */
 
-let selectedMessageIds=
-new Set();
-
+let selectedMessageIds=new Set();
 let selectionMessageMode=false;
 
 
 /* CHAT SELECTION */
 
-let selectedChatIds=
-new Set();
-
+let selectedChatIds=new Set();
 let chatSelectionMode=false;
 
 let chatLongPressTimer=null;
-
 let messageLongPressTimer=null;
 
 
@@ -2286,26 +2667,30 @@ let messageLongPressTimer=null;
    VOICE CALL STATE
 ========================================================= */
 
-let callChannel=null;
-
 let peerConnection=null;
-
 let localCallStream=null;
 
 let currentCallId=null;
+let currentCallHistoryId=null;
 
 let currentCallDirection=null;
 
 let callStartTime=0;
-
 let callDurationInterval=null;
 
 let callMuted=false;
+let callSpeaker=false;
 
 let incomingCallData=null;
 
+let callHistoryChannel=null;
 
-/* WEBRTC */
+let missedCallTimer=null;
+
+
+/* =========================================================
+   WEBRTC
+========================================================= */
 
 const rtcConfiguration={
 iceServers:[
@@ -2319,13 +2704,20 @@ urls:"stun:stun1.l.google.com:19302"
 };
 
 
-/* RINGTONE */
+/* =========================================================
+   RINGTONE
+========================================================= */
 
 let callAudioContext=null;
-
 let callRingtoneTimer=null;
-
 let currentCallOscillator=null;
+
+
+/* =========================================================
+   CALL FILTER
+========================================================= */
+
+let currentCallFilter="all";
 
 
 /* =========================================================
@@ -2362,9 +2754,7 @@ function saveHiddenMessageIds(set){
 
 localStorage.setItem(
 "wavechat_hidden_messages",
-JSON.stringify(
-[...set]
-)
+JSON.stringify([...set])
 );
 
 }
@@ -2404,9 +2794,7 @@ function saveHiddenConversationIds(set){
 
 localStorage.setItem(
 "wavechat_hidden_conversations",
-JSON.stringify(
-[...set]
-)
+JSON.stringify([...set])
 );
 
 }
@@ -2465,9 +2853,7 @@ registerMode=!registerMode;
 
 document.getElementById("username")
 .style.display=
-registerMode
-?"block"
-:"none";
+registerMode?"block":"none";
 
 document.getElementById("email")
 .placeholder=
@@ -2511,8 +2897,7 @@ hideError();
 
 const login=
 document.getElementById("email")
-.value
-.trim();
+.value.trim();
 
 const password=
 document.getElementById("password")
@@ -2520,8 +2905,7 @@ document.getElementById("password")
 
 const username=
 document.getElementById("username")
-.value
-.trim();
+.value.trim();
 
 if(!login||!password){
 
@@ -2645,10 +3029,10 @@ async function loadApplication(){
 showHome();
 
 await loadProfile();
-
 await loadConversations();
-
 await loadStories();
+
+subscribeToGlobalCalls();
 
 }
 
@@ -2681,9 +3065,7 @@ document.getElementById(
 document.getElementById(
 "profileAvatar"
 ).textContent=
-username
-.substring(0,2)
-.toUpperCase();
+username.substring(0,2).toUpperCase();
 
 }
 
@@ -2731,27 +3113,17 @@ const own=
 document.createElement("div");
 
 own.className="storyItem";
-
-own.onclick=
-openStoryUpload;
+own.onclick=openStoryUpload;
 
 own.innerHTML=`
 
 <div class="storyCircle">
-
 <div class="storyCircleInner">
-
-<span class="storyAdd">
-＋
-</span>
-
+<span class="storyAdd">＋</span>
+</div>
 </div>
 
-</div>
-
-<div>
-Deine Story
-</div>
+<div>Deine Story</div>
 
 `;
 
@@ -2759,9 +3131,7 @@ bar.appendChild(own);
 
 const ids=[
 ...new Set(
-result.data.map(
-x=>x.user_id
-)
+result.data.map(x=>x.user_id)
 )
 ];
 
@@ -2782,8 +3152,7 @@ map[x.id]=x;
 
 result.data.forEach(story=>{
 
-const profile=
-map[story.user_id];
+const profile=map[story.user_id];
 
 if(!profile)return;
 
@@ -2791,9 +3160,7 @@ const item=
 document.createElement("div");
 
 item.className="storyItem";
-
-item.onclick=
-()=>openStory(story);
+item.onclick=()=>openStory(story);
 
 item.innerHTML=`
 
@@ -2824,9 +3191,9 @@ bar.appendChild(item);
 
 function openStoryUpload(){
 
-document.getElementById(
-"storyInput"
-).click();
+document
+.getElementById("storyInput")
+.click();
 
 }
 
@@ -2841,9 +3208,7 @@ event.target.value="";
 if(!file||!currentUser)return;
 
 const ext=
-file.name
-.split(".")
-.pop();
+file.name.split(".").pop();
 
 const path=
 currentUser.id+
@@ -2867,7 +3232,6 @@ contentType:file.type
 if(upload.error){
 
 alert(upload.error.message);
-
 return;
 
 }
@@ -2889,9 +3253,7 @@ await supabaseClient
 .insert({
 
 user_id:currentUser.id,
-
 media_url:url,
-
 media_type:type
 
 });
@@ -2899,7 +3261,6 @@ media_type:type
 if(insert.error){
 
 alert(insert.error.message);
-
 return;
 
 }
@@ -2912,19 +3273,14 @@ await loadStories();
 function openStory(story){
 
 const viewer=
-document.getElementById(
-"storyViewer"
-);
+document.getElementById("storyViewer");
 
 const content=
-document.getElementById(
-"storyContent"
-);
+document.getElementById("storyContent");
 
 if(story.media_type==="video"){
 
 content.innerHTML=
-
 `<video
 src="${escapeAttribute(story.media_url)}"
 controls
@@ -2935,7 +3291,6 @@ playsinline>
 }else{
 
 content.innerHTML=
-
 `<img
 src="${escapeAttribute(story.media_url)}">`;
 
@@ -2948,14 +3303,13 @@ viewer.classList.add("show");
 
 function closeStoryViewer(){
 
-document.getElementById(
-"storyViewer"
-)
+document
+.getElementById("storyViewer")
 .classList.remove("show");
 
-document.getElementById(
-"storyContent"
-).innerHTML="";
+document
+.getElementById("storyContent")
+.innerHTML="";
 
 }
 
@@ -2967,9 +3321,7 @@ document.getElementById(
 async function loadConversations(){
 
 const list=
-document.getElementById(
-"chatList"
-);
+document.getElementById("chatList");
 
 if(!currentUser)return;
 
@@ -3012,9 +3364,7 @@ list.innerHTML=`
 
 <br>
 
-<b>
-Noch keine Chats
-</b>
+<b>Noch keine Chats</b>
 
 <br><br>
 
@@ -3039,7 +3389,7 @@ createChatListItem
 
 
 /* =========================================================
-   CREATE CHAT LIST ITEM
+   CHAT LIST
 ========================================================= */
 
 function createChatListItem(chat){
@@ -3055,9 +3405,6 @@ div.className="chat";
 
 div.dataset.conversationId=
 chat.conversation_id;
-
-
-/* KLICK */
 
 div.addEventListener(
 "click",
@@ -3086,8 +3433,6 @@ null
 
 });
 
-
-/* LANGDRUCK MOBILE */
 
 div.addEventListener(
 "touchstart",
@@ -3124,10 +3469,7 @@ function(){
 
 if(chatLongPressTimer){
 
-clearTimeout(
-chatLongPressTimer
-);
-
+clearTimeout(chatLongPressTimer);
 chatLongPressTimer=null;
 
 }
@@ -3142,10 +3484,7 @@ function(){
 
 if(chatLongPressTimer){
 
-clearTimeout(
-chatLongPressTimer
-);
-
+clearTimeout(chatLongPressTimer);
 chatLongPressTimer=null;
 
 }
@@ -3153,8 +3492,6 @@ chatLongPressTimer=null;
 }
 );
 
-
-/* MAUS PC */
 
 div.addEventListener(
 "mousedown",
@@ -3178,22 +3515,21 @@ div
 }
 );
 
+
 div.addEventListener(
 "mouseup",
 function(){
 
 if(chatLongPressTimer){
 
-clearTimeout(
-chatLongPressTimer
-);
-
+clearTimeout(chatLongPressTimer);
 chatLongPressTimer=null;
 
 }
 
 }
 );
+
 
 div.addEventListener(
 "mouseleave",
@@ -3201,10 +3537,7 @@ function(){
 
 if(chatLongPressTimer){
 
-clearTimeout(
-chatLongPressTimer
-);
-
+clearTimeout(chatLongPressTimer);
 chatLongPressTimer=null;
 
 }
@@ -3213,13 +3546,10 @@ chatLongPressTimer=null;
 );
 
 
-/* AVATAR */
-
 const avatarWrap=
 document.createElement("div");
 
-avatarWrap.className=
-"avatarWrap";
+avatarWrap.className="avatarWrap";
 
 const avatar=
 document.createElement("div");
@@ -3227,43 +3557,31 @@ document.createElement("div");
 avatar.className="avatar";
 
 avatar.textContent=
-username
-.substring(0,2)
-.toUpperCase();
+username.substring(0,2).toUpperCase();
 
-avatarWrap.appendChild(
-avatar
-);
+avatarWrap.appendChild(avatar);
 
-
-/* INFO */
 
 const info=
 document.createElement("div");
 
-info.className=
-"chatInfo";
+info.className="chatInfo";
 
 const top=
 document.createElement("div");
 
-top.className=
-"chatTop";
+top.className="chatTop";
 
 const name=
 document.createElement("div");
 
-name.className=
-"chatName";
-
-name.textContent=
-username;
+name.className="chatName";
+name.textContent=username;
 
 const time=
 document.createElement("div");
 
-time.className=
-"chatTime";
+time.className="chatTime";
 
 time.textContent=
 formatChatTime(
@@ -3271,49 +3589,30 @@ chat.last_message_at
 );
 
 top.appendChild(name);
-
 top.appendChild(time);
-
-
-/* PREVIEW */
 
 const preview=
 document.createElement("div");
 
-preview.className=
-"chatPreview";
+preview.className="chatPreview";
 
 preview.textContent=
 chat.last_message||
 "Keine Nachrichten";
 
 info.appendChild(top);
-
 info.appendChild(preview);
 
-
-/* CHECK */
 
 const check=
 document.createElement("div");
 
-check.className=
-"chatSelectCheck";
-
+check.className="chatSelectCheck";
 check.textContent="✓";
 
-
-div.appendChild(
-avatarWrap
-);
-
-div.appendChild(
-info
-);
-
-div.appendChild(
-check
-);
+div.appendChild(avatarWrap);
+div.appendChild(info);
+div.appendChild(check);
 
 document
 .getElementById("chatList")
@@ -3328,29 +3627,21 @@ document
 
 function startChatSelectionMode(){
 
-if(chatSelectionMode)
-return;
+if(chatSelectionMode)return;
 
 chatSelectionMode=true;
-
 selectedChatIds.clear();
 
 document
-.getElementById(
-"normalHomeHeader"
-)
+.getElementById("normalHomeHeader")
 .style.display="none";
 
 document
-.getElementById(
-"chatSelectionHeader"
-)
+.getElementById("chatSelectionHeader")
 .classList.add("show");
 
 document
-.getElementById(
-"newChatButton"
-)
+.getElementById("newChatButton")
 .style.display="none";
 
 updateChatSelectionHeader();
@@ -3363,24 +3654,19 @@ conversationId,
 element
 ){
 
-const id=
-String(conversationId);
+const id=String(conversationId);
 
 if(selectedChatIds.has(id)){
 
 selectedChatIds.delete(id);
 
-element.classList.remove(
-"selected"
-);
+element.classList.remove("selected");
 
 }else{
 
 selectedChatIds.add(id);
 
-element.classList.add(
-"selected"
-);
+element.classList.add("selected");
 
 }
 
@@ -3397,13 +3683,10 @@ cancelChatSelection();
 
 function updateChatSelectionHeader(){
 
-const count=
-selectedChatIds.size;
+const count=selectedChatIds.size;
 
 document
-.getElementById(
-"chatSelectionCount"
-)
+.getElementById("chatSelectionCount")
 .textContent=
 count===1
 ?"1 ausgewählt"
@@ -3415,32 +3698,24 @@ count===1
 function cancelChatSelection(){
 
 chatSelectionMode=false;
-
 selectedChatIds.clear();
 
 document
 .querySelectorAll(".chat.selected")
 .forEach(
-el=>
-el.classList.remove("selected")
+el=>el.classList.remove("selected")
 );
 
 document
-.getElementById(
-"chatSelectionHeader"
-)
+.getElementById("chatSelectionHeader")
 .classList.remove("show");
 
 document
-.getElementById(
-"normalHomeHeader"
-)
+.getElementById("normalHomeHeader")
 .style.display="block";
 
 document
-.getElementById(
-"newChatButton"
-)
+.getElementById("newChatButton")
 .style.display="block";
 
 }
@@ -3452,11 +3727,9 @@ document
 
 async function deleteSelectedChats(){
 
-if(!selectedChatIds.size)
-return;
+if(!selectedChatIds.size)return;
 
-const ids=
-[...selectedChatIds];
+const ids=[...selectedChatIds];
 
 const confirmed=
 confirm(
@@ -3467,23 +3740,18 @@ ids.length===1
 `Möchtest du ${ids.length} Chats aus deiner Chatliste löschen?`
 );
 
-if(!confirmed)
-return;
+if(!confirmed)return;
 
 const hiddenChats=
 getHiddenConversationIds();
 
 ids.forEach(
 id=>{
-hiddenChats.add(
-String(id)
-);
+hiddenChats.add(String(id));
 }
 );
 
-saveHiddenConversationIds(
-hiddenChats
-);
+saveHiddenConversationIds(hiddenChats);
 
 cancelChatSelection();
 
@@ -3504,9 +3772,7 @@ otherUserId=null
 ){
 
 if(chatSelectionMode){
-
 cancelChatSelection();
-
 }
 
 const hiddenChats=
@@ -3520,9 +3786,7 @@ hiddenChats.delete(
 String(conversationId)
 );
 
-saveHiddenConversationIds(
-hiddenChats
-);
+saveHiddenConversationIds(hiddenChats);
 
 }
 
@@ -3536,13 +3800,11 @@ await supabaseClient
 if(result.error){
 
 alert(result.error.message);
-
 return;
 
 }
 
-currentConversation=
-result.data;
+currentConversation=result.data;
 
 currentOtherUser={
 id:otherUserId,
@@ -3557,9 +3819,7 @@ document
 document
 .getElementById("chatAvatar")
 .textContent=
-username
-.substring(0,2)
-.toUpperCase();
+username.substring(0,2).toUpperCase();
 
 document
 .getElementById("chatStatus")
@@ -3573,22 +3833,19 @@ showScreen("chatScreen");
 await loadMessages();
 
 subscribeToMessages();
-
 subscribeToCalls();
 
 }
 
 
 /* =========================================================
-   LOAD MESSAGES
+   MESSAGES
 ========================================================= */
 
 async function loadMessages(){
 
 const box=
-document.getElementById(
-"messages"
-);
+document.getElementById("messages");
 
 box.innerHTML="";
 
@@ -3635,10 +3892,6 @@ scrollMessages();
 }
 
 
-/* =========================================================
-   RENDER MESSAGE
-========================================================= */
-
 function renderMessage(message){
 
 const hiddenMessages=
@@ -3646,19 +3899,11 @@ getHiddenMessageIds();
 
 if(hiddenMessages.has(
 String(message.id)
-)){
-
-return;
-
-}
+))return;
 
 if(document.querySelector(
 `[data-message-id="${message.id}"]`
-)){
-
-return;
-
-}
+))return;
 
 const div=
 document.createElement("div");
@@ -3666,17 +3911,13 @@ document.createElement("div");
 div.className=
 "message "+
 (
-message.sender_id===
-currentUser.id
+message.sender_id===currentUser.id
 ?"out"
 :"in"
 );
 
-div.dataset.messageId=
-message.id;
+div.dataset.messageId=message.id;
 
-
-/* LANGDRUCK */
 
 div.addEventListener(
 "touchstart",
@@ -3688,9 +3929,7 @@ clearTimeout(messageLongPressTimer);
 messageLongPressTimer=
 setTimeout(
 function(){
-
 selectMessage(message);
-
 },
 550
 );
@@ -3709,7 +3948,6 @@ function(){
 if(messageLongPressTimer){
 
 clearTimeout(messageLongPressTimer);
-
 messageLongPressTimer=null;
 
 }
@@ -3725,7 +3963,6 @@ function(){
 if(messageLongPressTimer){
 
 clearTimeout(messageLongPressTimer);
-
 messageLongPressTimer=null;
 
 }
@@ -3733,8 +3970,6 @@ messageLongPressTimer=null;
 }
 );
 
-
-/* PC */
 
 div.addEventListener(
 "mousedown",
@@ -3743,15 +3978,14 @@ function(){
 messageLongPressTimer=
 setTimeout(
 function(){
-
 selectMessage(message);
-
 },
 550
 );
 
 }
 );
+
 
 div.addEventListener(
 "mouseup",
@@ -3760,7 +3994,6 @@ function(){
 if(messageLongPressTimer){
 
 clearTimeout(messageLongPressTimer);
-
 messageLongPressTimer=null;
 
 }
@@ -3768,8 +4001,6 @@ messageLongPressTimer=null;
 }
 );
 
-
-/* CLICK */
 
 div.addEventListener(
 "click",
@@ -3787,16 +4018,12 @@ div
 });
 
 
-/* CONTENT */
-
 if(message.deleted_for_everyone){
 
 const deleted=
 document.createElement("div");
 
-deleted.className=
-"deletedMessage";
-
+deleted.className="deletedMessage";
 deleted.textContent=
 "🚫 Diese Nachricht wurde gelöscht";
 
@@ -3809,11 +4036,8 @@ if(message.message_type==="image"){
 const img=
 document.createElement("img");
 
-img.className=
-"messageImage";
-
-img.src=
-message.media_url;
+img.className="messageImage";
+img.src=message.media_url;
 
 div.appendChild(img);
 
@@ -3831,11 +4055,8 @@ message
 const text=
 document.createElement("div");
 
-text.className=
-"messageText";
-
-text.textContent=
-message.content||"";
+text.className="messageText";
+text.textContent=message.content||"";
 
 div.appendChild(text);
 
@@ -3844,22 +4065,15 @@ div.appendChild(text);
 }
 
 
-/* TIME */
-
 const time=
 document.createElement("div");
 
-time.className=
-"messageTime";
+time.className="messageTime";
 
 time.textContent=
-formatTime(
-message.created_at
-);
+formatTime(message.created_at);
 
-
-if(message.sender_id===
-currentUser.id){
+if(message.sender_id===currentUser.id){
 
 const checks=
 document.createElement("span");
@@ -3869,7 +4083,6 @@ checks.className="checks";
 if(message.read_at){
 
 checks.textContent="✓✓";
-
 checks.classList.add("read");
 
 }else if(message.delivered_at){
@@ -3907,47 +4120,36 @@ message
 const wrap=
 document.createElement("div");
 
-wrap.className=
-"audioMessage";
+wrap.className="audioMessage";
 
 const button=
 document.createElement("button");
 
-button.className=
-"audioPlay";
-
+button.className="audioPlay";
 button.textContent="▶";
 
 const audio=
 document.createElement("audio");
 
-audio.src=
-message.media_url;
-
+audio.src=message.media_url;
 audio.preload="metadata";
-
 audio.style.display="none";
 
 const info=
 document.createElement("div");
 
-info.className=
-"audioInfo";
+info.className="audioInfo";
 
 const title=
 document.createElement("div");
 
-title.className=
-"audioTitle";
-
-title.textContent=
-"Sprachnachricht";
+title.className="audioTitle";
+title.textContent="Sprachnachricht";
 
 const duration=
 document.createElement("div");
 
-duration.className=
-"audioDuration";
+duration.className="audioDuration";
 
 const savedDuration=
 Math.max(
@@ -3966,9 +4168,7 @@ audio.addEventListener(
 function(){
 
 const realDuration=
-Math.round(
-audio.duration
-);
+Math.round(audio.duration);
 
 if(
 Number.isFinite(realDuration)&&
@@ -3989,22 +4189,13 @@ audio.addEventListener(
 function(){
 
 const current=
-Math.floor(
-audio.currentTime
-);
+Math.floor(audio.currentTime);
 
 let total=
-Math.round(
-audio.duration
-);
+Math.round(audio.duration);
 
-if(
-!Number.isFinite(total)||
-total<=0
-){
-
+if(!Number.isFinite(total)||total<=0){
 total=savedDuration;
-
 }
 
 duration.textContent=
@@ -4023,34 +4214,20 @@ try{
 if(audio.paused){
 
 document
-.querySelectorAll(
-"#messages audio"
-)
+.querySelectorAll("#messages audio")
 .forEach(
 otherAudio=>{
-
-if(otherAudio!==audio){
-
+if(otherAudio!==audio)
 otherAudio.pause();
-
-}
-
 }
 );
 
 document
-.querySelectorAll(
-"#messages .audioPlay"
-)
+.querySelectorAll("#messages .audioPlay")
 .forEach(
 otherButton=>{
-
-if(otherButton!==button){
-
+if(otherButton!==button)
 otherButton.textContent="▶";
-
-}
-
 }
 );
 
@@ -4061,7 +4238,6 @@ button.textContent="❚❚";
 }else{
 
 audio.pause();
-
 button.textContent="▶";
 
 }
@@ -4081,11 +4257,8 @@ audio.addEventListener(
 "pause",
 function(){
 
-if(!audio.ended){
-
+if(!audio.ended)
 button.textContent="▶";
-
-}
 
 }
 );
@@ -4113,13 +4286,10 @@ audio.currentTime=0;
 );
 
 info.appendChild(title);
-
 info.appendChild(duration);
 
 wrap.appendChild(button);
-
 wrap.appendChild(info);
-
 wrap.appendChild(audio);
 
 container.appendChild(wrap);
@@ -4128,22 +4298,17 @@ container.appendChild(wrap);
 
 
 /* =========================================================
-   SEND TEXT
+   SEND MESSAGE
 ========================================================= */
 
 async function sendMessage(){
 
 const input=
-document.getElementById(
-"messageInput"
-);
+document.getElementById("messageInput");
 
-const content=
-input.value.trim();
+const content=input.value.trim();
 
-if(!content||
-!currentConversation)
-return;
+if(!content||!currentConversation)return;
 
 input.disabled=true;
 
@@ -4174,16 +4339,13 @@ input.disabled=false;
 if(result.error){
 
 alert(result.error.message);
-
 return;
 
 }
 
 input.value="";
 
-renderMessage(
-result.data
-);
+renderMessage(result.data);
 
 scrollMessages();
 
@@ -4212,14 +4374,9 @@ event.target.files[0];
 
 event.target.value="";
 
-if(!file||
-!currentConversation)
-return;
+if(!file||!currentConversation)return;
 
-const ext=
-file.name
-.split(".")
-.pop();
+const ext=file.name.split(".").pop();
 
 const path=
 currentUser.id+
@@ -4243,7 +4400,6 @@ contentType:file.type
 if(upload.error){
 
 alert(upload.error.message);
-
 return;
 
 }
@@ -4283,14 +4439,11 @@ new Date().toISOString()
 if(result.error){
 
 alert(result.error.message);
-
 return;
 
 }
 
-renderMessage(
-result.data
-);
+renderMessage(result.data);
 
 scrollMessages();
 
@@ -4308,7 +4461,6 @@ async function toggleRecording(){
 if(mediaRecorder){
 
 stopRecording();
-
 return;
 
 }
@@ -4326,41 +4478,25 @@ audioChunks=[];
 mediaRecorder=
 new MediaRecorder(stream);
 
-recordingStarted=
-Date.now();
+recordingStarted=Date.now();
 
 const button=
-document.getElementById(
-"recordButton"
-);
+document.getElementById("recordButton");
 
 const timer=
-document.getElementById(
-"recordTimer"
-);
+document.getElementById("recordTimer");
 
 const timerText=
-document.getElementById(
-"recordTimerText"
-);
+document.getElementById("recordTimerText");
 
-button.classList.add(
-"recording"
-);
-
+button.classList.add("recording");
 button.textContent="■";
 
 timer.classList.add("show");
-
 timerText.textContent="00:00";
 
-if(recordingTimerInterval){
-
-clearInterval(
-recordingTimerInterval
-);
-
-}
+if(recordingTimerInterval)
+clearInterval(recordingTimerInterval);
 
 recordingTimerInterval=
 setInterval(
@@ -4371,11 +4507,8 @@ updateRecordingTimer,
 mediaRecorder.ondataavailable=
 e=>{
 
-if(e.data.size>0){
-
+if(e.data.size>0)
 audioChunks.push(e.data);
-
-}
 
 };
 
@@ -4385,8 +4518,7 @@ async()=>{
 stream
 .getTracks()
 .forEach(
-track=>
-track.stop()
+track=>track.stop()
 );
 
 const mimeType=
@@ -4405,37 +4537,26 @@ const duration=
 Math.max(
 1,
 Math.round(
-(Date.now()-
-recordingStarted)/1000
+(Date.now()-recordingStarted)/1000
 )
 );
 
 if(recordingTimerInterval){
 
-clearInterval(
-recordingTimerInterval
-);
-
+clearInterval(recordingTimerInterval);
 recordingTimerInterval=null;
 
 }
 
 timer.classList.remove("show");
-
 timerText.textContent="00:00";
 
 mediaRecorder=null;
 
-button.classList.remove(
-"recording"
-);
-
+button.classList.remove("recording");
 button.textContent="🎤";
 
-await sendAudio(
-blob,
-duration
-);
+await sendAudio(blob,duration);
 
 };
 
@@ -4455,26 +4576,18 @@ error.message
 
 function updateRecordingTimer(){
 
-if(!recordingStarted)
-return;
+if(!recordingStarted)return;
 
 const elapsed=
 Math.floor(
-(Date.now()-
-recordingStarted)/1000
+(Date.now()-recordingStarted)/1000
 );
 
 const timerText=
-document.getElementById(
-"recordTimerText"
-);
+document.getElementById("recordTimerText");
 
-if(timerText){
-
-timerText.textContent=
-formatDuration(elapsed);
-
-}
+if(timerText)
+timerText.textContent=formatDuration(elapsed);
 
 }
 
@@ -4497,14 +4610,9 @@ mediaRecorder.stop();
    AUDIO SENDEN
 ========================================================= */
 
-async function sendAudio(
-blob,
-duration
-){
+async function sendAudio(blob,duration){
 
-if(!currentConversation||
-!currentUser)
-return;
+if(!currentConversation||!currentUser)return;
 
 const extension=
 blob.type.includes("mp4")
@@ -4565,13 +4673,10 @@ message_type:"audio",
 media_url:url,
 
 media_duration:
-Math.round(
-Number(duration)||0
-),
+Math.round(Number(duration)||0),
 
 file_name:
-"Sprachnachricht."+
-extension,
+"Sprachnachricht."+extension,
 
 delivered_at:
 new Date().toISOString()
@@ -4583,14 +4688,11 @@ new Date().toISOString()
 if(result.error){
 
 alert(result.error.message);
-
 return;
 
 }
 
-renderMessage(
-result.data
-);
+renderMessage(result.data);
 
 scrollMessages();
 
@@ -4614,50 +4716,37 @@ String(message.id)
 selectionMessageMode=true;
 
 updateMessageSelection();
-
 showMessageActions();
 
 }
 
 
-function toggleMessageSelection(
-id,
-element
-){
+function toggleMessageSelection(id,element){
 
-const key=
-String(id);
+const key=String(id);
 
-if(
-selectedMessageIds.has(key)
-){
+if(selectedMessageIds.has(key)){
 
 selectedMessageIds.delete(key);
 
-element.classList.remove(
-"selected"
-);
+element.classList.remove("selected");
 
 }else{
 
 selectedMessageIds.add(key);
 
-element.classList.add(
-"selected"
-);
+element.classList.add("selected");
 
 }
 
 if(!selectedMessageIds.size){
 
 closeMessageActions();
-
 return;
 
 }
 
 updateMessageSelection();
-
 showMessageActions();
 
 }
@@ -4669,10 +4758,7 @@ document
 .querySelectorAll(".message")
 .forEach(el=>{
 
-const id=
-String(
-el.dataset.messageId
-);
+const id=String(el.dataset.messageId);
 
 el.classList.toggle(
 "selected",
@@ -4691,9 +4777,7 @@ selectedMessageIds.has(id)
 function showMessageActions(){
 
 document
-.getElementById(
-"messageActions"
-)
+.getElementById("messageActions")
 .style.display="block";
 
 const button=
@@ -4711,9 +4795,8 @@ document.querySelector(
 `[data-message-id="${id}"]`
 );
 
-if(!el)return;
-
 if(
+el&&
 el.classList.contains("out")
 ){
 
@@ -4724,9 +4807,7 @@ allowed=true;
 });
 
 button.style.display=
-allowed
-?"block"
-:"none";
+allowed?"block":"none";
 
 }
 
@@ -4734,22 +4815,16 @@ allowed
 function closeMessageActions(){
 
 selectedMessageIds.clear();
-
 selectionMessageMode=false;
 
 document
-.getElementById(
-"messageActions"
-)
+.getElementById("messageActions")
 .style.display="none";
 
 document
-.querySelectorAll(
-".message.selected"
-)
+.querySelectorAll(".message.selected")
 .forEach(
-el=>
-el.classList.remove("selected")
+el=>el.classList.remove("selected")
 );
 
 }
@@ -4761,8 +4836,7 @@ el.classList.remove("selected")
 
 async function deleteSelectedForMe(){
 
-if(!selectedMessageIds.size)
-return;
+if(!selectedMessageIds.size)return;
 
 const confirmed=
 confirm(
@@ -4773,8 +4847,7 @@ selectedMessageIds.size===1
 `${selectedMessageIds.size} Nachrichten für dich löschen?`
 );
 
-if(!confirmed)
-return;
+if(!confirmed)return;
 
 const hiddenMessages=
 getHiddenMessageIds();
@@ -4782,15 +4855,11 @@ getHiddenMessageIds();
 [...selectedMessageIds]
 .forEach(
 id=>{
-hiddenMessages.add(
-String(id)
-);
+hiddenMessages.add(String(id));
 }
 );
 
-saveHiddenMessageIds(
-hiddenMessages
-);
+saveHiddenMessageIds(hiddenMessages);
 
 [...selectedMessageIds]
 .forEach(
@@ -4801,16 +4870,12 @@ document.querySelector(
 `[data-message-id="${id}"]`
 );
 
-if(element){
-
+if(element)
 element.remove();
-
-}
 
 });
 
 closeMessageActions();
-
 scrollMessages();
 
 }
@@ -4822,12 +4887,10 @@ scrollMessages();
 
 async function deleteSelectedForEveryone(){
 
-if(!selectedMessageIds.size)
-return;
+if(!selectedMessageIds.size)return;
 
 const ids=
-[...selectedMessageIds]
-.map(Number);
+[...selectedMessageIds].map(Number);
 
 const messages=
 await supabaseClient
@@ -4835,42 +4898,25 @@ await supabaseClient
 .select(
 "id,sender_id,created_at"
 )
-.in(
-"id",
-ids
-);
+.in("id",ids);
 
 if(messages.error){
 
-alert(
-messages.error.message
-);
-
+alert(messages.error.message);
 return;
 
 }
 
-for(
-const message of messages.data
-){
+for(const message of messages.data){
 
-if(
-message.sender_id!==
-currentUser.id
-){
-
+if(message.sender_id!==currentUser.id)
 continue;
-
-}
 
 const age=
 Date.now()-
-new Date(
-message.created_at
-).getTime();
+new Date(message.created_at).getTime();
 
-const oneHour=
-60*60*1000;
+const oneHour=60*60*1000;
 
 if(age>oneHour){
 
@@ -4893,21 +4939,12 @@ deleted_for_everyone_at:
 new Date().toISOString()
 
 })
-.eq(
-"id",
-message.id
-)
-.eq(
-"sender_id",
-currentUser.id
-);
+.eq("id",message.id)
+.eq("sender_id",currentUser.id);
 
 if(result.error){
 
-alert(
-result.error.message
-);
-
+alert(result.error.message);
 return;
 
 }
@@ -4929,8 +4966,7 @@ function subscribeToMessages(){
 
 if(realtimeChannel){
 
-supabaseClient
-.removeChannel(
+supabaseClient.removeChannel(
 realtimeChannel
 );
 
@@ -4949,11 +4985,8 @@ Date.now()
 {
 
 event:"INSERT",
-
 schema:"public",
-
 table:"messages",
-
 filter:
 "conversation_id=eq."+
 currentConversation.id
@@ -4968,16 +5001,9 @@ if(
 hiddenMessages.has(
 String(payload.new.id)
 )
-){
+)return;
 
-return;
-
-}
-
-renderMessage(
-payload.new
-);
-
+renderMessage(payload.new);
 scrollMessages();
 
 }
@@ -4987,11 +5013,8 @@ scrollMessages();
 {
 
 event:"UPDATE",
-
 schema:"public",
-
 table:"messages",
-
 filter:
 "conversation_id=eq."+
 currentConversation.id
@@ -5006,26 +5029,16 @@ if(
 hiddenMessages.has(
 String(payload.new.id)
 )
-){
-
-return;
-
-}
+)return;
 
 const old=
 document.querySelector(
 `[data-message-id="${payload.new.id}"]`
 );
 
-if(old){
+if(old)old.remove();
 
-old.remove();
-
-}
-
-renderMessage(
-payload.new
-);
+renderMessage(payload.new);
 
 }
 )
@@ -5041,21 +5054,15 @@ payload.new
 function openNewChat(){
 
 document
-.getElementById(
-"newChatModal"
-)
+.getElementById("newChatModal")
 .classList.add("show");
 
 document
-.getElementById(
-"userSearch"
-)
+.getElementById("userSearch")
 .value="";
 
 document
-.getElementById(
-"userResults"
-)
+.getElementById("userResults")
 .innerHTML=
 `<div class="empty">
 Gib einen Benutzernamen ein.
@@ -5067,9 +5074,7 @@ Gib einen Benutzernamen ein.
 function closeNewChat(){
 
 document
-.getElementById(
-"newChatModal"
-)
+.getElementById("newChatModal")
 .classList.remove("show");
 
 }
@@ -5079,17 +5084,11 @@ async function searchUsers(){
 
 const query=
 document
-.getElementById(
-"userSearch"
-)
-.value
-.trim();
+.getElementById("userSearch")
+.value.trim();
 
 const results=
-document
-.getElementById(
-"userResults"
-);
+document.getElementById("userResults");
 
 if(query.length<2){
 
@@ -5122,9 +5121,7 @@ if(result.error){
 
 results.innerHTML=
 `<div class="empty">
-${escapeHTML(
-result.error.message
-)}
+${escapeHTML(result.error.message)}
 </div>`;
 
 return;
@@ -5158,18 +5155,14 @@ document.createElement("div");
 avatar.className="avatar";
 
 avatar.textContent=
-user.username
-.substring(0,2)
-.toUpperCase();
+user.username.substring(0,2).toUpperCase();
 
 const info=
 document.createElement("div");
 
-info.className=
-"userInfo";
+info.className="userInfo";
 
 info.innerHTML=
-
 `<div class="userName">
 ${escapeHTML(user.username)}
 </div>
@@ -5186,14 +5179,10 @@ const button=
 document.createElement("button");
 
 button.textContent="Chat";
-
-button.onclick=
-()=>createConversation(user);
+button.onclick=()=>createConversation(user);
 
 row.appendChild(avatar);
-
 row.appendChild(info);
-
 row.appendChild(button);
 
 results.appendChild(row);
@@ -5207,9 +5196,7 @@ results.appendChild(row);
    CREATE CHAT
 ========================================================= */
 
-async function createConversation(
-user
-){
+async function createConversation(user){
 
 const result=
 await supabaseClient.rpc(
@@ -5221,10 +5208,7 @@ other_user_id:user.id
 
 if(result.error){
 
-alert(
-result.error.message
-);
-
+alert(result.error.message);
 return;
 
 }
@@ -5236,9 +5220,7 @@ hiddenChats.delete(
 String(result.data)
 );
 
-saveHiddenConversationIds(
-hiddenChats
-);
+saveHiddenConversationIds(hiddenChats);
 
 closeNewChat();
 
@@ -5263,8 +5245,7 @@ function showScreen(id){
 document
 .querySelectorAll(".screen")
 .forEach(
-x=>
-x.classList.remove("active")
+x=>x.classList.remove("active")
 );
 
 document
@@ -5277,15 +5258,12 @@ document
 function showHome(){
 
 if(peerConnection){
-
 endVoiceCall();
-
 }
 
 if(callChannel){
 
-supabaseClient
-.removeChannel(
+supabaseClient.removeChannel(
 callChannel
 );
 
@@ -5295,8 +5273,7 @@ callChannel=null;
 
 if(realtimeChannel){
 
-supabaseClient
-.removeChannel(
+supabaseClient.removeChannel(
 realtimeChannel
 );
 
@@ -5305,28 +5282,34 @@ realtimeChannel=null;
 }
 
 closeMessageActions();
-
 cancelChatSelection();
 
-showScreen(
-"homeScreen"
-);
+showScreen("homeScreen");
 
-if(currentUser){
-
+if(currentUser)
 loadConversations();
 
 }
+
+
+function showCalls(){
+
+if(peerConnection){
+
+return;
+
+}
+
+showScreen("callsScreen");
+
+loadCallHistory();
 
 }
 
 
 function showProfile(){
 
-showScreen(
-"profileScreen"
-);
-
+showScreen("profileScreen");
 loadProfile();
 
 }
@@ -5334,9 +5317,7 @@ loadProfile();
 
 function showSettings(){
 
-showScreen(
-"settingsScreen"
-);
+showScreen("settingsScreen");
 
 }
 
@@ -5348,35 +5329,27 @@ showScreen(
 async function logout(){
 
 if(peerConnection){
-
 await endVoiceCall();
-
 }
 
 if(mediaRecorder){
 
 try{
-
 stopRecording();
-
 }catch(e){}
 
 }
 
 if(recordingTimerInterval){
 
-clearInterval(
-recordingTimerInterval
-);
-
+clearInterval(recordingTimerInterval);
 recordingTimerInterval=null;
 
 }
 
 if(callChannel){
 
-await supabaseClient
-.removeChannel(
+await supabaseClient.removeChannel(
 callChannel
 );
 
@@ -5384,10 +5357,19 @@ callChannel=null;
 
 }
 
+if(callHistoryChannel){
+
+await supabaseClient.removeChannel(
+callHistoryChannel
+);
+
+callHistoryChannel=null;
+
+}
+
 if(realtimeChannel){
 
-await supabaseClient
-.removeChannel(
+await supabaseClient.removeChannel(
 realtimeChannel
 );
 
@@ -5398,14 +5380,10 @@ realtimeChannel=null;
 await supabaseClient.auth.signOut();
 
 currentUser=null;
-
 currentConversation=null;
-
 currentOtherUser=null;
 
-showScreen(
-"authScreen"
-);
+showScreen("authScreen");
 
 }
 
@@ -5477,14 +5455,11 @@ minute:"2-digit"
 }
 
 
-function formatChatTime(
-timestamp
-){
+function formatChatTime(timestamp){
 
 if(!timestamp)return "";
 
-const date=
-new Date(timestamp);
+const date=new Date(timestamp);
 
 return date.toLocaleTimeString(
 "de-DE",
@@ -5497,22 +5472,58 @@ minute:"2-digit"
 }
 
 
-function formatDuration(
-seconds
+function formatCallDate(timestamp){
+
+const date=new Date(timestamp);
+
+const today=new Date();
+
+const yesterday=new Date();
+
+yesterday.setDate(
+yesterday.getDate()-1
+);
+
+if(
+date.toDateString()===
+today.toDateString()
 ){
+
+return "Heute";
+
+}
+
+if(
+date.toDateString()===
+yesterday.toDateString()
+){
+
+return "Gestern";
+
+}
+
+return date.toLocaleDateString(
+"de-DE",
+{
+day:"2-digit",
+month:"2-digit",
+year:"numeric"
+}
+);
+
+}
+
+
+function formatDuration(seconds){
 
 seconds=
 Math.max(
 0,
-Math.round(
-Number(seconds)||0
-)
+Math.round(Number(seconds)||0)
 );
 
 const minutes=
-Math.floor(
-seconds/60
-);
+Math.floor(seconds/60);
 
 const remaining=
 seconds%60;
@@ -5530,12 +5541,9 @@ String(remaining)
    ONLINE
 ========================================================= */
 
-function isOnline(
-lastSeen
-){
+function isOnline(lastSeen){
 
-if(!lastSeen)
-return false;
+if(!lastSeen)return false;
 
 return(
 Date.now()-
@@ -5553,9 +5561,7 @@ function toggleDark(){
 
 const enabled=
 document
-.getElementById(
-"darkMode"
-)
+.getElementById("darkMode")
 .checked;
 
 document.body.classList.toggle(
@@ -5565,9 +5571,7 @@ enabled
 
 localStorage.setItem(
 "wavechat_dark",
-enabled
-?"true"
-:"false"
+enabled?"true":"false"
 );
 
 }
@@ -5581,15 +5585,10 @@ localStorage.getItem(
 )==="true";
 
 const checkbox=
-document.getElementById(
-"darkMode"
-);
+document.getElementById("darkMode");
 
-if(checkbox){
-
+if(checkbox)
 checkbox.checked=enabled;
-
-}
 
 document.body.classList.toggle(
 "dark",
@@ -5606,30 +5605,20 @@ enabled
 function scrollMessages(){
 
 const box=
-document.getElementById(
-"messages"
-);
+document.getElementById("messages");
 
-box.scrollTop=
-box.scrollHeight;
+box.scrollTop=box.scrollHeight;
 
 }
 
 
-function showError(
-message
-){
+function showError(message){
 
 const box=
-document.getElementById(
-"authError"
-);
+document.getElementById("authError");
 
-box.textContent=
-message;
-
-box.style.display=
-"block";
+box.textContent=message;
+box.style.display="block";
 
 }
 
@@ -5637,78 +5626,45 @@ box.style.display=
 function hideError(){
 
 document
-.getElementById(
-"authError"
-)
+.getElementById("authError")
 .style.display="none";
 
 }
 
 
-function escapeHTML(
-value
-){
+function escapeHTML(value){
 
-return String(
-value??""
-)
-.replace(
-/&/g,
-"&amp;"
-)
-.replace(
-/</g,
-"&lt;"
-)
-.replace(
-/>/g,
-"&gt;"
-)
-.replace(
-/"/g,
-"&quot;"
-)
-.replace(
-/'/g,
-"&#039;"
-);
+return String(value??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
 
-function escapeAttribute(
-value
-){
+function escapeAttribute(value){
 
-return String(
-value??""
-)
-.replace(
-/&/g,
-"&amp;"
-)
-.replace(
-/"/g,
-"&quot;"
-)
-.replace(
-/</g,
-"&lt;"
-)
-.replace(
-/>/g,
-"&gt;"
-);
+return String(value??"")
+.replace(/&/g,"&amp;")
+.replace(/"/g,"&quot;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;");
 
 }
 
 
 /* =========================================================
+   =========================================================
    VOICE CALL SYSTEM
+   =========================================================
+   ========================================================= */
+
+
+/* =========================================================
+   CALL UI
 ========================================================= */
-
-
-/* CALL UI */
 
 function showCallScreen(){
 
@@ -5730,9 +5686,7 @@ document
 
 function setCallName(name){
 
-const safeName=
-name||
-"WaveChat";
+const safeName=name||"WaveChat";
 
 document
 .getElementById("callName")
@@ -5741,9 +5695,7 @@ document
 document
 .getElementById("callAvatar")
 .textContent=
-safeName
-.substring(0,2)
-.toUpperCase();
+safeName.substring(0,2).toUpperCase();
 
 }
 
@@ -5756,20 +5708,14 @@ async function startVoiceCall(){
 
 if(!currentUser){
 
-alert(
-"Du bist nicht angemeldet."
-);
-
+alert("Du bist nicht angemeldet.");
 return;
 
 }
 
 if(!currentConversation){
 
-alert(
-"Kein Chat geöffnet."
-);
-
+alert("Kein Chat geöffnet.");
 return;
 
 }
@@ -5788,17 +5734,15 @@ return;
 
 }
 
-if(peerConnection){
+if(peerConnection)return;
 
-return;
-
-}
 
 currentCallId=
 crypto.randomUUID();
 
-currentCallDirection=
-"outgoing";
+currentCallDirection="outgoing";
+
+currentCallHistoryId=null;
 
 setCallName(
 currentOtherUser.username
@@ -5806,8 +5750,7 @@ currentOtherUser.username
 
 document
 .getElementById("callStatus")
-.textContent=
-"Anrufen...";
+.textContent="Anrufen...";
 
 document
 .getElementById("callDuration")
@@ -5821,23 +5764,73 @@ document
 .getElementById("outgoingCallButtons")
 .style.display="flex";
 
+document
+.getElementById("callSpeakerLabel")
+.textContent="Lautsprecher aus";
+
 showCallScreen();
 
+
 try{
+
+/* ANRUF IN HISTORY ANLEGEN */
+
+const history=
+await supabaseClient
+.from("call_history")
+.insert({
+
+conversation_id:
+currentConversation.id,
+
+caller_id:
+currentUser.id,
+
+receiver_id:
+currentOtherUser.id,
+
+call_type:"outgoing",
+
+status:"cancelled",
+
+duration:0
+
+})
+.select("id")
+.single();
+
+if(history.error){
+
+console.error(
+"Call history insert:",
+history.error
+);
+
+}else{
+
+currentCallHistoryId=
+history.data.id;
+
+}
+
+
+/* WEBRTC */
 
 await createPeerConnection();
 
 const offer=
-await peerConnection
-.createOffer();
+await peerConnection.createOffer();
 
-await peerConnection
-.setLocalDescription(offer);
+await peerConnection.setLocalDescription(
+offer
+);
 
 await sendCallSignal(
 "offer",
 {
-sdp:offer.sdp
+sdp:offer.sdp,
+history_id:currentCallHistoryId,
+call_id:currentCallId
 }
 );
 
@@ -5866,11 +5859,8 @@ await cleanupCall();
 
 async function createPeerConnection(){
 
-if(peerConnection){
-
+if(peerConnection)
 return peerConnection;
-
-}
 
 peerConnection=
 new RTCPeerConnection(
@@ -5878,17 +5868,18 @@ rtcConfiguration
 );
 
 
-/* MIKROFON */
-
 localCallStream=
 await navigator.mediaDevices
 .getUserMedia({
+
 audio:{
 echoCancellation:true,
 noiseSuppression:true,
 autoGainControl:true
 },
+
 video:false
+
 });
 
 
@@ -5897,8 +5888,7 @@ localCallStream
 .forEach(
 track=>{
 
-peerConnection
-.addTrack(
+peerConnection.addTrack(
 track,
 localCallStream
 );
@@ -5906,8 +5896,6 @@ localCallStream
 }
 );
 
-
-/* REMOTE AUDIO */
 
 peerConnection.ontrack=
 event=>{
@@ -5918,7 +5906,7 @@ document.getElementById(
 );
 
 if(
-event.streams &&
+event.streams&&
 event.streams[0]
 ){
 
@@ -5929,7 +5917,7 @@ audio.play()
 .catch(
 error=>
 console.log(
-"Audio wartet auf Benutzeraktion:",
+"Remote audio wartet:",
 error
 )
 );
@@ -5939,31 +5927,28 @@ error
 };
 
 
-/* ICE */
-
 peerConnection.onicecandidate=
 async event=>{
 
-if(!event.candidate){
-
+if(!event.candidate)
 return;
-
-}
 
 await sendCallSignal(
 "ice",
 {
-candidate:event.candidate
+candidate:event.candidate,
+history_id:currentCallHistoryId,
+call_id:currentCallId
 }
 );
 
 };
 
 
-/* CONNECTION */
-
 peerConnection.onconnectionstatechange=
 ()=>{
+
+if(!peerConnection)return;
 
 const state=
 peerConnection.connectionState;
@@ -5977,10 +5962,14 @@ if(state==="connected"){
 
 document
 .getElementById("callStatus")
-.textContent=
-"Verbunden";
+.textContent="Verbunden";
 
 startCallTimer();
+
+updateCallHistory(
+"completed",
+0
+);
 
 }
 
@@ -6011,7 +6000,7 @@ return peerConnection;
 
 
 /* =========================================================
-   SIGNAL
+   SEND SIGNAL
 ========================================================= */
 
 async function sendCallSignal(
@@ -6072,8 +6061,7 @@ function subscribeToCalls(){
 
 if(callChannel){
 
-supabaseClient
-.removeChannel(
+supabaseClient.removeChannel(
 callChannel
 );
 
@@ -6117,8 +6105,7 @@ currentConversation.id
 },
 async payload=>{
 
-const signal=
-payload.new;
+const signal=payload.new;
 
 if(
 signal.receiver_id!==
@@ -6138,7 +6125,66 @@ return;
 
 }
 
-await handleCallSignal(
+await handleCallSignal(signal);
+
+}
+)
+.subscribe();
+
+}
+
+
+/* =========================================================
+   GLOBAL CALLS
+========================================================= */
+
+function subscribeToGlobalCalls(){
+
+if(!currentUser)return;
+
+if(callHistoryChannel){
+
+supabaseClient.removeChannel(
+callHistoryChannel
+);
+
+}
+
+callHistoryChannel=
+supabaseClient
+.channel(
+"global-calls-"+
+currentUser.id+
+"-"+
+Date.now()
+)
+.on(
+"postgres_changes",
+{
+
+event:"INSERT",
+schema:"public",
+table:"call_signals",
+filter:
+"receiver_id=eq."+
+currentUser.id
+
+},
+async payload=>{
+
+const signal=payload.new;
+
+if(
+signal.signal_type!=="offer"
+)return;
+
+if(peerConnection)
+return;
+
+if(currentConversation)
+return;
+
+await receiveGlobalIncomingCall(
 signal
 );
 
@@ -6153,9 +6199,7 @@ signal
    HANDLE SIGNAL
 ========================================================= */
 
-async function handleCallSignal(
-signal
-){
+async function handleCallSignal(signal){
 
 const type=
 signal.signal_type;
@@ -6164,8 +6208,6 @@ const data=
 signal.signal_data||
 {};
 
-
-/* OFFER */
 
 if(type==="offer"){
 
@@ -6179,17 +6221,9 @@ return;
 }
 
 
-/* ANSWER */
-
 if(type==="answer"){
 
-if(
-!peerConnection
-){
-
-return;
-
-}
+if(!peerConnection)return;
 
 try{
 
@@ -6197,7 +6231,6 @@ await peerConnection
 .setRemoteDescription({
 
 type:"answer",
-
 sdp:data.sdp
 
 });
@@ -6221,8 +6254,6 @@ return;
 }
 
 
-/* ICE */
-
 if(type==="ice"){
 
 if(
@@ -6236,8 +6267,7 @@ return;
 
 try{
 
-await peerConnection
-.addIceCandidate(
+await peerConnection.addIceCandidate(
 new RTCIceCandidate(
 data.candidate
 )
@@ -6257,8 +6287,6 @@ return;
 }
 
 
-/* HANGUP */
-
 if(type==="hangup"){
 
 document
@@ -6277,8 +6305,6 @@ return;
 
 }
 
-
-/* REJECT */
 
 if(type==="reject"){
 
@@ -6310,11 +6336,7 @@ signal,
 data
 ){
 
-if(peerConnection){
-
-return;
-
-}
+if(peerConnection)return;
 
 incomingCallData={
 signal:signal,
@@ -6322,10 +6344,14 @@ data:data
 };
 
 currentCallId=
+data.call_id||
 crypto.randomUUID();
 
-currentCallDirection=
-"incoming";
+currentCallHistoryId=
+data.history_id||
+null;
+
+currentCallDirection="incoming";
 
 currentOtherUser={
 id:signal.sender_id,
@@ -6381,6 +6407,84 @@ showCallScreen();
 
 playCallRingtone();
 
+
+/* NACH 30 SEKUNDEN ALS VERPASST MARKIEREN */
+
+if(missedCallTimer)
+clearTimeout(missedCallTimer);
+
+missedCallTimer=
+setTimeout(
+async()=>{
+
+if(
+incomingCallData&&
+!peerConnection
+){
+
+await updateCallHistory(
+"missed",
+0
+);
+
+document
+.getElementById("callStatus")
+.textContent=
+"Verpasster Anruf";
+
+setTimeout(
+()=>{
+cleanupCall();
+},
+1500
+);
+
+}
+
+},
+30000
+);
+
+}
+
+
+/* =========================================================
+   GLOBAL INCOMING CALL
+========================================================= */
+
+async function receiveGlobalIncomingCall(signal){
+
+if(peerConnection)return;
+
+if(
+signal.signal_type!=="offer"
+)return;
+
+const data=
+signal.signal_data||
+{};
+
+const conversationId=
+signal.conversation_id;
+
+const conversation=
+await supabaseClient
+.from("conversations")
+.select("*")
+.eq("id",conversationId)
+.maybeSingle();
+
+if(conversation.error||!conversation.data)
+return;
+
+currentConversation=
+conversation.data;
+
+await receiveIncomingOffer(
+signal,
+data
+);
+
 }
 
 
@@ -6392,13 +6496,14 @@ async function acceptIncomingCall(){
 
 stopCallRingtone();
 
-if(
-!incomingCallData
-){
+if(missedCallTimer){
 
-return;
+clearTimeout(missedCallTimer);
+missedCallTimer=null;
 
 }
+
+if(!incomingCallData)return;
 
 try{
 
@@ -6424,22 +6529,27 @@ await peerConnection
 .setRemoteDescription({
 
 type:"offer",
-
 sdp:offer.sdp
 
 });
 
 const answer=
-await peerConnection
-.createAnswer();
+await peerConnection.createAnswer();
 
 await peerConnection
 .setLocalDescription(answer);
 
+await updateCallHistory(
+"completed",
+0
+);
+
 await sendCallSignal(
 "answer",
 {
-sdp:answer.sdp
+sdp:answer.sdp,
+history_id:currentCallHistoryId,
+call_id:currentCallId
 }
 );
 
@@ -6472,14 +6582,29 @@ async function rejectIncomingCall(){
 
 stopCallRingtone();
 
+if(missedCallTimer){
+
+clearTimeout(missedCallTimer);
+missedCallTimer=null;
+
+}
+
 if(
-currentOtherUser &&
+currentOtherUser&&
 currentOtherUser.id
 ){
 
+await updateCallHistory(
+"rejected",
+0
+);
+
 await sendCallSignal(
 "reject",
-{}
+{
+history_id:currentCallHistoryId,
+call_id:currentCallId
+}
 );
 
 }
@@ -6499,14 +6624,45 @@ async function endVoiceCall(){
 
 stopCallRingtone();
 
+if(missedCallTimer){
+
+clearTimeout(missedCallTimer);
+missedCallTimer=null;
+
+}
+
 if(
-currentOtherUser &&
+currentOtherUser&&
 currentOtherUser.id
 ){
 
 await sendCallSignal(
 "hangup",
-{}
+{
+history_id:currentCallHistoryId,
+call_id:currentCallId
+}
+);
+
+}
+
+if(callStartTime){
+
+const duration=
+Math.floor(
+(Date.now()-callStartTime)/1000
+);
+
+await updateCallHistory(
+"completed",
+duration
+);
+
+}else{
+
+await updateCallHistory(
+"cancelled",
+0
 );
 
 }
@@ -6522,13 +6678,7 @@ await cleanupCall();
 
 function toggleCallMute(){
 
-if(
-!localCallStream
-){
-
-return;
-
-}
+if(!localCallStream)return;
 
 callMuted=!callMuted;
 
@@ -6536,8 +6686,7 @@ localCallStream
 .getAudioTracks()
 .forEach(
 track=>{
-track.enabled=
-!callMuted;
+track.enabled=!callMuted;
 }
 );
 
@@ -6549,18 +6698,60 @@ document.getElementById(
 if(callMuted){
 
 button.textContent="🔇";
-
-button.classList.add(
-"active"
-);
+button.classList.add("active");
 
 }else{
 
 button.textContent="🎙️";
+button.classList.remove("active");
 
-button.classList.remove(
-"active"
+}
+
+}
+
+
+/* =========================================================
+   SPEAKER
+========================================================= */
+
+function toggleCallSpeaker(){
+
+callSpeaker=!callSpeaker;
+
+const audio=
+document.getElementById(
+"callRemoteAudio"
 );
+
+const button=
+document.getElementById(
+"speakerCallButton"
+);
+
+const label=
+document.getElementById(
+"callSpeakerLabel"
+);
+
+if(callSpeaker){
+
+button.classList.add("active");
+
+label.textContent=
+"Lautsprecher an";
+
+try{
+
+audio.setSinkId("default");
+
+}catch(e){}
+
+}else{
+
+button.classList.remove("active");
+
+label.textContent=
+"Lautsprecher aus";
 
 }
 
@@ -6581,8 +6772,7 @@ callDurationInterval
 
 }
 
-callStartTime=
-Date.now();
+callStartTime=Date.now();
 
 updateCallTimer();
 
@@ -6597,16 +6787,11 @@ updateCallTimer,
 
 function updateCallTimer(){
 
-if(!callStartTime){
-
-return;
-
-}
+if(!callStartTime)return;
 
 const seconds=
 Math.floor(
-(Date.now()-
-callStartTime)/1000
+(Date.now()-callStartTime)/1000
 );
 
 document
@@ -6618,12 +6803,67 @@ formatDuration(seconds);
 
 
 /* =========================================================
+   CALL HISTORY UPDATE
+========================================================= */
+
+async function updateCallHistory(
+status,
+duration
+){
+
+if(!currentCallHistoryId)
+return;
+
+const result=
+await supabaseClient
+.from("call_history")
+.update({
+
+status:status,
+
+duration:
+Math.max(
+0,
+Math.round(
+Number(duration)||0
+)
+)
+
+})
+.eq(
+"id",
+currentCallHistoryId
+);
+
+if(result.error){
+
+console.error(
+"Call history update:",
+result.error
+);
+
+}
+
+}
+
+
+/* =========================================================
    CLEANUP
 ========================================================= */
 
 async function cleanupCall(){
 
 stopCallRingtone();
+
+if(missedCallTimer){
+
+clearTimeout(
+missedCallTimer
+);
+
+missedCallTimer=null;
+
+}
 
 if(callDurationInterval){
 
@@ -6638,9 +6878,7 @@ callDurationInterval=null;
 if(peerConnection){
 
 try{
-
 peerConnection.close();
-
 }catch(e){}
 
 peerConnection=null;
@@ -6653,13 +6891,9 @@ localCallStream
 .getTracks()
 .forEach(
 track=>{
-
 try{
-
 track.stop();
-
 }catch(e){}
-
 }
 );
 
@@ -6675,7 +6909,6 @@ document.getElementById(
 if(audio){
 
 audio.pause();
-
 audio.srcObject=null;
 
 }
@@ -6683,12 +6916,12 @@ audio.srcObject=null;
 incomingCallData=null;
 
 currentCallId=null;
-
+currentCallHistoryId=null;
 currentCallDirection=null;
 
 callStartTime=0;
-
 callMuted=false;
+callSpeaker=false;
 
 const muteButton=
 document.getElementById(
@@ -6698,12 +6931,25 @@ document.getElementById(
 if(muteButton){
 
 muteButton.textContent="🎙️";
-
-muteButton.classList.remove(
-"active"
-);
+muteButton.classList.remove("active");
 
 }
+
+const speakerButton=
+document.getElementById(
+"speakerCallButton"
+);
+
+if(speakerButton){
+
+speakerButton.classList.remove("active");
+
+}
+
+document
+.getElementById("callSpeakerLabel")
+.textContent=
+"Lautsprecher aus";
 
 hideCallScreen();
 
@@ -6727,24 +6973,18 @@ window.webkitAudioContext
 )();
 
 const oscillator=
-callAudioContext
-.createOscillator();
+callAudioContext.createOscillator();
 
 const gain=
-callAudioContext
-.createGain();
+callAudioContext.createGain();
 
 oscillator.type="sine";
-
 oscillator.frequency.value=880;
 
 gain.gain.value=.04;
 
-oscillator
-.connect(gain);
-
-gain
-.connect(
+oscillator.connect(gain);
+gain.connect(
 callAudioContext.destination
 );
 
@@ -6754,13 +6994,7 @@ callRingtoneTimer=
 setInterval(
 ()=>{
 
-if(
-!callAudioContext
-){
-
-return;
-
-}
+if(!callAudioContext)return;
 
 oscillator.frequency.value=
 oscillator.frequency.value===880
@@ -6798,14 +7032,10 @@ callRingtoneTimer=null;
 
 }
 
-if(
-currentCallOscillator
-){
+if(currentCallOscillator){
 
 try{
-
 currentCallOscillator.stop();
-
 }catch(e){}
 
 currentCallOscillator=null;
@@ -6815,12 +7045,401 @@ currentCallOscillator=null;
 if(callAudioContext){
 
 try{
-
 callAudioContext.close();
-
 }catch(e){}
 
 callAudioContext=null;
+
+}
+
+
+/* =========================================================
+   CALL HISTORY PAGE
+========================================================= */
+
+async function loadCallHistory(){
+
+const list=
+document.getElementById("callList");
+
+if(!currentUser){
+
+list.innerHTML=
+`<div class="callEmpty">
+Nicht angemeldet.
+</div>`;
+
+return;
+
+}
+
+list.innerHTML=
+`<div class="callEmpty">
+Anrufe werden geladen...
+</div>`;
+
+let query=
+supabaseClient
+.from("call_history")
+.select("*")
+.or(
+"caller_id.eq."+currentUser.id+
+",receiver_id.eq."+currentUser.id
+)
+.order(
+"created_at",
+{
+ascending:false
+}
+)
+.limit(100);
+
+const result=await query;
+
+if(result.error){
+
+list.innerHTML=
+`<div class="callEmpty">
+<div class="callEmptyIcon">⚠️</div>
+${escapeHTML(result.error.message)}
+</div>`;
+
+return;
+
+}
+
+const rows=
+result.data||[];
+
+const filtered=
+rows.filter(row=>{
+
+if(currentCallFilter!=="missed")
+return true;
+
+return(
+row.status==="missed"||
+row.status==="rejected"||
+row.status==="cancelled"
+);
+
+});
+
+if(!filtered.length){
+
+list.innerHTML=
+`<div class="callEmpty">
+
+<div class="callEmptyIcon">
+📞
+</div>
+
+${
+currentCallFilter==="missed"
+?"Keine verpassten Anrufe"
+:"Noch keine Anrufe"
+}
+
+</div>`;
+
+return;
+
+}
+
+
+/* BENUTZER IDS SAMMELN */
+
+const ids=[
+...new Set(
+filtered.flatMap(
+row=>[
+row.caller_id,
+row.receiver_id
+]
+)
+)
+];
+
+const profiles=
+await supabaseClient
+.from("profiles")
+.select("id,username")
+.in("id",ids);
+
+const map={};
+
+(profiles.data||[])
+.forEach(
+profile=>{
+map[profile.id]=profile;
+}
+);
+
+list.innerHTML="";
+
+filtered.forEach(
+row=>{
+
+const isCaller=
+row.caller_id===
+currentUser.id;
+
+const otherId=
+isCaller
+?row.receiver_id
+:row.caller_id;
+
+const other=
+map[otherId];
+
+const username=
+other?.username||
+"Unbekannter Benutzer";
+
+const isMissed=
+!isCaller&&
+(
+row.status==="missed"||
+row.status==="rejected"||
+row.status==="cancelled"
+);
+
+const item=
+document.createElement("div");
+
+item.className=
+"callItem"+
+(
+isMissed
+?" missed"
+:""
+);
+
+const avatar=
+document.createElement("div");
+
+avatar.className="callItemAvatar";
+
+avatar.textContent=
+username.substring(0,2).toUpperCase();
+
+
+const info=
+document.createElement("div");
+
+info.className="callItemInfo";
+
+const name=
+document.createElement("div");
+
+name.className="callItemName";
+
+name.textContent=username;
+
+
+const details=
+document.createElement("div");
+
+details.className="callItemDetails";
+
+let arrow="↗️";
+let typeText="Ausgehend";
+
+if(!isCaller){
+
+arrow="↙️";
+typeText=
+isMissed
+?"Verpasst"
+:"Eingehend";
+
+}
+
+if(row.status==="rejected"){
+typeText="Abgelehnt";
+}
+
+if(row.status==="cancelled"&&!isCaller){
+typeText="Verpasst";
+}
+
+details.innerHTML=
+`
+<span>${arrow}</span>
+<span>${typeText}</span>
+<span>·</span>
+<span>${formatCallDate(row.created_at)}</span>
+`;
+
+if(row.duration>0){
+
+details.innerHTML+=
+`
+<span>·</span>
+<span>${formatDuration(row.duration)}</span>
+`;
+
+}
+
+info.appendChild(name);
+info.appendChild(details);
+
+
+const time=
+document.createElement("div");
+
+time.className="callItemTime";
+
+time.textContent=
+formatTime(row.created_at);
+
+
+const button=
+document.createElement("button");
+
+button.className="callBackButton";
+button.textContent="📞";
+
+button.onclick=
+async event=>{
+
+event.stopPropagation();
+
+await callUserFromHistory(
+otherId,
+username
+);
+
+};
+
+
+item.appendChild(avatar);
+item.appendChild(info);
+item.appendChild(time);
+item.appendChild(button);
+
+list.appendChild(item);
+
+});
+
+}
+
+
+/* =========================================================
+   CALL FILTER
+========================================================= */
+
+function setCallFilter(filter){
+
+currentCallFilter=filter;
+
+document
+.getElementById("callFilterAll")
+.classList.toggle(
+"active",
+filter==="all"
+);
+
+document
+.getElementById("callFilterMissed")
+.classList.toggle(
+"active",
+filter==="missed"
+);
+
+loadCallHistory();
+
+}
+
+
+/* =========================================================
+   NEW CALL
+========================================================= */
+
+function openNewCall(){
+
+openNewChat();
+
+}
+
+
+/* =========================================================
+   CALL FROM HISTORY
+========================================================= */
+
+async function callUserFromHistory(
+userId,
+username
+){
+
+if(!userId||!currentUser)return;
+
+const result=
+await supabaseClient.rpc(
+"create_private_conversation",
+{
+other_user_id:userId
+}
+);
+
+if(result.error){
+
+alert(result.error.message);
+return;
+
+}
+
+await openConversationById(
+result.data,
+username,
+null,
+userId
+);
+
+setTimeout(
+()=>{
+startVoiceCall();
+},
+150
+);
+
+}
+
+
+/* =========================================================
+   DESKTOP / PAGE CALL
+========================================================= */
+
+document.addEventListener(
+"visibilitychange",
+()=>{
+
+if(
+!document.hidden&&
+document.getElementById("callsScreen")
+.classList.contains("active")
+){
+
+loadCallHistory();
+
+}
+
+}
+);
+
+
+/* =========================================================
+   INITIAL CALL HISTORY REFRESH
+========================================================= */
+
+async function refreshCallHistoryIfOpen(){
+
+if(
+document.getElementById("callsScreen")
+.classList.contains("active")
+){
+
+await loadCallHistory();
 
 }
 
