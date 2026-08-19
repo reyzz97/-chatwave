@@ -40,60 +40,103 @@ flex-direction:column;
 
 .screen.active{display:flex}
 
-/* LOGIN */
+/* =========================================================
+   MODERNES LOGIN
+========================================================= */
 
 #authScreen{
 align-items:center;
 justify-content:center;
-padding:25px;
-background:radial-gradient(circle at top,#20bfae,#075e54 55%,#043b36);
+padding:22px;
+background:
+radial-gradient(circle at 15% 10%,rgba(37,211,102,.45),transparent 30%),
+radial-gradient(circle at 90% 90%,rgba(32,191,174,.35),transparent 35%),
+linear-gradient(145deg,#043b36,#075e54 48%,#0a8f80);
 }
 
 .authBox{
 width:100%;
-max-width:420px;
-padding:30px;
-background:white;
+max-width:410px;
+padding:34px 27px 28px;
+background:rgba(255,255,255,.97);
+border:1px solid rgba(255,255,255,.45);
+border-radius:30px;
+box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+
+.authLogoWrap{
+width:82px;
+height:82px;
+margin:0 auto 15px;
 border-radius:25px;
-box-shadow:0 25px 70px rgba(0,0,0,.35);
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#25d366,#075e54);
+box-shadow:0 12px 30px rgba(7,94,84,.25);
+}
+
+.authLogoIcon{
+font-size:42px;
 }
 
 .logo{
 text-align:center;
 color:#075e54;
 font-size:38px;
-font-weight:800;
+font-weight:850;
+letter-spacing:-1px;
 }
 
 .logoSub{
 text-align:center;
 color:#667781;
-margin:7px 0 25px;
+margin:7px 0 27px;
+font-size:14px;
+}
+
+.authInputWrap{
+position:relative;
+margin-bottom:11px;
+}
+
+.authInputIcon{
+position:absolute;
+left:15px;
+top:50%;
+transform:translateY(-50%);
+font-size:18px;
+z-index:2;
 }
 
 .authInput{
 width:100%;
-height:50px;
-padding:0 15px;
-margin-bottom:10px;
+height:53px;
+padding:0 15px 0 45px;
 border:1px solid #d7dde0;
-border-radius:13px;
+border-radius:15px;
 outline:none;
+background:#f8fafb;
+transition:.2s;
 }
 
 .authInput:focus{
 border-color:#075e54;
-box-shadow:0 0 0 2px rgba(7,94,84,.1);
+background:white;
+box-shadow:0 0 0 3px rgba(7,94,84,.1);
 }
 
 .authButton{
 width:100%;
-height:50px;
+height:53px;
+margin-top:5px;
 border:0;
-border-radius:13px;
-background:#075e54;
+border-radius:15px;
+background:linear-gradient(135deg,#075e54,#0a8f80);
 color:white;
-font-weight:700;
+font-weight:750;
+font-size:15px;
+box-shadow:0 9px 20px rgba(7,94,84,.22);
 }
 
 .authButton:disabled{
@@ -103,7 +146,7 @@ cursor:wait;
 
 .authSwitch{
 text-align:center;
-margin-top:18px;
+margin-top:19px;
 color:#667781;
 font-size:14px;
 }
@@ -112,21 +155,23 @@ font-size:14px;
 border:0;
 background:none;
 color:#075e54;
-font-weight:700;
+font-weight:750;
 }
 
 .error{
 display:none;
 padding:12px;
-margin-bottom:10px;
-border-radius:10px;
+margin-bottom:11px;
+border-radius:12px;
 background:#fee2e2;
 color:#991b1b;
 font-size:13px;
 white-space:pre-wrap;
 }
 
-/* HEADER */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .header{
 background:#075e54;
@@ -160,25 +205,9 @@ color:white;
 font-size:20px;
 }
 
-.search{
-display:flex;
-align-items:center;
-height:45px;
-margin-top:11px;
-padding:0 13px;
-border-radius:13px;
-background:white;
-color:#667781;
-}
-
-.search input{
-flex:1;
-margin-left:8px;
-border:0;
-outline:0;
-}
-
-/* CHAT SELECTION */
+/* =========================================================
+   CHAT SELECTION
+========================================================= */
 
 .chatSelectionHeader{
 display:none;
@@ -216,7 +245,31 @@ color:white;
 font-size:20px;
 }
 
-/* STORIES */
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search{
+display:flex;
+align-items:center;
+height:45px;
+margin-top:11px;
+padding:0 13px;
+border-radius:13px;
+background:white;
+color:#667781;
+}
+
+.search input{
+flex:1;
+margin-left:8px;
+border:0;
+outline:0;
+}
+
+/* =========================================================
+   STORIES
+========================================================= */
 
 .storyBar{
 background:#fff;
@@ -265,7 +318,9 @@ font-size:28px;
 color:#075e54;
 }
 
-/* HOME */
+/* =========================================================
+   HOME
+========================================================= */
 
 .homeWrap{
 position:relative;
@@ -281,7 +336,9 @@ overflow:auto;
 background:#fff;
 }
 
-/* CHATS */
+/* =========================================================
+   CHATS
+========================================================= */
 
 .chat{
 display:flex;
@@ -380,7 +437,9 @@ font-size:30px;
 box-shadow:0 6px 20px rgba(0,0,0,.25);
 }
 
-/* BOTTOM */
+/* =========================================================
+   BOTTOM
+========================================================= */
 
 .bottom{
 display:flex;
@@ -410,7 +469,9 @@ margin-bottom:3px;
 font-size:21px;
 }
 
-/* CHAT HEADER */
+/* =========================================================
+   CHAT HEADER
+========================================================= */
 
 .chatHeader{
 display:flex;
@@ -467,7 +528,9 @@ color:white;
 font-size:20px;
 }
 
-/* MESSAGES */
+/* =========================================================
+   MESSAGES
+========================================================= */
 
 .messages{
 flex:1;
@@ -518,7 +581,9 @@ margin-left:4px;
 font-weight:700;
 }
 
-.checks.read{color:#1b8fd1}
+.checks.read{
+color:#1b8fd1;
+}
 
 .deletedMessage{
 color:#667781;
@@ -534,7 +599,9 @@ object-fit:cover;
 border-radius:7px;
 }
 
-/* AUDIO */
+/* =========================================================
+   AUDIO
+========================================================= */
 
 .audioMessage{
 display:flex;
@@ -573,7 +640,9 @@ font-size:11px;
 font-variant-numeric:tabular-nums;
 }
 
-/* RECORD */
+/* =========================================================
+   RECORD
+========================================================= */
 
 .recordTimer{
 display:none;
@@ -589,7 +658,9 @@ font-size:13px;
 font-weight:700;
 }
 
-.recordTimer.show{display:flex}
+.recordTimer.show{
+display:flex;
+}
 
 .recordingDot{
 width:7px;
@@ -605,7 +676,9 @@ animation:recordPulse 1s infinite;
 50%{opacity:.35}
 }
 
-/* COMPOSER */
+/* =========================================================
+   COMPOSER
+========================================================= */
 
 .composer{
 display:flex;
@@ -654,7 +727,9 @@ color:white;
 font-size:19px;
 }
 
-/* ACTIONS */
+/* =========================================================
+   ACTIONS
+========================================================= */
 
 .messageActions{
 position:absolute;
@@ -679,9 +754,13 @@ background:#f0f2f5;
 text-align:left;
 }
 
-.messageActions .danger{color:#d32f2f}
+.messageActions .danger{
+color:#d32f2f;
+}
 
-/* PAGES */
+/* =========================================================
+   PAGES
+========================================================= */
 
 .page{
 flex:1;
@@ -741,7 +820,6 @@ border-bottom:1px solid #edf0f1;
 
 .rowIcon{font-size:21px}
 .rowInfo{flex:1}
-
 .rowTitle{font-size:15px}
 
 .rowSub{
@@ -750,7 +828,9 @@ color:#667781;
 font-size:12px;
 }
 
-/* CALL HISTORY */
+/* =========================================================
+   CALL HISTORY
+========================================================= */
 
 .callHeader{
 padding:calc(15px + env(safe-area-inset-top)) 15px 0;
@@ -885,7 +965,9 @@ font-size:50px;
 margin-bottom:15px;
 }
 
-/* MODAL */
+/* =========================================================
+   MODAL
+========================================================= */
 
 .modal{
 position:fixed;
@@ -897,7 +979,9 @@ justify-content:center;
 background:rgba(0,0,0,.45);
 }
 
-.modal.show{display:flex}
+.modal.show{
+display:flex;
+}
 
 .modalBox{
 width:100%;
@@ -951,7 +1035,9 @@ border-bottom:1px solid #eee;
 flex:1;
 }
 
-.userName{font-weight:700}
+.userName{
+font-weight:700;
+}
 
 .user button{
 padding:8px 13px;
@@ -961,7 +1047,9 @@ background:#075e54;
 color:white;
 }
 
-/* EMPTY */
+/* =========================================================
+   EMPTY
+========================================================= */
 
 .empty{
 padding:60px 25px;
@@ -970,7 +1058,9 @@ color:#667781;
 line-height:1.5;
 }
 
-/* STORY VIEWER */
+/* =========================================================
+   STORY VIEWER
+========================================================= */
 
 .storyViewer{
 position:fixed;
@@ -982,7 +1072,9 @@ justify-content:center;
 background:#000;
 }
 
-.storyViewer.show{display:flex}
+.storyViewer.show{
+display:flex;
+}
 
 .storyViewer img,
 .storyViewer video{
@@ -1005,7 +1097,9 @@ color:white;
 font-size:22px;
 }
 
-/* CALL SCREEN */
+/* =========================================================
+   MODERNER CALL SCREEN
+========================================================= */
 
 .callScreen{
 position:fixed;
@@ -1014,12 +1108,15 @@ z-index:500;
 display:none;
 align-items:center;
 justify-content:center;
-background:radial-gradient(circle at 50% 25%,#168c7e,#075e54 45%,#043b36);
+background:
+radial-gradient(circle at 50% 18%,#25a897 0%,#087b6e 28%,#075e54 58%,#032d29 100%);
 color:white;
 text-align:center;
 }
 
-.callScreen.show{display:flex}
+.callScreen.show{
+display:flex;
+}
 
 .callBox{
 width:100%;
@@ -1028,49 +1125,73 @@ height:100%;
 display:flex;
 flex-direction:column;
 align-items:center;
+justify-content:space-between;
+padding:
+calc(75px + env(safe-area-inset-top))
+25px
+calc(35px + env(safe-area-inset-bottom));
+}
+
+.callTopLabel{
+font-size:13px;
+font-weight:600;
+letter-spacing:.7px;
+color:rgba(255,255,255,.7);
+text-transform:uppercase;
+}
+
+.callProfileArea{
+display:flex;
+flex-direction:column;
+align-items:center;
 justify-content:center;
-padding:40px 25px calc(40px + env(safe-area-inset-bottom));
+flex:1;
+width:100%;
 }
 
 .callAvatar{
-width:135px;
-height:135px;
+width:145px;
+height:145px;
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
 background:linear-gradient(135deg,#25d366,#075e54);
-border:4px solid rgba(255,255,255,.35);
-font-size:42px;
+border:5px solid rgba(255,255,255,.3);
+font-size:44px;
 font-weight:800;
-box-shadow:0 15px 50px rgba(0,0,0,.3);
-margin-bottom:25px;
+box-shadow:
+0 0 0 12px rgba(255,255,255,.06),
+0 18px 55px rgba(0,0,0,.35);
+margin-bottom:26px;
 }
 
 .callName{
-font-size:29px;
+font-size:30px;
 font-weight:800;
+letter-spacing:-.5px;
 }
 
 .callStatus{
-margin-top:10px;
+margin-top:9px;
 font-size:16px;
-color:#c8f7df;
+color:#d5fff0;
 }
 
 .callDuration{
 margin-top:8px;
-font-size:15px;
-color:#c8f7df;
+font-size:16px;
+color:#d5fff0;
 font-variant-numeric:tabular-nums;
+min-height:20px;
 }
 
 .callControls{
 display:flex;
 align-items:center;
 justify-content:center;
-gap:25px;
-margin-top:75px;
+gap:27px;
+margin-top:30px;
 }
 
 .callControl{
@@ -1081,6 +1202,7 @@ border-radius:50%;
 background:rgba(255,255,255,.16);
 color:white;
 font-size:23px;
+box-shadow:0 5px 18px rgba(0,0,0,.15);
 }
 
 .callControl.active{
@@ -1092,29 +1214,36 @@ color:#075e54;
 width:72px;
 height:72px;
 background:#e53935;
-font-size:26px;
+font-size:27px;
+transform:rotate(-135deg);
 }
 
 .incomingCallButtons{
 display:flex;
-gap:55px;
-margin-top:70px;
+gap:70px;
+margin-top:35px;
 }
 
 .incomingButton{
-width:70px;
-height:70px;
+width:72px;
+height:72px;
 border:0;
 border-radius:50%;
 color:white;
-font-size:26px;
+font-size:27px;
+box-shadow:0 8px 25px rgba(0,0,0,.25);
 }
 
-.incomingButton.accept{background:#25d366}
-.incomingButton.reject{background:#e53935}
+.incomingButton.accept{
+background:#25d366;
+}
+
+.incomingButton.reject{
+background:#e53935;
+}
 
 .callSpeakerLabel{
-margin-top:15px;
+margin-top:14px;
 font-size:12px;
 color:#c8f7df;
 }
@@ -1125,10 +1254,15 @@ display:flex;
 align-items:center;
 justify-content:center;
 }
-.app{height:100vh}
+
+.app{
+height:100vh;
+}
 }
 
-/* DARK */
+/* =========================================================
+   DARK
+========================================================= */
 
 body.dark .app,
 body.dark .list,
@@ -1143,7 +1277,9 @@ background:#111b21;
 color:#e9edef;
 }
 
-body.dark .chat{border-color:#26343b}
+body.dark .chat{
+border-color:#26343b;
+}
 
 body.dark .chatPreview,
 body.dark .chatTime,
@@ -1154,7 +1290,9 @@ body.dark .callItemTime{
 color:#aebac1;
 }
 
-body.dark .messages{background:#0b141a}
+body.dark .messages{
+background:#0b141a;
+}
 
 body.dark .message.in{
 background:#202c33;
@@ -1171,7 +1309,9 @@ body.dark .audioDuration{
 color:#aebac1;
 }
 
-body.dark .composer{background:#202c33}
+body.dark .composer{
+background:#202c33;
+}
 
 body.dark .messageInput,
 body.dark .composerButton{
@@ -1179,20 +1319,45 @@ background:#111b21;
 color:white;
 }
 
-body.dark .messageActions{background:#202c33}
+body.dark .messageActions{
+background:#202c33;
+}
 
 body.dark .messageActions button{
 background:#111b21;
 color:#e9edef;
 }
 
-body.dark .chat.selected{background:#064e43}
+body.dark .chat.selected{
+background:#064e43;
+}
 
-body.dark .callItem{border-color:#26343b}
+body.dark .callItem{
+border-color:#26343b;
+}
 
 body.dark .callBackButton{
 background:#064e43;
 color:#25d366;
+}
+
+body.dark .modalBox{
+background:#202c33;
+color:#e9edef;
+}
+
+body.dark .modalHeader{
+border-color:#334047;
+}
+
+body.dark .user{
+border-color:#334047;
+}
+
+body.dark .userSearch{
+background:#111b21;
+color:white;
+border-color:#334047;
 }
 </style>
 </head>
@@ -1201,11 +1366,17 @@ color:#25d366;
 
 <div class="app">
 
-<!-- LOGIN -->
+<!-- =========================================================
+     LOGIN
+========================================================= -->
 
 <section id="authScreen" class="screen active">
 
 <div class="authBox">
+
+<div class="authLogoWrap">
+<div class="authLogoIcon">〰️</div>
+</div>
 
 <div class="logo">WaveChat</div>
 
@@ -1215,12 +1386,24 @@ Mit Benutzername oder E-Mail anmelden
 
 <div id="authError" class="error"></div>
 
+<div
+id="registerUsernameWrap"
+class="authInputWrap"
+style="display:none">
+
+<div class="authInputIcon">👤</div>
+
 <input
 id="username"
 class="authInput"
 placeholder="Benutzername"
-style="display:none"
 autocomplete="username">
+
+</div>
+
+<div class="authInputWrap">
+
+<div class="authInputIcon">✉️</div>
 
 <input
 id="email"
@@ -1228,12 +1411,20 @@ class="authInput"
 placeholder="E-Mail oder Benutzername"
 autocomplete="username">
 
+</div>
+
+<div class="authInputWrap">
+
+<div class="authInputIcon">🔒</div>
+
 <input
 id="password"
 class="authInput"
 type="password"
 placeholder="Passwort"
 autocomplete="current-password">
+
+</div>
 
 <button
 id="authButton"
@@ -1254,7 +1445,9 @@ Anmelden
 
 </section>
 
-<!-- HOME -->
+<!-- =========================================================
+     HOME
+========================================================= -->
 
 <section id="homeScreen" class="screen">
 
@@ -1279,22 +1472,29 @@ onclick="logout()">↪</button>
 </div>
 
 <div class="search">
+
 🔎
+
 <input
 id="search"
 placeholder="Chats suchen"
-oninput="filterChats">
+oninput="filterChats()">
+
 </div>
 
 </header>
 
-<header id="chatSelectionHeader" class="chatSelectionHeader">
+<header
+id="chatSelectionHeader"
+class="chatSelectionHeader">
 
 <button
 class="chatSelectionBack"
 onclick="cancelChatSelection()">‹</button>
 
-<div id="chatSelectionCount" class="chatSelectionCount">
+<div
+id="chatSelectionCount"
+class="chatSelectionCount">
 0 ausgewählt
 </div>
 
@@ -1310,7 +1510,9 @@ onclick="deleteSelectedChats()">🗑️</button>
 
 <div id="chatList" class="list">
 
-<div class="empty">Chats werden geladen...</div>
+<div class="empty">
+Chats werden geladen...
+</div>
 
 </div>
 
@@ -1343,7 +1545,9 @@ onclick="openNewChat()">＋</button>
 
 </section>
 
-<!-- CHAT -->
+<!-- =========================================================
+     CHAT
+========================================================= -->
 
 <section id="chatScreen" class="screen">
 
@@ -1355,9 +1559,15 @@ onclick="openNewChat()">＋</button>
 
 <div class="chatTitle">
 
-<div id="chatName" class="chatNameLarge">Chat</div>
+<div
+id="chatName"
+class="chatNameLarge">
+Chat
+</div>
 
-<div id="chatStatus" class="chatStatus">
+<div
+id="chatStatus"
+class="chatStatus">
 WaveChat
 </div>
 
@@ -1398,10 +1608,15 @@ Abbrechen
 class="composerButton"
 onclick="openImagePicker()">＋</button>
 
-<div id="recordTimer" class="recordTimer">
+<div
+id="recordTimer"
+class="recordTimer">
 
 <span class="recordingDot"></span>
-<span id="recordTimerText">00:00</span>
+
+<span id="recordTimerText">
+00:00
+</span>
 
 </div>
 
@@ -1425,7 +1640,9 @@ onclick="sendMessage()">➤</button>
 
 </section>
 
-<!-- CALLS -->
+<!-- =========================================================
+     CALLS
+========================================================= -->
 
 <section id="callsScreen" class="screen">
 
@@ -1485,7 +1702,9 @@ Verpasst
 
 </section>
 
-<!-- PROFILE -->
+<!-- =========================================================
+     PROFILE
+========================================================= -->
 
 <section id="profileScreen" class="screen">
 
@@ -1495,15 +1714,23 @@ Verpasst
 
 <div class="profileCard">
 
-<div id="profileAvatar" class="profileAvatar">WC</div>
+<div
+id="profileAvatar"
+class="profileAvatar">
+WC
+</div>
 
 <div>
 
-<div id="profileUsername" class="profileName">
+<div
+id="profileUsername"
+class="profileName">
 Benutzer
 </div>
 
-<div id="profileEmail" class="profileEmail">
+<div
+id="profileEmail"
+class="profileEmail">
 E-Mail
 </div>
 
@@ -1535,11 +1762,15 @@ E-Mail
 
 </section>
 
-<!-- SETTINGS -->
+<!-- =========================================================
+     SETTINGS
+========================================================= -->
 
 <section id="settingsScreen" class="screen">
 
-<div class="pageHeader">Einstellungen</div>
+<div class="pageHeader">
+Einstellungen
+</div>
 
 <div class="page">
 
@@ -1549,7 +1780,9 @@ E-Mail
 
 <div class="rowInfo">
 
-<div class="rowTitle">Dark Mode</div>
+<div class="rowTitle">
+Dark Mode
+</div>
 
 <div class="rowSub">
 Erscheinungsbild von WaveChat
@@ -1564,13 +1797,17 @@ onchange="toggleDark()">
 
 </div>
 
-<div class="row" onclick="logout()">
+<div
+class="row"
+onclick="logout()">
 
 <div class="rowIcon">🚪</div>
 
 <div class="rowInfo">
 
-<div class="rowTitle">Abmelden</div>
+<div class="rowTitle">
+Abmelden
+</div>
 
 <div class="rowSub">
 Von diesem Gerät abmelden
@@ -1606,7 +1843,9 @@ Von diesem Gerät abmelden
 
 </div>
 
-<!-- NEW CHAT -->
+<!-- =========================================================
+     NEW CHAT
+========================================================= -->
 
 <div id="newChatModal" class="modal">
 
@@ -1628,7 +1867,9 @@ class="userSearch"
 placeholder="Benutzername suchen..."
 oninput="searchUsers()">
 
-<div id="userResults" class="userResults">
+<div
+id="userResults"
+class="userResults">
 
 <div class="empty">
 Gib einen Benutzernamen ein.
@@ -1654,9 +1895,13 @@ accept="image/*,video/*"
 style="display:none"
 onchange="uploadStory(event)">
 
-<!-- STORY -->
+<!-- =========================================================
+     STORY VIEWER
+========================================================= -->
 
-<div id="storyViewer" class="storyViewer">
+<div
+id="storyViewer"
+class="storyViewer">
 
 <button
 class="storyClose"
@@ -1666,21 +1911,44 @@ onclick="closeStoryViewer()">✕</button>
 
 </div>
 
-<!-- CALL -->
+<!-- =========================================================
+     CALL SCREEN
+========================================================= -->
 
-<div id="callScreen" class="callScreen">
+<div
+id="callScreen"
+class="callScreen">
 
 <div class="callBox">
 
-<div id="callAvatar" class="callAvatar">WC</div>
+<div class="callTopLabel">
+WaveChat Anruf
+</div>
 
-<div id="callName" class="callName">WaveChat</div>
+<div class="callProfileArea">
 
-<div id="callStatus" class="callStatus">
+<div
+id="callAvatar"
+class="callAvatar">
+WC
+</div>
+
+<div
+id="callName"
+class="callName">
+WaveChat
+</div>
+
+<div
+id="callStatus"
+class="callStatus">
 Anruf wird gestartet...
 </div>
 
-<div id="callDuration" class="callDuration"></div>
+<div
+id="callDuration"
+class="callDuration">
+</div>
 
 <div
 id="incomingCallButtons"
@@ -1689,34 +1957,54 @@ style="display:none">
 
 <button
 class="incomingButton reject"
-onclick="rejectIncomingCall()">📵</button>
+onclick="rejectIncomingCall()">
+📵
+</button>
 
 <button
 class="incomingButton accept"
-onclick="acceptIncomingCall()">📞</button>
+onclick="acceptIncomingCall()">
+📞
+</button>
 
 </div>
 
-<div id="outgoingCallButtons" class="callControls">
+</div>
+
+<div>
+
+<div
+id="outgoingCallButtons"
+class="callControls">
 
 <button
 id="muteCallButton"
 class="callControl"
-onclick="toggleCallMute()">🎙️</button>
+onclick="toggleCallMute()">
+🎙️
+</button>
 
 <button
 id="speakerCallButton"
 class="callControl"
-onclick="toggleCallSpeaker()">🔊</button>
+onclick="toggleCallSpeaker()">
+🔊
+</button>
 
 <button
 class="callControl end"
-onclick="endVoiceCall()">📵</button>
+onclick="endVoiceCall()">
+📵
+</button>
 
 </div>
 
-<div id="callSpeakerLabel" class="callSpeakerLabel">
+<div
+id="callSpeakerLabel"
+class="callSpeakerLabel">
 Lautsprecher aus
+</div>
+
 </div>
 
 </div>
@@ -1727,7 +2015,8 @@ Lautsprecher aus
 id="callRemoteAudio"
 autoplay
 playsinline
-style="display:none"></audio>
+style="display:none">
+</audio>
 
 <script>
 
@@ -1771,10 +2060,6 @@ let selectionMessageMode=false;
 
 let selectedChatIds=new Set();
 let chatSelectionMode=false;
-let chatLongPressTimer=null;
-let messageLongPressTimer=null;
-
-/* CALL */
 
 let peerConnection=null;
 let localCallStream=null;
@@ -1812,12 +2097,20 @@ iceServers:[
 function getHiddenMessageIds(){
 
 try{
-const raw=localStorage.getItem("wavechat_hidden_messages");
+
+const raw=
+localStorage.getItem(
+"wavechat_hidden_messages"
+);
+
 return raw
 ?new Set(JSON.parse(raw).map(String))
 :new Set();
+
 }catch(e){
+
 return new Set();
+
 }
 
 }
@@ -1834,7 +2127,9 @@ JSON.stringify([...set])
 function getHiddenConversationIds(){
 
 try{
-const raw=localStorage.getItem(
+
+const raw=
+localStorage.getItem(
 "wavechat_hidden_conversations"
 );
 
@@ -1843,7 +2138,9 @@ return raw
 :new Set();
 
 }catch(e){
+
 return new Set();
+
 }
 
 }
@@ -1907,23 +2204,22 @@ error
 supabaseClient.auth.onAuthStateChange(
 async(event,session)=>{
 
-console.log(
-"Auth Event:",
-event
-);
-
 if(session){
 
 currentUser=
 session.user;
 
 try{
+
 await loadApplication();
+
 }catch(error){
+
 console.error(
 "Application Fehler:",
 error
 );
+
 }
 
 }
@@ -1940,30 +2236,44 @@ function toggleAuthMode(){
 
 registerMode=!registerMode;
 
-document.getElementById("username").style.display=
-registerMode?"block":"none";
+document.getElementById(
+"registerUsernameWrap"
+).style.display=
+registerMode
+?"block"
+:"none";
 
-document.getElementById("email").placeholder=
+document.getElementById(
+"email"
+).placeholder=
 registerMode
 ?"E-Mail-Adresse"
 :"E-Mail oder Benutzername";
 
-document.getElementById("password").autocomplete=
+document.getElementById(
+"password"
+).autocomplete=
 registerMode
 ?"new-password"
 :"current-password";
 
-document.getElementById("authButton").textContent=
+document.getElementById(
+"authButton"
+).textContent=
 registerMode
 ?"Konto erstellen"
 :"Anmelden";
 
-document.getElementById("authSubtitle").textContent=
+document.getElementById(
+"authSubtitle"
+).textContent=
 registerMode
 ?"Neues WaveChat-Konto erstellen"
 :"Mit Benutzername oder E-Mail anmelden";
 
-document.getElementById("switchText").textContent=
+document.getElementById(
+"switchText"
+).textContent=
 registerMode
 ?"Bereits registriert?"
 :"Noch kein Konto?";
@@ -1984,16 +2294,19 @@ async function handleAuth(){
 hideError();
 
 const login=
-document.getElementById("email")
-.value.trim();
+document.getElementById(
+"email"
+).value.trim();
 
 const password=
-document.getElementById("password")
-.value;
+document.getElementById(
+"password"
+).value;
 
 const username=
-document.getElementById("username")
-.value.trim();
+document.getElementById(
+"username"
+).value.trim();
 
 if(!login){
 
@@ -2009,7 +2322,9 @@ return;
 
 if(!password){
 
-showError("Bitte dein Passwort eingeben.");
+showError(
+"Bitte dein Passwort eingeben."
+);
 
 return;
 
@@ -2017,16 +2332,21 @@ return;
 
 if(registerMode&&!username){
 
-showError("Bitte einen Benutzernamen eingeben.");
+showError(
+"Bitte einen Benutzernamen eingeben."
+);
 
 return;
 
 }
 
 const button=
-document.getElementById("authButton");
+document.getElementById(
+"authButton"
+);
 
-const oldText=button.textContent;
+const oldText=
+button.textContent;
 
 button.disabled=true;
 
@@ -2095,9 +2415,7 @@ if(typeof lookup.data==="string"){
 
 email=lookup.data;
 
-}else if(
-lookup.data.email
-){
+}else if(lookup.data.email){
 
 email=lookup.data.email;
 
@@ -2106,7 +2424,8 @@ Array.isArray(lookup.data)&&
 lookup.data[0]?.email
 ){
 
-email=lookup.data[0].email;
+email=
+lookup.data[0].email;
 
 }else{
 
@@ -2130,7 +2449,9 @@ password:password
 
 if(result.error){
 
-showError(result.error.message);
+showError(
+result.error.message
+);
 
 return;
 
@@ -2178,7 +2499,10 @@ showError(
 
 }catch(error){
 
-console.error("Auth Fehler:",error);
+console.error(
+"Auth Fehler:",
+error
+);
 
 showError(
 error?.message||
@@ -2188,7 +2512,9 @@ error?.message||
 }finally{
 
 button.disabled=false;
-button.textContent=oldText;
+
+button.textContent=
+oldText;
 
 }
 
@@ -2225,23 +2551,32 @@ try{
 const result=
 await supabaseClient
 .from("profiles")
-.select("id,username,last_seen")
-.eq("id",currentUser.id)
+.select(
+"id,username,last_seen"
+)
+.eq(
+"id",
+currentUser.id
+)
 .maybeSingle();
 
 if(result.data){
 
 const username=
-result.data.username||"Benutzer";
+result.data.username||
+"Benutzer";
 
 document.getElementById(
 "profileUsername"
-).textContent=username;
+).textContent=
+username;
 
 document.getElementById(
 "profileAvatar"
 ).textContent=
-username.substring(0,2).toUpperCase();
+username
+.substring(0,2)
+.toUpperCase();
 
 }
 
@@ -2262,23 +2597,49 @@ error
 }
 
 /* =========================================================
-   STORIES
+   STORIES - 24 STUNDEN
 ========================================================= */
 
 async function loadStories(){
 
 const bar=
-document.getElementById("storyBar");
+document.getElementById(
+"storyBar"
+);
 
 if(!currentUser)return;
 
 bar.innerHTML="";
 
+const now=
+new Date().toISOString();
+
+/*
+   Nur Stories anzeigen,
+   deren Ablaufzeit noch nicht erreicht ist.
+*/
+
+const result=
+await supabaseClient
+.from("stories")
+.select(
+"id,user_id,media_url,media_type,created_at,expires_at"
+)
+.gt(
+"expires_at",
+now
+)
+.order(
+"created_at",
+{ascending:false}
+);
+
 const own=
 document.createElement("div");
 
 own.className="storyItem";
-own.onclick=openStoryUpload;
+own.onclick=
+openStoryUpload;
 
 own.innerHTML=`
 <div class="storyCircle">
@@ -2291,21 +2652,6 @@ own.innerHTML=`
 
 bar.appendChild(own);
 
-const result=
-await supabaseClient
-.from("stories")
-.select(
-"id,user_id,media_url,media_type,created_at,expires_at"
-)
-.gt(
-"expires_at",
-new Date().toISOString()
-)
-.order(
-"created_at",
-{ascending:false}
-);
-
 if(result.error){
 
 console.error(
@@ -2317,9 +2663,18 @@ return;
 
 }
 
+const stories=
+(result.data||[]).filter(
+story=>
+story.expires_at &&
+new Date(story.expires_at)>new Date()
+);
+
 const ids=[
 ...new Set(
-(result.data||[]).map(x=>x.user_id)
+stories.map(
+x=>x.user_id
+)
 )
 ];
 
@@ -2328,35 +2683,50 @@ if(!ids.length)return;
 const profiles=
 await supabaseClient
 .from("profiles")
-.select("id,username")
-.in("id",ids);
+.select(
+"id,username"
+)
+.in(
+"id",
+ids
+);
 
 const map={};
 
 (profiles.data||[]).forEach(
-x=>map[x.id]=x
+x=>{
+map[x.id]=x;
+}
 );
 
-(result.data||[]).forEach(
+stories.forEach(
 story=>{
 
-const profile=map[story.user_id];
+const profile=
+map[story.user_id];
 
 if(!profile)return;
 
 const item=
 document.createElement("div");
 
-item.className="storyItem";
-item.onclick=()=>openStory(story);
+item.className=
+"storyItem";
+
+item.onclick=
+()=>openStory(story);
 
 item.innerHTML=`
 <div class="storyCircle">
 <div class="storyCircleInner">
-<img src="${escapeAttribute(story.media_url)}">
+<img src="${escapeAttribute(
+story.media_url
+)}">
 </div>
 </div>
-<div>${escapeHTML(profile.username)}</div>
+<div>${escapeHTML(
+profile.username
+)}</div>
 `;
 
 bar.appendChild(item);
@@ -2367,13 +2737,16 @@ bar.appendChild(item);
 
 function openStoryUpload(){
 
-document.getElementById("storyInput").click();
+document.getElementById(
+"storyInput"
+).click();
 
 }
 
 async function uploadStory(event){
 
-const file=event.target.files[0];
+const file=
+event.target.files[0];
 
 event.target.value="";
 
@@ -2403,7 +2776,10 @@ contentType:file.type
 
 if(upload.error){
 
-alert(upload.error.message);
+alert(
+upload.error.message
+);
+
 return;
 
 }
@@ -2419,18 +2795,33 @@ file.type.startsWith("video/")
 ?"video"
 :"image";
 
+/*
+   Die Story läuft exakt 24 Stunden
+   ab dem Zeitpunkt des Uploads.
+*/
+
+const expiresAt=
+new Date(
+Date.now()+
+24*60*60*1000
+).toISOString();
+
 const insert=
 await supabaseClient
 .from("stories")
 .insert({
 user_id:currentUser.id,
 media_url:url,
-media_type:type
+media_type:type,
+expires_at:expiresAt
 });
 
 if(insert.error){
 
-alert(insert.error.message);
+alert(
+insert.error.message
+);
+
 return;
 
 }
@@ -2441,17 +2832,39 @@ await loadStories();
 
 function openStory(story){
 
+/*
+   Sicherheitshalber auch beim Öffnen
+   nochmal prüfen, ob die Story noch gültig ist.
+*/
+
+if(
+!story.expires_at||
+new Date(story.expires_at)<=new Date()
+){
+
+loadStories();
+
+return;
+
+}
+
 const viewer=
-document.getElementById("storyViewer");
+document.getElementById(
+"storyViewer"
+);
 
 const content=
-document.getElementById("storyContent");
+document.getElementById(
+"storyContent"
+);
 
 if(story.media_type==="video"){
 
 content.innerHTML=
 `<video
-src="${escapeAttribute(story.media_url)}"
+src="${escapeAttribute(
+story.media_url
+)}"
 controls
 autoplay
 playsinline></video>`;
@@ -2459,7 +2872,9 @@ playsinline></video>`;
 }else{
 
 content.innerHTML=
-`<img src="${escapeAttribute(story.media_url)}">`;
+`<img src="${escapeAttribute(
+story.media_url
+)}">`;
 
 }
 
@@ -2486,7 +2901,9 @@ document.getElementById(
 async function loadConversations(){
 
 const list=
-document.getElementById("chatList");
+document.getElementById(
+"chatList"
+);
 
 if(!currentUser)return;
 
@@ -2499,7 +2916,9 @@ if(result.error){
 
 list.innerHTML=
 `<div class="empty">
-${escapeHTML(result.error.message)}
+${escapeHTML(
+result.error.message
+)}
 </div>`;
 
 return;
@@ -2536,14 +2955,17 @@ return;
 
 list.innerHTML="";
 
-chats.forEach(createChatListItem);
+chats.forEach(
+createChatListItem
+);
 
 }
 
 function createChatListItem(chat){
 
 const username=
-chat.username||"Unbekannter Benutzer";
+chat.username||
+"Unbekannter Benutzer";
 
 const div=
 document.createElement("div");
@@ -2582,28 +3004,31 @@ let timer=null;
 
 const startPress=()=>{
 
-timer=setTimeout(()=>{
+timer=
+setTimeout(
+()=>{
 
-if(!chatSelectionMode){
-
+if(!chatSelectionMode)
 startChatSelectionMode();
-
-}
 
 toggleChatSelection(
 chat.conversation_id,
 div
 );
 
-},550);
+},
+550
+);
 
 };
 
 const stopPress=()=>{
 
 if(timer){
+
 clearTimeout(timer);
 timer=null;
+
 }
 
 };
@@ -2642,7 +3067,8 @@ stopPress
 const avatarWrap=
 document.createElement("div");
 
-avatarWrap.className="avatarWrap";
+avatarWrap.className=
+"avatarWrap";
 
 const avatar=
 document.createElement("div");
@@ -2650,9 +3076,13 @@ document.createElement("div");
 avatar.className="avatar";
 
 avatar.textContent=
-username.substring(0,2).toUpperCase();
+username
+.substring(0,2)
+.toUpperCase();
 
-avatarWrap.appendChild(avatar);
+avatarWrap.appendChild(
+avatar
+);
 
 const info=
 document.createElement("div");
@@ -2668,14 +3098,19 @@ const name=
 document.createElement("div");
 
 name.className="chatName";
-name.textContent=username;
+
+name.textContent=
+username;
 
 const time=
 document.createElement("div");
 
 time.className="chatTime";
+
 time.textContent=
-formatChatTime(chat.last_message_at);
+formatChatTime(
+chat.last_message_at
+);
 
 top.appendChild(name);
 top.appendChild(time);
@@ -2684,8 +3119,10 @@ const preview=
 document.createElement("div");
 
 preview.className="chatPreview";
+
 preview.textContent=
-chat.last_message||"Keine Nachrichten";
+chat.last_message||
+"Keine Nachrichten";
 
 info.appendChild(top);
 info.appendChild(preview);
@@ -2693,16 +3130,28 @@ info.appendChild(preview);
 const check=
 document.createElement("div");
 
-check.className="chatSelectCheck";
+check.className=
+"chatSelectCheck";
+
 check.textContent="✓";
 
-div.appendChild(avatarWrap);
-div.appendChild(info);
-div.appendChild(check);
+div.appendChild(
+avatarWrap
+);
+
+div.appendChild(
+info
+);
+
+div.appendChild(
+check
+);
 
 document.getElementById(
 "chatList"
-).appendChild(div);
+).appendChild(
+div
+);
 
 }
 
@@ -2734,25 +3183,36 @@ updateChatSelectionHeader();
 
 }
 
-function toggleChatSelection(id,element){
+function toggleChatSelection(
+id,
+element
+){
 
-const key=String(id);
+const key=
+String(id);
 
 if(selectedChatIds.has(key)){
 
 selectedChatIds.delete(key);
-element.classList.remove("selected");
+
+element.classList.remove(
+"selected"
+);
 
 }else{
 
 selectedChatIds.add(key);
-element.classList.add("selected");
+
+element.classList.add(
+"selected"
+);
 
 }
 
 if(!selectedChatIds.size){
 
 cancelChatSelection();
+
 return;
 
 }
@@ -2763,7 +3223,8 @@ updateChatSelectionHeader();
 
 function updateChatSelectionHeader(){
 
-const count=selectedChatIds.size;
+const count=
+selectedChatIds.size;
 
 document.getElementById(
 "chatSelectionCount"
@@ -2783,20 +3244,27 @@ selectedChatIds.clear();
 document.querySelectorAll(
 ".chat.selected"
 ).forEach(
-el=>el.classList.remove("selected")
+el=>
+el.classList.remove(
+"selected"
+)
 );
 
 document.getElementById(
 "chatSelectionHeader"
-).classList.remove("show");
+).classList.remove(
+"show"
+);
 
 document.getElementById(
 "normalHomeHeader"
-).style.display="block";
+).style.display=
+"block";
 
 document.getElementById(
 "newChatButton"
-).style.display="block";
+).style.display=
+"block";
 
 }
 
@@ -2808,7 +3276,8 @@ async function deleteSelectedChats(){
 
 if(!selectedChatIds.size)return;
 
-const ids=[...selectedChatIds];
+const ids=
+[...selectedChatIds];
 
 if(!confirm(
 ids.length===1
@@ -2820,10 +3289,15 @@ const hidden=
 getHiddenConversationIds();
 
 ids.forEach(
-id=>hidden.add(String(id))
+id=>
+hidden.add(
+String(id)
+)
 );
 
-saveHiddenConversationIds(hidden);
+saveHiddenConversationIds(
+hidden
+);
 
 cancelChatSelection();
 
@@ -2849,17 +3323,24 @@ const result=
 await supabaseClient
 .from("conversations")
 .select("*")
-.eq("id",conversationId)
+.eq(
+"id",
+conversationId
+)
 .single();
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
 
-currentConversation=result.data;
+currentConversation=
+result.data;
 
 currentOtherUser={
 id:otherUserId,
@@ -2869,12 +3350,15 @@ last_seen:lastSeen
 
 document.getElementById(
 "chatName"
-).textContent=username;
+).textContent=
+username;
 
 document.getElementById(
 "chatAvatar"
 ).textContent=
-username.substring(0,2).toUpperCase();
+username
+.substring(0,2)
+.toUpperCase();
 
 document.getElementById(
 "chatStatus"
@@ -2883,7 +3367,9 @@ isOnline(lastSeen)
 ?"🟢 Online"
 :"Zuletzt online";
 
-showScreen("chatScreen");
+showScreen(
+"chatScreen"
+);
 
 await loadMessages();
 
@@ -2899,7 +3385,9 @@ subscribeToCalls();
 async function loadMessages(){
 
 const box=
-document.getElementById("messages");
+document.getElementById(
+"messages"
+);
 
 box.innerHTML="";
 
@@ -2920,7 +3408,9 @@ if(result.error){
 
 box.innerHTML=
 `<div class="empty">
-${escapeHTML(result.error.message)}
+${escapeHTML(
+result.error.message
+)}
 </div>`;
 
 return;
@@ -2932,9 +3422,14 @@ getHiddenMessageIds();
 
 (result.data||[])
 .filter(
-m=>!hidden.has(String(m.id))
+m=>
+!hidden.has(
+String(m.id)
 )
-.forEach(renderMessage);
+)
+.forEach(
+renderMessage
+);
 
 scrollMessages();
 
@@ -2958,18 +3453,21 @@ document.createElement("div");
 div.className=
 "message "+
 (
-message.sender_id===currentUser.id
+message.sender_id===
+currentUser.id
 ?"out"
 :"in"
 );
 
-div.dataset.messageId=message.id;
+div.dataset.messageId=
+message.id;
 
 let timer=null;
 
 const startPress=()=>{
 
-timer=setTimeout(
+timer=
+setTimeout(
 ()=>selectMessage(message),
 550
 );
@@ -2979,8 +3477,10 @@ timer=setTimeout(
 const stopPress=()=>{
 
 if(timer){
+
 clearTimeout(timer);
 timer=null;
+
 }
 
 };
@@ -3031,48 +3531,74 @@ if(message.deleted_for_everyone){
 const deleted=
 document.createElement("div");
 
-deleted.className="deletedMessage";
+deleted.className=
+"deletedMessage";
+
 deleted.textContent=
 "🚫 Diese Nachricht wurde gelöscht";
 
-div.appendChild(deleted);
+div.appendChild(
+deleted
+);
 
-}else if(message.message_type==="image"){
+}else if(
+message.message_type==="image"
+){
 
 const img=
 document.createElement("img");
 
-img.className="messageImage";
-img.src=message.media_url;
+img.className=
+"messageImage";
 
-div.appendChild(img);
+img.src=
+message.media_url;
 
-}else if(message.message_type==="audio"){
+div.appendChild(
+img
+);
 
-renderAudioMessage(div,message);
+}else if(
+message.message_type==="audio"
+){
+
+renderAudioMessage(
+div,
+message
+);
 
 }else{
 
 const text=
 document.createElement("div");
 
-text.className="messageText";
+text.className=
+"messageText";
+
 text.textContent=
 message.content||"";
 
-div.appendChild(text);
+div.appendChild(
+text
+);
 
 }
 
 const time=
 document.createElement("div");
 
-time.className="messageTime";
+time.className=
+"messageTime";
 
 time.textContent=
-formatTime(message.created_at);
+formatTime(
+message.created_at
+);
 
-if(message.sender_id===currentUser.id){
+if(
+message.sender_id===
+currentUser.id
+){
 
 const checks=
 document.createElement("span");
@@ -3082,9 +3608,14 @@ checks.className="checks";
 if(message.read_at){
 
 checks.textContent="✓✓";
-checks.classList.add("read");
 
-}else if(message.delivered_at){
+checks.classList.add(
+"read"
+);
+
+}else if(
+message.delivered_at
+){
 
 checks.textContent="✓✓";
 
@@ -3094,15 +3625,21 @@ checks.textContent="✓";
 
 }
 
-time.appendChild(checks);
+time.appendChild(
+checks
+);
 
 }
 
-div.appendChild(time);
+div.appendChild(
+time
+);
 
 document.getElementById(
 "messages"
-).appendChild(div);
+).appendChild(
+div
+);
 
 }
 
@@ -3118,36 +3655,47 @@ message
 const wrap=
 document.createElement("div");
 
-wrap.className="audioMessage";
+wrap.className=
+"audioMessage";
 
 const button=
 document.createElement("button");
 
-button.className="audioPlay";
+button.className=
+"audioPlay";
+
 button.textContent="▶";
 
 const audio=
 document.createElement("audio");
 
-audio.src=message.media_url;
+audio.src=
+message.media_url;
+
 audio.preload="metadata";
+
 audio.style.display="none";
 
 const info=
 document.createElement("div");
 
-info.className="audioInfo";
+info.className=
+"audioInfo";
 
 const title=
 document.createElement("div");
 
-title.className="audioTitle";
-title.textContent="Sprachnachricht";
+title.className=
+"audioTitle";
+
+title.textContent=
+"Sprachnachricht";
 
 const duration=
 document.createElement("div");
 
-duration.className="audioDuration";
+duration.className=
+"audioDuration";
 
 const savedDuration=
 Math.max(
@@ -3159,7 +3707,9 @@ Number(message.media_duration)||0
 
 duration.textContent=
 "00:00 / "+
-formatDuration(savedDuration);
+formatDuration(
+savedDuration
+);
 
 audio.onloadedmetadata=()=>{
 
@@ -3170,7 +3720,9 @@ audio.duration>0
 
 duration.textContent=
 "00:00 / "+
-formatDuration(audio.duration);
+formatDuration(
+audio.duration
+);
 
 }
 
@@ -3179,14 +3731,20 @@ formatDuration(audio.duration);
 audio.ontimeupdate=()=>{
 
 const total=
-Number.isFinite(audio.duration)
+Number.isFinite(
+audio.duration
+)
 ?audio.duration
 :savedDuration;
 
 duration.textContent=
-formatDuration(audio.currentTime)+
+formatDuration(
+audio.currentTime
+)+
 " / "+
-formatDuration(total);
+formatDuration(
+total
+);
 
 };
 
@@ -3208,7 +3766,8 @@ document.querySelectorAll(
 "#messages .audioPlay"
 ).forEach(
 b=>{
-if(b!==button)b.textContent="▶";
+if(b!==button)
+b.textContent="▶";
 }
 );
 
@@ -3219,6 +3778,7 @@ button.textContent="❚❚";
 }else{
 
 audio.pause();
+
 button.textContent="▶";
 
 }
@@ -3241,26 +3801,44 @@ button.textContent="▶";
 audio.onended=()=>{
 
 button.textContent="▶";
+
 audio.currentTime=0;
 
 duration.textContent=
 "00:00 / "+
 formatDuration(
-Number.isFinite(audio.duration)
+Number.isFinite(
+audio.duration
+)
 ?audio.duration
 :savedDuration
 );
 
 };
 
-info.appendChild(title);
-info.appendChild(duration);
+info.appendChild(
+title
+);
 
-wrap.appendChild(button);
-wrap.appendChild(info);
-wrap.appendChild(audio);
+info.appendChild(
+duration
+);
 
-container.appendChild(wrap);
+wrap.appendChild(
+button
+);
+
+wrap.appendChild(
+info
+);
+
+wrap.appendChild(
+audio
+);
+
+container.appendChild(
+wrap
+);
 
 }
 
@@ -3270,12 +3848,18 @@ container.appendChild(wrap);
 
 async function sendMessage(){
 
-if(!currentConversation||!currentUser)return;
+if(
+!currentConversation||
+!currentUser
+)return;
 
 const input=
-document.getElementById("messageInput");
+document.getElementById(
+"messageInput"
+);
 
-const content=input.value.trim();
+const content=
+input.value.trim();
 
 if(!content)return;
 
@@ -3287,25 +3871,33 @@ const result=
 await supabaseClient
 .from("messages")
 .insert({
-conversation_id:currentConversation.id,
-sender_id:currentUser.id,
+conversation_id:
+currentConversation.id,
+sender_id:
+currentUser.id,
 content:content,
 message_type:"text",
-delivered_at:new Date().toISOString()
+delivered_at:
+new Date().toISOString()
 })
 .select()
 .single();
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
 
 input.value="";
 
-renderMessage(result.data);
+renderMessage(
+result.data
+);
 
 scrollMessages();
 
@@ -3313,7 +3905,9 @@ await loadConversations();
 
 }catch(error){
 
-alert(error.message);
+alert(
+error.message
+);
 
 }finally{
 
@@ -3337,14 +3931,20 @@ document.getElementById(
 
 async function sendImage(event){
 
-const file=event.target.files[0];
+const file=
+event.target.files[0];
 
 event.target.value="";
 
-if(!file||!currentConversation)return;
+if(
+!file||
+!currentConversation
+)return;
 
 const ext=
-file.name.split(".").pop();
+file.name
+.split(".")
+.pop();
 
 const path=
 currentUser.id+
@@ -3367,7 +3967,10 @@ contentType:file.type
 
 if(upload.error){
 
-alert(upload.error.message);
+alert(
+upload.error.message
+);
+
 return;
 
 }
@@ -3375,32 +3978,42 @@ return;
 const url=
 supabaseClient.storage
 .from("chat-media")
-.getPublicUrl(path)
+.getPublicUrl(
+path
+)
 .data.publicUrl;
 
 const result=
 await supabaseClient
 .from("messages")
 .insert({
-conversation_id:currentConversation.id,
-sender_id:currentUser.id,
+conversation_id:
+currentConversation.id,
+sender_id:
+currentUser.id,
 content:"",
 message_type:"image",
 media_url:url,
 file_name:file.name,
-delivered_at:new Date().toISOString()
+delivered_at:
+new Date().toISOString()
 })
 .select()
 .single();
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
 
-renderMessage(result.data);
+renderMessage(
+result.data
+);
 
 scrollMessages();
 
@@ -3417,6 +4030,7 @@ async function toggleRecording(){
 if(mediaRecorder){
 
 stopRecording();
+
 return;
 
 }
@@ -3444,20 +4058,32 @@ audio:true
 audioChunks=[];
 
 mediaRecorder=
-new MediaRecorder(stream);
+new MediaRecorder(
+stream
+);
 
-recordingStarted=Date.now();
+recordingStarted=
+Date.now();
 
 const button=
-document.getElementById("recordButton");
+document.getElementById(
+"recordButton"
+);
 
 const timer=
-document.getElementById("recordTimer");
+document.getElementById(
+"recordTimer"
+);
 
-button.classList.add("recording");
+button.classList.add(
+"recording"
+);
+
 button.textContent="■";
 
-timer.classList.add("show");
+timer.classList.add(
+"show"
+);
 
 recordingTimerInterval=
 setInterval(
@@ -3468,21 +4094,26 @@ updateRecordingTimer,
 mediaRecorder.ondataavailable=e=>{
 
 if(e.data.size>0)
-audioChunks.push(e.data);
+audioChunks.push(
+e.data
+);
 
 };
 
-mediaRecorder.onstop=async()=>{
+mediaRecorder.onstop=
+async()=>{
 
 stream.getTracks().forEach(
-track=>track.stop()
+track=>
+track.stop()
 );
 
 const blob=
 new Blob(
 audioChunks,
 {
-type:mediaRecorder.mimeType||
+type:
+mediaRecorder.mimeType||
 "audio/webm"
 }
 );
@@ -3501,18 +4132,27 @@ recordingTimerInterval
 
 recordingTimerInterval=null;
 
-timer.classList.remove("show");
+timer.classList.remove(
+"show"
+);
 
 document.getElementById(
 "recordTimerText"
-).textContent="00:00";
+).textContent=
+"00:00";
 
 mediaRecorder=null;
 
-button.classList.remove("recording");
+button.classList.remove(
+"recording"
+);
+
 button.textContent="🎤";
 
-await sendAudio(blob,duration);
+await sendAudio(
+blob,
+duration
+);
 
 };
 
@@ -3541,7 +4181,9 @@ Math.floor(
 document.getElementById(
 "recordTimerText"
 ).textContent=
-formatDuration(elapsed);
+formatDuration(
+elapsed
+);
 
 }
 
@@ -3558,9 +4200,15 @@ mediaRecorder.stop();
 
 }
 
-async function sendAudio(blob,duration){
+async function sendAudio(
+blob,
+duration
+){
 
-if(!currentConversation||!currentUser)return;
+if(
+!currentConversation||
+!currentUser
+)return;
 
 const extension=
 blob.type.includes("mp4")
@@ -3600,34 +4248,46 @@ return;
 const url=
 supabaseClient.storage
 .from("chat-media")
-.getPublicUrl(path)
+.getPublicUrl(
+path
+)
 .data.publicUrl;
 
 const result=
 await supabaseClient
 .from("messages")
 .insert({
-conversation_id:currentConversation.id,
-sender_id:currentUser.id,
+conversation_id:
+currentConversation.id,
+sender_id:
+currentUser.id,
 content:"",
 message_type:"audio",
 media_url:url,
-media_duration:Math.round(duration),
+media_duration:
+Math.round(duration),
 file_name:
-"Sprachnachricht."+extension,
-delivered_at:new Date().toISOString()
+"Sprachnachricht."+
+extension,
+delivered_at:
+new Date().toISOString()
 })
 .select()
 .single();
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
 
-renderMessage(result.data);
+renderMessage(
+result.data
+);
 
 scrollMessages();
 
@@ -3650,6 +4310,7 @@ String(message.id)
 selectionMessageMode=true;
 
 updateMessageSelection();
+
 showMessageActions();
 
 }
@@ -3659,26 +4320,37 @@ id,
 element
 ){
 
-const key=String(id);
+const key=
+String(id);
 
-if(selectedMessageIds.has(key)){
+if(
+selectedMessageIds.has(key)
+){
 
-selectedMessageIds.delete(key);
+selectedMessageIds.delete(
+key
+);
 
 }else{
 
-selectedMessageIds.add(key);
+selectedMessageIds.add(
+key
+);
 
 }
 
-if(!selectedMessageIds.size){
+if(
+!selectedMessageIds.size
+){
 
 closeMessageActions();
+
 return;
 
 }
 
 updateMessageSelection();
+
 showMessageActions();
 
 }
@@ -3687,7 +4359,8 @@ function updateMessageSelection(){
 
 document.querySelectorAll(
 ".message"
-).forEach(el=>{
+).forEach(
+el=>{
 
 el.classList.toggle(
 "selected",
@@ -3696,7 +4369,8 @@ String(el.dataset.messageId)
 )
 );
 
-});
+}
+);
 
 }
 
@@ -3704,7 +4378,8 @@ function showMessageActions(){
 
 document.getElementById(
 "messageActions"
-).style.display="block";
+).style.display=
+"block";
 
 const button=
 document.getElementById(
@@ -3713,7 +4388,8 @@ document.getElementById(
 
 let allowed=false;
 
-selectedMessageIds.forEach(id=>{
+selectedMessageIds.forEach(
+id=>{
 
 const el=
 document.querySelector(
@@ -3729,26 +4405,34 @@ allowed=true;
 
 }
 
-});
+}
+);
 
 button.style.display=
-allowed?"block":"none";
+allowed
+?"block"
+:"none";
 
 }
 
 function closeMessageActions(){
 
 selectedMessageIds.clear();
+
 selectionMessageMode=false;
 
 document.getElementById(
 "messageActions"
-).style.display="none";
+).style.display=
+"none";
 
 document.querySelectorAll(
 ".message.selected"
 ).forEach(
-el=>el.classList.remove("selected")
+el=>
+el.classList.remove(
+"selected"
+)
 );
 
 }
@@ -3759,7 +4443,9 @@ el=>el.classList.remove("selected")
 
 async function deleteSelectedForMe(){
 
-if(!selectedMessageIds.size)return;
+if(
+!selectedMessageIds.size
+)return;
 
 if(!confirm(
 selectedMessageIds.size===1
@@ -3771,12 +4457,18 @@ const hidden=
 getHiddenMessageIds();
 
 selectedMessageIds.forEach(
-id=>hidden.add(String(id))
+id=>
+hidden.add(
+String(id)
+)
 );
 
-saveHiddenMessageIds(hidden);
+saveHiddenMessageIds(
+hidden
+);
 
-selectedMessageIds.forEach(id=>{
+selectedMessageIds.forEach(
+id=>{
 
 const el=
 document.querySelector(
@@ -3785,7 +4477,8 @@ document.querySelector(
 
 if(el)el.remove();
 
-});
+}
+);
 
 closeMessageActions();
 
@@ -3793,7 +4486,9 @@ closeMessageActions();
 
 async function deleteSelectedForEveryone(){
 
-if(!selectedMessageIds.size)return;
+if(
+!selectedMessageIds.size
+)return;
 
 const ids=
 [...selectedMessageIds];
@@ -3801,26 +4496,44 @@ const ids=
 const result=
 await supabaseClient
 .from("messages")
-.select("id,sender_id,created_at")
-.in("id",ids);
+.select(
+"id,sender_id,created_at"
+)
+.in(
+"id",
+ids
+);
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
 
-for(const message of result.data){
+for(
+const message of result.data
+){
 
-if(message.sender_id!==currentUser.id)
+if(
+message.sender_id!==
+currentUser.id
+)
 continue;
 
 const age=
 Date.now()-
-new Date(message.created_at).getTime();
+new Date(
+message.created_at
+).getTime();
 
-if(age>60*60*1000){
+if(
+age>
+60*60*1000
+){
 
 alert(
 "Eine Nachricht kann nur innerhalb von 1 Stunde für alle gelöscht werden."
@@ -3838,12 +4551,21 @@ deleted_for_everyone:true,
 deleted_for_everyone_at:
 new Date().toISOString()
 })
-.eq("id",message.id)
-.eq("sender_id",currentUser.id);
+.eq(
+"id",
+message.id
+)
+.eq(
+"sender_id",
+currentUser.id
+);
 
 if(update.error){
 
-alert(update.error.message);
+alert(
+update.error.message
+);
+
 return;
 
 }
@@ -3873,7 +4595,10 @@ realtimeChannel
 realtimeChannel=
 supabaseClient
 .channel(
-"chat-"+currentConversation.id+"-"+Date.now()
+"chat-"+
+currentConversation.id+
+"-"+
+Date.now()
 )
 .on(
 "postgres_changes",
@@ -3893,7 +4618,10 @@ String(payload.new.id)
 )
 )return;
 
-renderMessage(payload.new);
+renderMessage(
+payload.new
+);
+
 scrollMessages();
 
 }
@@ -3917,7 +4645,9 @@ document.querySelector(
 
 if(old)old.remove();
 
-renderMessage(payload.new);
+renderMessage(
+payload.new
+);
 
 }
 )
@@ -3933,7 +4663,9 @@ function openNewChat(){
 
 document.getElementById(
 "newChatModal"
-).classList.add("show");
+).classList.add(
+"show"
+);
 
 document.getElementById(
 "userSearch"
@@ -3952,7 +4684,9 @@ function closeNewChat(){
 
 document.getElementById(
 "newChatModal"
-).classList.remove("show");
+).classList.remove(
+"show"
+);
 
 }
 
@@ -3982,7 +4716,9 @@ return;
 const result=
 await supabaseClient
 .from("profiles")
-.select("id,username,last_seen")
+.select(
+"id,username,last_seen"
+)
 .ilike(
 "username",
 "%"+query+"%"
@@ -3997,7 +4733,9 @@ if(result.error){
 
 results.innerHTML=
 `<div class="empty">
-${escapeHTML(result.error.message)}
+${escapeHTML(
+result.error.message
+)}
 </div>`;
 
 return;
@@ -4017,15 +4755,20 @@ return;
 
 results.innerHTML="";
 
-result.data.forEach(user=>{
+result.data.forEach(
+user=>{
 
 const row=
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 row.className="user";
 
 const avatar=
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 avatar.className="avatar";
 
@@ -4035,35 +4778,56 @@ user.username
 .toUpperCase();
 
 const info=
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 info.className="userInfo";
 
 info.innerHTML=
 `<div class="userName">
-${escapeHTML(user.username)}
+${escapeHTML(
+user.username
+)}
 </div>
 <div class="rowSub">
-${isOnline(user.last_seen)
+${
+isOnline(user.last_seen)
 ?"🟢 Online"
-:"Offline"}
+:"Offline"
+}
 </div>`;
 
 const button=
-document.createElement("button");
+document.createElement(
+"button"
+);
 
 button.textContent="Chat";
 
 button.onclick=
-()=>createConversation(user);
+()=>createConversation(
+user
+);
 
-row.appendChild(avatar);
-row.appendChild(info);
-row.appendChild(button);
+row.appendChild(
+avatar
+);
 
-results.appendChild(row);
+row.appendChild(
+info
+);
 
-});
+row.appendChild(
+button
+);
+
+results.appendChild(
+row
+);
+
+}
+);
 
 }
 
@@ -4079,7 +4843,10 @@ other_user_id:user.id
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
@@ -4091,7 +4858,9 @@ hidden.delete(
 String(result.data)
 );
 
-saveHiddenConversationIds(hidden);
+saveHiddenConversationIds(
+hidden
+);
 
 closeNewChat();
 
@@ -4115,12 +4884,17 @@ function showScreen(id){
 document.querySelectorAll(
 ".screen"
 ).forEach(
-x=>x.classList.remove("active")
+x=>
+x.classList.remove(
+"active"
+)
 );
 
 document.getElementById(
 id
-).classList.add("active");
+).classList.add(
+"active"
+);
 
 }
 
@@ -4153,12 +4927,19 @@ realtimeChannel=null;
 }
 
 closeMessageActions();
+
 cancelChatSelection();
 
-showScreen("homeScreen");
+showScreen(
+"homeScreen"
+);
 
-if(currentUser)
+if(currentUser){
+
 loadConversations();
+loadStories();
+
+}
 
 }
 
@@ -4166,7 +4947,9 @@ function showCalls(){
 
 if(peerConnection)return;
 
-showScreen("callsScreen");
+showScreen(
+"callsScreen"
+);
 
 loadCallHistory();
 
@@ -4174,7 +4957,9 @@ loadCallHistory();
 
 function showProfile(){
 
-showScreen("profileScreen");
+showScreen(
+"profileScreen"
+);
 
 loadProfile();
 
@@ -4182,7 +4967,9 @@ loadProfile();
 
 function showSettings(){
 
-showScreen("settingsScreen");
+showScreen(
+"settingsScreen"
+);
 
 }
 
@@ -4252,15 +5039,19 @@ error
 }
 
 currentUser=null;
+
 currentConversation=null;
+
 currentOtherUser=null;
 
-showScreen("authScreen");
+showScreen(
+"authScreen"
+);
 
 }
 
 /* =========================================================
-   SEARCH / KEYBOARD
+   SEARCH
 ========================================================= */
 
 function filterChats(){
@@ -4272,7 +5063,8 @@ document.getElementById(
 
 document.querySelectorAll(
 ".chat"
-).forEach(chat=>{
+).forEach(
+chat=>{
 
 chat.style.display=
 chat.textContent
@@ -4281,7 +5073,8 @@ chat.textContent
 ?"flex"
 :"none";
 
-});
+}
+);
 
 }
 
@@ -4293,6 +5086,7 @@ event.key==="Enter" &&
 ){
 
 event.preventDefault();
+
 sendMessage();
 
 }
@@ -4333,9 +5127,14 @@ minute:"2-digit"
 
 function formatCallDate(timestamp){
 
-const date=new Date(timestamp);
-const today=new Date();
-const yesterday=new Date();
+const date=
+new Date(timestamp);
+
+const today=
+new Date();
+
+const yesterday=
+new Date();
 
 yesterday.setDate(
 yesterday.getDate()-1
@@ -4374,16 +5173,26 @@ function formatDuration(seconds){
 
 seconds=Math.max(
 0,
-Math.round(Number(seconds)||0)
+Math.round(
+Number(seconds)||0
+)
 );
 
 return String(
-Math.floor(seconds/60)
-).padStart(2,"0")+
+Math.floor(
+seconds/60
+)
+).padStart(
+2,
+"0"
+)+
 ":"+
 String(
 seconds%60
-).padStart(2,"0");
+).padStart(
+2,
+"0"
+);
 
 }
 
@@ -4403,7 +5212,7 @@ new Date(lastSeen).getTime()
 }
 
 /* =========================================================
-   DARK MODE
+   DARK
 ========================================================= */
 
 function toggleDark(){
@@ -4420,7 +5229,9 @@ enabled
 
 localStorage.setItem(
 "wavechat_dark",
-enabled?"true":"false"
+enabled
+?"true"
+:"false"
 );
 
 }
@@ -4454,9 +5265,12 @@ enabled
 function scrollMessages(){
 
 const box=
-document.getElementById("messages");
+document.getElementById(
+"messages"
+);
 
-box.scrollTop=box.scrollHeight;
+box.scrollTop=
+box.scrollHeight;
 
 }
 
@@ -4467,8 +5281,12 @@ document.getElementById(
 "authError"
 );
 
-box.textContent=message||"Unbekannter Fehler";
-box.style.display="block";
+box.textContent=
+message||
+"Unbekannter Fehler";
+
+box.style.display=
+"block";
 
 }
 
@@ -4476,13 +5294,16 @@ function hideError(){
 
 document.getElementById(
 "authError"
-).style.display="none";
+).style.display=
+"none";
 
 }
 
 function escapeHTML(value){
 
-return String(value??"")
+return String(
+value??""
+)
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
 .replace(/>/g,"&gt;")
@@ -4493,7 +5314,9 @@ return String(value??"")
 
 function escapeAttribute(value){
 
-return String(value??"")
+return String(
+value??""
+)
 .replace(/&/g,"&amp;")
 .replace(/"/g,"&quot;")
 .replace(/</g,"&lt;")
@@ -4509,7 +5332,9 @@ function showCallScreen(){
 
 document.getElementById(
 "callScreen"
-).classList.add("show");
+).classList.add(
+"show"
+);
 
 }
 
@@ -4517,22 +5342,29 @@ function hideCallScreen(){
 
 document.getElementById(
 "callScreen"
-).classList.remove("show");
+).classList.remove(
+"show"
+);
 
 }
 
 function setCallName(name){
 
-const safeName=name||"WaveChat";
+const safeName=
+name||
+"WaveChat";
 
 document.getElementById(
 "callName"
-).textContent=safeName;
+).textContent=
+safeName;
 
 document.getElementById(
 "callAvatar"
 ).textContent=
-safeName.substring(0,2).toUpperCase();
+safeName
+.substring(0,2)
+.toUpperCase();
 
 }
 
@@ -4544,14 +5376,20 @@ async function startVoiceCall(){
 
 if(!currentUser){
 
-alert("Du bist nicht angemeldet.");
+alert(
+"Du bist nicht angemeldet."
+);
+
 return;
 
 }
 
 if(!currentConversation){
 
-alert("Kein Chat geöffnet.");
+alert(
+"Kein Chat geöffnet."
+);
+
 return;
 
 }
@@ -4574,8 +5412,11 @@ if(peerConnection)return;
 currentCallId=
 crypto.randomUUID();
 
-currentCallDirection="outgoing";
-currentCallHistoryId=null;
+currentCallDirection=
+"outgoing";
+
+currentCallHistoryId=
+null;
 
 setCallName(
 currentOtherUser.username
@@ -4583,19 +5424,23 @@ currentOtherUser.username
 
 document.getElementById(
 "callStatus"
-).textContent="Anrufen...";
+).textContent=
+"Anrufen...";
 
 document.getElementById(
 "callDuration"
-).textContent="";
+).textContent=
+"";
 
 document.getElementById(
 "incomingCallButtons"
-).style.display="none";
+).style.display=
+"none";
 
 document.getElementById(
 "outgoingCallButtons"
-).style.display="flex";
+).style.display=
+"flex";
 
 showCallScreen();
 
@@ -4611,8 +5456,10 @@ caller_id:
 currentUser.id,
 receiver_id:
 currentOtherUser.id,
-call_type:"outgoing",
-status:"cancelled",
+call_type:
+"outgoing",
+status:
+"cancelled",
 duration:0
 })
 .select("id")
@@ -4638,8 +5485,10 @@ await sendCallSignal(
 "offer",
 {
 sdp:offer.sdp,
-history_id:currentCallHistoryId,
-call_id:currentCallId
+history_id:
+currentCallHistoryId,
+call_id:
+currentCallId
 }
 );
 
@@ -4694,7 +5543,8 @@ localCallStream
 }
 );
 
-peerConnection.ontrack=event=>{
+peerConnection.ontrack=
+event=>{
 
 const audio=
 document.getElementById(
@@ -4702,7 +5552,7 @@ document.getElementById(
 );
 
 if(
-event.streams &&
+event.streams&&
 event.streams[0]
 ){
 
@@ -4715,7 +5565,9 @@ console.log(
 "Audio wartet:",
 error
 );
-});
+}
+
+);
 
 }
 
@@ -4729,15 +5581,19 @@ if(!event.candidate)return;
 await sendCallSignal(
 "ice",
 {
-candidate:event.candidate,
-history_id:currentCallHistoryId,
-call_id:currentCallId
+candidate:
+event.candidate,
+history_id:
+currentCallHistoryId,
+call_id:
+currentCallId
 }
 );
 
 };
 
-peerConnection.onconnectionstatechange=()=>{
+peerConnection.onconnectionstatechange=
+()=>{
 
 if(!peerConnection)return;
 
@@ -4748,7 +5604,8 @@ if(state==="connected"){
 
 document.getElementById(
 "callStatus"
-).textContent="Verbunden";
+).textContent=
+"Verbunden";
 
 startCallTimer();
 
@@ -4866,17 +5723,22 @@ currentConversation.id
 },
 async payload=>{
 
-const signal=payload.new;
+const signal=
+payload.new;
 
 if(
-signal.receiver_id!==currentUser.id
+signal.receiver_id!==
+currentUser.id
 )return;
 
 if(
-signal.sender_id===currentUser.id
+signal.sender_id===
+currentUser.id
 )return;
 
-await handleCallSignal(signal);
+await handleCallSignal(
+signal
+);
 
 }
 )
@@ -4920,7 +5782,8 @@ currentUser.id
 },
 async payload=>{
 
-const signal=payload.new;
+const signal=
+payload.new;
 
 if(
 signal.signal_type!=="offer"
@@ -4943,13 +5806,16 @@ signal
    HANDLE SIGNAL
 ========================================================= */
 
-async function handleCallSignal(signal){
+async function handleCallSignal(
+signal
+){
 
 const type=
 signal.signal_type;
 
 const data=
-signal.signal_data||{};
+signal.signal_data||
+{};
 
 if(type==="offer"){
 
@@ -5052,7 +5918,7 @@ cleanupCall,
 }
 
 /* =========================================================
-   INCOMING CALL
+   INCOMING
 ========================================================= */
 
 async function receiveIncomingOffer(
@@ -5075,18 +5941,24 @@ currentCallHistoryId=
 data.history_id||
 null;
 
-currentCallDirection="incoming";
+currentCallDirection=
+"incoming";
 
 currentOtherUser={
-id:signal.sender_id,
-username:"WaveChat",
-last_seen:null
+id:
+signal.sender_id,
+username:
+"WaveChat",
+last_seen:
+null
 };
 
 const profile=
 await supabaseClient
 .from("profiles")
-.select("username,last_seen")
+.select(
+"username,last_seen"
+)
 .eq(
 "id",
 signal.sender_id
@@ -5115,22 +5987,27 @@ document.getElementById(
 
 document.getElementById(
 "callDuration"
-).textContent="";
+).textContent=
+"";
 
 document.getElementById(
 "incomingCallButtons"
-).style.display="flex";
+).style.display=
+"flex";
 
 document.getElementById(
 "outgoingCallButtons"
-).style.display="none";
+).style.display=
+"none";
 
 showCallScreen();
 
 playCallRingtone();
 
 if(missedCallTimer)
-clearTimeout(missedCallTimer);
+clearTimeout(
+missedCallTimer
+);
 
 missedCallTimer=
 setTimeout(
@@ -5168,12 +6045,15 @@ cleanupCall,
    GLOBAL INCOMING
 ========================================================= */
 
-async function receiveGlobalIncomingCall(signal){
+async function receiveGlobalIncomingCall(
+signal
+){
 
 if(peerConnection)return;
 
 const data=
-signal.signal_data||{};
+signal.signal_data||
+{};
 
 const conversationId=
 signal.conversation_id;
@@ -5227,11 +6107,13 @@ try{
 
 document.getElementById(
 "incomingCallButtons"
-).style.display="none";
+).style.display=
+"none";
 
 document.getElementById(
 "outgoingCallButtons"
-).style.display="flex";
+).style.display=
+"flex";
 
 document.getElementById(
 "callStatus"
@@ -5263,9 +6145,12 @@ await updateCallHistory(
 await sendCallSignal(
 "answer",
 {
-sdp:answer.sdp,
-history_id:currentCallHistoryId,
-call_id:currentCallId
+sdp:
+answer.sdp,
+history_id:
+currentCallHistoryId,
+call_id:
+currentCallId
 }
 );
 
@@ -5315,8 +6200,10 @@ await updateCallHistory(
 await sendCallSignal(
 "reject",
 {
-history_id:currentCallHistoryId,
-call_id:currentCallId
+history_id:
+currentCallHistoryId,
+call_id:
+currentCallId
 }
 );
 
@@ -5354,8 +6241,10 @@ currentOtherUser.id
 await sendCallSignal(
 "hangup",
 {
-history_id:currentCallHistoryId,
-call_id:currentCallId
+history_id:
+currentCallHistoryId,
+call_id:
+currentCallId
 }
 );
 
@@ -5387,20 +6276,22 @@ await cleanupCall();
 }
 
 /* =========================================================
-   MUTE / SPEAKER
+   MUTE
 ========================================================= */
 
 function toggleCallMute(){
 
 if(!localCallStream)return;
 
-callMuted=!callMuted;
+callMuted=
+!callMuted;
 
 localCallStream
 .getAudioTracks()
 .forEach(
 track=>{
-track.enabled=!callMuted;
+track.enabled=
+!callMuted;
 }
 );
 
@@ -5421,9 +6312,14 @@ callMuted
 
 }
 
+/* =========================================================
+   SPEAKER
+========================================================= */
+
 function toggleCallSpeaker(){
 
-callSpeaker=!callSpeaker;
+callSpeaker=
+!callSpeaker;
 
 const button=
 document.getElementById(
@@ -5445,6 +6341,12 @@ callSpeaker
 ?"Lautsprecher an"
 :"Lautsprecher aus";
 
+/*
+   Auf mobilen Browsern wird die tatsächliche
+   Audio-Ausgabe vom Betriebssystem gesteuert.
+   Die UI zeigt trotzdem den gewünschten Zustand.
+*/
+
 }
 
 /* =========================================================
@@ -5454,9 +6356,12 @@ callSpeaker
 function startCallTimer(){
 
 if(callDurationInterval)
-clearInterval(callDurationInterval);
+clearInterval(
+callDurationInterval
+);
 
-callStartTime=Date.now();
+callStartTime=
+Date.now();
 
 updateCallTimer();
 
@@ -5492,17 +6397,21 @@ status,
 duration
 ){
 
-if(!currentCallHistoryId)return;
+if(!currentCallHistoryId)
+return;
 
 const result=
 await supabaseClient
 .from("call_history")
 .update({
-status:status,
+status:
+status,
 duration:
 Math.max(
 0,
-Math.round(Number(duration)||0)
+Math.round(
+Number(duration)||0
+)
 )
 })
 .eq(
@@ -5552,7 +6461,9 @@ callDurationInterval=null;
 if(peerConnection){
 
 try{
+
 peerConnection.close();
+
 }catch(e){}
 
 peerConnection=null;
@@ -5583,6 +6494,7 @@ document.getElementById(
 if(audio){
 
 audio.pause();
+
 audio.srcObject=null;
 
 }
@@ -5599,15 +6511,20 @@ callSpeaker=false;
 
 document.getElementById(
 "muteCallButton"
-).textContent="🎙️";
+).textContent=
+"🎙️";
 
 document.getElementById(
 "muteCallButton"
-).classList.remove("active");
+).classList.remove(
+"active"
+);
 
 document.getElementById(
 "speakerCallButton"
-).classList.remove("active");
+).classList.remove(
+"active"
+);
 
 document.getElementById(
 "callSpeakerLabel"
@@ -5635,17 +6552,25 @@ window.webkitAudioContext
 )();
 
 const oscillator=
-callAudioContext.createOscillator();
+callAudioContext
+.createOscillator();
 
 const gain=
-callAudioContext.createGain();
+callAudioContext
+.createGain();
 
 oscillator.type="sine";
-oscillator.frequency.value=880;
 
-gain.gain.value=.04;
+oscillator.frequency.value=
+880;
 
-oscillator.connect(gain);
+gain.gain.value=
+.04;
+
+oscillator.connect(
+gain
+);
+
 gain.connect(
 callAudioContext.destination
 );
@@ -5681,8 +6606,6 @@ error
 
 }
 
-/* WICHTIG: diese Funktion ist jetzt korrekt geschlossen */
-
 function stopCallRingtone(){
 
 if(callRingtoneTimer){
@@ -5698,7 +6621,9 @@ callRingtoneTimer=null;
 if(currentCallOscillator){
 
 try{
+
 currentCallOscillator.stop();
+
 }catch(e){}
 
 currentCallOscillator=null;
@@ -5708,12 +6633,12 @@ currentCallOscillator=null;
 if(callAudioContext){
 
 try{
+
 callAudioContext.close();
+
 }catch(e){}
 
 callAudioContext=null;
-
-}
 
 }
 
@@ -5749,8 +6674,10 @@ await supabaseClient
 .from("call_history")
 .select("*")
 .or(
-"caller_id.eq."+currentUser.id+
-",receiver_id.eq."+currentUser.id
+"caller_id.eq."+
+currentUser.id+
+",receiver_id.eq."+
+currentUser.id
 )
 .order(
 "created_at",
@@ -5763,18 +6690,25 @@ if(result.error){
 list.innerHTML=
 `<div class="callEmpty">
 <div class="callEmptyIcon">⚠️</div>
-${escapeHTML(result.error.message)}
+${escapeHTML(
+result.error.message
+)}
 </div>`;
 
 return;
 
 }
 
-let rows=result.data||[];
+let rows=
+result.data||
+[];
 
-if(currentCallFilter==="missed"){
+if(
+currentCallFilter==="missed"
+){
 
-rows=rows.filter(
+rows=
+rows.filter(
 row=>
 row.status==="missed"||
 row.status==="rejected"||
@@ -5813,12 +6747,18 @@ row.receiver_id
 const profiles=
 await supabaseClient
 .from("profiles")
-.select("id,username")
-.in("id",ids);
+.select(
+"id,username"
+)
+.in(
+"id",
+ids
+);
 
 const map={};
 
-(profiles.data||[]).forEach(
+(profiles.data||[])
+.forEach(
 profile=>{
 map[profile.id]=profile;
 }
@@ -5826,10 +6766,12 @@ map[profile.id]=profile;
 
 list.innerHTML="";
 
-rows.forEach(row=>{
+rows.forEach(
+row=>{
 
 const isCaller=
-row.caller_id===currentUser.id;
+row.caller_id===
+currentUser.id;
 
 const otherId=
 isCaller
@@ -5849,16 +6791,25 @@ row.status==="cancelled"
 );
 
 const item=
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 item.className=
 "callItem"+
-(missed?" missed":"");
+(
+missed
+?" missed"
+:""
+);
 
 const avatar=
-document.createElement("div");
+document.createElement(
+"div"
+);
 
-avatar.className="callItemAvatar";
+avatar.className=
+"callItemAvatar";
 
 avatar.textContent=
 username
@@ -5866,20 +6817,31 @@ username
 .toUpperCase();
 
 const info=
-document.createElement("div");
+document.createElement(
+"div"
+);
 
-info.className="callItemInfo";
+info.className=
+"callItemInfo";
 
 const name=
-document.createElement("div");
+document.createElement(
+"div"
+);
 
-name.className="callItemName";
-name.textContent=username;
+name.className=
+"callItemName";
+
+name.textContent=
+username;
 
 const details=
-document.createElement("div");
+document.createElement(
+"div"
+);
 
-details.className="callItemDetails";
+details.className=
+"callItemDetails";
 
 const typeText=
 isCaller
@@ -5889,37 +6851,65 @@ isCaller
 :"Eingehend";
 
 details.innerHTML=
-`<span>${isCaller?"↗️":"↙️"}</span>
+`<span>${
+isCaller
+?"↗️"
+:"↙️"
+}</span>
 <span>${typeText}</span>
 <span>·</span>
-<span>${formatCallDate(row.created_at)}</span>`;
+<span>${
+formatCallDate(
+row.created_at
+)
+}</span>`;
 
 if(row.duration>0){
 
 details.innerHTML+=
 `<span>·</span>
-<span>${formatDuration(row.duration)}</span>`;
+<span>${
+formatDuration(
+row.duration
+)
+}</span>`;
 
 }
 
-info.appendChild(name);
-info.appendChild(details);
+info.appendChild(
+name
+);
+
+info.appendChild(
+details
+);
 
 const time=
-document.createElement("div");
+document.createElement(
+"div"
+);
 
-time.className="callItemTime";
+time.className=
+"callItemTime";
 
 time.textContent=
-formatTime(row.created_at);
+formatTime(
+row.created_at
+);
 
 const button=
-document.createElement("button");
+document.createElement(
+"button"
+);
 
-button.className="callBackButton";
-button.textContent="📞";
+button.className=
+"callBackButton";
 
-button.onclick=async event=>{
+button.textContent=
+"📞";
+
+button.onclick=
+async event=>{
 
 event.stopPropagation();
 
@@ -5930,14 +6920,28 @@ username
 
 };
 
-item.appendChild(avatar);
-item.appendChild(info);
-item.appendChild(time);
-item.appendChild(button);
+item.appendChild(
+avatar
+);
 
-list.appendChild(item);
+item.appendChild(
+info
+);
 
-});
+item.appendChild(
+time
+);
+
+item.appendChild(
+button
+);
+
+list.appendChild(
+item
+);
+
+}
+);
 
 }
 
@@ -5945,9 +6949,12 @@ list.appendChild(item);
    CALL FILTER
 ========================================================= */
 
-function setCallFilter(filter){
+function setCallFilter(
+filter
+){
 
-currentCallFilter=filter;
+currentCallFilter=
+filter;
 
 document.getElementById(
 "callFilterAll"
@@ -5978,7 +6985,10 @@ userId,
 username
 ){
 
-if(!userId||!currentUser)return;
+if(
+!userId||
+!currentUser
+)return;
 
 const result=
 await supabaseClient.rpc(
@@ -5990,7 +7000,10 @@ other_user_id:userId
 
 if(result.error){
 
-alert(result.error.message);
+alert(
+result.error.message
+);
+
 return;
 
 }
@@ -6009,6 +7022,10 @@ startVoiceCall,
 
 }
 
+/* =========================================================
+   VISIBILITY
+========================================================= */
+
 document.addEventListener(
 "visibilitychange",
 ()=>{
@@ -6017,14 +7034,30 @@ if(
 !document.hidden&&
 document.getElementById(
 "callsScreen"
-).classList.contains("active")
+).classList.contains(
+"active"
+)
 ){
 
 loadCallHistory();
 
 }
 
-});
+if(
+!document.hidden&&
+document.getElementById(
+"homeScreen"
+).classList.contains(
+"active"
+)
+){
+
+loadStories();
+
+}
+
+}
+);
 
 </script>
 
