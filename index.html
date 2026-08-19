@@ -1385,7 +1385,7 @@ onclick="logout()">
 <input
 id="search"
 placeholder="Chats suchen"
-oninput="filterChats()">
+oninput="filterChats">
 
 </div>
 
@@ -1551,8 +1551,6 @@ class="messages">
 </div>
 
 
-<!-- MESSAGE ACTIONS -->
-
 <div
 id="messageActions"
 class="messageActions"
@@ -1584,8 +1582,6 @@ Abbrechen
 
 </div>
 
-
-<!-- COMPOSER -->
 
 <div class="composer">
 
@@ -1856,7 +1852,9 @@ onclick="closeStoryViewer()">
 <script>
 
 
-/* SUPABASE */
+/* =========================================================
+   SUPABASE
+   ========================================================= */
 
 const SUPABASE_URL =
 "https://qizrwzprphklnlurqbvj.supabase.co";
@@ -1864,11 +1862,72 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_U_iSB9kGfpbrfDkF60fz_Q_woh6jBhk";
 
-const supabaseClient =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
+let supabaseClient = null;
+
+
+/*
+   Supabase Client sicher initialisieren.
+*/
+
+function initializeSupabase(){
+
+    try{
+
+        if(
+            !window.supabase ||
+            typeof window.supabase.createClient !== "function"
+        ){
+
+            throw new Error(
+                "Die Supabase-Bibliothek konnte nicht geladen werden."
+            );
+
+        }
+
+        supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL.trim(),
+                SUPABASE_KEY.trim(),
+                {
+                    auth:{
+                        autoRefreshToken:true,
+                        persistSession:true,
+                        detectSessionInUrl:true
+                    }
+                }
+            );
+
+        console.log(
+            "WaveChat: Supabase Client erfolgreich erstellt."
+        );
+
+        return true;
+
+    }catch(error){
+
+        console.error(
+            "WaveChat: Supabase Initialisierungsfehler:",
+            error
+        );
+
+        const errorBox =
+            document.getElementById("authError");
+
+        if(errorBox){
+
+            errorBox.textContent =
+                "Supabase konnte nicht gestartet werden:\n\n" +
+                error.message;
+
+            errorBox.style.display="block";
+
+        }
+
+        return false;
+
+    }
+
+}
 
 
 /* STATE */
@@ -1920,33 +1979,101 @@ initialize
 
 async function initialize(){
 
-loadDark();
+    loadDark();
 
-const result=
-await supabaseClient.auth.getSession();
+    /*
+       Supabase zuerst initialisieren.
+    */
 
-if(result.data.session){
+    const ready =
+        initializeSupabase();
 
-currentUser=
-result.data.session.user;
+    if(!ready){
 
-await loadApplication();
+        return;
 
-}
+    }
 
-supabaseClient.auth.onAuthStateChange(
-async(event,session)=>{
+    try{
 
-if(session){
+        const result =
+            await supabaseClient.auth.getSession();
 
-currentUser=
-session.user;
+        if(result.error){
 
-await loadApplication();
+            console.error(
+                "getSession Fehler:",
+                result.error
+            );
 
-}
+            showError(
+                result.error.message
+            );
 
-});
+        }
+
+        if(result.data.session){
+
+            currentUser =
+                result.data.session.user;
+
+            await loadApplication();
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "WaveChat Startfehler:",
+            error
+        );
+
+        showError(
+            error.message
+        );
+
+    }
+
+
+    /*
+       Auth-State überwachen.
+    */
+
+    supabaseClient.auth.onAuthStateChange(
+        async(event,session)=>{
+
+            console.log(
+                "WaveChat Auth Event:",
+                event
+            );
+
+            if(session){
+
+                currentUser =
+                    session.user;
+
+                /*
+                   INITIAL_SESSION / SIGNED_IN
+                   nicht mehrfach unnötig laden.
+                */
+
+                if(
+                    document
+                    .getElementById("homeScreen")
+                    .classList
+                    .contains("active")
+                ){
+
+                    return;
+
+                }
+
+                await loadApplication();
+
+            }
+
+        }
+    );
 
 }
 
@@ -1954,6 +2081,12 @@ await loadApplication();
 /* AUTH */
 
 function toggleAuthMode(){
+
+document.getElementById("username")
+.style.display=
+registerMode
+?"block"
+:"none";
 
 registerMode=!registerMode;
 
@@ -2002,6 +2135,16 @@ hideError();
 async function handleAuth(){
 
 hideError();
+
+if(!supabaseClient){
+
+showError(
+"Supabase ist nicht initialisiert."
+);
+
+return;
+
+}
 
 const login=
 document.getElementById("email")
@@ -2077,7 +2220,17 @@ login_username:login
 }
 );
 
-if(lookup.error||!lookup.data){
+if(lookup.error){
+
+showError(
+lookup.error.message
+);
+
+return;
+
+}
+
+if(!lookup.data){
 
 showError(
 "Benutzername wurde nicht gefunden."
@@ -2102,7 +2255,9 @@ password:password
 
 if(result.error){
 
-showError(result.error.message);
+showError(
+result.error.message
+);
 
 return;
 
@@ -2119,7 +2274,14 @@ await loadApplication();
 
 }catch(error){
 
-showError(error.message);
+console.error(
+"Auth Fehler:",
+error
+);
+
+showError(
+error.message
+);
 
 }finally{
 
@@ -2133,6 +2295,8 @@ button.disabled=false;
 /* APPLICATION */
 
 async function loadApplication(){
+
+if(!currentUser)return;
 
 showHome();
 
@@ -2157,6 +2321,15 @@ await supabaseClient
 .select("id,username")
 .eq("id",currentUser.id)
 .maybeSingle();
+
+if(result.error){
+
+console.error(
+"Profil Fehler:",
+result.error
+);
+
+}
 
 if(result.data){
 
@@ -2211,7 +2384,16 @@ ascending:false
 }
 );
 
-if(result.error)return;
+if(result.error){
+
+console.error(
+"Stories Fehler:",
+result.error
+);
+
+return;
+
+}
 
 bar.innerHTML="";
 
@@ -2533,10 +2715,6 @@ div.dataset.conversationId=
 chat.conversation_id;
 
 
-/*
-NORMALER KLICK
-*/
-
 div.addEventListener(
 "click",
 function(){
@@ -2560,10 +2738,6 @@ chat.last_seen
 
 });
 
-
-/*
-LANGDRUCK
-*/
 
 div.addEventListener(
 "touchstart",
@@ -2630,10 +2804,6 @@ chatLongPressTimer=null;
 );
 
 
-/*
-MAUS - PC
-*/
-
 div.addEventListener(
 "mousedown",
 function(){
@@ -2656,6 +2826,7 @@ div
 }
 );
 
+
 div.addEventListener(
 "mouseup",
 function(){
@@ -2672,6 +2843,7 @@ chatLongPressTimer=null;
 
 }
 );
+
 
 div.addEventListener(
 "mouseleave",
@@ -2922,10 +3094,6 @@ document
 }
 
 
-/*
-CHAT DAUERHAFT LÖSCHEN
-*/
-
 async function deleteSelectedChats(){
 
 if(!selectedChatIds.size)
@@ -2946,20 +3114,9 @@ ids.length===1
 if(!confirmed)
 return;
 
-
-/*
-Wir versuchen zuerst die vorhandene
-RPC-Funktion zu benutzen.
-*/
-
 for(const id of ids){
 
 let deleted=false;
-
-
-/*
-Mögliche vorhandene RPC-Funktion
-*/
 
 try{
 
@@ -2978,16 +3135,6 @@ deleted=true;
 }
 
 }catch(e){}
-
-
-/*
-Falls die RPC-Funktion nicht existiert,
-wird versucht, die Conversation direkt
-zu löschen.
-
-Das funktioniert, wenn deine aktuelle
-RLS-Policy das Löschen erlaubt.
-*/
 
 if(!deleted){
 
@@ -3012,7 +3159,6 @@ return;
 }
 
 }
-
 
 cancelChatSelection();
 
@@ -3158,10 +3304,6 @@ div.dataset.messageId=
 message.id;
 
 
-/*
-LANGDRUCK MOBILE
-*/
-
 div.addEventListener(
 "touchstart",
 function(){
@@ -3192,9 +3334,7 @@ function(){
 
 if(messageLongPressTimer){
 
-clearTimeout(
-messageLongPressTimer
-);
+clearTimeout(messageLongPressTimer);
 
 messageLongPressTimer=null;
 
@@ -3210,9 +3350,7 @@ function(){
 
 if(messageLongPressTimer){
 
-clearTimeout(
-messageLongPressTimer
-);
+clearTimeout(messageLongPressTimer);
 
 messageLongPressTimer=null;
 
@@ -3221,10 +3359,6 @@ messageLongPressTimer=null;
 }
 );
 
-
-/*
-LANGDRUCK PC
-*/
 
 div.addEventListener(
 "mousedown",
@@ -3243,15 +3377,14 @@ selectMessage(message);
 }
 );
 
+
 div.addEventListener(
 "mouseup",
 function(){
 
 if(messageLongPressTimer){
 
-clearTimeout(
-messageLongPressTimer
-);
+clearTimeout(messageLongPressTimer);
 
 messageLongPressTimer=null;
 
@@ -3260,10 +3393,6 @@ messageLongPressTimer=null;
 }
 );
 
-
-/*
-KLICK
-*/
 
 div.addEventListener(
 "click",
@@ -3281,9 +3410,7 @@ div
 });
 
 
-/*
-CONTENT
-*/
+/* CONTENT */
 
 if(message.deleted_for_everyone){
 
