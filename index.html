@@ -654,6 +654,29 @@ font-size:11px;
 }
 
 
+/* CALL BUTTON */
+
+.callHeaderButton{
+width:42px;
+height:42px;
+
+flex-shrink:0;
+
+border:0;
+border-radius:50%;
+
+background:rgba(255,255,255,.12);
+
+color:white;
+
+font-size:20px;
+}
+
+.callHeaderButton:active{
+transform:scale(.92);
+}
+
+
 /* MESSAGES */
 
 .messages{
@@ -1325,6 +1348,179 @@ font-size:22px;
 }
 
 
+/* =========================================================
+   VOICE CALL SCREEN
+========================================================= */
+
+.callScreen{
+position:fixed;
+
+inset:0;
+
+z-index:500;
+
+display:none;
+
+align-items:center;
+justify-content:center;
+
+background:
+linear-gradient(
+180deg,
+#075e54,
+#043b36
+);
+
+color:white;
+
+text-align:center;
+}
+
+.callScreen.show{
+display:flex;
+}
+
+.callBox{
+width:100%;
+max-width:600px;
+
+height:100%;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+padding:
+40px 25px
+calc(40px + env(safe-area-inset-bottom));
+}
+
+.callAvatar{
+width:120px;
+height:120px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:
+linear-gradient(
+135deg,
+#25d366,
+#075e54
+);
+
+border:4px solid rgba(255,255,255,.35);
+
+font-size:40px;
+font-weight:800;
+
+box-shadow:
+0 10px 40px rgba(0,0,0,.25);
+
+margin-bottom:25px;
+}
+
+.callName{
+font-size:28px;
+font-weight:800;
+}
+
+.callStatus{
+margin-top:10px;
+
+font-size:16px;
+
+color:#c8f7df;
+}
+
+.callDuration{
+margin-top:8px;
+
+font-size:14px;
+
+color:#c8f7df;
+
+font-variant-numeric:tabular-nums;
+}
+
+.callControls{
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+gap:18px;
+
+margin-top:70px;
+}
+
+.callControl{
+width:58px;
+height:58px;
+
+border:0;
+border-radius:50%;
+
+background:rgba(255,255,255,.15);
+
+color:white;
+
+font-size:22px;
+}
+
+.callControl.active{
+background:white;
+color:#075e54;
+}
+
+.callControl.end{
+width:68px;
+height:68px;
+
+background:#e53935;
+
+font-size:25px;
+}
+
+.incomingCallButtons{
+display:flex;
+
+gap:45px;
+
+margin-top:65px;
+}
+
+.incomingButton{
+width:68px;
+height:68px;
+
+border:0;
+
+border-radius:50%;
+
+color:white;
+
+font-size:25px;
+}
+
+.incomingButton.accept{
+background:#25d366;
+}
+
+.incomingButton.reject{
+background:#e53935;
+}
+
+.callRemoteAudio{
+display:none;
+}
+
+
 @media(min-width:601px){
 
 body{
@@ -1454,7 +1650,7 @@ onclick="logout()">
 <input
 id="search"
 placeholder="Chats suchen"
-oninput="filterChats()">
+oninput="filterChats">
 
 </div>
 
@@ -1610,6 +1806,13 @@ WaveChat
 </div>
 
 </div>
+
+<button
+class="callHeaderButton"
+onclick="startVoiceCall()"
+title="Sprachanruf">
+📞
+</button>
 
 </header>
 
@@ -1932,6 +2135,87 @@ onclick="closeStoryViewer()">
 </div>
 
 
+<!-- VOICE CALL -->
+
+<div
+id="callScreen"
+class="callScreen">
+
+<div class="callBox">
+
+<div
+id="callAvatar"
+class="callAvatar">
+WC
+</div>
+
+<div
+id="callName"
+class="callName">
+WaveChat
+</div>
+
+<div
+id="callStatus"
+class="callStatus">
+Anruf wird gestartet...
+</div>
+
+<div
+id="callDuration"
+class="callDuration">
+</div>
+
+<div
+id="incomingCallButtons"
+class="incomingCallButtons"
+style="display:none">
+
+<button
+class="incomingButton reject"
+onclick="rejectIncomingCall()">
+📵
+</button>
+
+<button
+class="incomingButton accept"
+onclick="acceptIncomingCall()">
+📞
+</button>
+
+</div>
+
+<div
+id="outgoingCallButtons"
+class="callControls">
+
+<button
+id="muteCallButton"
+class="callControl"
+onclick="toggleCallMute()">
+🎙️
+</button>
+
+<button
+class="callControl end"
+onclick="endVoiceCall()">
+📵
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<audio
+id="callRemoteAudio"
+class="callRemoteAudio"
+autoplay
+playsinline>
+</audio>
+
+
 <script>
 
 
@@ -1967,7 +2251,7 @@ let realtimeChannel=null;
 let registerMode=false;
 
 
-/* VOICE */
+/* VOICE MESSAGE */
 
 let mediaRecorder=null;
 
@@ -1999,7 +2283,53 @@ let messageLongPressTimer=null;
 
 
 /* =========================================================
-   LOKALE AUSGEBLENDETE NACHRICHTEN
+   VOICE CALL STATE
+========================================================= */
+
+let callChannel=null;
+
+let peerConnection=null;
+
+let localCallStream=null;
+
+let currentCallId=null;
+
+let currentCallDirection=null;
+
+let callStartTime=0;
+
+let callDurationInterval=null;
+
+let callMuted=false;
+
+let incomingCallData=null;
+
+
+/* WEBRTC */
+
+const rtcConfiguration={
+iceServers:[
+{
+urls:"stun:stun.l.google.com:19302"
+},
+{
+urls:"stun:stun1.l.google.com:19302"
+}
+]
+};
+
+
+/* RINGTONE */
+
+let callAudioContext=null;
+
+let callRingtoneTimer=null;
+
+let currentCallOscillator=null;
+
+
+/* =========================================================
+   HIDDEN MESSAGES
 ========================================================= */
 
 function getHiddenMessageIds(){
@@ -2041,7 +2371,7 @@ JSON.stringify(
 
 
 /* =========================================================
-   LOKAL AUSGEBLENDETE CHATS
+   HIDDEN CHATS
 ========================================================= */
 
 function getHiddenConversationIds(){
@@ -2727,7 +3057,7 @@ div.dataset.conversationId=
 chat.conversation_id;
 
 
-/* NORMALER KLICK */
+/* KLICK */
 
 div.addEventListener(
 "click",
@@ -2747,13 +3077,17 @@ return;
 openConversationById(
 chat.conversation_id,
 username,
-chat.last_seen
+chat.last_seen,
+chat.user_id ||
+chat.other_user_id ||
+chat.recipient_id ||
+null
 );
 
 });
 
 
-/* LANGDRUCK */
+/* LANGDRUCK MOBILE */
 
 div.addEventListener(
 "touchstart",
@@ -2820,7 +3154,7 @@ chatLongPressTimer=null;
 );
 
 
-/* MAUS - PC */
+/* MAUS PC */
 
 div.addEventListener(
 "mousedown",
@@ -3113,7 +3447,7 @@ document
 
 
 /* =========================================================
-   CHAT AUS DER EIGENEN LISTE LÖSCHEN
+   DELETE CHATS
 ========================================================= */
 
 async function deleteSelectedChats(){
@@ -3165,7 +3499,8 @@ await loadConversations();
 async function openConversationById(
 conversationId,
 username,
-lastSeen
+lastSeen,
+otherUserId=null
 ){
 
 if(chatSelectionMode){
@@ -3210,6 +3545,7 @@ currentConversation=
 result.data;
 
 currentOtherUser={
+id:otherUserId,
 username:username,
 last_seen:lastSeen
 };
@@ -3237,6 +3573,8 @@ showScreen("chatScreen");
 await loadMessages();
 
 subscribeToMessages();
+
+subscribeToCalls();
 
 }
 
@@ -3338,7 +3676,7 @@ div.dataset.messageId=
 message.id;
 
 
-/* LANGDRUCK MOBILE */
+/* LANGDRUCK */
 
 div.addEventListener(
 "touchstart",
@@ -3396,7 +3734,7 @@ messageLongPressTimer=null;
 );
 
 
-/* LANGDRUCK PC */
+/* PC */
 
 div.addEventListener(
 "mousedown",
@@ -3431,7 +3769,7 @@ messageLongPressTimer=null;
 );
 
 
-/* KLICK */
+/* CLICK */
 
 div.addEventListener(
 "click",
@@ -3559,7 +3897,6 @@ document
 
 /* =========================================================
    AUDIO
-   AKTUELLER FORTSCHRITT WIRD ANGEZEIGT
 ========================================================= */
 
 function renderAudioMessage(
@@ -3573,9 +3910,6 @@ document.createElement("div");
 wrap.className=
 "audioMessage";
 
-
-/* PLAY BUTTON */
-
 const button=
 document.createElement("button");
 
@@ -3583,9 +3917,6 @@ button.className=
 "audioPlay";
 
 button.textContent="▶";
-
-
-/* AUDIO ELEMENT */
 
 const audio=
 document.createElement("audio");
@@ -3597,15 +3928,11 @@ audio.preload="metadata";
 
 audio.style.display="none";
 
-
-/* AUDIO INFO */
-
 const info=
 document.createElement("div");
 
 info.className=
 "audioInfo";
-
 
 const title=
 document.createElement("div");
@@ -3616,19 +3943,11 @@ title.className=
 title.textContent=
 "Sprachnachricht";
 
-
-/* ZEITANZEIGE */
-
 const duration=
 document.createElement("div");
 
 duration.className=
 "audioDuration";
-
-
-/*
-Gesamtdauer aus der Datenbank.
-*/
 
 const savedDuration=
 Math.max(
@@ -3638,19 +3957,9 @@ Number(message.media_duration)||0
 )
 );
 
-
-/*
-Startanzeige
-*/
-
 duration.textContent=
 "00:00 / "+
 formatDuration(savedDuration);
-
-
-/* =========================================================
-   AUDIO METADATEN
-========================================================= */
 
 audio.addEventListener(
 "loadedmetadata",
@@ -3675,11 +3984,6 @@ formatDuration(realDuration);
 }
 );
 
-
-/* =========================================================
-   AKTUELLE WIEDERGABEZEIT
-========================================================= */
-
 audio.addEventListener(
 "timeupdate",
 function(){
@@ -3694,12 +3998,6 @@ Math.round(
 audio.duration
 );
 
-
-/*
-Falls die echte Audiodauer noch nicht
-bekannt ist, Datenbank-Dauer benutzen.
-*/
-
 if(
 !Number.isFinite(total)||
 total<=0
@@ -3709,7 +4007,6 @@ total=savedDuration;
 
 }
 
-
 duration.textContent=
 formatDuration(current)+
 " / "+
@@ -3718,22 +4015,12 @@ formatDuration(total);
 }
 );
 
-
-/* =========================================================
-   PLAY / PAUSE
-========================================================= */
-
 button.onclick=
 async function(){
 
 try{
 
 if(audio.paused){
-
-/*
-Andere Sprachnachrichten im aktuellen
-Chat automatisch pausieren.
-*/
 
 document
 .querySelectorAll(
@@ -3751,11 +4038,6 @@ otherAudio.pause();
 }
 );
 
-
-/*
-Andere Play-Buttons zurücksetzen.
-*/
-
 document
 .querySelectorAll(
 "#messages .audioPlay"
@@ -3771,7 +4053,6 @@ otherButton.textContent="▶";
 
 }
 );
-
 
 await audio.play();
 
@@ -3796,11 +4077,6 @@ error
 
 };
 
-
-/* =========================================================
-   PAUSE
-========================================================= */
-
 audio.addEventListener(
 "pause",
 function(){
@@ -3813,11 +4089,6 @@ button.textContent="▶";
 
 }
 );
-
-
-/* =========================================================
-   ENDE DER SPRAchnachricht
-========================================================= */
 
 audio.addEventListener(
 "ended",
@@ -3840,11 +4111,6 @@ audio.currentTime=0;
 
 }
 );
-
-
-/* =========================================================
-   AUDIO AUFBAUEN
-========================================================= */
 
 info.appendChild(title);
 
@@ -4088,11 +4354,6 @@ timer.classList.add("show");
 
 timerText.textContent="00:00";
 
-
-/*
-LIVE TIMER STARTEN
-*/
-
 if(recordingTimerInterval){
 
 clearInterval(
@@ -4107,7 +4368,6 @@ updateRecordingTimer,
 250
 );
 
-
 mediaRecorder.ondataavailable=
 e=>{
 
@@ -4119,7 +4379,6 @@ audioChunks.push(e.data);
 
 };
 
-
 mediaRecorder.onstop=
 async()=>{
 
@@ -4130,11 +4389,9 @@ track=>
 track.stop()
 );
 
-
 const mimeType=
 mediaRecorder.mimeType||
 "audio/webm";
-
 
 const blob=
 new Blob(
@@ -4144,7 +4401,6 @@ type:mimeType
 }
 );
 
-
 const duration=
 Math.max(
 1,
@@ -4153,11 +4409,6 @@ Math.round(
 recordingStarted)/1000
 )
 );
-
-
-/*
-TIMER STOPPEN
-*/
 
 if(recordingTimerInterval){
 
@@ -4181,7 +4432,6 @@ button.classList.remove(
 
 button.textContent="🎤";
 
-
 await sendAudio(
 blob,
 duration
@@ -4189,9 +4439,7 @@ duration
 
 };
 
-
 mediaRecorder.start();
-
 
 }catch(error){
 
@@ -4204,10 +4452,6 @@ error.message
 
 }
 
-
-/*
-LIVE AUFNAHMEZEIT
-*/
 
 function updateRecordingTimer(){
 
@@ -4441,7 +4685,7 @@ selectedMessageIds.has(id)
 
 
 /* =========================================================
-   ACTIONS
+   MESSAGE ACTIONS
 ========================================================= */
 
 function showMessageActions(){
@@ -4512,7 +4756,7 @@ el.classList.remove("selected")
 
 
 /* =========================================================
-   FÜR MICH LÖSCHEN
+   DELETE FOR ME
 ========================================================= */
 
 async function deleteSelectedForMe(){
@@ -4532,12 +4776,6 @@ selectedMessageIds.size===1
 if(!confirmed)
 return;
 
-
-/*
-Die Nachricht wird nur auf diesem Gerät
-ausgeblendet.
-*/
-
 const hiddenMessages=
 getHiddenMessageIds();
 
@@ -4553,11 +4791,6 @@ String(id)
 saveHiddenMessageIds(
 hiddenMessages
 );
-
-
-/*
-Sofort aus der aktuellen Ansicht entfernen.
-*/
 
 [...selectedMessageIds]
 .forEach(
@@ -4576,7 +4809,6 @@ element.remove();
 
 });
 
-
 closeMessageActions();
 
 scrollMessages();
@@ -4585,7 +4817,7 @@ scrollMessages();
 
 
 /* =========================================================
-   FÜR ALLE
+   DELETE FOR EVERYONE
 ========================================================= */
 
 async function deleteSelectedForEveryone(){
@@ -4690,7 +4922,7 @@ await loadMessages();
 
 
 /* =========================================================
-   REALTIME
+   MESSAGE REALTIME
 ========================================================= */
 
 function subscribeToMessages(){
@@ -4997,12 +5229,6 @@ return;
 
 }
 
-
-/*
-Wenn dieser Chat vorher lokal ausgeblendet
-wurde, wird er wieder eingeblendet.
-*/
-
 const hiddenChats=
 getHiddenConversationIds();
 
@@ -5021,7 +5247,8 @@ await loadConversations();
 await openConversationById(
 result.data,
 user.username,
-user.last_seen
+user.last_seen,
+user.id
 );
 
 }
@@ -5048,6 +5275,23 @@ document
 
 
 function showHome(){
+
+if(peerConnection){
+
+endVoiceCall();
+
+}
+
+if(callChannel){
+
+supabaseClient
+.removeChannel(
+callChannel
+);
+
+callChannel=null;
+
+}
 
 if(realtimeChannel){
 
@@ -5103,6 +5347,12 @@ showScreen(
 
 async function logout(){
 
+if(peerConnection){
+
+await endVoiceCall();
+
+}
+
 if(mediaRecorder){
 
 try{
@@ -5123,6 +5373,17 @@ recordingTimerInterval=null;
 
 }
 
+if(callChannel){
+
+await supabaseClient
+.removeChannel(
+callChannel
+);
+
+callChannel=null;
+
+}
+
 if(realtimeChannel){
 
 await supabaseClient
@@ -5139,6 +5400,8 @@ await supabaseClient.auth.signOut();
 currentUser=null;
 
 currentConversation=null;
+
+currentOtherUser=null;
 
 showScreen(
 "authScreen"
@@ -5436,6 +5699,1130 @@ value??""
 />/g,
 "&gt;"
 );
+
+}
+
+
+/* =========================================================
+   VOICE CALL SYSTEM
+========================================================= */
+
+
+/* CALL UI */
+
+function showCallScreen(){
+
+document
+.getElementById("callScreen")
+.classList.add("show");
+
+}
+
+
+function hideCallScreen(){
+
+document
+.getElementById("callScreen")
+.classList.remove("show");
+
+}
+
+
+function setCallName(name){
+
+const safeName=
+name||
+"WaveChat";
+
+document
+.getElementById("callName")
+.textContent=safeName;
+
+document
+.getElementById("callAvatar")
+.textContent=
+safeName
+.substring(0,2)
+.toUpperCase();
+
+}
+
+
+/* =========================================================
+   START CALL
+========================================================= */
+
+async function startVoiceCall(){
+
+if(!currentUser){
+
+alert(
+"Du bist nicht angemeldet."
+);
+
+return;
+
+}
+
+if(!currentConversation){
+
+alert(
+"Kein Chat geöffnet."
+);
+
+return;
+
+}
+
+if(
+!currentOtherUser||
+!currentOtherUser.id
+){
+
+alert(
+"Der Gesprächspartner konnte nicht gefunden werden.\n\n"+
+"Bitte den Chat einmal schließen und erneut öffnen."
+);
+
+return;
+
+}
+
+if(peerConnection){
+
+return;
+
+}
+
+currentCallId=
+crypto.randomUUID();
+
+currentCallDirection=
+"outgoing";
+
+setCallName(
+currentOtherUser.username
+);
+
+document
+.getElementById("callStatus")
+.textContent=
+"Anrufen...";
+
+document
+.getElementById("callDuration")
+.textContent="";
+
+document
+.getElementById("incomingCallButtons")
+.style.display="none";
+
+document
+.getElementById("outgoingCallButtons")
+.style.display="flex";
+
+showCallScreen();
+
+try{
+
+await createPeerConnection();
+
+const offer=
+await peerConnection
+.createOffer();
+
+await peerConnection
+.setLocalDescription(offer);
+
+await sendCallSignal(
+"offer",
+{
+sdp:offer.sdp
+}
+);
+
+}catch(error){
+
+console.error(
+"Anruf konnte nicht gestartet werden:",
+error
+);
+
+alert(
+"Der Anruf konnte nicht gestartet werden.\n\n"+
+error.message
+);
+
+await cleanupCall();
+
+}
+
+}
+
+
+/* =========================================================
+   PEER CONNECTION
+========================================================= */
+
+async function createPeerConnection(){
+
+if(peerConnection){
+
+return peerConnection;
+
+}
+
+peerConnection=
+new RTCPeerConnection(
+rtcConfiguration
+);
+
+
+/* MIKROFON */
+
+localCallStream=
+await navigator.mediaDevices
+.getUserMedia({
+audio:{
+echoCancellation:true,
+noiseSuppression:true,
+autoGainControl:true
+},
+video:false
+});
+
+
+localCallStream
+.getTracks()
+.forEach(
+track=>{
+
+peerConnection
+.addTrack(
+track,
+localCallStream
+);
+
+}
+);
+
+
+/* REMOTE AUDIO */
+
+peerConnection.ontrack=
+event=>{
+
+const audio=
+document.getElementById(
+"callRemoteAudio"
+);
+
+if(
+event.streams &&
+event.streams[0]
+){
+
+audio.srcObject=
+event.streams[0];
+
+audio.play()
+.catch(
+error=>
+console.log(
+"Audio wartet auf Benutzeraktion:",
+error
+)
+);
+
+}
+
+};
+
+
+/* ICE */
+
+peerConnection.onicecandidate=
+async event=>{
+
+if(!event.candidate){
+
+return;
+
+}
+
+await sendCallSignal(
+"ice",
+{
+candidate:event.candidate
+}
+);
+
+};
+
+
+/* CONNECTION */
+
+peerConnection.onconnectionstatechange=
+()=>{
+
+const state=
+peerConnection.connectionState;
+
+console.log(
+"WebRTC connection:",
+state
+);
+
+if(state==="connected"){
+
+document
+.getElementById("callStatus")
+.textContent=
+"Verbunden";
+
+startCallTimer();
+
+}
+
+if(
+state==="failed"||
+state==="disconnected"
+){
+
+document
+.getElementById("callStatus")
+.textContent=
+"Verbindung beendet";
+
+setTimeout(
+()=>{
+cleanupCall();
+},
+1000
+);
+
+}
+
+};
+
+return peerConnection;
+
+}
+
+
+/* =========================================================
+   SIGNAL
+========================================================= */
+
+async function sendCallSignal(
+signalType,
+signalData
+){
+
+if(
+!currentUser||
+!currentConversation||
+!currentOtherUser||
+!currentOtherUser.id
+){
+
+return;
+
+}
+
+const result=
+await supabaseClient
+.from("call_signals")
+.insert({
+
+conversation_id:
+currentConversation.id,
+
+sender_id:
+currentUser.id,
+
+receiver_id:
+currentOtherUser.id,
+
+signal_type:
+signalType,
+
+signal_data:
+signalData
+
+});
+
+if(result.error){
+
+console.error(
+"Call signal error:",
+result.error
+);
+
+}
+
+}
+
+
+/* =========================================================
+   CALL SUBSCRIPTION
+========================================================= */
+
+function subscribeToCalls(){
+
+if(callChannel){
+
+supabaseClient
+.removeChannel(
+callChannel
+);
+
+callChannel=null;
+
+}
+
+if(
+!currentUser||
+!currentConversation
+){
+
+return;
+
+}
+
+callChannel=
+supabaseClient
+.channel(
+"calls-"+
+currentUser.id+
+"-"+
+currentConversation.id+
+"-"+
+Date.now()
+)
+.on(
+"postgres_changes",
+{
+
+event:"INSERT",
+
+schema:"public",
+
+table:"call_signals",
+
+filter:
+"conversation_id=eq."+
+currentConversation.id
+
+},
+async payload=>{
+
+const signal=
+payload.new;
+
+if(
+signal.receiver_id!==
+currentUser.id
+){
+
+return;
+
+}
+
+if(
+signal.sender_id===
+currentUser.id
+){
+
+return;
+
+}
+
+await handleCallSignal(
+signal
+);
+
+}
+)
+.subscribe();
+
+}
+
+
+/* =========================================================
+   HANDLE SIGNAL
+========================================================= */
+
+async function handleCallSignal(
+signal
+){
+
+const type=
+signal.signal_type;
+
+const data=
+signal.signal_data||
+{};
+
+
+/* OFFER */
+
+if(type==="offer"){
+
+await receiveIncomingOffer(
+signal,
+data
+);
+
+return;
+
+}
+
+
+/* ANSWER */
+
+if(type==="answer"){
+
+if(
+!peerConnection
+){
+
+return;
+
+}
+
+try{
+
+await peerConnection
+.setRemoteDescription({
+
+type:"answer",
+
+sdp:data.sdp
+
+});
+
+document
+.getElementById("callStatus")
+.textContent=
+"Verbinden...";
+
+}catch(error){
+
+console.error(
+"Answer error:",
+error
+);
+
+}
+
+return;
+
+}
+
+
+/* ICE */
+
+if(type==="ice"){
+
+if(
+!peerConnection||
+!data.candidate
+){
+
+return;
+
+}
+
+try{
+
+await peerConnection
+.addIceCandidate(
+new RTCIceCandidate(
+data.candidate
+)
+);
+
+}catch(error){
+
+console.error(
+"ICE error:",
+error
+);
+
+}
+
+return;
+
+}
+
+
+/* HANGUP */
+
+if(type==="hangup"){
+
+document
+.getElementById("callStatus")
+.textContent=
+"Anruf beendet";
+
+setTimeout(
+()=>{
+cleanupCall();
+},
+700
+);
+
+return;
+
+}
+
+
+/* REJECT */
+
+if(type==="reject"){
+
+document
+.getElementById("callStatus")
+.textContent=
+"Anruf abgelehnt";
+
+setTimeout(
+()=>{
+cleanupCall();
+},
+900
+);
+
+return;
+
+}
+
+}
+
+
+/* =========================================================
+   INCOMING CALL
+========================================================= */
+
+async function receiveIncomingOffer(
+signal,
+data
+){
+
+if(peerConnection){
+
+return;
+
+}
+
+incomingCallData={
+signal:signal,
+data:data
+};
+
+currentCallId=
+crypto.randomUUID();
+
+currentCallDirection=
+"incoming";
+
+currentOtherUser={
+id:signal.sender_id,
+username:"WaveChat",
+last_seen:null
+};
+
+const profile=
+await supabaseClient
+.from("profiles")
+.select(
+"username,last_seen"
+)
+.eq(
+"id",
+signal.sender_id
+)
+.maybeSingle();
+
+if(profile.data){
+
+currentOtherUser.username=
+profile.data.username||
+"WaveChat";
+
+currentOtherUser.last_seen=
+profile.data.last_seen;
+
+}
+
+setCallName(
+currentOtherUser.username
+);
+
+document
+.getElementById("callStatus")
+.textContent=
+"Eingehender Anruf...";
+
+document
+.getElementById("callDuration")
+.textContent="";
+
+document
+.getElementById("incomingCallButtons")
+.style.display="flex";
+
+document
+.getElementById("outgoingCallButtons")
+.style.display="none";
+
+showCallScreen();
+
+playCallRingtone();
+
+}
+
+
+/* =========================================================
+   ACCEPT
+========================================================= */
+
+async function acceptIncomingCall(){
+
+stopCallRingtone();
+
+if(
+!incomingCallData
+){
+
+return;
+
+}
+
+try{
+
+document
+.getElementById("incomingCallButtons")
+.style.display="none";
+
+document
+.getElementById("callStatus")
+.textContent=
+"Verbinden...";
+
+document
+.getElementById("outgoingCallButtons")
+.style.display="flex";
+
+await createPeerConnection();
+
+const offer=
+incomingCallData.data;
+
+await peerConnection
+.setRemoteDescription({
+
+type:"offer",
+
+sdp:offer.sdp
+
+});
+
+const answer=
+await peerConnection
+.createAnswer();
+
+await peerConnection
+.setLocalDescription(answer);
+
+await sendCallSignal(
+"answer",
+{
+sdp:answer.sdp
+}
+);
+
+incomingCallData=null;
+
+}catch(error){
+
+console.error(
+"Anruf konnte nicht angenommen werden:",
+error
+);
+
+alert(
+"Der Anruf konnte nicht angenommen werden.\n\n"+
+error.message
+);
+
+await cleanupCall();
+
+}
+
+}
+
+
+/* =========================================================
+   REJECT
+========================================================= */
+
+async function rejectIncomingCall(){
+
+stopCallRingtone();
+
+if(
+currentOtherUser &&
+currentOtherUser.id
+){
+
+await sendCallSignal(
+"reject",
+{}
+);
+
+}
+
+incomingCallData=null;
+
+await cleanupCall();
+
+}
+
+
+/* =========================================================
+   END CALL
+========================================================= */
+
+async function endVoiceCall(){
+
+stopCallRingtone();
+
+if(
+currentOtherUser &&
+currentOtherUser.id
+){
+
+await sendCallSignal(
+"hangup",
+{}
+);
+
+}
+
+await cleanupCall();
+
+}
+
+
+/* =========================================================
+   MUTE
+========================================================= */
+
+function toggleCallMute(){
+
+if(
+!localCallStream
+){
+
+return;
+
+}
+
+callMuted=!callMuted;
+
+localCallStream
+.getAudioTracks()
+.forEach(
+track=>{
+track.enabled=
+!callMuted;
+}
+);
+
+const button=
+document.getElementById(
+"muteCallButton"
+);
+
+if(callMuted){
+
+button.textContent="🔇";
+
+button.classList.add(
+"active"
+);
+
+}else{
+
+button.textContent="🎙️";
+
+button.classList.remove(
+"active"
+);
+
+}
+
+}
+
+
+/* =========================================================
+   CALL TIMER
+========================================================= */
+
+function startCallTimer(){
+
+if(callDurationInterval){
+
+clearInterval(
+callDurationInterval
+);
+
+}
+
+callStartTime=
+Date.now();
+
+updateCallTimer();
+
+callDurationInterval=
+setInterval(
+updateCallTimer,
+1000
+);
+
+}
+
+
+function updateCallTimer(){
+
+if(!callStartTime){
+
+return;
+
+}
+
+const seconds=
+Math.floor(
+(Date.now()-
+callStartTime)/1000
+);
+
+document
+.getElementById("callDuration")
+.textContent=
+formatDuration(seconds);
+
+}
+
+
+/* =========================================================
+   CLEANUP
+========================================================= */
+
+async function cleanupCall(){
+
+stopCallRingtone();
+
+if(callDurationInterval){
+
+clearInterval(
+callDurationInterval
+);
+
+callDurationInterval=null;
+
+}
+
+if(peerConnection){
+
+try{
+
+peerConnection.close();
+
+}catch(e){}
+
+peerConnection=null;
+
+}
+
+if(localCallStream){
+
+localCallStream
+.getTracks()
+.forEach(
+track=>{
+
+try{
+
+track.stop();
+
+}catch(e){}
+
+}
+);
+
+localCallStream=null;
+
+}
+
+const audio=
+document.getElementById(
+"callRemoteAudio"
+);
+
+if(audio){
+
+audio.pause();
+
+audio.srcObject=null;
+
+}
+
+incomingCallData=null;
+
+currentCallId=null;
+
+currentCallDirection=null;
+
+callStartTime=0;
+
+callMuted=false;
+
+const muteButton=
+document.getElementById(
+"muteCallButton"
+);
+
+if(muteButton){
+
+muteButton.textContent="🎙️";
+
+muteButton.classList.remove(
+"active"
+);
+
+}
+
+hideCallScreen();
+
+}
+
+
+/* =========================================================
+   RINGTONE
+========================================================= */
+
+function playCallRingtone(){
+
+try{
+
+stopCallRingtone();
+
+callAudioContext=
+new (
+window.AudioContext||
+window.webkitAudioContext
+)();
+
+const oscillator=
+callAudioContext
+.createOscillator();
+
+const gain=
+callAudioContext
+.createGain();
+
+oscillator.type="sine";
+
+oscillator.frequency.value=880;
+
+gain.gain.value=.04;
+
+oscillator
+.connect(gain);
+
+gain
+.connect(
+callAudioContext.destination
+);
+
+oscillator.start();
+
+callRingtoneTimer=
+setInterval(
+()=>{
+
+if(
+!callAudioContext
+){
+
+return;
+
+}
+
+oscillator.frequency.value=
+oscillator.frequency.value===880
+?660
+:880;
+
+},
+700
+);
+
+currentCallOscillator=
+oscillator;
+
+}catch(error){
+
+console.log(
+"Klingelton konnte nicht gestartet werden:",
+error
+);
+
+}
+
+}
+
+
+function stopCallRingtone(){
+
+if(callRingtoneTimer){
+
+clearInterval(
+callRingtoneTimer
+);
+
+callRingtoneTimer=null;
+
+}
+
+if(
+currentCallOscillator
+){
+
+try{
+
+currentCallOscillator.stop();
+
+}catch(e){}
+
+currentCallOscillator=null;
+
+}
+
+if(callAudioContext){
+
+try{
+
+callAudioContext.close();
+
+}catch(e){}
+
+callAudioContext=null;
+
+}
 
 }
 
