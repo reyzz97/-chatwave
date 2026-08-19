@@ -754,12 +754,14 @@ align-items:center;
 
 gap:9px;
 
-min-width:210px;
+min-width:220px;
 }
 
 .audioPlay{
 width:42px;
 height:42px;
+
+flex-shrink:0;
 
 border:0;
 border-radius:50%;
@@ -767,10 +769,17 @@ border-radius:50%;
 background:#075e54;
 
 color:white;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:15px;
 }
 
 .audioInfo{
 flex:1;
+min-width:0;
 }
 
 .audioTitle{
@@ -784,6 +793,10 @@ margin-top:3px;
 color:#667781;
 
 font-size:11px;
+
+font-variant-numeric:tabular-nums;
+
+white-space:nowrap;
 }
 
 
@@ -1441,7 +1454,7 @@ onclick="logout()">
 <input
 id="search"
 placeholder="Chats suchen"
-oninput="filterChats">
+oninput="filterChats()">
 
 </div>
 
@@ -3161,13 +3174,6 @@ cancelChatSelection();
 
 }
 
-
-/*
-Wenn der Benutzer einen vorher
-ausgeblendeten Chat wieder öffnet,
-wird er wieder sichtbar.
-*/
-
 const hiddenChats=
 getHiddenConversationIds();
 
@@ -3553,6 +3559,7 @@ document
 
 /* =========================================================
    AUDIO
+   AKTUELLER FORTSCHRITT WIRD ANGEZEIGT
 ========================================================= */
 
 function renderAudioMessage(
@@ -3566,6 +3573,9 @@ document.createElement("div");
 wrap.className=
 "audioMessage";
 
+
+/* PLAY BUTTON */
+
 const button=
 document.createElement("button");
 
@@ -3573,6 +3583,9 @@ button.className=
 "audioPlay";
 
 button.textContent="▶";
+
+
+/* AUDIO ELEMENT */
 
 const audio=
 document.createElement("audio");
@@ -3584,11 +3597,15 @@ audio.preload="metadata";
 
 audio.style.display="none";
 
+
+/* AUDIO INFO */
+
 const info=
 document.createElement("div");
 
 info.className=
 "audioInfo";
+
 
 const title=
 document.createElement("div");
@@ -3599,23 +3616,164 @@ title.className=
 title.textContent=
 "Sprachnachricht";
 
+
+/* ZEITANZEIGE */
+
 const duration=
 document.createElement("div");
 
 duration.className=
 "audioDuration";
 
-duration.textContent=
-formatDuration(
-message.media_duration||0
+
+/*
+Gesamtdauer aus der Datenbank.
+*/
+
+const savedDuration=
+Math.max(
+0,
+Math.round(
+Number(message.media_duration)||0
+)
 );
 
+
+/*
+Startanzeige
+*/
+
+duration.textContent=
+"00:00 / "+
+formatDuration(savedDuration);
+
+
+/* =========================================================
+   AUDIO METADATEN
+========================================================= */
+
+audio.addEventListener(
+"loadedmetadata",
+function(){
+
+const realDuration=
+Math.round(
+audio.duration
+);
+
+if(
+Number.isFinite(realDuration)&&
+realDuration>0
+){
+
+duration.textContent=
+"00:00 / "+
+formatDuration(realDuration);
+
+}
+
+}
+);
+
+
+/* =========================================================
+   AKTUELLE WIEDERGABEZEIT
+========================================================= */
+
+audio.addEventListener(
+"timeupdate",
+function(){
+
+const current=
+Math.floor(
+audio.currentTime
+);
+
+let total=
+Math.round(
+audio.duration
+);
+
+
+/*
+Falls die echte Audiodauer noch nicht
+bekannt ist, Datenbank-Dauer benutzen.
+*/
+
+if(
+!Number.isFinite(total)||
+total<=0
+){
+
+total=savedDuration;
+
+}
+
+
+duration.textContent=
+formatDuration(current)+
+" / "+
+formatDuration(total);
+
+}
+);
+
+
+/* =========================================================
+   PLAY / PAUSE
+========================================================= */
+
 button.onclick=
-()=>{
+async function(){
+
+try{
 
 if(audio.paused){
 
-audio.play();
+/*
+Andere Sprachnachrichten im aktuellen
+Chat automatisch pausieren.
+*/
+
+document
+.querySelectorAll(
+"#messages audio"
+)
+.forEach(
+otherAudio=>{
+
+if(otherAudio!==audio){
+
+otherAudio.pause();
+
+}
+
+}
+);
+
+
+/*
+Andere Play-Buttons zurücksetzen.
+*/
+
+document
+.querySelectorAll(
+"#messages .audioPlay"
+)
+.forEach(
+otherButton=>{
+
+if(otherButton!==button){
+
+otherButton.textContent="▶";
+
+}
+
+}
+);
+
+
+await audio.play();
 
 button.textContent="❚❚";
 
@@ -3627,12 +3785,66 @@ button.textContent="▶";
 
 }
 
+}catch(error){
+
+console.error(
+"Audio konnte nicht abgespielt werden:",
+error
+);
+
+}
+
 };
 
-audio.onended=
-()=>{
+
+/* =========================================================
+   PAUSE
+========================================================= */
+
+audio.addEventListener(
+"pause",
+function(){
+
+if(!audio.ended){
+
 button.textContent="▶";
-};
+
+}
+
+}
+);
+
+
+/* =========================================================
+   ENDE DER SPRAchnachricht
+========================================================= */
+
+audio.addEventListener(
+"ended",
+function(){
+
+button.textContent="▶";
+
+const total=
+Number.isFinite(audio.duration)
+?
+Math.round(audio.duration)
+:
+savedDuration;
+
+duration.textContent=
+"00:00 / "+
+formatDuration(total);
+
+audio.currentTime=0;
+
+}
+);
+
+
+/* =========================================================
+   AUDIO AUFBAUEN
+========================================================= */
 
 info.appendChild(title);
 
@@ -4324,9 +4536,6 @@ return;
 /*
 Die Nachricht wird nur auf diesem Gerät
 ausgeblendet.
-
-Sie bleibt in Supabase erhalten und ist
-für den anderen Benutzer weiterhin sichtbar.
 */
 
 const hiddenMessages=
