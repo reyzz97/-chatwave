@@ -1397,7 +1397,8 @@ style="display:none">
 id="username"
 class="authInput"
 placeholder="Benutzername"
-autocomplete="username">
+autocomplete="username"
+onkeydown="if(event.key==='Enter')handleAuth()">
 
 </div>
 
@@ -1409,7 +1410,8 @@ autocomplete="username">
 id="email"
 class="authInput"
 placeholder="E-Mail oder Benutzername"
-autocomplete="username">
+autocomplete="username"
+onkeydown="if(event.key==='Enter')handleAuth()">
 
 </div>
 
@@ -1422,7 +1424,8 @@ id="password"
 class="authInput"
 type="password"
 placeholder="Passwort"
-autocomplete="current-password">
+autocomplete="current-password"
+onkeydown="if(event.key==='Enter')handleAuth()">
 
 </div>
 
@@ -6639,6 +6642,8 @@ callAudioContext.close();
 }catch(e){}
 
 callAudioContext=null;
+
+}
 
 }
 
